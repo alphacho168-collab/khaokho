@@ -95,8 +95,16 @@ function applyAgentContact(contact) {
     };
     phoneBtn.setAttribute("title", "คลิกเพื่อดูเบอร์โทรศัพท์: " + contact.phone);
   }
-  document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
-  document.querySelector("#display-facebook-link").href = contact.facebook || "#";
+  
+  const lineLink = document.querySelector("#display-line-link");
+  if (lineLink) {
+    lineLink.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
+  }
+  
+  const fbLink = document.querySelector("#display-facebook-link");
+  if (fbLink) {
+    fbLink.href = contact.facebook || "#";
+  }
 }
 
 function fileToBase64(file) {
@@ -267,6 +275,7 @@ function renderAgentLeads(agentId) {
   }).join("");
 }
 
+// 🌟 ฟังก์ชันเรนเดอร์รายชื่อตารางลูกทีมดึงกลับมาใช้งานตามปกติอย่างปลอดภัย
 function renderSubTeams(agentId) {
   const tableBody = document.querySelector("#agent-subteams-table-body");
   if (!tableBody) return;
@@ -407,7 +416,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
     
     renderAgentLeads(memberAgent.id);
-    renderSubTeams(memberAgent.id); 
+    renderSubTeams(memberAgent.id); // 🌟 เรียกให้โหลดตารางลูกทีมขึ้นมาทำหน้าที่ทันที
     return;
   }
   message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
