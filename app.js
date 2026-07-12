@@ -73,12 +73,9 @@ function loadProperties() {
 function saveProperties() { localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); }
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
 
-// ฟังก์ชันแยกข้อความด้วยเครื่องหมาย | เพื่อแปลงเป็น Array รองรับหลายรูปภาพและหลายฟีเจอร์
 function splitList(value) { 
   if (!value) return [];
-  return value.split("|")
-              .map((item) => item.trim()) // 🌟 ตัดช่องว่างหน้าและหลังลิงก์ออกให้หมดอัตโนมัติ
-              .filter(Boolean);           // 🌟 ลบลิงก์ว่างๆ ออกไป
+  return value.split("|").map((item) => item.trim()).filter(Boolean); 
 }
 
 function checkAgentRoute() {
@@ -150,8 +147,6 @@ function openDetail(id) {
   if (!item) return;
 
   const detailFeaturesHtml = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
-  
-  // 🌟 รองรับและวนลูปแสดงผลรูปภาพทุกรูปที่กรอกผ่านฟอร์มเข้ามาอย่างสวยงาม
   const detailGalleryHtml = (item.images || []).map((image) => `
     <div class="gallery-item-wrap" style="margin-bottom: 8px;">
       <img src="${image}" alt="${item.title}" loading="lazy" style="width:100%; border-radius:8px; object-fit:cover;" />
@@ -173,13 +168,12 @@ function openDetail(id) {
         <ul class="feature-list" style="margin:16px 0; padding-left:20px;">${detailFeaturesHtml}</ul>
         <div class="video-wrap" style="margin-top:16px;">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
+          <button class="button primary" type="button" style="width:100%;" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
           <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
         </div>
       </div>
     </div>
   `;
-
   detailPanel.hidden = false;
   detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
@@ -231,7 +225,6 @@ if (leadForm) {
       leadMessage.classList.remove("error");
       leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
       leadForm.reset();
-      if (currentAgent) renderAgentLeads(currentAgent.id);
     } catch { 
       leadMessage.classList.add("error"); 
     }
@@ -241,29 +234,7 @@ if (leadForm) {
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
-  
-  fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getLeads&agentId=${agentId}`)
-    .then(res => res.json())
-    .then(agentLeads => {
-      if (!agentLeads || agentLeads.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
-        return;
-      }
-      tableBody.innerHTML = agentLeads.map(lead => {
-        const dateValue = lead.submittedAt || lead.date || new Date().toISOString();
-        const formattedDate = new Date(dateValue).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
-        return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
-          <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
-          <td style="padding:14px;">${lead.phone || '-'}</td>
-          <td style="padding:14px;">${lead.line || '-'}</td>
-          <td style="padding:14px;">${lead.interest || '-'}</td>
-          <td style="padding:14px; color:var(--muted); font-size:13px;">${formattedDate}</td>
-        </tr>`;
-      }).join("");
-    })
-    .catch(() => {
-      tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
-    });
+  tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
 }
 
 function renderSubTeams(agentId) {
@@ -305,9 +276,9 @@ function renderAdminAgents() {
       <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
       ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
-        ${agent.slip ? `<button class="button neutral" onclick="viewSlipInModal('${agent.slip}')" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
-        ${agent.status === 'pending' ? `<button class="button primary" data-approve="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
-        <button class="button danger" data-delagent="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
+        ${agent.slip ? `<button class="button neutral btn-view-slip" data-slipdata="${agent.slip}" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
+        ${agent.status === 'pending' ? `<button class="button primary btn-approve-agent" data-id="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
+        <button class="button danger btn-delete-agent" data-id="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
       </div>
     </div>`;
   }).join("");
@@ -327,19 +298,25 @@ async function fetchOnlineAgents() {
   } catch (err) { console.log(err); }
 }
 
+// 🌟 ปรับปรุงการกดปุ่มตรงส่วนจัดการสิทธิ์โดยระบุ Class เจาะจง ป้องกันกล่องเด้งชนกัน
 if (adminAgentsList) {
   adminAgentsList.addEventListener("click", async (event) => {
-    const approveBtn = event.target.closest("[data-approve]");
-    const deleteBtn = event.target.closest("[data-delagent]");
+    const viewSlipBtn = event.target.closest(".btn-view-slip");
+    const approveBtn = event.target.closest(".btn-approve-agent");
+    const deleteBtn = event.target.closest(".btn-delete-agent");
+    
+    if (viewSlipBtn) {
+      viewSlipInModal(viewSlipBtn.dataset.slipdata);
+    }
     if (approveBtn) {
-      const id = approveBtn.dataset.approve;
+      const id = approveBtn.dataset.id;
       try { 
         await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); 
         await fetchOnlineAgents();
       } catch(e){}
     }
     if (deleteBtn) {
-      const id = deleteBtn.dataset.delagent;
+      const id = deleteBtn.dataset.id;
       if (confirm("ยืนยันการลบสิทธิ์ตัวแทนรายนี้ออกหรือไม่?")) {
         try { 
           await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); 
@@ -417,15 +394,14 @@ function renderAdminItems() {
         <h4 style="margin:0 0 4px 0;">${item.title}</h4> 
         <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> 
         <div class="admin-actions"> 
-          <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> 
-          <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> 
+          <button class="button neutral data-btn-edit" type="button" data-id="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> 
+          <button class="button danger data-btn-delete" type="button" data-id="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> 
         </div> 
       </div> 
     </article>
   `).join(""); 
 }
 
-// 🌟 ระบบดักจับปุ่มบันทึก: เพิ่มใหม่ (ถ้า id ว่าง) หรือ แก้ไข (ถ้ามี id เก่าค้างอยู่)
 if (propertyForm) {
   propertyForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -440,11 +416,9 @@ if (propertyForm) {
     const video = document.querySelector("#property-video").value.trim();
 
     if (id && id.trim() !== "") {
-      // 📝 โหมดแก้ไขทรัพย์เดิมที่มีอยู่แล้ว
       properties = properties.map((p) => p.id === id ? { id, type, price, title, location, description, features, images, video } : p);
       alert("แก้ไขข้อมูลทรัพย์สินสำเร็จ!");
     } else {
-      // ➕ โหมดเพิ่มทรัพย์สินชิ้นใหม่เข้าสู่ระบบ
       properties.push({ id: createId(), type, price, title, location, description, features, images, video });
       alert("เพิ่มข้อมูลทรัพย์สินใหม่เรียบร้อยแล้ว!");
     }
@@ -458,16 +432,16 @@ if (propertyForm) {
 
 if (adminItems) {
   adminItems.addEventListener("click", (event) => {
-    const editBtn = event.target.closest("[data-edit]");
-    const deleteBtn = event.target.closest("[data-delete]");
+    const editBtn = event.target.closest(".data-btn-edit");
+    const deleteBtn = event.target.closest(".data-btn-delete");
     
     if (editBtn) {
-      const item = properties.find((p) => p.id === editBtn.dataset.edit);
+      const item = properties.find((p) => p.id === editBtn.dataset.id);
       if (item) fillForm(item);
     }
     if (deleteBtn) {
       if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบทรัพย์รายการนี้ออกจากระบบ?")) {
-        properties = properties.filter((p) => p.id !== deleteBtn.dataset.delete);
+        properties = properties.filter((p) => p.id !== deleteBtn.dataset.id);
         saveProperties();
         renderProperties();
         renderAdminItems();
@@ -476,7 +450,6 @@ if (adminItems) {
   });
 }
 
-// ดึงข้อมูลเก่าจากแถวระบบกลับเข้าสู่ฟอร์มฟิลด์เพื่อทำการแก้ไข
 function fillForm(item) { 
   document.querySelector("#property-id").value = item.id; 
   document.querySelector("#property-type").value = item.type; 
@@ -487,8 +460,6 @@ function fillForm(item) {
   document.querySelector("#property-features").value = (item.features || []).join(" | "); 
   document.querySelector("#property-images").value = (item.images || []).join(" | "); 
   document.querySelector("#property-video").value = item.video || ""; 
-  
-  // เลื่อนหน้าจอขึ้นไปที่ฟอร์มเพื่อเริ่มแก้ไขทันที
   document.querySelector("#property-form")?.scrollIntoView({ behavior: "smooth" });
 }
 
