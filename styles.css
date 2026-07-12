@@ -63,17 +63,17 @@ a {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   min-width: 230px;
 }
 
-/* ✨ แนะนำให้เปลี่ยนเป็นขนาดใหม่ (ใหญ่เต็มตาขึ้น) ✨ */
+/* 🌟 ปรับขนาดโลโก้บนคอมพิวเตอร์ให้ใหญ่ขึ้น หรูหรา มีมิติเงา 🌟 */
 .brand-logo {
-  width: 85px;   /* ปรับเพิ่มความกว้างจาก 60px เป็น 85px */
-  height: 85px;  /* ปรับเพิ่มความสูงจาก 60px เป็น 85px */
+  width: 85px;  
+  height: 85px; 
   object-fit: contain;
   flex: 0 0 auto;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1)); /* เพิ่มเงาจาง ๆ ให้โลโก้ลอยตัวหรูหราขึ้น */
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
 }
 
 .brand small {
@@ -403,7 +403,7 @@ a {
 }
 
 .card-body h3 {
-  margin: 0 0 8px;
+  margin: 0 0 8px 0;
   font-size: 22px;
   line-height: 1.25;
 }
@@ -948,18 +948,17 @@ table th, table td {
 }
 
 /* ======================================================= */
-/* 🌟 อัปเดตชุดคำสั่งควบคุมและแก้ไขเมนูบาร์ให้แบ่ง 2 แถวบนมือถืออย่างสวยงาม 🌟 */
+/* 🌟 โครงสร้างปรับปรุงการทำงานและจัดหน้าเมนู 2 แถวบนมือถือ 🌟 */
 /* ======================================================= */
 @media (max-width: 980px) {
   .site-header {
-    flex-direction: column; /* สั่งให้สลับแถวเป็นแนวตั้ง บน-ล่าง */
-    align-items: center;    /* จัดโครงสร้างทุกชิ้นให้อยู่กึ่งกลางสมดุล */
-    gap: 16px;              /* เพิ่มระยะห่างที่พอดีระหว่างแถวแบรนด์และแถวปุ่ม */
+    flex-direction: column; 
+    align-items: center;    
+    gap: 16px;              
     padding: 16px 20px;
     background: #f7f5ee;
   }
 
-  /* แถวที่ 1: จัดตำแหน่งรูปภาพโลโก้ และข้อความ KHAO KHO LAND */
   .brand {
     display: flex;
     justify-content: center;
@@ -969,11 +968,12 @@ table th, table td {
     gap: 14px;
   }
 
+  /* 🌟 ปรับขนาดรูปโลโก้เวอร์ชันมือถือให้ขยายใหญ่ขึ้นตามบรีฟ (70px) 🌟 */
   .brand-logo {
     display: block !important;
     visibility: visible !important;
-    width: 54px !important;  /* กำหนดขนาดโลโก้ให้พอดีสายตาบนจอมือถือ */
-    height: 54px !important;
+    width: 70px !important;  
+    height: 70px !important;
     opacity: 1 !important;
   }
 
@@ -981,19 +981,17 @@ table th, table td {
     text-align: left;
   }
 
-  /* แถวที่ 2: ดึงแถบปุ่มกดทั้งหมดลงมาเรียงแถวนอนแนวราบเซนเตอร์ ป้องกันอาการเบียดตกขอบ */
   .nav-links {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: nowrap; /* ล็อกความกว้างห้ามหลุดบรรทัด */
-    gap: max(8px, 2vw); /* คำนวณระยะห่างระหว่างปุ่มแบบยืดหยุ่นอัตโนมัติ */
+    flex-wrap: nowrap; 
+    gap: max(8px, 2vw); 
     padding-bottom: 0;
     overflow-x: visible;
   }
 
-  /* ปรับแต่งขนาดฟอนต์ของลิงก์ข้อความให้นุ่มนวลขึ้นบนสมาร์ตโฟน */
   .nav-links a:not(.nav-cta) {
     font-size: 14px;
     white-space: nowrap;
