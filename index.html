@@ -4,20 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- ==================== 📈 🚀 เทคนิคเด็ด SEO & AI SEARCH OPTIMIZATION ==================== -->
   <title>KHAO KHO LAND | ขายที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวทะเลหมอก โฉนดครุฑแดงพร้อมโอน</title>
   <meta name="description" content="KHAO KHO LAND คัดสรรที่ดินเขาค้อเจ้าของขายเองแบ่งขายราคาถูก วิวภูเขาและทะเลหมอก 360 องศา ทำเลทองแคมป์สน ทุ่งสมอ เหมาะสร้างบ้านพักตากอากาศ รีสอร์ต พูลวิลล่าหรู เอกสารสิทธิ์โฉนดครุฑแดงถูกต้องพร้อมโอน ปรึกษาลงทุนฟรี">
   <meta name="keywords" content="ขายที่ดินเขาค้อเจ้าของขายเอง, ที่ดินเขาค้อแบ่งขาย, ที่ดินเขาค้อวิวทะเลหมอก, ที่ดินเขาค้อราคาถูก, ซื้อพูลวิลล่าเขาค้อ, บ้านพักตากอากาศเขาค้อ, พูลวิลล่าวิวภูเขา เขาค้อ, ที่ดินเขาค้อโฉนดครุฑแดง, ที่ดินแคมป์สน, ที่ดินทุ่งสมอ, Namo Land เขาค้อ, 168 Grand Pool Villa">
   <meta name="robots" content="index, follow">
   <meta name="author" content="KHAO KHO LAND">
   
-  <!-- Social Media & AI Context Tags (Open Graph) -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="KHAO KHO LAND | ที่ดินเขาค้อเจ้าของขายเอง และพูลวิลล่าตากอากาศวิวภูเขา">
   <meta property="og:description" content="ค้นหาที่ดินแบ่งขายราคาพรีเมียม โฉนดครุฑแดง วิวทะเลหมอกเขาค้อ สำหรับสร้างบ้านพักตากอากาศและรีสอร์ตส่วนตัว">
   <meta property="og:image" content="khao-kho-hero.png">
   
-  <!-- 🤖 JSON-LD Schema Markup (AI Search Engine ค้นหาแล้วจะดึงไปแนะนำลูกค้าทันที) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -33,15 +30,18 @@
 
   <link rel="stylesheet" href="style.css">
   
-  <!-- 🌟 โค้ดแก้พิษค้างหักล้างสไตล์ในไฟล์สไตล์เก่า ซ่อนชิ้นงานที่ซ้อนค้างทั้งหมดถาวร -->
   <style>
+    /* บังคับซ่อนทุกหน้าต่างที่ถูกตั้งสถานะ hidden อย่างเด็ดขาด */
     #admin-modal[hidden], 
     #agent-register-modal[hidden], 
     #slip-preview-modal[hidden],
-    #detail-panel[hidden] {
+    #detail-panel[hidden],
+    #admin-panel[hidden],
+    #agent-dashboard-panel[hidden] {
       display: none !important;
     }
     
+    /* สไตล์จัดเลเยอร์หน้าต่างที่เปิดขึ้นมา */
     #admin-modal, #agent-register-modal, #slip-preview-modal {
       position: fixed !important;
       top: 0 !important;
@@ -52,8 +52,19 @@
       display: flex !important;
       justify-content: center !important;
       align-items: center !important;
-      z-index: 1000 !important;
+      z-index: 9999 !important;
       overflow-y: auto !important;
+    }
+
+    .modal-content-box {
+      background: white !important;
+      padding: 24px !important;
+      border-radius: 12px !important;
+      max-width: 600px !important;
+      width: 90% !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+      position: relative !important;
+      color: #333 !important;
     }
 
     .form-group { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left; }
@@ -68,7 +79,6 @@
 </head>
 <body>
 
-  <!-- ==================== หน้าต่างหลักบนหน้าเว็บ ==================== -->
   <header class="hero-section">
     <div class="container" style="text-align: center; padding: 40px 20px;">
       <h1>KHAO KHO LAND</h1>
@@ -93,10 +103,8 @@
     <div id="properties" class="properties-grid"></div>
   </main>
 
-  <!-- รายละเอียดทรัพย์สิน Panel -->
   <div id="detail-panel" hidden class="detail-panel-backdrop"></div>
 
-  <!-- 🤖 ก้อน SEO Band ตอบคำถามดักบอท AI Search และ Google Search -->
   <section class="faq-section container" style="margin-top: 40px; padding: 24px; background:#fff; border-radius:12px; border:1px solid #eee;">
     <h3 style="margin-top:0; color:#1a365d;">คำถามที่พบบ่อยสำหรับผู้หา ซื้อที่ดินเขาค้อเจ้าของขายเอง</h3>
     <div style="display:grid; gap:16px; margin-top:14px; font-size:14px; line-height:1.6;">
@@ -111,7 +119,6 @@
     </div>
   </section>
 
-  <!-- ฟอร์มลงทะเบียนลูกค้า (Lead Form) -->
   <section id="lead-section" class="container" style="margin-top: 40px; background: #f9f9f9; padding: 24px; border-radius: 12px; border: 1px solid #eee;">
     <h3>ติดต่อสอบถาม / นัดชมสถานที่</h3>
     <form id="lead-form" style="display: grid; gap: 12px; max-width: 500px; margin-top: 15px;">
@@ -152,13 +159,11 @@
   </footer>
 
 
-  <!-- ==================== 📦 [ชั้น Modals อิสระ] กล่องที่ 1: หน้าต่างจัดการหลังบ้าน ==================== -->
   <div id="admin-modal" hidden>
-    <div style="background: white; padding: 24px; border-radius: 12px; max-width: 600px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: relative;">
+    <div class="modal-content-box">
       <button id="admin-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
       <h2 id="admin-title-heading" style="margin-top: 0; margin-bottom: 20px;">ระบบเข้าสู่หลังบ้าน</h2>
 
-      <!-- หน้าล็อกอิน -->
       <div id="admin-login">
         <div class="form-group">
           <label for="admin-username">ชื่อผู้ใช้งาน (หรือเบอร์โทรตัวแทน)</label>
@@ -172,9 +177,8 @@
         <p id="login-message" style="color: red; margin-top: 8px; font-weight: bold;"></p>
       </div>
 
-      <!-- แผงควบคุมแอดมินแม่ -->
       <div id="admin-panel" hidden>
-        <h3>ฟอร์มจัดการทรัพย์สิน (เพิ่มทรัพย์ใหม่ / แก้ไขทรัพย์เก่า)</h3>
+        <h3>ฟอร์มจัดการทรัพย์สิน</h3>
         <form id="property-form">
           <input type="hidden" id="property-id" value="">
           <div class="form-group">
@@ -230,7 +234,6 @@
         <div id="admin-agents-list" style="margin-top: 15px;"></div>
       </div>
 
-      <!-- แผงควบคุมตัวแทนเว็บลูก -->
       <div id="agent-dashboard-panel" hidden>
         <p>ยินดีต้อนรับคุณ: <strong id="agent-dashboard-name"></strong></p>
         <div style="background: #f0fdf4; padding: 14px; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 20px;">
@@ -279,9 +282,8 @@
   </div>
 
 
-  <!-- ==================== กล่องที่ 2: MODAL สมัครตัวแทน (แยกเด็ดขาดชั้นนอกสุด) ==================== -->
   <div id="agent-register-modal" hidden>
-    <div style="background: white; padding: 24px; border-radius: 12px; max-width: 500px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: relative;">
+    <div class="modal-content-box" style="max-width: 500px !important;">
       <button id="agent-register-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
       
       <h2 style="margin-top: 0; margin-bottom: 15px;">สมัครใช้งานระบบเว็บลูก (ตัวแทน)</h2>
@@ -313,9 +315,8 @@
   </div>
 
 
-  <!-- ==================== กล่องที่ 3: MODAL ดูรูปภาพสลิปของแอดมิน ==================== -->
   <div id="slip-preview-modal" hidden>
-    <div style="background: white; padding: 15px; border-radius: 8px; max-width: 400px; width: 100%; text-align: center; position: relative;">
+    <div class="modal-content-box" style="max-width: 400px !important; text-align: center !important;">
       <button onclick="document.querySelector('#slip-preview-modal').hidden = true;" style="position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
       <h4 style="margin-top: 0; margin-bottom: 10px;">รูปภาพสลิปหลักฐาน</h4>
       <img id="slip-preview-img" src="" alt="Slip Preview" style="width: 100%; max-height: 450px; object-fit: contain; border: 1px solid #ddd; border-radius: 6px;">
