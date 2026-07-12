@@ -125,7 +125,6 @@ function renderProperties() {
   if (!visible.length) propertyContainer.innerHTML = `<p class="form-note" style="grid-column: 1/-1; text-align:center;">ยังไม่มีรายการในหมวดนี้</p>`;
 }
 
-// ฟังก์ชันเปิดแสดงกล่องดีไซน์ Pop-up รายละเอียดทรัพย์เด่น
 function openDetail(id) {
   const item = properties.find((property) => property.id === id);
   if (!item) return;
@@ -134,7 +133,6 @@ function openDetail(id) {
   const detailGalleryHtml = (item.images || []).map((image) => `<img src="${image}" alt="${item.title}" loading="lazy" />`).join("");
   const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
 
-  // ปรับโครงสร้างชุดป๊อปอัปให้เพิ่มปุ่มกดปิดด้านล่างเพิ่มเข้ามาตามบรีฟบอร์ดรูปภาพ
   detailPanel.innerHTML = `
     <div class="detail-shell">
       <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
@@ -147,8 +145,6 @@ function openDetail(id) {
         <p>${item.description}</p>
         <ul class="feature-list">${detailFeaturesHtml}</div>
         <div class="video-wrap">${detailVideoHtml}</div>
-        
-        <!-- ปรับปรุงโครงสร้างปุ่มควบคุมฟังก์ชันตามภาพบรีฟบอร์ดขอนัดชมสถานที่ -->
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
           <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;">สนใจทรัพย์นี้</button>
           <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
@@ -160,13 +156,11 @@ function openDetail(id) {
   detailPanel.hidden = false;
   detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  // ผูกตัวดักจับเมื่อลูกค้าคลิกปุ่ม "สนใจทรัพย์นี้" ให้ดีดหน้าจอลงไปโฟกัสกล่องฟอร์มทันที
   document.querySelector("#popup-interest-cta").addEventListener("click", () => {
-    detailPanel.hidden = true; // ปิดหน้าต่างโมดอลลงทันที
+    detailPanel.hidden = true;
     const contactSection = document.querySelector("#contact");
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      // สั่งโฟกัสไปที่ช่องกรอกชื่อผู้ติดต่อทันทีเพิ่มความรวดเร็ว
       setTimeout(() => { document.querySelector("#lead-name").focus(); }, 400);
     }
   });
@@ -263,6 +257,8 @@ if (agentRegisterForm) {
 
     try {
       await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newAgent) });
+      // บังคับรีโหลดข้อมูลใหม่หลังสมัคร
+      fetchOnlineAgents();
     } catch (err) { console.error(err); }
   });
 }
@@ -364,20 +360,38 @@ function renderAdminAgents() {
   }).join("");
 }
 
+// 🌟 ฟังก์ชันดึงรายชื่อแบบ Real-time ดึงมาจาก Google Sheets โดยตรงแก้ปัญหาดูข้ามเครื่องไม่ขึ้น
+async function fetchOnlineAgents() {
+  try {
+    const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`);
+    if (response.ok) {
+      const onlineAgents = await response.json();
+      if (onlineAgents && onlineAgents.length > 0) {
+        agents = onlineAgents;
+        saveAgents();
+        if (!adminPanel.hidden) renderAdminAgents();
+      }
+    }
+  } catch (err) { console.log("Fetch online agents standard pass:", err); }
+}
+
 if (adminAgentsList) {
-  adminAgentsList.addEventListener("click", (event) => {
+  adminAgentsList.addEventListener("click", async (event) => {
     const approveBtn = event.target.closest("[data-approve]");
     const deleteBtn = event.target.closest("[data-delagent]");
     if (approveBtn) {
       const id = approveBtn.dataset.approve;
       agents = agents.map(a => a.id === id ? { ...a, status: "approved" } : a);
       saveAgents(); renderAdminAgents(); checkAgentRoute();
+      // ส่งคำขออัปเดตไป Google Sheets
+      try { await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); } catch(e){}
     }
     if (deleteBtn) {
       const id = deleteBtn.dataset.delagent;
       if (confirm("ยืนยันการลบตัวแทนรายนี้ออกหรือไม่?")) {
         agents = agents.filter(a => a.id !== id);
         saveAgents(); renderAdminAgents(); checkAgentRoute();
+        try { await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); } catch(e){}
       }
     }
   });
@@ -399,23 +413,28 @@ if (propertyContainer) {
   });
 }
 
-document.querySelector("#admin-open").addEventListener("click", () => { 
+document.querySelector("#admin-open").addEventListener("click", async () => { 
   adminLogin.hidden = false;
   adminPanel.hidden = true;
   document.querySelector("#agent-dashboard-panel").hidden = true;
   document.querySelector("#admin-title-heading").textContent = "เข้าสู่ระบบจัดการข้อมูล";
   adminModal.hidden = false; 
+  // ซิงค์คิวงานออนไลน์ทันทีเมื่อเปิดปุ่มล็อกอิน
+  await fetchOnlineAgents();
 });
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
 
 document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; });
 document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
 
-document.querySelector("#login-button").addEventListener("click", () => {
+document.querySelector("#login-button").addEventListener("click", async () => {
   const username = document.querySelector("#admin-username").value.trim();
   const password = document.querySelector("#admin-password").value;
   const message = document.querySelector("#login-message");
   const headingTitle = document.querySelector("#admin-title-heading");
+
+  // ก่อนตรวจสอบสิทธิ์ ให้ทำการดึงฐานข้อมูลล่าสุดมาอัปเดตใหม่อีกครั้งเพื่อความโปร่งใส
+  await fetchOnlineAgents();
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     message.textContent = ""; adminLogin.hidden = true; adminPanel.hidden = false;
@@ -470,3 +489,5 @@ document.querySelector("#reset-form").addEventListener("click", resetForm);
 
 checkAgentRoute();
 renderProperties();
+// สั่งรันซิงค์ข้อมูลรอบแรกอัตโนมัติ
+fetchOnlineAgents();
