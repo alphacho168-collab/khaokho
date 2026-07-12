@@ -6,7 +6,6 @@ const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 const AGENT_PASSWORD = "Ab123456"; 
 
-// 🌟 อัปเดตลิงก์ Web App ตัวใหม่ล่าสุดของพี่ Get เรียบร้อยครับ
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
 const DEFAULT_CONTACT = {
@@ -298,7 +297,7 @@ function viewSlipInModal(base64Data) {
 
 function renderAdminAgents() {
   if (!adminAgentsList) return;
-  if (agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
+  if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   adminAgentsList.innerHTML = agents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
     let displayExpire = agent.expireAt || "1 ปีนับจากวันอนุมัติ";
@@ -325,7 +324,6 @@ async function fetchOnlineAgents() {
       const onlineAgents = await response.json();
       if (onlineAgents && onlineAgents.length > 0) { 
         agents = onlineAgents; 
-        saveAgents(); 
         checkAgentRoute(); 
         if (!adminPanel.hidden) renderAdminAgents(); 
       }
