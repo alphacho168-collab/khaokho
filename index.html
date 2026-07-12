@@ -3,11 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KHAO KHO LAND | พูลวิลล่าและที่ดินวิวภูเขา</title>
-    <meta
-      name="description"
-      content="ขายพูลวิลล่าและที่ดินบนเขาค้อ วิวภูเขา อากาศดี พร้อมรูปภาพ วิดีโอ ราคา และระบบจัดการข้อมูล"
-    />
+    <title>KHAO KHO LAND | ขายที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวทะเลหมอก โฉนดครุฑแดงพร้อมโอน</title>
+    
+    <!-- 🌟 โซนชุดโค้ดลับสำหรับเพิ่มประสิทธิภาพการค้นหาบน Google SEO & AI Search 🌟 -->
+    <meta name="description" content="KHAO KHO LAND คัดสรรที่ดินเขาค้อเจ้าของขายเอง แบ่งขายราคาถูก วิวภูเขา วิวทะเลหมอก 360 องศา เหมาะสำหรับสร้างบ้านพักตากอากาศ รีสอร์ตส่วนตัว และพูลวิลล่าหรู ทำเลทองยอดนิยม แคมป์สน ทุ่งสมอ เอกสารสิทธิ์โฉนดครุฑแดงถูกต้องพร้อมโอน ปรึกษาการลงทุนฟรี" />
+    <meta name="keywords" content="ขายที่ดินเขาค้อเจ้าของขายเอง, ที่ดินเขาค้อแบ่งขาย, ที่ดินเขาค้อวิวทะเลหมอก, ที่ดินเขาค้อราคาถูก, ซื้อพูลวิลล่าเขาค้อ, บ้านพักตากอากาศเขาค้อ, พูลวิลล่าวิวภูเขา เขาค้อ, ที่ดินเขาค้อโฉนดครุฑแดง, ซื้อที่ดินเขาค้อโซนไหนดี, ที่ดินแคมป์สน, ที่ดินทุ่งสมอ" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph (สำหรับแชร์ลง Facebook / Line แล้วให้มีรูปตัวอย่างและข้อความพาดหัวสวย ๆ ขึ้นโชว์อัตโนมัติ) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="KHAO KHO LAND | ที่ดินเขาค้อเจ้าของขายเอง และพูลวิลล่าตากอากาศวิวภูเขา" />
+    <meta property="og:description" content="ค้นหาที่ดินแบ่งขายราคาพรีเมียม โฉนดครุฑแดง วิวทะเลหมอกเขาค้อ สำหรับสร้างบ้านพักตากอากาศและรีสอร์ต" />
+    <meta property="og:image" content="khao-kho-hero.png" />
+    
+    <!-- AI Search Optimization Tags (สำหรับช่วยโปรแกรม AI คัดเลือกเนื้อหาไปประมวลผลคำตอบ) -->
+    <meta name="author" content="KHAO KHO LAND" />
+    <meta name="classification" content="Real Estate, Luxury Living, Khao Kho Investment" />
+
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -15,8 +27,7 @@
   <body>
     <header class="site-header">
       <a class="brand" href="#home" aria-label="กลับหน้าหลัก">
-        <!-- ปรับแท็กเรียกรูปโลโก้ใหม่ตามที่แนบมา ให้ดึงไฟล์ LOGO.png หน้าแรกของ GitHub -->
-        <img class="brand-logo" src="LOGO.png" alt="KHAO KHO LAND logo" />
+        <img class="brand-logo" src="logo.png" onerror="this.src='assets/logo.png'; this.onerror=function(){this.src='LOGO.png';}" alt="KHAO KHO LAND logo" />
         <span>
           <strong>KHAO KHO LAND</strong>
           <small>พูลวิลล่าและที่ดินวิวภูเขา</small>
@@ -103,20 +114,7 @@
       <section class="properties" id="properties" aria-live="polite"></section>
 
       <section class="detail-panel" id="detail-panel" hidden>
-        <div class="detail-shell">
-          <button class="icon-button close-detail" type="button" aria-label="ปิดรายละเอียด">×</button>
-          <div class="detail-gallery" id="detail-gallery"></div>
-          <div class="detail-copy">
-            <p class="section-kicker" id="detail-type"></p>
-            <h2 id="detail-title"></h2>
-            <p class="detail-location" id="detail-location"></p>
-            <p class="detail-price" id="detail-price"></p>
-            <p id="detail-description"></p>
-            <ul class="feature-list" id="detail-features"></ul>
-            <div class="video-wrap" id="detail-video"></div>
-            <a class="button primary" href="#contact">สนใจทรัพย์นี้</a>
-          </div>
-        </div>
+        <!-- เนื้อหาดีไซน์การ์ดจะถูกเรนเดอร์จัดระเบียบผ่านไฟล์ app.js อัตโนมัติ -->
       </section>
 
       <section class="faq-section">
@@ -254,7 +252,6 @@
         </div>
       </section>
 
-      <!-- ป๊อปอัปย่อยภายในสำหรับการกดดูภาพสลิปป้องกันปัญหาจอขาว -->
       <div id="slip-preview-modal" class="admin-modal" hidden style="z-index: 120;">
         <div class="admin-dialog" style="max-width: 480px; text-align: center;">
           <button class="icon-button" type="button" onclick="document.querySelector('#slip-preview-modal').hidden = true" style="position: absolute; top: 15px; right: 20px; font-size: 24px;">×</button>
@@ -302,7 +299,6 @@
             <label>Link Facebook <input id="reg-facebook" type="url" placeholder="https://facebook.com/..." required /></label>
             
             <hr style="border: 0; border-top: 1px dashed var(--line); margin: 20px 0;">
-            <!-- อัปเดตข้อมูลบัญชีและธนาคารของพี่ Get ใหม่ตามบรีฟล่าสุดครับ -->
             <div style="background: var(--mist); padding: 18px; border-radius: 8px; margin-bottom: 16px; color: var(--ink); font-weight: 600;">
               <p style="margin: 0 0 8px 0; color: var(--forest); font-size: 15px;"><strong>ขั้นตอนการชำระค่าบริการ:</strong></p>
               ค่าบริการรายปี <strong>1,500 บาท</strong> เพื่อสิทธิ์การเปลี่ยนข้อมูลติดต่อบนหน้าเว็บให้เป็นของคุณ<br><br>
