@@ -6,7 +6,7 @@ const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 const AGENT_PASSWORD = "Ab123456"; 
 
-// 🔗 ลิงก์ Web App ออนไลน์ตัวล่าสุดของพี่ Get
+// 🔗 ลิงก์ Web App ออนไลน์ของพี่ Get
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
 const DEFAULT_CONTACT = {
@@ -72,7 +72,12 @@ function loadProperties() {
 
 function saveProperties() { localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); }
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
-function splitList(value) { return value.split("|").map((item) => item.trim()).filter(Boolean); }
+
+// ฟังก์ชันแยกข้อความด้วยเครื่องหมาย | เพื่อแปลงเป็น Array รองรับหลายรูปภาพและหลายฟีเจอร์
+function splitList(value) { 
+  if (!value) return [];
+  return value.split("|").map((item) => item.trim()).filter(Boolean); 
+}
 
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -89,12 +94,14 @@ function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
     phoneBtn.href = "javascript:void(0);";
-    phoneBtn.onclick = function() {
-      alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈");
-    };
+    phoneBtn.onclick = function() { alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈"); };
   }
-  document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
-  document.querySelector("#display-facebook-link").href = contact.facebook || "#";
+  const lineBtn = document.querySelector("#display-line-link");
+  if (lineBtn) {
+    lineBtn.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
+  }
+  const fbBtn = document.querySelector("#display-facebook-link");
+  if (fbBtn) fbBtn.href = contact.facebook || "#";
 }
 
 function fileToBase64(file) {
@@ -141,23 +148,30 @@ function openDetail(id) {
   if (!item) return;
 
   const detailFeaturesHtml = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
-  const detailGalleryHtml = (item.images || []).map((image) => `<img src="${image}" alt="${item.title}" loading="lazy" />`).join("");
+  
+  // 🌟 รองรับและวนลูปแสดงผลรูปภาพทุกรูปที่กรอกผ่านฟอร์มเข้ามาอย่างสวยงาม
+  const detailGalleryHtml = (item.images || []).map((image) => `
+    <div class="gallery-item-wrap" style="margin-bottom: 8px;">
+      <img src="${image}" alt="${item.title}" loading="lazy" style="width:100%; border-radius:8px; object-fit:cover;" />
+    </div>
+  `).join("");
+  
   const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
 
   detailPanel.innerHTML = `
     <div class="detail-shell">
       <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
-      <div class="detail-gallery">${detailGalleryHtml}</div>
-      <div class="detail-copy">
+      <div class="detail-gallery" style="display:flex; flex-direction:column; gap:10px;">${detailGalleryHtml}</div>
+      <div class="detail-copy" style="margin-top:16px;">
         <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
         <h2>${item.title}</h2>
         <p class="detail-location">${item.location}</p>
-        <p class="detail-price">${item.price}</p>
-        <p>${item.description}</p>
-        <ul class="feature-list">${detailFeaturesHtml}</div>
-        <div class="video-wrap">${detailVideoHtml}</div>
+        <p class="detail-price" style="font-size:20px; color:var(--forest); font-weight:bold; margin:8px 0;">${item.price}</p>
+        <p style="white-space: pre-line; line-height:1.6;">${item.description}</p>
+        <ul class="feature-list" style="margin:16px 0; padding-left:20px;">${detailFeaturesHtml}</ul>
+        <div class="video-wrap" style="margin-top:16px;">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;">สนใจทรัพย์นี้</button>
+          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
           <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
         </div>
       </div>
@@ -392,7 +406,6 @@ document.querySelector("#login-button").addEventListener("click", async () => {
   message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
 });
 
-// 🌟 [เพิ่มกลับมาแก้ไขปัญหา] ระบบการเพิ่มและบริหารจัดการทรัพย์สินฝั่งแอดมินแม่
 function renderAdminItems() { 
   if (!adminItems) return; 
   adminItems.innerHTML = properties.map((item) => `
@@ -410,6 +423,7 @@ function renderAdminItems() {
   `).join(""); 
 }
 
+// 🌟 ระบบดักจับปุ่มบันทึก: เพิ่มใหม่ (ถ้า id ว่าง) หรือ แก้ไข (ถ้ามี id เก่าค้างอยู่)
 if (propertyForm) {
   propertyForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -423,19 +437,20 @@ if (propertyForm) {
     const images = splitList(document.querySelector("#property-images").value);
     const video = document.querySelector("#property-video").value.trim();
 
-    if (id) {
-      // โหมดแก้ไขทรัพย์เดิม
+    if (id && id.trim() !== "") {
+      // 📝 โหมดแก้ไขทรัพย์เดิมที่มีอยู่แล้ว
       properties = properties.map((p) => p.id === id ? { id, type, price, title, location, description, features, images, video } : p);
+      alert("แก้ไขข้อมูลทรัพย์สินสำเร็จ!");
     } else {
-      // โหมดเพิ่มทรัพย์ใหม่
+      // ➕ โหมดเพิ่มทรัพย์สินชิ้นใหม่เข้าสู่ระบบ
       properties.push({ id: createId(), type, price, title, location, description, features, images, video });
+      alert("เพิ่มข้อมูลทรัพย์สินใหม่เรียบร้อยแล้ว!");
     }
 
     saveProperties();
     renderProperties();
     renderAdminItems();
     resetForm();
-    alert("บันทึกข้อมูลทรัพย์สินเรียบร้อยแล้วครับ!");
   });
 }
 
@@ -459,6 +474,7 @@ if (adminItems) {
   });
 }
 
+// ดึงข้อมูลเก่าจากแถวระบบกลับเข้าสู่ฟอร์มฟิลด์เพื่อทำการแก้ไข
 function fillForm(item) { 
   document.querySelector("#property-id").value = item.id; 
   document.querySelector("#property-type").value = item.type; 
@@ -469,6 +485,9 @@ function fillForm(item) {
   document.querySelector("#property-features").value = (item.features || []).join(" | "); 
   document.querySelector("#property-images").value = (item.images || []).join(" | "); 
   document.querySelector("#property-video").value = item.video || ""; 
+  
+  // เลื่อนหน้าจอขึ้นไปที่ฟอร์มเพื่อเริ่มแก้ไขทันที
+  document.querySelector("#property-form")?.scrollIntoView({ behavior: "smooth" });
 }
 
 function resetForm() { 
