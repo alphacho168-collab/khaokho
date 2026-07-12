@@ -80,11 +80,7 @@ function checkAgentRoute() {
   const agentId = urlParams.get('agent');
   if (agentId) {
     const agent = agents.find(a => a.id === agentId && a.status === "approved");
-    if (agent) { 
-      currentAgent = agent; 
-      applyAgentContact(agent); 
-      return; 
-    }
+    if (agent) { currentAgent = agent; applyAgentContact(agent); return; }
   }
   currentAgent = null;
   applyAgentContact(DEFAULT_CONTACT);
@@ -99,14 +95,8 @@ function applyAgentContact(contact) {
     };
     phoneBtn.setAttribute("title", "คลิกเพื่อดูเบอร์โทรศัพท์: " + contact.phone);
   }
-  const lineLink = document.querySelector("#display-line-link");
-  if (lineLink) {
-    lineLink.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
-  }
-  const fbLink = document.querySelector("#display-facebook-link");
-  if (fbLink) {
-    fbLink.href = contact.facebook || "#";
-  }
+  document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
+  document.querySelector("#display-facebook-link").href = contact.facebook || "#";
 }
 
 function fileToBase64(file) {
@@ -203,8 +193,6 @@ if (agentRegisterForm) {
     const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
     const initialExpireStr = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
 
-    const parent = currentAgent ? currentAgent.id : "master";
-
     const newAgent = {
       id: 'ag-' + Math.random().toString(36).substr(2, 9),
       type: "agent_registration",
@@ -214,7 +202,7 @@ if (agentRegisterForm) {
       facebook: document.querySelector("#reg-facebook").value.trim(),
       slip: slipBase64,
       status: "pending",
-      parentId: parent,
+      parentId: currentAgent ? currentAgent.id : "master",
       expireAt: initialExpireStr,
       submittedAt: new Date().toISOString()
     };
@@ -231,27 +219,29 @@ if (agentRegisterForm) {
   });
 }
 
-async function handleLeadSubmit(event) {
-  event.preventDefault();
-  const lead = {
-    name: document.querySelector("#lead-name").value.trim(),
-    phone: document.querySelector("#lead-phone").value.trim(),
-    line: document.querySelector("#lead-line").value.trim(),
-    interest: document.querySelector("#lead-interest").value,
-    agentId: currentAgent ? currentAgent.id : "master",
-    submittedAt: new Date().toISOString()
-  };
+if (leadForm) {
+  leadForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const lead = {
+      name: document.querySelector("#lead-name").value.trim(),
+      phone: document.querySelector("#lead-phone").value.trim(),
+      line: document.querySelector("#lead-line").value.trim(),
+      interest: document.querySelector("#lead-interest").value,
+      agentId: currentAgent ? currentAgent.id : "master",
+      submittedAt: new Date().toISOString()
+    };
 
-  const savedLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || "[]");
-  localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify([lead, ...savedLeads]));
-  leadMessage.classList.remove("error");
-  leadMessage.textContent = "บันทึกข้อมูลเรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
-  leadForm.reset();
+    const savedLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || "[]");
+    localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify([lead, ...savedLeads]));
+    leadMessage.classList.remove("error");
+    leadMessage.textContent = "บันทึกข้อมูลเรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
+    leadForm.reset();
 
-  if (currentAgent) renderAgentLeads(currentAgent.id);
-  try {
-    await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
-  } catch { leadMessage.classList.add("error"); }
+    if (currentAgent) renderAgentLeads(currentAgent.id);
+    try {
+      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
+    } catch { leadMessage.classList.add("error"); }
+  });
 }
 
 function renderAgentLeads(agentId) {
@@ -280,7 +270,6 @@ function renderAgentLeads(agentId) {
 function renderSubTeams(agentId) {
   const tableBody = document.querySelector("#agent-subteams-table-body");
   if (!tableBody) return;
-  
   const subAgents = agents.filter(a => a.parentId === agentId);
 
   if (subAgents.length === 0) {
@@ -425,7 +414,8 @@ document.querySelector("#login-button").addEventListener("click", async () => {
 });
 
 function renderAdminItems() { if (!adminItems) return; adminItems.innerHTML = properties.map((item) => ` <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line);"> <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> <div> <h4 style="margin:0 0 4px 0;">${item.title}</h4> <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> <div class="admin-actions"> <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> </div> </div> </article> `).join(""); }
-if (leadForm) { leadForm.addEventListener("submit", handleLeadSubmit); }
+function fillForm(item) { document.querySelector("#property-id").value = item.id; document.querySelector("#property-type").value = item.type; document.querySelector("#property-price").value = item.price; document.querySelector("#property-title").value = item.title; document.querySelector("#property-location").value = item.location; document.querySelector("#property-description").value = item.description; document.querySelector("#property-features").value = (item.features || []).join(" | "); document.querySelector("#property-images").value = (item.images || []).join(" | "); document.querySelector("#property-video").value = item.video || ""; }
+function resetForm() { if (propertyForm) propertyForm.reset(); document.querySelector("#property-id").value = ""; }
 
 checkAgentRoute();
 renderProperties();
