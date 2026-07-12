@@ -129,17 +129,14 @@
               <h3>ซื้อที่ดินเขาค้อเจ้าของขายเองดีอย่างไร?</h3>
               <p>การซื้อที่ดินเขาค้อจากเจ้าของโดยตรงช่วยให้ผู้ซื้อสามารถตรวจสอบข้อมูล ราคา เอกสารสิทธิ์ และรายละเอียดแปลงที่ดินได้ชัดเจน เหมาะสำหรับผู้ที่ต้องการ ซื้อที่ดินเพื่อสร้างบ้านพักตากอากาศ รีสอร์ต พูลวิลล่า หรือเก็บไว้ลงทุนระยะยาว</p>
             </div>
-
             <div class="faq-card">
               <h3>ที่ดินเขาค้อเหมาะกับการลงทุนประเภทใด?</h3>
               <p>ที่ดินเขาค้อเหมาะสำหรับสร้างรีสอร์ต พูลวิลล่า คาเฟ่ บ้านพักตากอากาศ และโครงการเพื่อการท่องเที่ยว เนื่องจากเขาค้อมีอากาศดี วิวภูเขาสวย มีทะเลหมอก และเป็นแหล่งท่องเที่ยวสำคัญของจังหวัดเพชรบูรณ์</p>
             </div>
-
             <div class="faq-card">
               <h3>ก่อนซื้อที่ดินเขาค้อต้องตรวจสอบอะไรบ้าง?</h3>
               <p>ก่อนซื้อที่ดินเขาค้อควรตรวจสอบเอกสารสิทธิ์ โฉนดครุฑแดง แนวเขตที่ดิน ทางเข้าออก ระบบไฟฟ้า น้ำประปา ราคาประเมิน ทำเลจริง และข้อกำหนดการใช้ประโยชน์ที่ดิน เพื่อให้มั่นใจว่าที่ดินเหมาะกับเป้าหมายการใช้งานและการลงทุน</p>
             </div>
-
             <div class="faq-card">
               <h3>ทำเลที่ดินเขาค้อโซนไหนได้รับความนิยม?</h3>
               <p>โซนที่ได้รับความนิยม ได้แก่ แคมป์สน ทุ่งสมอ พื้นที่ใกล้แชมป์ผาซ่อนแก้ว จุดชมวิวเขาค้อ และทำเลที่มีวิวภูเขา วิวทะเลหมอก หรือใกล้ถนนหลัก เหมาะกับการพัฒนาเป็นบ้านพักตากอากาศ รีสอร์ต และพูลวิลล่า</p>
@@ -148,6 +145,7 @@
         </div>
       </section>
 
+      <!-- ระบบหลังบ้านควบคุมข้อมูล -->
       <section class="admin-modal" id="admin-modal" hidden>
         <div class="admin-dialog">
           <button class="icon-button close-admin" type="button" id="admin-close" aria-label="ปิดระบบหลังบ้าน">×</button>
@@ -160,7 +158,7 @@
             <div style="display: flex; flex-direction: column; gap: 14px;">
               <label>
                 ชื่อผู้ใช้งาน (Username)
-                <input id="admin-username" type="text" placeholder="แอดมินกรอก admin / ทีมงานกรอกชื่อท่าน" />
+                <input id="admin-username" type="text" placeholder="แอดมินกรอก admin / ทีมงานกรอกชื่อหรือเบอร์โทรท่าน" />
               </label>
               <label>
                 รหัสผ่าน (Password)
@@ -171,46 +169,20 @@
             <p class="form-note" id="login-message"></p>
           </div>
 
+          <!-- แผงแอดมินหลัก (เว็บแม่หลัก) -->
           <div class="admin-grid" id="admin-panel" hidden>
             <form class="property-form" id="property-form">
               <input type="hidden" id="property-id" />
               <div class="form-row two">
-                <label>
-                  ประเภท
-                  <select id="property-type">
-                    <option value="villa">พูลวิลล่า</option>
-                    <option value="land">ที่ดิน</option>
-                  </select>
-                </label>
-                <label>
-                  ราคา
-                  <input id="property-price" type="text" placeholder="เช่น 18,900,000 บาท" required />
-                </label>
+                <label>ประเภท <select id="property-type"><option value="villa">พูลวิลล่า</option><option value="land">ที่ดิน</option></select></label>
+                <label>ราคา <input id="property-price" type="text" placeholder="เช่น 18,900,000 บาท" required /></label>
               </div>
-              <label>
-                ชื่อทรัพย์
-                <input id="property-title" type="text" placeholder="เช่น พูลวิลล่าวิวทะเลหมอก" required />
-              </label>
-              <label>
-                ทำเล
-                <input id="property-location" type="text" placeholder="เช่น แคมป์สน เขาค้อ" required />
-              </label>
-              <label>
-                รายละเอียด
-                <textarea id="property-description" rows="5" placeholder="เล่าจุดเด่น บรรยากาศ และพื้นที่ใช้สอย" required></textarea>
-              </label>
-              <label>
-                จุดเด่น
-                <input id="property-features" type="text" placeholder="คั่นแต่ละรายการด้วย |" />
-              </label>
-              <label>
-                รูปภาพ
-                <textarea id="property-images" rows="4" placeholder="https://...jpg | https://...jpg"></textarea>
-              </label>
-              <label>
-                วิดีโอ YouTube embed
-                <input id="property-video" type="url" placeholder="https://www.youtube.com/embed/..." />
-              </label>
+              <label>ชื่อทรัพย์ <input id="property-title" type="text" placeholder="เช่น พูลวิลล่าวิวทะเลหมอก" required /></label>
+              <label>ทำเล <input id="property-location" type="text" placeholder="เช่น แคมป์สน เขาค้อ" required /></label>
+              <label>รายละเอียด <textarea id="property-description" rows="5" placeholder="เล่าจุดเด่น บรรยากาศ และพื้นที่ใช้สอย" required></textarea></label>
+              <label>จุดเด่น <input id="property-features" type="text" placeholder="คั่นแต่ละรายการด้วย |" /></label>
+              <label>รูปภาพ <textarea id="property-images" rows="4" placeholder="https://...jpg | https://...jpg"></textarea></label>
+              <label>วิดีโอ YouTube embed <input id="property-video" type="url" placeholder="https://www.youtube.com/embed/..." /></label>
               <div class="form-actions">
                 <button class="button primary" type="submit">บันทึกข้อมูล</button>
                 <button class="button neutral" type="button" id="reset-form">ล้างฟอร์ม</button>
@@ -225,45 +197,68 @@
                 </div>
                 <div id="admin-items"></div>
               </div>
-
               <div class="admin-list">
-                <h3>จัดการอนุมัติเว็บลูก (รายชื่อทีมงาน)</h3>
+                <h3>จัดการอนุมัติเว็บลูก (รายชื่อทีมงานทั้งหมดในระบบ)</h3>
                 <div id="admin-agents-list" style="margin-top: 14px;"></div>
               </div>
             </div>
           </div>
 
-          <div id="agent-dashboard-panel" hidden style="margin-top: 20px;">
+          <!-- แผงหลังบ้านเว็บลูกส่วนตัว (ของทีมงานแต่ละราย) -->
+          <div id="agent-dashboard-panel" hidden style="margin-top: 20px; display: flex; flex-direction: column; gap: 24px;">
             <p class="section-kicker" style="color: var(--gold);">AGENT DASHBOARD</p>
-            <h2 style="font-size: 26px; margin: 0 0 10px 0;">ยินดีต้อนรับทีมงาน: <span id="agent-dashboard-name" style="color: var(--forest);"></span></h2>
+            <h2 style="font-size: 26px; margin: 0;">ยินดีต้อนรับทีมงาน: <span id="agent-dashboard-name" style="color: var(--forest);"></span></h2>
             
-            <div style="background: white; padding: 18px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--line); font-size: 14px; line-height: 1.6; color: var(--ink);">
-              <p style="margin: 0 0 8px 0; font-weight: bold; color: var(--forest);">🔗 ข้อมูลการตั้งค่าลิงก์ปัจจุบันของคุณ:</p>
-              <strong>ลิงก์ Line หน้าบ้านของคุณ:</strong> <span id="back-agent-line-link" style="color: #06C755; font-weight: bold;"></span><br>
-              <strong>ลิงก์ Facebook หน้าบ้านของคุณ:</strong> <span id="back-agent-fb-link" style="color: #1877F2; font-weight: bold;"></span>
+            <div style="background: white; padding: 18px; border-radius: 10px; border: 1px solid var(--line); font-size: 14px; line-height: 1.6; color: var(--ink);">
+              <p style="margin: 0 0 8px 0; font-weight: bold; color: var(--forest);">🔗 ข้อมูลการตั้งค่าลิงก์แชร์ทีมงานของคุณ:</p>
+              <strong>ลิงก์ขยายงานแนะนำลูกค้า:</strong> <span id="back-agent-full-url" style="color: var(--gold); font-weight: bold;"></span><br>
+              <strong>ลิงก์ Line หน้าบ้านของคุณ:</strong> <span id="back-agent-line-link" style="color: #06C755;"></span><br>
+              <strong>ลิงก์ Facebook หน้าบ้านของคุณ:</strong> <span id="back-agent-fb-link" style="color: #1877F2;"></span>
             </div>
 
-            <p style="color: var(--muted); margin-bottom: 20px;">รายการข้อมูลของลูกค้าทั้งหมดที่สนใจลงทะเบียนติดต่อผ่านลิงก์เว็บลูกของคุณ</p>
+            <!-- ตารางที่ 1: รายชื่อลูกค้าขอนัดชมสถานที่ -->
             <div class="admin-list" style="padding: 22px;">
+              <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--forest);">📊 1. ตารางรายชื่อลูกค้าของคุณ</h3>
               <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: left; background: white;">
                   <thead>
                     <tr style="background: var(--forest); color: white; border-bottom: 2px solid var(--line);">
-                      <th style="padding: 14px;">ชื่อผู้ติดต่อ</th>
-                      <th style="padding: 14px;">เบอร์โทร</th>
-                      <th style="padding: 14px;">Line ID</th>
-                      <th style="padding: 14px;">สิ่งที่สนใจ</th>
-                      <th style="padding: 14px;">วันที่ลงทะเบียน</th>
+                      <th style="padding: 12px;">ชื่อผู้ติดต่อ</th>
+                      <th style="padding: 12px;">เบอร์โทร</th>
+                      <th style="padding: 12px;">Line ID</th>
+                      <th style="padding: 12px;">สิ่งที่สนใจ</th>
+                      <th style="padding: 12px;">วันที่ลงทะเบียน</th>
                     </tr>
                   </thead>
                   <tbody id="agent-leads-table-body"></tbody>
                 </table>
               </div>
             </div>
+
+            <!-- ตารางที่ 2: รายชื่อลูกทีมที่มาสมัครต่อจากเรา (ดูได้อย่างเดียวตามบรีฟ ห้ามแก้ไข) -->
+            <div class="admin-list" style="padding: 22px; border-color: var(--gold);">
+              <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--gold);">👥 2. ตารางรายชื่อลูกทีมในสายงานของคุณ (ดูอย่างเดียว)</h3>
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; background: white;">
+                  <thead>
+                    <tr style="background: #3c3c3c; color: white; border-bottom: 2px solid var(--line);">
+                      <th style="padding: 12px;">ชื่อลูกทีม</th>
+                      <th style="padding: 12px;">เบอร์โทรติดต่อ</th>
+                      <th style="padding: 12px;">Line ID</th>
+                      <th style="padding: 12px;">Facebook</th>
+                      <th style="padding: 12px;">สถานะเว็บลูก</th>
+                    </tr>
+                  </thead>
+                  <tbody id="agent-subteams-table-body"></tbody>
+                </table>
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
 
+      <!-- ส่วนติดต่อนัดชมสถานที่หน้าบ้าน -->
       <section class="contact" id="contact">
         <div class="contact-copy">
           <p class="section-kicker">นัดชมสถานที่</p>
@@ -271,42 +266,18 @@
           <p class="contact-intro">
             แจ้งงบประมาณ ประเภททรัพย์ และช่วงเวลาที่สะดวก ทีมงานจะช่วยคัดรายการ ที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวภูเขา และทำเลสำหรับลงทุนให้เหมาะกับคุณ
           </p>
-          
           <div class="contact-brand-buttons">
-            <a class="brand-btn phone-btn" href="tel:0639789356" id="display-phone-link" title="โทรติดต่อ">
-              <i class="fa-solid fa-phone"></i>
-            </a>
-            <a class="brand-btn line-btn" href="https://line.me/R/ti/p/@812fqegp" id="display-line-link" target="_blank" title="แชท Line">
-              <i class="fa-brands fa-line"></i>
-            </a>
-            <a class="brand-btn fb-btn" href="#" id="display-facebook-link" target="_blank" title="เปิดหน้า Facebook">
-              <i class="fa-brands fa-facebook-f"></i>
-            </a>
+            <a class="brand-btn phone-btn" href="tel:0639789356" id="display-phone-link" title="โทรติดต่อ"><i class="fa-solid fa-phone"></i></a>
+            <a class="brand-btn line-btn" href="https://line.me/R/ti/p/@812fqegp" id="display-line-link" target="_blank" title="แชท Line"><i class="fa-brands fa-line"></i></a>
+            <a class="brand-btn fb-btn" href="#" id="display-facebook-link" target="_blank" title="เปิดหน้า Facebook"><i class="fa-brands fa-facebook-f"></i></a>
           </div>
         </div>
 
         <form class="contact-card lead-form" id="lead-form">
-          <label>
-            ชื่อผู้ติดต่อ
-            <input id="lead-name" name="name" type="text" placeholder="ชื่อผู้ติดต่อ" required />
-          </label>
-          <label>
-            เบอร์โทร
-            <input id="lead-phone" name="phone" type="tel" placeholder="063 978 9356" required />
-          </label>
-          <label>
-            Line ID
-            <input id="lead-line" name="line" type="text" placeholder="@lineid หรือ Line ID" />
-          </label>
-          <label>
-            สนใจ
-            <select id="lead-interest" name="interest" required>
-              <option value="">เลือกรายการที่สนใจ</option>
-              <option value="พูลวิลล่า">พูลวิลล่า</option>
-              <option value="ที่ดิน">ที่ดิน</option>
-              <option value="ทั้งสองประเภท">ทั้งสองประเภท</option>
-            </select>
-          </label>
+          <label>ชื่อผู้ติดต่อ <input id="lead-name" name="name" type="text" placeholder="ชื่อผู้ติดต่อ" required /></label>
+          <label>เบอร์โทร <input id="lead-phone" name="phone" type="tel" placeholder="063 978 9356" required /></label>
+          <label>Line ID <input id="lead-line" name="line" type="text" placeholder="@lineid หรือ Line ID" /></label>
+          <label>สนใจ <select id="lead-interest" name="interest" required><option value="">เลือกรายการที่สนใจ</option><option value="พูลวิลล่า">พูลวิลล่า</option><option value="ที่ดิน">ที่ดิน</option><option value="ทั้งสองประเภท">ทั้งสองประเภท</option></select></label>
           <button class="button primary" type="submit">ส่งข้อมูลนัดชมสถานที่</button>
           <p class="form-note lead-message" id="lead-message"></p>
         </form>
@@ -327,7 +298,6 @@
             <label>Link Facebook <input id="reg-facebook" type="url" placeholder="https://facebook.com/..." required /></label>
             
             <hr style="border: 0; border-top: 1px dashed var(--line); margin: 20px 0;">
-            
             <div style="background: var(--mist); padding: 18px; border-radius: 8px; margin-bottom: 16px; color: var(--ink); font-weight: 600;">
               <p style="margin: 0 0 8px 0; color: var(--forest); font-size: 15px;"><strong>ขั้นตอนการชำระค่าบริการ:</strong></p>
               ค่าบริการรายปี <strong>1,500 บาท</strong> เพื่อสิทธิ์การเปลี่ยนข้อมูลติดต่อบนหน้าเว็บให้เป็นของคุณ<br><br>
@@ -336,10 +306,7 @@
               เลขที่บัญชี: 999999999 <br>
               ชื่อบัญชี: xxxxxxxx
             </div>
-
-            <label>อัปโหลดสลิปหลักฐานการโอนเงิน
-              <input id="reg-slip" type="file" accept="image/*" required />
-            </label>
+            <label>อัปโหลดสลิปหลักฐานการโอนเงิน <input id="reg-slip" type="file" accept="image/*" required /></label>
             <button class="button primary" type="submit" style="margin-top: 10px;">ส่งข้อมูลสมัครและแนบสลิป</button>
             <p class="form-note" id="reg-message" style="font-weight: 800; color: var(--forest); margin-top: 10px;"></p>
           </form>
