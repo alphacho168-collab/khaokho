@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="style.css">
   
   <style>
-    /* บังคับซ่อนทุกหน้าต่างที่ถูกตั้งสถานะ hidden อย่างเด็ดขาด */
+    /* บังคับซ่อนหน้าต่างที่ตั้งค่า hidden ไว้ถาวร */
     #admin-modal[hidden], 
     #agent-register-modal[hidden], 
     #slip-preview-modal[hidden],
@@ -41,7 +41,7 @@
       display: none !important;
     }
     
-    /* สไตล์จัดเลเยอร์หน้าต่างที่เปิดขึ้นมา */
+    /* ควบคุมโครงสร้าง Modals ปลุกวิญญาณดีไซน์เดิมกลับมา */
     #admin-modal, #agent-register-modal, #slip-preview-modal {
       position: fixed !important;
       top: 0 !important;
@@ -52,7 +52,7 @@
       display: flex !important;
       justify-content: center !important;
       align-items: center !important;
-      z-index: 9999 !important;
+      z-index: 99999 !important;
       overflow-y: auto !important;
     }
 
