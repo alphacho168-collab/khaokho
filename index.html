@@ -10,6 +10,8 @@
     />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- เพิ่ม Font Awesome สำหรับแสดงไอคอนโลโก้ Facebook และ Line -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
     <header class="site-header">
@@ -117,29 +119,31 @@
         </div>
       </section>
 
+      <!-- ระบบหลังบ้านควบคุมข้อมูล (แอดมินแม่ / ทีมงานลูก) -->
       <section class="admin-modal" id="admin-modal" hidden>
         <div class="admin-dialog">
           <button class="icon-button close-admin" type="button" id="admin-close" aria-label="ปิดระบบหลังบ้าน">×</button>
           <div class="section-heading">
             <p class="section-kicker">ระบบหลังบ้าน</p>
-            <h2>จัดการรายการทรัพย์และทีมงาน</h2>
+            <h2 id="admin-title-heading">เข้าสู่ระบบจัดการข้อมูล</h2>
           </div>
 
           <div class="admin-login" id="admin-login">
             <div style="display: flex; flex-direction: column; gap: 14px;">
               <label>
                 ชื่อผู้ใช้งาน (Username)
-                <input id="admin-username" type="text" placeholder="ใส่ชื่อผู้ใช้งานแอดมิน" />
+                <input id="admin-username" type="text" placeholder="แอดมินกรอก admin / ทีมงานกรอกชื่อท่าน" />
               </label>
               <label>
                 รหัสผ่าน (Password)
-                <input id="admin-password" type="password" placeholder="ใส่รหัสผ่านแอดมิน" />
+                <input id="admin-password" type="password" placeholder="ระบุรหัสผ่านระบบ" />
               </label>
               <button class="button primary" type="button" id="login-button" style="width: 100%; margin-top: 6px;">เข้าสู่ระบบ</button>
             </div>
             <p class="form-note" id="login-message"></p>
           </div>
 
+          <!-- แผงแอดมินหลัก (เว็บแม่) -->
           <div class="admin-grid" id="admin-panel" hidden>
             <form class="property-form" id="property-form">
               <input type="hidden" id="property-id" />
@@ -201,9 +205,37 @@
               </div>
             </div>
           </div>
+
+          <!-- แผงแดชบอร์ดจัดการรายชื่อลูกค้าฝั่งเว็บลูก (ย้ายมาซ่อนอยู่ในหลังบ้านเรียบร้อย คลีน 100%) -->
+          <div id="agent-dashboard-panel" hidden style="margin-top: 20px;">
+            <p class="section-kicker" style="color: var(--gold);">AGENT DASHBOARD</p>
+            <h2 style="font-size: 26px; margin: 0 0 10px 0;">ยินดีต้อนรับทีมงาน: <span id="agent-dashboard-name" style="color: var(--forest);"></span></h2>
+            <p style="color: var(--muted); margin-bottom: 20px;">รายการข้อมูลของลูกค้าทั้งหมดที่สนใจลงทะเบียนติดต่อผ่านลิงก์เว็บลูกของคุณ</p>
+            
+            <div class="admin-list" style="padding: 22px;">
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; background: white;">
+                  <thead>
+                    <tr style="background: var(--forest); color: white; border-bottom: 2px solid var(--line);">
+                      <th style="padding: 14px;">ชื่อผู้ติดต่อ</th>
+                      <th style="padding: 14px;">เบอร์โทร</th>
+                      <th style="padding: 14px;">Line ID</th>
+                      <th style="padding: 14px;">สิ่งที่สนใจ</th>
+                      <th style="padding: 14px;">วันที่ลงทะเบียน</th>
+                    </tr>
+                  </thead>
+                  <tbody id="agent-leads-table-body">
+                    <!-- รายชื่อลูกค้าดึงตาม ID อัตโนมัติ -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
+      <!-- ส่วนติดต่อนัดชมสถานที่ -->
       <section class="contact" id="contact">
         <div class="contact-copy">
           <p class="section-kicker">นัดชมสถานที่</p>
@@ -213,15 +245,15 @@
           </p>
           <div class="contact-lines">
             <a class="contact-method" href="tel:0639789356" id="display-phone-link">
-              <span>โทร</span>
+              <span><i class="fa-solid fa-phone" style="margin-right: 6px; color: var(--gold);"></i> โทร</span>
               <strong id="display-phone">063 978 9356</strong>
             </a>
-            <a class="contact-method" href="https://line.me/R/ti/p/@812fqegp" id="display-line-link">
-              <span>Line</span>
+            <a class="contact-method" href="https://line.me/R/ti/p/@812fqegp" id="display-line-link" target="_blank">
+              <span><i class="fa-brands fa-line" style="margin-right: 6px; color: #06C755; font-size: 16px;"></i> Line</span>
               <strong id="display-line">@812fqegp</strong>
             </a>
             <a class="contact-method" href="#" id="display-facebook-link" target="_blank">
-              <span>Facebook</span>
+              <span><i class="fa-brands fa-facebook" style="margin-right: 6px; color: #1877F2; font-size: 16px;"></i> Facebook</span>
               <strong id="display-facebook">ไม่มีข้อมูล</strong>
             </a>
           </div>
@@ -254,32 +286,7 @@
         </form>
       </section>
 
-      <section class="intro-band" id="agent-dashboard-panel" style="background: #ffffff; border-top: 1px solid var(--line);" hidden>
-        <div style="grid-column: 1 / -1;">
-          <p class="section-kicker" style="color: var(--gold);">AGENT DASHBOARD</p>
-          <h2 style="font-size: 32px;">ระบบจัดการลูกค้าของ: <span id="agent-dashboard-name" style="color: var(--forest);"></span></h2>
-          <p>ด้านล่างนี้คือรายชื่อลูกค้าทั้งหมดที่กรอกลงทะเบียนนัดชมทรัพย์ผ่านลิงก์เว็บลูกของคุณ</p>
-          
-          <div class="admin-list" style="margin-top: 24px; padding: 22px;">
-            <div style="overflow-x: auto;">
-              <table style="width: 100%; border-collapse: collapse; text-align: left; background: white;">
-                <thead>
-                  <tr style="background: var(--forest); color: white; border-bottom: 2px solid var(--line);">
-                    <th style="padding: 14px;">ชื่อผู้ติดต่อ</th>
-                    <th style="padding: 14px;">เบอร์โทร</th>
-                    <th style="padding: 14px;">Line ID</th>
-                    <th style="padding: 14px;">สิ่งที่สนใจ</th>
-                    <th style="padding: 14px;">วันที่ลงทะเบียน</th>
-                  </tr>
-                </thead>
-                <tbody id="agent-leads-table-body">
-                  </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <!-- Modal สำหรับทีมงานสมัครเปิดสิทธิ์ใช้งานเว็บลูก (Sign up) -->
       <section class="admin-modal" id="agent-register-modal" hidden>
         <div class="admin-dialog" style="max-width: 600px;">
           <button class="icon-button close-admin" type="button" id="agent-register-close" aria-label="ปิดลงทะเบียน">×</button>
