@@ -24,7 +24,7 @@
         <a href="#properties">ทรัพย์เด่น</a>
         <a href="#experience">บรรยากาศ</a>
         <a class="nav-cta" href="#contact">นัดชมสถานที่</a>
-        <button class="admin-trigger" type="button" id="agent-register-open" style="border-color: var(--gold); color: var(--gold);">เปิดเว็บลูกของคุณ</button>
+        <button class="admin-trigger" type="button" id="agent-register-open" style="border-color: var(--gold); color: var(--gold);">Sign up</button>
         <button class="admin-trigger" type="button" id="admin-open">Login</button>
       </nav>
     </header>
@@ -57,8 +57,8 @@
       <section class="properties" id="properties">
         </section>
 
-      <section class="admin-modal" id="detail-panel" hidden>
-        </section>
+      <div class="admin-modal" id="detail-panel" hidden>
+        </div>
 
       <section class="intro-band" id="experience" style="background: white;">
         <div style="grid-column: 1 / -1; text-align: center; margin-bottom: 40px;">
@@ -150,7 +150,7 @@
 
       <section class="admin-modal" id="agent-register-modal" hidden>
         <div class="admin-dialog" style="max-width: 600px;">
-          <button class="icon-button" type="button" id="agent-register-close" style="position:absolute; top:14px; right:14px; background:rgba(21,32,27,0.8); color:white; border:0; border-radius:8px; width:42px; height:42px; font-size:28px;">×</button>
+          <button class="icon-button" type="button" id="agent-register-close">×</button>
           <div class="section-heading">
             <p class="section-kicker">สมัครใช้งานระบบเว็บลูก</p>
             <h2>ลงทะเบียนเปิดสิทธิ์เว็บลูก</h2>
@@ -173,7 +173,7 @@
               <input id="reg-slip" type="file" accept="image/*" required />
             </label>
             <button class="button primary" type="submit">ส่งข้อมูลสมัครและแนบสลิป</button>
-            <p class="form-note" id="reg-message" style="color: var(--forest); font-weight: bold; margin-top: 10px;"></p>
+            <p class="form-note" id="reg-message" style="font-weight: bold; margin-top: 10px;"></p>
           </form>
         </div>
       </section>
