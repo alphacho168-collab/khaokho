@@ -91,7 +91,6 @@ function applyAgentContact(contact) {
     phoneBtn.onclick = function() {
       alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈");
     };
-    phoneBtn.setAttribute("title", "คลิกเพื่อดูเบอร์โทรศัพท์: " + contact.phone);
   }
   document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
   document.querySelector("#display-facebook-link").href = contact.facebook || "#";
@@ -166,15 +165,6 @@ function openDetail(id) {
 
   detailPanel.hidden = false;
   detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  document.querySelector("#popup-interest-cta").addEventListener("click", () => {
-    detailPanel.hidden = true;
-    const contactSection = document.querySelector("#contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(() => { document.querySelector("#lead-name").focus(); }, 400);
-    }
-  });
 }
 
 if (agentRegisterForm) {
@@ -187,10 +177,6 @@ if (agentRegisterForm) {
     let slipBase64 = "";
     if (fileInput) slipBase64 = await fileToBase64(fileInput);
 
-    const today = new Date();
-    const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
-    const initialExpireStr = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
-
     const newAgent = {
       id: 'ag-' + Math.random().toString(36).substr(2, 9),
       type: "agent_registration",
@@ -199,10 +185,7 @@ if (agentRegisterForm) {
       line: document.querySelector("#reg-line").value.trim(),
       facebook: document.querySelector("#reg-facebook").value.trim(),
       slip: slipBase64,
-      status: "pending",
-      parentId: currentAgent ? currentAgent.id : "master",
-      expireAt: initialExpireStr,
-      submittedAt: new Date().toISOString()
+      parentId: currentAgent ? currentAgent.id : "master"
     };
 
     try {
@@ -210,62 +193,14 @@ if (agentRegisterForm) {
       regMessage.textContent = "ส่งเอกสารลงทะเบียนเรียบร้อยแล้วค่ะ รอแอดมินอนุมัติสิทธิ์ระบบ";
       agentRegisterForm.reset();
       await fetchOnlineAgents();
-    } catch (err) { 
-      console.error(err); 
-    }
-  });
-}
-
-if (leadForm) {
-  leadForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const lead = {
-      name: document.querySelector("#lead-name").value.trim(),
-      phone: document.querySelector("#lead-phone").value.trim(),
-      line: document.querySelector("#lead-line").value.trim(),
-      interest: document.querySelector("#lead-interest").value,
-      agentId: currentAgent ? currentAgent.id : "master",
-      submittedAt: new Date().toISOString()
-    };
-
-    try {
-      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
-      leadMessage.classList.remove("error");
-      leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
-      leadForm.reset();
-      if (currentAgent) renderAgentLeads(currentAgent.id);
-    } catch { 
-      leadMessage.classList.add("error"); 
-    }
+    } catch (err) { console.error(err); }
   });
 }
 
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
-  
-  fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getLeads&agentId=${agentId}`)
-    .then(res => res.json())
-    .then(agentLeads => {
-      if (!agentLeads || agentLeads.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
-        return;
-      }
-      tableBody.innerHTML = agentLeads.map(lead => {
-        const dateValue = lead.submittedAt || lead.date || new Date().toISOString();
-        const formattedDate = new Date(dateValue).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
-        return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
-          <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
-          <td style="padding:14px;">${lead.phone || '-'}</td>
-          <td style="padding:14px;">${lead.line || '-'}</td>
-          <td style="padding:14px;">${lead.interest || '-'}</td>
-          <td style="padding:14px; color:var(--muted); font-size:13px;">${formattedDate}</td>
-        </tr>`;
-      }).join("");
-    })
-    .catch(() => {
-      tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
-    });
+  tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
 }
 
 function renderSubTeams(agentId) {
@@ -300,13 +235,11 @@ function renderAdminAgents() {
   if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   adminAgentsList.innerHTML = agents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    let displayExpire = agent.expireAt || "1 ปีนับจากวันอนุมัติ";
-
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink);">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
       โทร: ${agent.phone} | Line: ${agent.line}<br>
-      <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${displayExpire}</span><br>
-      <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId || 'master'}</span><br>
+      <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
+      <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
       ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
         ${agent.slip ? `<button class="button neutral" onclick="viewSlipInModal('${agent.slip}')" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
@@ -322,15 +255,13 @@ async function fetchOnlineAgents() {
     const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`, { method: "GET" });
     if (response.ok) {
       const onlineAgents = await response.json();
-      if (onlineAgents && onlineAgents.length > 0) { 
+      if (onlineAgents) { 
         agents = onlineAgents; 
         checkAgentRoute(); 
         if (!adminPanel.hidden) renderAdminAgents(); 
       }
     }
-  } catch (err) { 
-    console.log("Error online synchronization:", err);
-  }
+  } catch (err) { console.log(err); }
 }
 
 if (adminAgentsList) {
@@ -367,7 +298,7 @@ document.querySelectorAll(".filter").forEach((button) => {
 
 document.querySelector("#admin-open").addEventListener("click", async () => { 
   adminLogin.hidden = false; adminPanel.hidden = true; document.querySelector("#agent-dashboard-panel").hidden = true;
-  document.querySelector("#admin-title-heading").textContent = "เข้าสู่ระบบจัดการข้อมูล"; adminModal.hidden = false; 
+  adminModal.hidden = false; 
   await fetchOnlineAgents();
 });
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
@@ -398,11 +329,10 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
     const agentDashboardName = document.querySelector("#agent-dashboard-name");
     
-    const myShareLink = `${window.location.origin}${window.location.pathname}?agent=${memberAgent.id}`;
-    document.querySelector("#back-agent-full-url").textContent = myShareLink;
+    document.querySelector("#back-agent-full-url").textContent = `${window.location.origin}${window.location.pathname}?agent=${memberAgent.id}`;
     document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
     document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
-    document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt || "1 ปีนับจากวันอนุมัติ";
+    document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt;
 
     agentDashboardPanel.hidden = false;
     agentDashboardName.textContent = memberAgent.name;
@@ -416,7 +346,6 @@ document.querySelector("#login-button").addEventListener("click", async () => {
 });
 
 function renderAdminItems() { if (!adminItems) return; adminItems.innerHTML = properties.map((item) => ` <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line);"> <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> <div> <h4 style="margin:0 0 4px 0;">${item.title}</h4> <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> <div class="admin-actions"> <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> </div> </div> </article> `).join(""); }
-function fillForm(item) { document.querySelector("#property-id").value = item.id; document.querySelector("#property-type").value = item.type; document.querySelector("#property-price").value = item.price; document.querySelector("#property-title").value = item.title; document.querySelector("#property-location").value = item.location; document.querySelector("#property-description").value = item.description; document.querySelector("#property-features").value = (item.features || []).join(" | "); document.querySelector("#property-images").value = (item.images || []).join(" | "); document.querySelector("#property-video").value = item.video || ""; }
 
 fetchOnlineAgents().then(() => {
   checkAgentRoute();
