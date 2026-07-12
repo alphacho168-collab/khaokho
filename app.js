@@ -104,11 +104,8 @@ function checkAgentRoute() {
 }
 
 function applyAgentContact(contact) {
-  document.querySelector("#display-phone").textContent = contact.phone;
   document.querySelector("#display-phone-link").href = `tel:${contact.phone.replace(/\s+/g, '')}`;
-  document.querySelector("#display-line").textContent = contact.line;
   document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
-  document.querySelector("#display-facebook").textContent = contact.name;
   document.querySelector("#display-facebook-link").href = contact.facebook || "#";
 }
 
@@ -367,7 +364,6 @@ propertyContainer.addEventListener("click", (event) => {
 
 document.querySelector(".close-detail").addEventListener("click", () => { detailPanel.hidden = true; });
 document.querySelector("#admin-open").addEventListener("click", () => { 
-  // รีเซ็ตการแสดงผลเมื่อเปิด Modal
   adminLogin.hidden = false;
   adminPanel.hidden = true;
   document.querySelector("#agent-dashboard-panel").hidden = true;
@@ -379,14 +375,12 @@ document.querySelector("#admin-close").addEventListener("click", () => { adminMo
 document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; });
 document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
 
-// ฟังก์ชัน Login อัจฉริยะ คัดแยกสิทธิ์ แอดมินหลัก / สมาชิกเว็บลูก
 document.querySelector("#login-button").addEventListener("click", () => {
   const username = document.querySelector("#admin-username").value.trim();
   const password = document.querySelector("#admin-password").value;
   const message = document.querySelector("#login-message");
   const headingTitle = document.querySelector("#admin-title-heading");
 
-  // ล็อกอินสิทธิ์แอดมินหลัก (เว็บแม่)
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     message.textContent = "";
     adminLogin.hidden = true;
@@ -398,7 +392,6 @@ document.querySelector("#login-button").addEventListener("click", () => {
     return;
   }
 
-  // ล็อกอินสิทธิ์ทีมงาน (เว็บลูก)
   const memberAgent = agents.find(a => (a.name === username || a.phone === username) && a.status === "approved");
   if (memberAgent && password === ADMIN_PASSWORD) {
     message.textContent = "";
@@ -408,6 +401,10 @@ document.querySelector("#login-button").addEventListener("click", () => {
     const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
     const agentDashboardName = document.querySelector("#agent-dashboard-name");
     
+    // 🖥️ วางลิงก์ข้อมูลดิบในหลังบ้านให้สมาชิกคัดลอกเช็คค่าความถูกต้องได้ตามต้องการ
+    document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
+    document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
+
     agentDashboardPanel.hidden = false;
     agentDashboardName.textContent = memberAgent.name;
     headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
