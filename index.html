@@ -15,7 +15,7 @@
   <meta property="og:description" content="ค้นหาที่ดินแบ่งขายราคาพรีเมียม โฉนดครุฑแดง วิวทะเลหมอกเขาค้อ สำหรับสร้างบ้านพักตากอากาศและรีสอร์ตส่วนตัว">
   <meta property="og:image" content="khao-kho-hero.png">
   
-  <script type="application/json">
+  <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
@@ -31,14 +31,18 @@
   <link rel="stylesheet" href="style.css">
   
   <style>
+    /* บังคับซ่อนทุก Modals ที่ระบุ hidden ป้องกันโผล่กวนใจหน้าแรก */
     #admin-modal[hidden], 
     #agent-register-modal[hidden], 
     #slip-preview-modal[hidden],
-    #detail-panel[hidden] {
+    #detail-panel[hidden],
+    #admin-panel[hidden],
+    #agent-dashboard-panel[hidden] {
       display: none !important;
     }
     
-    .custom-modal-backdrop {
+    /* จัดการให้เลเยอร์ Modals ลอยเหนือเนื้อหาและอยู่ตรงกลางจอ */
+    #admin-modal, #agent-register-modal, #slip-preview-modal {
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
@@ -54,7 +58,7 @@
       box-sizing: border-box !important;
     }
 
-    .modal-content-inner {
+    .modal-ui-box {
       background: white !important;
       padding: 24px !important;
       border-radius: 12px !important;
@@ -66,9 +70,9 @@
       box-sizing: border-box !important;
     }
 
-    .form-group-box { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left; }
-    .form-group-box label { font-weight: bold; color: #333; }
-    .form-group-box input, .form-group-box select, .form-group-box textarea { 
+    .form-layout-group { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left; }
+    .form-layout-group label { font-weight: bold; color: #333; }
+    .form-layout-group input, .form-layout-group select, .form-layout-group textarea { 
       padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; font-size: 14px; width: 100%; box-sizing: border-box;
     }
   </style>
@@ -118,19 +122,19 @@
   <section id="lead-section" class="container" style="margin-top: 40px; background: #f9f9f9; padding: 24px; border-radius: 12px; border: 1px solid #eee;">
     <h3>ติดต่อสอบถาม / นัดชมสถานที่</h3>
     <form id="lead-form" style="display: grid; gap: 12px; max-width: 500px; margin-top: 15px;">
-      <div class="form-group-box">
+      <div class="form-layout-group">
         <label for="lead-name">ชื่อ-นามสกุล</label>
         <input type="text" id="lead-name" required placeholder="กรอกชื่อของคุณ">
       </div>
-      <div class="form-group-box">
+      <div class="form-layout-group">
         <label for="lead-phone">เบอร์โทรศัพท์</label>
         <input type="tel" id="lead-phone" required placeholder="เช่น 081XXXXXXX">
       </div>
-      <div class="form-group-box">
+      <div class="form-layout-group">
         <label for="lead-line">Line ID</label>
         <input type="text" id="lead-line" placeholder="กรอก Line ID (ถ้ามี)">
       </div>
-      <div class="form-group-box">
+      <div class="form-layout-group">
         <label for="lead-interest">ทรัพย์ที่ท่านสนใจ / ข้อความถึงเรา</label>
         <select id="lead-interest">
           <option value="ทั่วไป / นัดชมโครงการ">ทั่วไป / นัดชมโครงการ</option>
@@ -155,17 +159,17 @@
   </footer>
 
 
-  <div id="admin-modal" hidden class="custom-modal-backdrop">
-    <div class="modal-content-inner">
+  <div id="admin-modal" hidden>
+    <div class="modal-ui-box">
       <button id="admin-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
       <h2 id="admin-title-heading" style="margin-top: 0; margin-bottom: 20px;">ระบบเข้าสู่หลังบ้าน</h2>
 
       <div id="admin-login">
-        <div class="form-group-box">
+        <div class="form-layout-group">
           <label for="admin-username">ชื่อผู้ใช้งาน (หรือเบอร์โทรตัวแทน)</label>
           <input type="text" id="admin-username" placeholder="กรอกชื่อผู้ใช้ หรือ เบอร์โทร">
         </div>
-        <div class="form-group-box">
+        <div class="form-layout-group">
           <label for="admin-password">รหัสผ่าน</label>
           <input type="password" id="admin-password" placeholder="กรอกรหัสผ่าน">
         </div>
@@ -177,38 +181,38 @@
         <h3>ฟอร์มจัดการทรัพย์สิน</h3>
         <form id="property-form">
           <input type="hidden" id="property-id" value="">
-          <div class="form-group-box">
+          <div class="form-layout-group">
             <label for="property-type">ประเภททรัพย์</label>
             <select id="property-type" required>
               <option value="villa">พูลวิลล่า</option>
               <option value="land">ที่ดิน</option>
             </select>
           </div>
-          <div class="form-group-box">
+          <div class="form-layout-group">
             <label for="property-title">ชื่อทรัพย์สิน</label>
             <input type="text" id="property-title" required>
           </div>
-          <div class="form-group-box">
+          <div class="form-layout-group">
             <label for="property-location">ทำเล / ที่ตั้ง</label>
             <input type="text" id="property-location" required>
           </div>
-          <div class="form-group-box">
+          <div class="form-layout-group">
             <label for="property-price">ราคา</label>
             <input type="text" id="property-price" required>
           </div>
-          <div class="form-group-box">
+          <div class="form-layout-group">
             <label for="property-description">รายละเอียดทรัพย์สิน</label>
             <textarea id="property-description" rows="4"></textarea>
           </div>
-          <div class="form-group-box">
+          <div class="form-layout-group">
             <label for="property-features">จุดเด่น (คั่นด้วย | )</label>
             <input type="text" id="property-features">
           </div>
-          <div class="form-group-box">
+          <div class="form-layout-group">
             <label for="property-images">ลิงก์รูปภาพทั้งหมด (คั่นด้วย | )</label>
             <textarea id="property-images" rows="4"></textarea>
           </div>
-          <div class="form-group-box">
+          <div class="form-layout-group">
             <label for="property-video">ลิงก์วิดีโอ Youtube (ถ้ามี)</label>
             <input type="text" id="property-video">
           </div>
@@ -278,21 +282,21 @@
   </div>
 
 
-  <div id="agent-register-modal" hidden class="custom-modal-backdrop">
-    <div class="modal-content-inner" style="max-width: 500px !important;">
+  <div id="agent-register-modal" hidden>
+    <div class="modal-ui-box" style="max-width: 500px !important;">
       <button id="agent-register-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
       
       <h2 style="margin-top: 0; margin-bottom: 15px;">สมัครใช้งานระบบเว็บลูก (ตัวแทน)</h2>
       <form id="agent-register-form">
-        <div class="form-group-box">
+        <div class="form-layout-group">
           <label for="reg-name">ชื่อ-นามสกุล ตัวแทน</label>
           <input type="text" id="reg-name" required placeholder="กรอกชื่อ-นามสกุลของคุณ">
         </div>
-        <div class="form-group-box">
+        <div class="form-layout-group">
           <label for="reg-phone">เบอร์โทรศัพท์ (ใช้เป็น Username)</label>
           <input type="tel" id="reg-phone" required placeholder="กรอกเบอร์โทร 10 หลัก">
         </div>
-        <div class="form-group-box">
+        <div class="form-layout-group">
           <label for="reg-line">Line ID ของคุณ</label>
           <input type="text" id="reg-line" required placeholder="เช่น @yourline">
         </div>
@@ -300,7 +304,7 @@
           <label for="reg-facebook">ลิงก์โปรไฟล์ Facebook</label>
           <input type="url" id="reg-facebook" placeholder="https://facebook.com/username">
         </div>
-        <div class="form-group-box">
+        <div class="form-layout-group">
           <label for="reg-slip">แนบหลักฐานสลิปการสมัคร/โอนเงิน</label>
           <input type="file" id="reg-slip" accept="image/*" required>
         </div>
@@ -311,8 +315,8 @@
   </div>
 
 
-  <div id="slip-preview-modal" hidden class="custom-modal-backdrop">
-    <div class="modal-content-inner" style="max-width: 400px !important; text-align: center !important;">
+  <div id="slip-preview-modal" hidden>
+    <div class="modal-ui-box" style="max-width: 400px !important; text-align: center !important;">
       <button onclick="document.querySelector('#slip-preview-modal').hidden = true;" style="position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
       <h4 style="margin-top: 0; margin-bottom: 10px;">รูปภาพสลิปหลักฐาน</h4>
       <img id="slip-preview-img" src="" alt="Slip Preview" style="width: 100%; max-height: 450px; object-fit: contain; border: 1px solid #ddd; border-radius: 6px;">
