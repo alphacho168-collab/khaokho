@@ -10,7 +10,7 @@
     />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="styles.css" />
-    <!-- เพิ่ม Font Awesome สำหรับแสดงไอคอนโลโก้ Facebook และ Line -->
+    <!-- ใช้ Font Awesome สำหรับดึงโลโก้แบรนด์สีตรงตามจริง -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
@@ -119,7 +119,38 @@
         </div>
       </section>
 
-      <!-- ระบบหลังบ้านควบคุมข้อมูล (แอดมินแม่ / ทีมงานลูก) -->
+      <!-- ส่วน Q&A (คำถามที่พบบ่อย) -->
+      <section class="faq-section">
+        <div class="faq-container">
+          <p class="section-kicker" style="text-align: center;">FAQ | SEO & AI SEARCH</p>
+          <h2 class="faq-main-title">คำถามที่พบบ่อยเกี่ยวกับที่ดินเขาค้อ</h2>
+          <p class="faq-subtitle">ข้อมูลสำหรับผู้ที่กำลังค้นหา "ขายที่ดินเขาค้อเจ้าของขายเอง" และต้องการลงทุนในที่ดินวิวภูเขา วิวทะเลหมอก บนเขาค้อ</p>
+          
+          <div class="faq-grid">
+            <div class="faq-card">
+              <h3>ซื้อที่ดินเขาค้อเจ้าของขายเองดีอย่างไร?</h3>
+              <p>การซื้อที่ดินเขาค้อจากเจ้าของโดยตรงช่วยให้ผู้ซื้อสามารถตรวจสอบข้อมูล ราคา เอกสารสิทธิ์ และรายละเอียดแปลงที่ดินได้ชัดเจน เหมาะสำหรับผู้ที่ต้องการ ซื้อที่ดินเพื่อสร้างบ้านพักตากอากาศ รีสอร์ต พูลวิลล่า หรือเก็บไว้ลงทุนระยะยาว</p>
+            </div>
+
+            <div class="faq-card">
+              <h3>ที่ดินเขาค้อเหมาะกับการลงทุนประเภทใด?</h3>
+              <p>ที่ดินเขาค้อเหมาะสำหรับสร้างรีสอร์ต พูลวิลล่า คาเฟ่ บ้านพักตากอากาศ และโครงการเพื่อการท่องเที่ยว เนื่องจากเขาค้อมีอากาศดี วิวภูเขาสวย มีทะเลหมอก และเป็นแหล่งท่องเที่ยวสำคัญของจังหวัดเพชรบูรณ์</p>
+            </div>
+
+            <div class="faq-card">
+              <h3>ก่อนซื้อที่ดินเขาค้อต้องตรวจสอบอะไรบ้าง?</h3>
+              <p>ก่อนซื้อที่ดินเขาค้อควรตรวจสอบเอกสารสิทธิ์ โฉนดครุฑแดง แนวเขตที่ดิน ทางเข้าออก ระบบไฟฟ้า น้ำประปา ราคาประเมิน ทำเลจริง และข้อกำหนดการใช้ประโยชน์ที่ดิน เพื่อให้มั่นใจว่าที่ดินเหมาะกับเป้าหมายการใช้งานและการลงทุน</p>
+            </div>
+
+            <div class="faq-card">
+              <h3>ทำเลที่ดินเขาค้อโซนไหนได้รับความนิยม?</h3>
+              <p>โซนที่ได้รับความนิยม ได้แก่ แคมป์สน ทุ่งสมอ พื้นที่ใกล้แชมป์ผาซ่อนแก้ว จุดชมวิวเขาค้อ และทำเลที่มีวิวภูเขา วิวทะเลหมอก หรือใกล้ถนนหลัก เหมาะกับการพัฒนาเป็นบ้านพักตากอากาศ รีสอร์ต และพูลวิลล่า</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ระบบหลังบ้านควบคุมข้อมูล -->
       <section class="admin-modal" id="admin-modal" hidden>
         <div class="admin-dialog">
           <button class="icon-button close-admin" type="button" id="admin-close" aria-label="ปิดระบบหลังบ้าน">×</button>
@@ -143,7 +174,6 @@
             <p class="form-note" id="login-message"></p>
           </div>
 
-          <!-- แผงแอดมินหลัก (เว็บแม่) -->
           <div class="admin-grid" id="admin-panel" hidden>
             <form class="property-form" id="property-form">
               <input type="hidden" id="property-id" />
@@ -206,12 +236,18 @@
             </div>
           </div>
 
-          <!-- แผงแดชบอร์ดจัดการรายชื่อลูกค้าฝั่งเว็บลูก (ย้ายมาซ่อนอยู่ในหลังบ้านเรียบร้อย คลีน 100%) -->
+          <!-- 🖥️ หลังบ้านฝั่งเว็บลูก (แสดงรายชื่อลูกค้า และลิงก์ติดต่อเต็มรูปแบบสำหรับตัวแทนสแกนเช็คข้อมูล) -->
           <div id="agent-dashboard-panel" hidden style="margin-top: 20px;">
             <p class="section-kicker" style="color: var(--gold);">AGENT DASHBOARD</p>
             <h2 style="font-size: 26px; margin: 0 0 10px 0;">ยินดีต้อนรับทีมงาน: <span id="agent-dashboard-name" style="color: var(--forest);"></span></h2>
-            <p style="color: var(--muted); margin-bottom: 20px;">รายการข้อมูลของลูกค้าทั้งหมดที่สนใจลงทะเบียนติดต่อผ่านลิงก์เว็บลูกของคุณ</p>
             
+            <div style="background: white; padding: 18px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--line); font-size: 14px; line-height: 1.6;">
+              <p style="margin: 0 0 8px 0; font-weight: bold; color: var(--forest);">🔗 ข้อมูลการตั้งค่าลิงก์ปัจจุบันของคุณ:</p>
+              <strong>ลิงก์ Line หน้าบ้านของคุณ:</strong> <span id="back-agent-line-link" style="color: #06C755; font-weight: bold;"></span><br>
+              <strong>ลิงก์ Facebook หน้าบ้านของคุณ:</strong> <span id="back-agent-fb-link" style="color: #1877F2; font-weight: bold;"></span>
+            </div>
+
+            <p style="color: var(--muted); margin-bottom: 20px;">รายการข้อมูลของลูกค้าทั้งหมดที่สนใจลงทะเบียนติดต่อผ่านลิงก์เว็บลูกของคุณ</p>
             <div class="admin-list" style="padding: 22px;">
               <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: left; background: white;">
@@ -224,37 +260,33 @@
                       <th style="padding: 14px;">วันที่ลงทะเบียน</th>
                     </tr>
                   </thead>
-                  <tbody id="agent-leads-table-body">
-                    <!-- รายชื่อลูกค้าดึงตาม ID อัตโนมัติ -->
-                  </tbody>
+                  <tbody id="agent-leads-table-body"></tbody>
                 </table>
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      <!-- ส่วนติดต่อนัดชมสถานที่ -->
+      <!-- ส่วนติดต่อนัดชมสถานที่ (หน้าบ้านคลีน ๆ โชว์เฉพาะปุ่มโลโก้แบรนด์สำหรับลูกค้ากดทันที) -->
       <section class="contact" id="contact">
         <div class="contact-copy">
           <p class="section-kicker">นัดชมสถานที่</p>
-          <h2>คุยกับทีมขายเพื่อเลือกทำเลที่เหมาะกับเป้าหมายของคุณ</h2>
+          <h2>คุยกับทีมขายเพื่อเลือกที่ดินเขาค้อและพูลวิลล่าที่เหมาะกับเป้าหมายของคุณ</h2>
           <p class="contact-intro">
-            แจ้งงบประมาณ ประเภททรัพย์ และช่วงเวลาที่สะดวก ทีมงานจะช่วยคัดรายการและจัดคิวนัดชมให้
+            แจ้งงบประมาณ ประเภททรัพย์ และช่วงเวลาที่สะดวก ทีมงานจะช่วยคัดรายการ ที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวภูเขา และทำเลสำหรับลงทุนให้เหมาะกับคุณ
           </p>
-          <div class="contact-lines">
-            <a class="contact-method" href="tel:0639789356" id="display-phone-link">
-              <span><i class="fa-solid fa-phone" style="margin-right: 6px; color: var(--gold);"></i> โทร</span>
-              <strong id="display-phone">063 978 9356</strong>
+          
+          <!-- 📱 โซนหน้าบ้านแสดงปุ่มแบรนด์ไอคอนวงกลมสุดหรูสำหรับลูกค้ากดจิ้มคุยได้เลยทันที -->
+          <div class="contact-brand-buttons">
+            <a class="brand-btn phone-btn" href="tel:0639789356" id="display-phone-link" title="โทรติดต่อ">
+              <i class="fa-solid fa-phone"></i>
             </a>
-            <a class="contact-method" href="https://line.me/R/ti/p/@812fqegp" id="display-line-link" target="_blank">
-              <span><i class="fa-brands fa-line" style="margin-right: 6px; color: #06C755; font-size: 16px;"></i> Line</span>
-              <strong id="display-line">@812fqegp</strong>
+            <a class="brand-btn line-btn" href="https://line.me/R/ti/p/@812fqegp" id="display-line-link" target="_blank" title="แชท Line">
+              <i class="fa-brands fa-line"></i>
             </a>
-            <a class="contact-method" href="#" id="display-facebook-link" target="_blank">
-              <span><i class="fa-brands fa-facebook" style="margin-right: 6px; color: #1877F2; font-size: 16px;"></i> Facebook</span>
-              <strong id="display-facebook">ไม่มีข้อมูล</strong>
+            <a class="brand-btn fb-btn" href="#" id="display-facebook-link" target="_blank" title="เปิดหน้า Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
             </a>
           </div>
         </div>
@@ -298,8 +330,8 @@
           <form class="lead-form" id="agent-register-form">
             <label>ชื่อ-นามสกุลทีมงาน <input id="reg-name" type="text" placeholder="เช่น สมชาย ใจดี" required /></label>
             <label>เบอร์โทรติดต่อ <input id="reg-phone" type="tel" placeholder="เช่น 0812345678" required /></label>
-            <label>Line ID <input id="reg-line" type="text" placeholder="เช่น @line_team" required /></label>
-            <label>Link Facebook <input id="reg-facebook" type="url" placeholder="https://facebook.com/..." required /></label>
+            <label>Line ID (หรือลิงก์เพิ่มเพื่อน) <input id="reg-line" type="text" placeholder="เช่น @line_team หรือลิงก์ไลน์" required /></label>
+            <label>Link Facebook ส่วนตัว/เพจ <input id="reg-facebook" type="url" placeholder="https://facebook.com/..." required /></label>
             
             <hr style="border: 0; border-top: 1px dashed var(--line); margin: 20px 0;">
             
