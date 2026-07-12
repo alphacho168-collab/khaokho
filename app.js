@@ -6,6 +6,7 @@ const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 const AGENT_PASSWORD = "Ab123456"; 
 
+// 🔗 ลิงก์ Web App ออนไลน์ล่าสุดของพี่ Get
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
 const DEFAULT_CONTACT = {
@@ -47,7 +48,6 @@ function createId() {
   return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-// 🌟 ฟังก์ชันโหลดคลังข้อมูล: บังคับให้อ่านจากความจำเครื่องเดิมก่อน เพื่อดึงทรัพย์ทั้ง 9 รายการกลับมาโชว์
 function loadProperties() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (!saved) { 
@@ -103,6 +103,7 @@ function fileToBase64(file) {
   });
 }
 
+// 🌟 ปรับแก้ตรงนี้: ปล่อยให้ดึงดีไซน์เดิมของพี่ Get กลับมา 100% ไม่ยัดเยียดดีไซน์ใหม่ให้เบี้ยวรวนอีกแล้ว
 function renderProperties() {
   const propertyContainer = document.querySelector("#properties");
   if (!propertyContainer) return;
@@ -112,14 +113,14 @@ function renderProperties() {
   if (statCount) statCount.textContent = properties.length.toString();
 
   propertyContainer.innerHTML = visible.map((item) => {
-    const image = item.images?.[0] || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85";
+    const image = item.images?.[0] || "khao-kho-hero.png";
     const features = (item.features || []).slice(0, 3).map((f) => `<span>${f}</span>`).join("");
     return `
       <article class="property-card">
-        <figure><img src="${image}" alt="${item.title}" /><br><span class="badge">${propertyTypeLabel(item.type)}</span></figure>
+        <figure><img src="${image}" alt="${item.title}" /><span class="badge">${propertyTypeLabel(item.type)}</span></figure>
         <div class="card-body">
           <h3>${item.title}</h3>
-          <p class="location">📍 ${item.location}</p>
+          <p class="location">${item.location}</p>
           <p class="price">${item.price}</p>
           <div class="mini-features">${features}</div>
           <button class="button neutral btn-click-detail" type="button" data-detail="${item.id}">ดูรายละเอียด</button>
@@ -155,14 +156,14 @@ function openDetail(id) {
 
   detailPanel.innerHTML = `
     <div class="detail-shell">
-      <button class="close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;">×</button>
+      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;">×</button>
       <div class="detail-gallery">${detailGalleryHtml}</div>
       <div class="detail-copy">
-        <p style="color:var(--forest); font-weight:bold; margin:0;">${propertyTypeLabel(item.type)}</p>
+        <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
         <h2>${item.title}</h2>
-        <p>📍 ${item.location}</p>
-        <p style="font-size:20px; color:var(--forest); font-weight:bold; margin:10px 0;">${item.price}</p>
-        <p style="white-space: pre-line; line-height:1.6;">${item.description}</p>
+        <p class="detail-location">${item.location}</p>
+        <p class="detail-price">${item.price}</p>
+        <p>${item.description}</p>
         <ul class="feature-list">${detailFeaturesHtml}</ul>
         <div class="video-wrap">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
@@ -503,7 +504,7 @@ document.querySelector("#restore-demo")?.addEventListener("click", () => {
   }
 });
 
-// 🌟 ตั้งค่าให้ระบบโหลดข้อมูลคลังในเครื่องขึ้นมาเรนเดอร์ก่อนอย่างปลอดภัยทันที
+// 🌟 สั่งรันชุดคลังข้อมูลในเครื่องก่อนทันที เพื่อให้ 9 ทรัพย์เดิมขึ้นโชว์หน้าจอทันที ไม่ถูกรั้งรอโดยสคริปต์อื่น
 checkAgentRoute();
 renderProperties();
 
