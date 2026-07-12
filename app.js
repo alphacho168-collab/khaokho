@@ -90,25 +90,17 @@ function splitList(value) { return value.split("|").map((item) => item.trim()).f
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
-  const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
-  const agentDashboardName = document.querySelector("#agent-dashboard-name");
   
   if (agentId) {
     const agent = agents.find(a => a.id === agentId && a.status === "approved");
     if (agent) {
       currentAgent = agent;
       applyAgentContact(agent);
-      if (agentDashboardPanel && agentDashboardName) {
-        agentDashboardPanel.hidden = false;
-        agentDashboardName.textContent = agent.name;
-        renderAgentLeads(agent.id);
-      }
       return;
     }
   }
   currentAgent = null;
   applyAgentContact(DEFAULT_CONTACT);
-  if (agentDashboardPanel) agentDashboardPanel.hidden = true;
 }
 
 function applyAgentContact(contact) {
@@ -374,27 +366,56 @@ propertyContainer.addEventListener("click", (event) => {
 });
 
 document.querySelector(".close-detail").addEventListener("click", () => { detailPanel.hidden = true; });
-document.querySelector("#admin-open").addEventListener("click", () => { adminModal.hidden = false; });
+document.querySelector("#admin-open").addEventListener("click", () => { 
+  // รีเซ็ตการแสดงผลเมื่อเปิด Modal
+  adminLogin.hidden = false;
+  adminPanel.hidden = true;
+  document.querySelector("#agent-dashboard-panel").hidden = true;
+  document.querySelector("#admin-title-heading").textContent = "เข้าสู่ระบบจัดการข้อมูล";
+  adminModal.hidden = false; 
+});
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
 
 document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; });
 document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
 
+// ฟังก์ชัน Login อัจฉริยะ คัดแยกสิทธิ์ แอดมินหลัก / สมาชิกเว็บลูก
 document.querySelector("#login-button").addEventListener("click", () => {
   const username = document.querySelector("#admin-username").value.trim();
   const password = document.querySelector("#admin-password").value;
   const message = document.querySelector("#login-message");
+  const headingTitle = document.querySelector("#admin-title-heading");
 
-  if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
-    message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง";
+  // ล็อกอินสิทธิ์แอดมินหลัก (เว็บแม่)
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    message.textContent = "";
+    adminLogin.hidden = true;
+    adminPanel.hidden = false;
+    document.querySelector("#agent-dashboard-panel").hidden = true;
+    headingTitle.textContent = "ระบบหลังบ้านแอดมิน (เว็บแม่)";
+    renderAdminItems();
+    renderAdminAgents();
     return;
   }
 
-  message.textContent = "";
-  adminLogin.hidden = true;
-  adminPanel.hidden = false;
-  renderAdminItems();
-  renderAdminAgents();
+  // ล็อกอินสิทธิ์ทีมงาน (เว็บลูก)
+  const memberAgent = agents.find(a => (a.name === username || a.phone === username) && a.status === "approved");
+  if (memberAgent && password === ADMIN_PASSWORD) {
+    message.textContent = "";
+    adminLogin.hidden = true;
+    adminPanel.hidden = true;
+    
+    const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
+    const agentDashboardName = document.querySelector("#agent-dashboard-name");
+    
+    agentDashboardPanel.hidden = false;
+    agentDashboardName.textContent = memberAgent.name;
+    headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
+    renderAgentLeads(memberAgent.id);
+    return;
+  }
+
+  message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านระบบไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
 });
 
 adminItems.addEventListener("click", (event) => {
