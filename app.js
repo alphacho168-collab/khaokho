@@ -6,7 +6,6 @@ const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 const AGENT_PASSWORD = "Ab123456"; 
 
-// ⚠️ ตรวจเช็กคีย์ตรงนี้ให้ดีนะครับว่าตรงกับลิงก์ URL ที่ได้จากการกด Deploy ใน Apps Script หรือไม่
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
 const DEFAULT_CONTACT = {
@@ -130,13 +129,7 @@ function renderProperties() {
       </article>
     `;
   }).join("");
-}
-
-if (propertyContainer) {
-  propertyContainer.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-detail]");
-    if (button) openDetail(button.dataset.detail);
-  });
+  if (!visible.length) propertyContainer.innerHTML = `<p class="form-note" style="grid-column: 1/-1; text-align:center;">ยังไม่มีรายการในหมวดนี้</p>`;
 }
 
 function openDetail(id) {
@@ -190,6 +183,11 @@ if (agentRegisterForm) {
     let slipBase64 = "";
     if (fileInput) slipBase64 = await fileToBase64(fileInput);
 
+    // คำนวณวันหมดอายุเริ่มต้นเบื้องต้น 1 ปีนับจากวันกรอกฟอร์มลงทะเบียน
+    const today = new Date();
+    const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+    const initialExpireStr = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
+
     const newAgent = {
       id: 'ag-' + Math.random().toString(36).substr(2, 9),
       type: "agent_registration",
@@ -200,6 +198,7 @@ if (agentRegisterForm) {
       slip: slipBase64,
       status: "pending",
       parentId: currentAgent ? currentAgent.id : "master",
+      expireAt: initialExpireStr,
       submittedAt: new Date().toISOString()
     };
 
@@ -288,15 +287,25 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
+// 🌟 ปรับปรุงการแสดงผลฝั่งแอดมินหลัก ให้นำ "วันที่หมดอายุจริง (expireAt)" มาโชว์แทนค่าข้อความแบบกว้าง ๆ 
 function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   adminAgentsList.innerHTML = agents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
+    
+    // หากมีค่าวันที่หมดอายุออนไลน์จากระบบ ให้ดึงมาแสดงผลทันที หรือหากไม่มีให้คำนวณแบบสากลเผื่อไว้
+    let displayExpire = agent.expireAt;
+    if (!displayExpire || displayExpire === "-" || displayExpire === "1 ปีนับจากวันอนุมัติ") {
+      const today = new Date();
+      const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+      displayExpire = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink);">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
       โทร: ${agent.phone} | Line: ${agent.line}<br>
-      <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt || '1 ปีนับจากวันอนุมัติ'}</span><br>
+      <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${displayExpire}</span><br>
       <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId || 'master'}</span><br>
       ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
@@ -308,7 +317,6 @@ function renderAdminAgents() {
   }).join("");
 }
 
-// 🌟 ปรับกลไก Hybrid Sync: ดึงค่าจากชีตออนไลน์เป็นหลัก แต่ถ้าเน็ตช้าหรือดึงไม่ได้ ให้ใช้ฐานข้อมูลในเครื่องทันที ป้องกันระบบล็อกอินค้าง
 async function fetchOnlineAgents() {
   try {
     const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`, { method: "GET" });
@@ -321,8 +329,8 @@ async function fetchOnlineAgents() {
       }
     }
   } catch (err) { 
-    console.log("Sync ออนไลน์ผ่านชีตชั่วคราว ดึงข้อมูลจาก LocalStorage อัตโนมัติ:", err);
-    agents = loadAgents(); // สลับมาดึงความจำในเครื่องเพื่อให้ระบบรันต่อได้เสถียร 100%
+    console.log("Hybrid Sync Active:", err);
+    agents = loadAgents(); 
   }
 }
 
@@ -392,7 +400,15 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     document.querySelector("#back-agent-full-url").textContent = myShareLink;
     document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
     document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
-    document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt || "1 ปีนับจากวันอนุมัติ";
+    
+    // ซิงค์วันที่หมดอายุตัวแทนแบบเฉพาะตัวเลขวันที่ไปโชว์ที่ฝั่งแดชบอร์ดส่วนตัวของลูกทีมด้วยเช่นกัน
+    let userExpire = memberAgent.expireAt;
+    if (!userExpire || userExpire === "-" || userExpire === "1 ปีนับจากวันอนุมัติ") {
+      const today = new Date();
+      const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+      userExpire = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    document.querySelector("#back-agent-expire").textContent = userExpire;
 
     agentDashboardPanel.hidden = false;
     agentDashboardName.textContent = memberAgent.name;
