@@ -254,30 +254,78 @@ a {
   font-size: 22px;
 }
 
-.intro-band,
-.contact {
+/* --- อัปเดตปรับปรุงโครงสร้าง Intro Band ให้มีความยืดหยุ่นและสวยงามทั้ง PC/Mobile --- */
+.intro-band {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 520px);
-  gap: clamp(24px, 5vw, 70px);
-  padding: 70px clamp(18px, 5vw, 78px);
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(30px, 6vw, 80px);
+  padding: clamp(40px, 6vw, 90px) clamp(18px, 5vw, 78px);
   background: #ffffff;
+  align-items: center;
 }
 
-.intro-band h2,
-.section-heading h2,
-.contact h2 {
-  margin: 0;
-  font-size: clamp(30px, 4vw, 54px);
-  line-height: 1.08;
-  letter-spacing: 0;
+.intro-left-box h2 {
+  margin: 0 0 16px;
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1.2;
+  font-weight: 900;
+  color: var(--forest);
 }
 
-.intro-band p,
-.section-heading p,
-.contact p {
-  color: var(--muted);
-  font-size: 17px;
+.intro-sub-text {
+  color: var(--muted) !important;
+  font-size: clamp(15px, 1.2vw, 18px);
   line-height: 1.8;
+  margin-top: 14px;
+}
+
+.intro-right-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.feature-item-block {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 18px;
+  background: #fbfaf6;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  transition: transform 0.2s ease;
+}
+
+.feature-item-block:hover {
+  transform: translateX(4px);
+  background: var(--paper);
+}
+
+.feature-icon-wrap {
+  font-size: 24px;
+  background: white;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.feature-content-wrap h3 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--forest);
+}
+
+.feature-content-wrap p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .filters {
@@ -613,6 +661,10 @@ textarea {
   margin-bottom: 16px;
 }
 
+.admin-list-head h3 {
+  margin: 0;
+}
+
 .admin-list h3 {
   margin: 0;
   font-size: 24px;
@@ -772,6 +824,11 @@ textarea {
   text-underline-offset: 4px;
 }
 
+table th, table td {
+  padding: 12px;
+  border: 1px solid var(--line);
+}
+
 @media (max-width: 980px) {
   .site-header,
   .nav-links {
@@ -788,8 +845,14 @@ textarea {
     padding-bottom: 4px;
   }
 
+  .intro-band {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
   .properties,
-  .intro-band,
   .contact,
   .detail-shell,
   .admin-grid {
@@ -799,6 +862,7 @@ textarea {
   .properties {
     max-width: 720px;
     margin: 0 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -834,6 +898,7 @@ textarea {
   .properties {
     padding-left: 18px;
     padding-right: 18px;
+    grid-template-columns: 1fr;
   }
 
   .login-row,
