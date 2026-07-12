@@ -254,7 +254,7 @@ a {
   font-size: 22px;
 }
 
-/* --- อัปเดตปรับปรุงโครงสร้าง Intro Band ให้มีความยืดหยุ่นและสวยงามทั้ง PC/Mobile --- */
+/* --- จัดระเบียบโครงสร้าง Intro Band ให้มีความยืดหยุ่นและสวยงามทั้ง PC/Mobile --- */
 .intro-band {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -399,7 +399,7 @@ a {
 }
 
 .card-body h3 {
-  margin: 0 0 8px;
+  margin: 0 0 8px 0;
   font-size: 22px;
   line-height: 1.25;
 }
@@ -705,6 +705,7 @@ textarea {
   background: var(--danger);
 }
 
+/* --- ปรับแต่งโครงสร้างส่วนติดต่อ (Contact Section) เพื่อแก้ไขบั๊กตัวอักษรล้นขอบจอ --- */
 .contact {
   position: relative;
   overflow: hidden;
@@ -712,14 +713,10 @@ textarea {
     linear-gradient(135deg, rgba(16, 48, 38, 0.98), rgba(35, 72, 58, 0.92)),
     url("assets/khao-kho-hero.svg") center/cover;
   color: white;
-}
-
-.contact::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 78% 10%, rgba(241, 189, 100, 0.2), transparent 32%);
-  pointer-events: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 520px);
+  gap: clamp(24px, 5vw, 70px);
+  padding: 70px clamp(20px, 5vw, 78px); /* เพิ่มระดับความกว้างปลอดภัยขอบข้างเพื่อไม่ให้ตัวอักษรชิดซ้ายเกินไป */
 }
 
 .contact > * {
@@ -737,6 +734,16 @@ textarea {
 
 .contact-copy {
   max-width: 720px;
+  width: 100%;
+}
+
+/* เพิ่ม clamp ปรับแต่งขนาดฟอนต์หัวข้อตัวปัญหาให้หดตามขนาดหน้าจอคอมพิวเตอร์และมือถืออัตโนมัติ */
+.contact-copy h2 {
+  margin: 0;
+  font-size: clamp(24px, 3.8vw, 54px); 
+  line-height: 1.2;
+  letter-spacing: 0;
+  overflow-wrap: break-word; /* สั่งหักคำอัตโนมัติป้องกันเนื้อหาข้อความยาวเกินพิกัดหน้าจอ */
 }
 
 .contact-intro {
@@ -771,7 +778,7 @@ textarea {
 
 .contact-method strong {
   align-self: end;
-  font-size: clamp(16px, 1.7vw, 22px);
+  font-size: clamp(15px, 1.5vw, 22px);
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
@@ -891,8 +898,8 @@ table th, table td {
   .intro-band,
   .contact,
   .admin-dialog {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .properties {
