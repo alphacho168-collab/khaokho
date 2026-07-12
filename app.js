@@ -76,7 +76,9 @@ function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน"
 // ฟังก์ชันแยกข้อความด้วยเครื่องหมาย | เพื่อแปลงเป็น Array รองรับหลายรูปภาพและหลายฟีเจอร์
 function splitList(value) { 
   if (!value) return [];
-  return value.split("|").map((item) => item.trim()).filter(Boolean); 
+  return value.split("|")
+              .map((item) => item.trim()) // 🌟 ตัดช่องว่างหน้าและหลังลิงก์ออกให้หมดอัตโนมัติ
+              .filter(Boolean);           // 🌟 ลบลิงก์ว่างๆ ออกไป
 }
 
 function checkAgentRoute() {
