@@ -75,7 +75,6 @@ function saveAgents() { localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
 function splitList(value) { return value.split("|").map((item) => item.trim()).filter(Boolean); }
 
-// 🌟 ปรับปรุงการเช็กเส้นทางลิงก์ตัวแทนให้จำค่าลงระบบได้แม่นยำขึ้น
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
@@ -84,16 +83,11 @@ function checkAgentRoute() {
     if (agent) { 
       currentAgent = agent; 
       applyAgentContact(agent); 
-      // ใส่ชื่อผู้แนะนำลงในฟอร์มสมัครสมาชิกให้เห็นชัดเจน
-      const regParentLabel = document.querySelector("#reg-parent-label");
-      if (regParentLabel) regParentLabel.textContent = agent.name;
       return; 
     }
   }
   currentAgent = null;
   applyAgentContact(DEFAULT_CONTACT);
-  const regParentLabel = document.querySelector("#reg-parent-label");
-  if (regParentLabel) regParentLabel.textContent = "บริษัท (Master)";
 }
 
 function applyAgentContact(contact) {
@@ -147,6 +141,54 @@ function renderProperties() {
   }).join("");
 }
 
+if (propertyContainer) {
+  propertyContainer.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-detail]");
+    if (button) openDetail(button.dataset.detail);
+  });
+}
+
+function openDetail(id) {
+  const item = properties.find((property) => property.id === id);
+  if (!item) return;
+
+  const detailFeaturesHtml = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
+  const detailGalleryHtml = (item.images || []).map((image) => `<img src="${image}" alt="${item.title}" loading="lazy" />`).join("");
+  const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
+
+  detailPanel.innerHTML = `
+    <div class="detail-shell">
+      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
+      <div class="detail-gallery">${detailGalleryHtml}</div>
+      <div class="detail-copy">
+        <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
+        <h2>${item.title}</h2>
+        <p class="detail-location">${item.location}</p>
+        <p class="detail-price">${item.price}</p>
+        <p>${item.description}</p>
+        <ul class="feature-list">${detailFeaturesHtml}</div>
+        <div class="video-wrap">${detailVideoHtml}</div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
+          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;">สนใจทรัพย์นี้</button>
+          <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  detailPanel.hidden = false;
+  detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  document.querySelector("#popup-interest-cta").addEventListener("click", () => {
+    detailPanel.hidden = true;
+    const contactSection = document.querySelector("#contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => { document.querySelector("#lead-name").focus(); }, 400);
+    }
+  });
+}
+
 if (agentRegisterForm) {
   agentRegisterForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -161,7 +203,6 @@ if (agentRegisterForm) {
     const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
     const initialExpireStr = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
 
-    // ตรวจสอบคีย์ผู้แนะนำให้ล็อกกับตัวแทนเจ้าของลิงก์จริง ๆ
     const parent = currentAgent ? currentAgent.id : "master";
 
     const newAgent = {
@@ -240,7 +281,6 @@ function renderSubTeams(agentId) {
   const tableBody = document.querySelector("#agent-subteams-table-body");
   if (!tableBody) return;
   
-  // กรองหาลูกทีมที่สมัครต่อจาก agentId นี้
   const subAgents = agents.filter(a => a.parentId === agentId);
 
   if (subAgents.length === 0) {
@@ -295,7 +335,7 @@ async function fetchOnlineAgents() {
       if (onlineAgents && onlineAgents.length > 0) { 
         agents = onlineAgents; 
         saveAgents(); 
-        checkAgentRoute(); // รีแมปเช็กสถานะสายงานหลังได้ข้อมูลใหม่
+        checkAgentRoute(); 
         if (!adminPanel.hidden) renderAdminAgents(); 
       }
     }
@@ -377,7 +417,6 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     agentDashboardName.textContent = memberAgent.name;
     headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
     
-    // โหลดตารางสายงาน
     renderAgentLeads(memberAgent.id);
     renderSubTeams(memberAgent.id); 
     return;
