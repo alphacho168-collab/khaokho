@@ -32,7 +32,7 @@
     <main id="home">
       <section class="hero">
         <div class="hero-media" aria-hidden="true">
-          <img src="assets/khao-kho-hero.png" alt="วิวภูเขาและทะเลหมอกเขาค้อ" />
+          <img src="khao-kho-hero.png" alt="วิวภูเขาและทะเลหมอกเขาค้อ" />
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -96,14 +96,19 @@
           <div class="section-heading">
             <p class="section-kicker">ระบบหลังบ้าน</p>
             <h2>จัดการรายการทรัพย์และทีมงาน</h2>
-            <p>รหัสผ่านสำหรับเดโมคือ <strong>khaokho</strong></p>
           </div>
 
           <div class="admin-login" id="admin-login">
-            <label for="admin-password">รหัสผ่าน</label>
-            <div class="login-row">
-              <input id="admin-password" type="password" placeholder="รหัสผ่าน demo: khaokho" />
-              <button class="button primary" type="button" id="login-button">เข้าสู่ระบบ</button>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <label>
+                ชื่อผู้ใช้งาน (Username)
+                <input id="admin-username" type="text" placeholder="ใส่ชื่อผู้ใช้งานแอดมิน" />
+              </label>
+              <label>
+                รหัสผ่าน (Password)
+                <input id="admin-password" type="password" placeholder="ใส่รหัสผ่านแอดมิน" />
+              </label>
+              <button class="button primary" type="button" id="login-button" style="width: 100%; margin-top: 6px;">เข้าสู่ระบบ</button>
             </div>
             <p class="form-note" id="login-message"></p>
           </div>
