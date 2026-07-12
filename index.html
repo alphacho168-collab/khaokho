@@ -15,7 +15,8 @@
   <body>
     <header class="site-header">
       <a class="brand" href="#home" aria-label="กลับหน้าหลัก">
-        <img class="brand-logo" src="assets/khao-kho-prime-logo.png" alt="KHAO KHO PRIME ESTATE logo" />
+        <!-- ปรับแท็กเรียกรูปโลโก้ใหม่ตามที่แนบมา ให้ดึงไฟล์ LOGO.png หน้าแรกของ GitHub -->
+        <img class="brand-logo" src="LOGO.png" alt="KHAO KHO LAND logo" />
         <span>
           <strong>KHAO KHO LAND</strong>
           <small>พูลวิลล่าและที่ดินวิวภูเขา</small>
@@ -169,7 +170,6 @@
             <p class="form-note" id="login-message"></p>
           </div>
 
-          <!-- แผงแอดมินหลัก (เว็บแม่หลัก) -->
           <div class="admin-grid" id="admin-panel" hidden>
             <form class="property-form" id="property-form">
               <input type="hidden" id="property-id" />
@@ -204,7 +204,6 @@
             </div>
           </div>
 
-          <!-- แผงหลังบ้านเว็บลูกส่วนตัว (ของทีมงานแต่ละราย) -->
           <div id="agent-dashboard-panel" hidden style="margin-top: 20px; display: flex; flex-direction: column; gap: 24px;">
             <p class="section-kicker" style="color: var(--gold);">AGENT DASHBOARD</p>
             <h2 style="font-size: 26px; margin: 0;">ยินดีต้อนรับทีมงาน: <span id="agent-dashboard-name" style="color: var(--forest);"></span></h2>
@@ -216,7 +215,6 @@
               <strong>ลิงก์ Facebook หน้าบ้านของคุณ:</strong> <span id="back-agent-fb-link" style="color: #1877F2;"></span>
             </div>
 
-            <!-- ตารางที่ 1: รายชื่อลูกค้าขอนัดชมสถานที่ -->
             <div class="admin-list" style="padding: 22px;">
               <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--forest);">📊 1. ตารางรายชื่อลูกค้าของคุณ</h3>
               <div style="overflow-x: auto;">
@@ -235,7 +233,6 @@
               </div>
             </div>
 
-            <!-- ตารางที่ 2: รายชื่อลูกทีมที่มาสมัครต่อจากเรา (ดูได้อย่างเดียวตามบรีฟ ห้ามแก้ไข) -->
             <div class="admin-list" style="padding: 22px; border-color: var(--gold);">
               <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--gold);">👥 2. ตารางรายชื่อลูกทีมในสายงานของคุณ (ดูอย่างเดียว)</h3>
               <div style="overflow-x: auto;">
@@ -254,11 +251,18 @@
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      <!-- ส่วนติดต่อนัดชมสถานที่หน้าบ้าน -->
+      <!-- ป๊อปอัปย่อยภายในสำหรับการกดดูภาพสลิปป้องกันปัญหาจอขาว -->
+      <div id="slip-preview-modal" class="admin-modal" hidden style="z-index: 120;">
+        <div class="admin-dialog" style="max-width: 480px; text-align: center;">
+          <button class="icon-button" type="button" onclick="document.querySelector('#slip-preview-modal').hidden = true" style="position: absolute; top: 15px; right: 20px; font-size: 24px;">×</button>
+          <h3 style="margin-bottom: 15px; color: var(--forest);">หลักฐานสลิปการโอนเงิน</h3>
+          <img id="slip-preview-img" src="" style="width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+        </div>
+      </div>
+
       <section class="contact" id="contact">
         <div class="contact-copy">
           <p class="section-kicker">นัดชมสถานที่</p>
@@ -298,11 +302,12 @@
             <label>Link Facebook <input id="reg-facebook" type="url" placeholder="https://facebook.com/..." required /></label>
             
             <hr style="border: 0; border-top: 1px dashed var(--line); margin: 20px 0;">
+            <!-- อัปเดตข้อมูลบัญชีและธนาคารของพี่ Get ใหม่ตามบรีฟล่าสุดครับ -->
             <div style="background: var(--mist); padding: 18px; border-radius: 8px; margin-bottom: 16px; color: var(--ink); font-weight: 600;">
               <p style="margin: 0 0 8px 0; color: var(--forest); font-size: 15px;"><strong>ขั้นตอนการชำระค่าบริการ:</strong></p>
               ค่าบริการรายปี <strong>1,500 บาท</strong> เพื่อสิทธิ์การเปลี่ยนข้อมูลติดต่อบนหน้าเว็บให้เป็นของคุณ<br><br>
               <strong>ข้อมูลการโอนเงิน:</strong><br>
-              ธนาคาร: กสิกรไทย <br>
+              ธนาคาร: ธนาคารกสิกรไทย <br>
               เลขที่บัญชี: 045 2 07033 4 <br>
               ชื่อบัญชี: พัฒน์รดิศ สุพัฒน์วณิชกร
             </div>
@@ -315,7 +320,7 @@
     </main>
 
     <footer class="footer">
-      <span>© 2026 KHAO KHO PRIME ESTATE</span>
+      <span>© 2026 KHAO KHO LAND</span>
       <a href="#home">กลับขึ้นด้านบน</a>
     </footer>
 
