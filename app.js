@@ -86,8 +86,17 @@ function checkAgentRoute() {
   applyAgentContact(DEFAULT_CONTACT);
 }
 
+// 🌟 ปรับปรุงระบบปุ่มเบอร์โทรศัพท์หน้าบ้าน เมื่อคลิกจะโชว์แจ้งเตือนระบุหมายเลขชัดเจนเพื่อให้ Copy ได้ง่ายดาย
 function applyAgentContact(contact) {
-  document.querySelector("#display-phone-link").href = `tel:${contact.phone.replace(/\s+/g, '')}`;
+  const phoneBtn = document.querySelector("#display-phone-link");
+  if (phoneBtn) {
+    phoneBtn.href = "javascript:void(0);";
+    phoneBtn.onclick = function() {
+      alert("เบอร์โทรติดต่อทีมงาน: " + contact.phone + "\n\nคุณสามารถคัดลอกหมายเลขนี้เพื่อนำไปติดต่อได้ทันทีค่ะ");
+    };
+    phoneBtn.setAttribute("title", "คลิกเพื่อดูเบอร์โทรศัพท์: " + contact.phone);
+  }
+  
   document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
   document.querySelector("#display-facebook-link").href = contact.facebook || "#";
 }
@@ -257,8 +266,7 @@ if (agentRegisterForm) {
 
     try {
       await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newAgent) });
-      // บังคับรีโหลดข้อมูลใหม่หลังสมัคร
-      fetchOnlineAgents();
+      await fetchOnlineAgents();
     } catch (err) { console.error(err); }
   });
 }
@@ -309,6 +317,7 @@ function renderAgentLeads(agentId) {
   }).join("");
 }
 
+// 🌟 ปรับปรุงการเรนเดอร์ตารางลูกทีม ให้ดึงทั้งสถานะ pending และ approved ขึ้นมาแสดงโชว์ให้หัวหน้าทีมเห็นแยกเป็นสัดส่วนทันที
 function renderSubTeams(agentId) {
   const tableBody = document.querySelector("#agent-subteams-table-body");
   if (!tableBody) return;
@@ -360,7 +369,7 @@ function renderAdminAgents() {
   }).join("");
 }
 
-// 🌟 ฟังก์ชันดึงรายชื่อแบบ Real-time ดึงมาจาก Google Sheets โดยตรงแก้ปัญหาดูข้ามเครื่องไม่ขึ้น
+// 🌟 ปรับระบบให้รองรับการ Callback ดึงฐานข้อมูลออนไลน์มาอัปเดตแบบเรียลไทม์ผ่านคำสั่งหลังบ้าน
 async function fetchOnlineAgents() {
   try {
     const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`);
@@ -372,7 +381,7 @@ async function fetchOnlineAgents() {
         if (!adminPanel.hidden) renderAdminAgents();
       }
     }
-  } catch (err) { console.log("Fetch online agents standard pass:", err); }
+  } catch (err) { console.log("Fetch online agents pass:", err); }
 }
 
 if (adminAgentsList) {
@@ -383,7 +392,6 @@ if (adminAgentsList) {
       const id = approveBtn.dataset.approve;
       agents = agents.map(a => a.id === id ? { ...a, status: "approved" } : a);
       saveAgents(); renderAdminAgents(); checkAgentRoute();
-      // ส่งคำขออัปเดตไป Google Sheets
       try { await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); } catch(e){}
     }
     if (deleteBtn) {
@@ -419,7 +427,6 @@ document.querySelector("#admin-open").addEventListener("click", async () => {
   document.querySelector("#agent-dashboard-panel").hidden = true;
   document.querySelector("#admin-title-heading").textContent = "เข้าสู่ระบบจัดการข้อมูล";
   adminModal.hidden = false; 
-  // ซิงค์คิวงานออนไลน์ทันทีเมื่อเปิดปุ่มล็อกอิน
   await fetchOnlineAgents();
 });
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
@@ -433,11 +440,13 @@ document.querySelector("#login-button").addEventListener("click", async () => {
   const message = document.querySelector("#login-message");
   const headingTitle = document.querySelector("#admin-title-heading");
 
-  // ก่อนตรวจสอบสิทธิ์ ให้ทำการดึงฐานข้อมูลล่าสุดมาอัปเดตใหม่อีกครั้งเพื่อความโปร่งใส
+  // บังคับสั่งดึงรายชื่อจากฐานข้อมูล Google Sheets อัปเดตลงเครื่องทันทีเมื่อหัวหน้าทีมกดล็อกอิน
+  if (message) message.textContent = "กำลังซิงค์ฐานข้อมูลสายงาน...";
   await fetchOnlineAgents();
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    message.textContent = ""; adminLogin.hidden = true; adminPanel.hidden = false;
+    if (message) message.textContent = ""; 
+    adminLogin.hidden = true; adminPanel.hidden = false;
     document.querySelector("#agent-dashboard-panel").hidden = true;
     headingTitle.textContent = "ระบบหลังบ้านแอดมิน (เว็บแม่)";
     renderAdminItems(); renderAdminAgents(); return;
@@ -445,7 +454,8 @@ document.querySelector("#login-button").addEventListener("click", async () => {
 
   const memberAgent = agents.find(a => a.phone === username && a.status === "approved");
   if (memberAgent && password === AGENT_PASSWORD) {
-    message.textContent = ""; adminLogin.hidden = true; adminPanel.hidden = true;
+    if (message) message.textContent = ""; 
+    adminLogin.hidden = true; adminPanel.hidden = true;
     
     const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
     const agentDashboardName = document.querySelector("#agent-dashboard-name");
@@ -459,7 +469,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     agentDashboardName.textContent = memberAgent.name;
     headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
     renderAgentLeads(memberAgent.id);
-    renderSubTeams(memberAgent.id);
+    renderSubTeams(memberAgent.id); // โหลดรายชื่อลูกทีมออนไลน์ขึ้นแสดงผลเรียลไทม์
     return;
   }
   message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
@@ -489,5 +499,4 @@ document.querySelector("#reset-form").addEventListener("click", resetForm);
 
 checkAgentRoute();
 renderProperties();
-// สั่งรันซิงค์ข้อมูลรอบแรกอัตโนมัติ
 fetchOnlineAgents();
