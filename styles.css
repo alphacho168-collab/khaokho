@@ -45,6 +45,7 @@ a {
   text-decoration: none;
 }
 
+/* --- 🖥️ จัดการแถบหัวเว็บหลัก (site-header) สำหรับหน้าจอคอมพิวเตอร์ --- */
 .site-header {
   position: sticky;
   top: 0;
@@ -54,7 +55,7 @@ a {
   justify-content: space-between;
   gap: 24px;
   padding: 14px clamp(18px, 4vw, 54px);
-  background: rgba(247, 245, 238, 0.92);
+  background: rgba(247, 245, 238, 0.94);
   border-bottom: 1px solid rgba(21, 32, 27, 0.08);
   backdrop-filter: blur(18px);
 }
@@ -67,17 +68,16 @@ a {
 }
 
 .brand-logo {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   flex: 0 0 auto;
-  filter: drop-shadow(0 8px 14px rgba(16, 33, 28, 0.18));
 }
 
 .brand small {
   display: block;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   margin-top: 2px;
   font-weight: 600;
 }
@@ -85,6 +85,7 @@ a {
 .brand strong {
   font-size: clamp(18px, 1.7vw, 24px);
   letter-spacing: 0;
+  color: var(--forest);
 }
 
 .nav-links {
@@ -92,7 +93,7 @@ a {
   align-items: center;
   gap: 18px;
   color: #26342e;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
 }
 
@@ -101,6 +102,7 @@ a {
   color: white;
   background: var(--forest);
   border-radius: 8px;
+  white-space: nowrap;
 }
 
 .admin-trigger {
@@ -113,6 +115,7 @@ a {
   font: inherit;
   font-weight: 800;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .admin-trigger:hover {
@@ -398,7 +401,7 @@ a {
 }
 
 .card-body h3 {
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
   font-size: 22px;
   line-height: 1.25;
 }
@@ -441,6 +444,9 @@ a {
   padding: 26px;
   overflow: auto;
   background: rgba(12, 22, 18, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .detail-shell {
@@ -449,10 +455,12 @@ a {
   grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
   gap: 28px;
   width: min(1160px, 100%);
-  margin: 24px auto;
+  margin: auto;
   padding: 22px;
   background: white;
   border-radius: 8px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .close-detail {
@@ -543,7 +551,6 @@ a {
   background: #111;
 }
 
-/* --- แผง Q&A (FAQ Section) --- */
 .faq-section {
   background: var(--paper);
   padding: 60px max(18px, 4vw);
@@ -760,7 +767,6 @@ textarea {
   background: var(--danger);
 }
 
-/* --- แผงติดต่อนัดชม (จัดสมดุลหรูหรา 2 ฝั่งเต็มพิกัด) --- */
 .contact {
   position: relative;
   overflow: hidden;
@@ -838,7 +844,6 @@ textarea {
   overflow-wrap: anywhere;
 }
 
-/* แผงปุ่มแบรนด์โลโก้หน้าบ้านทรงกลม */
 .contact-brand-buttons {
   display: flex;
   gap: 20px;
@@ -868,7 +873,6 @@ textarea {
 .line-btn { background: #06C755; }
 .fb-btn { background: #1877F2; }
 
-/* กล่องฟอร์มลงทะเบียนลูกค้าลอยตัวฝั่งขวา */
 .contact-card {
   width: 100%;
   padding: 30px 26px;
@@ -941,21 +945,69 @@ table th, table td {
   border: 1px solid var(--line);
 }
 
-/* --- Responsive Media Queries --- */
+/* ======================================================= */
+/* 🌟 อัปเดตชุดคำสั่งควบคุมและแก้ไขเมนูบาร์ให้แบ่ง 2 แถวบนมือถืออย่างสวยงาม 🌟 */
+/* ======================================================= */
 @media (max-width: 980px) {
-  .site-header,
-  .nav-links {
-    align-items: flex-start;
-  }
-
   .site-header {
-    flex-direction: column;
+    flex-direction: column; /* สั่งให้สลับแถวเป็นแนวตั้ง บน-ล่าง */
+    align-items: center;    /* จัดโครงสร้างทุกชิ้นให้อยู่กึ่งกลางสมดุล */
+    gap: 16px;              /* เพิ่มระยะห่างที่พอดีระหว่างแถวแบรนด์และแถวปุ่ม */
+    padding: 16px 20px;
+    background: #f7f5ee;
   }
 
+  /* แถวที่ 1: จัดตำแหน่งรูปภาพโลโก้ และข้อความ KHAO KHO LAND */
+  .brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: auto;
+    gap: 14px;
+  }
+
+  .brand-logo {
+    display: block !important;
+    visibility: visible !important;
+    width: 54px !important;  /* กำหนดขนาดโลโก้ให้พอดีสายตาบนจอมือถือ */
+    height: 54px !important;
+    opacity: 1 !important;
+  }
+
+  .brand span {
+    text-align: left;
+  }
+
+  /* แถวที่ 2: ดึงแถบปุ่มกดทั้งหมดลงมาเรียงแถวนอนแนวราบเซนเตอร์ ป้องกันอาการเบียดตกขอบ */
   .nav-links {
     width: 100%;
-    overflow-x: auto;
-    padding-bottom: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap; /* ล็อกความกว้างห้ามหลุดบรรทัด */
+    gap: max(8px, 2vw); /* คำนวณระยะห่างระหว่างปุ่มแบบยืดหยุ่นอัตโนมัติ */
+    padding-bottom: 0;
+    overflow-x: visible;
+  }
+
+  /* ปรับแต่งขนาดฟอนต์ของลิงก์ข้อความให้นุ่มนวลขึ้นบนสมาร์ตโฟน */
+  .nav-links a:not(.nav-cta) {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+
+  .admin-trigger {
+    min-height: 34px;
+    padding: 6px 10px;
+    font-size: 13px;
+    border-radius: 6px;
   }
 
   .intro-band {
@@ -989,6 +1041,14 @@ table th, table td {
   .contact-card {
     max-width: 580px;
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 680px) {
+  .contact-brand-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
   }
 }
 
@@ -1039,8 +1099,9 @@ table th, table td {
   }
 
   .detail-shell {
-    padding: 12px;
+    padding: 16px 12px;
     margin: 10px auto;
+    grid-template-columns: 1fr;
   }
 
   .detail-gallery {
