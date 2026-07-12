@@ -6,6 +6,7 @@ const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 const AGENT_PASSWORD = "Ab123456"; 
 
+// 🌟 อัปเดตลิงก์ Web App ตัวใหม่ล่าสุดของพี่ Get เรียบร้อยครับ
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
 const DEFAULT_CONTACT = {
@@ -39,7 +40,7 @@ const demoProperties = [
 ];
 
 let properties = loadProperties();
-let agents = loadAgents();
+let agents = []; 
 let activeFilter = "all";
 let currentAgent = null;
 
@@ -70,8 +71,6 @@ function loadProperties() {
 }
 
 function saveProperties() { localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); }
-function loadAgents() { const saved = localStorage.getItem(AGENTS_STORAGE_KEY); return saved ? JSON.parse(saved) : []; }
-function saveAgents() { localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(agents)); }
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
 function splitList(value) { return value.split("|").map((item) => item.trim()).filter(Boolean); }
 
@@ -95,16 +94,8 @@ function applyAgentContact(contact) {
     };
     phoneBtn.setAttribute("title", "คลิกเพื่อดูเบอร์โทรศัพท์: " + contact.phone);
   }
-  
-  const lineLink = document.querySelector("#display-line-link");
-  if (lineLink) {
-    lineLink.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
-  }
-  
-  const fbLink = document.querySelector("#display-facebook-link");
-  if (fbLink) {
-    fbLink.href = contact.facebook || "#";
-  }
+  document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
+  document.querySelector("#display-facebook-link").href = contact.facebook || "#";
 }
 
 function fileToBase64(file) {
@@ -215,15 +206,14 @@ if (agentRegisterForm) {
       submittedAt: new Date().toISOString()
     };
 
-    agents.push(newAgent);
-    saveAgents();
-    regMessage.textContent = "ส่งเอกสารลงทะเบียนเรียบร้อยแล้วค่ะ รอแอดมินอนุมัติสิทธิ์ระบบ";
-    agentRegisterForm.reset();
-
     try {
       await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newAgent) });
+      regMessage.textContent = "ส่งเอกสารลงทะเบียนเรียบร้อยแล้วค่ะ รอแอดมินอนุมัติสิทธิ์ระบบ";
+      agentRegisterForm.reset();
       await fetchOnlineAgents();
-    } catch (err) { console.error(err); }
+    } catch (err) { 
+      console.error(err); 
+    }
   });
 }
 
@@ -239,43 +229,46 @@ if (leadForm) {
       submittedAt: new Date().toISOString()
     };
 
-    const savedLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || "[]");
-    localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify([lead, ...savedLeads]));
-    leadMessage.classList.remove("error");
-    leadMessage.textContent = "บันทึกข้อมูลเรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
-    leadForm.reset();
-
-    if (currentAgent) renderAgentLeads(currentAgent.id);
     try {
       await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
-    } catch { leadMessage.classList.add("error"); }
+      leadMessage.classList.remove("error");
+      leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
+      leadForm.reset();
+      if (currentAgent) renderAgentLeads(currentAgent.id);
+    } catch { 
+      leadMessage.classList.add("error"); 
+    }
   });
 }
 
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
-  const allLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || "[]");
-  const agentLeads = allLeads.filter(lead => lead.agentId === agentId);
-
-  if (agentLeads.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
-    return;
-  }
-  tableBody.innerHTML = agentLeads.map(lead => {
-    const dateValue = lead.submittedAt || lead.date || new Date().toISOString();
-    const formattedDate = new Date(dateValue).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
-    return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
-      <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
-      <td style="padding:14px;">${lead.phone || '-'}</td>
-      <td style="padding:14px;">${lead.line || '-'}</td>
-      <td style="padding:14px;">${lead.interest || '-'}</td>
-      <td style="padding:14px; color:var(--muted); font-size:13px;">${formattedDate}</td>
-    </tr>`;
-  }).join("");
+  
+  fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getLeads&agentId=${agentId}`)
+    .then(res => res.json())
+    .then(agentLeads => {
+      if (!agentLeads || agentLeads.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
+        return;
+      }
+      tableBody.innerHTML = agentLeads.map(lead => {
+        const dateValue = lead.submittedAt || lead.date || new Date().toISOString();
+        const formattedDate = new Date(dateValue).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
+        return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
+          <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
+          <td style="padding:14px;">${lead.phone || '-'}</td>
+          <td style="padding:14px;">${lead.line || '-'}</td>
+          <td style="padding:14px;">${lead.interest || '-'}</td>
+          <td style="padding:14px; color:var(--muted); font-size:13px;">${formattedDate}</td>
+        </tr>`;
+      }).join("");
+    })
+    .catch(() => {
+      tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
+    });
 }
 
-// 🌟 ฟังก์ชันเรนเดอร์รายชื่อตารางลูกทีมดึงกลับมาใช้งานตามปกติอย่างปลอดภัย
 function renderSubTeams(agentId) {
   const tableBody = document.querySelector("#agent-subteams-table-body");
   if (!tableBody) return;
@@ -338,8 +331,7 @@ async function fetchOnlineAgents() {
       }
     }
   } catch (err) { 
-    console.log("Hybrid Sync Active:", err);
-    agents = loadAgents(); 
+    console.log("Error online synchronization:", err);
   }
 }
 
@@ -349,15 +341,18 @@ if (adminAgentsList) {
     const deleteBtn = event.target.closest("[data-delagent]");
     if (approveBtn) {
       const id = approveBtn.dataset.approve;
-      agents = agents.map(a => a.id === id ? { ...a, status: "approved" } : a);
-      saveAgents(); renderAdminAgents(); checkAgentRoute();
-      try { await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); } catch(e){}
+      try { 
+        await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); 
+        await fetchOnlineAgents();
+      } catch(e){}
     }
     if (deleteBtn) {
       const id = deleteBtn.dataset.delagent;
       if (confirm("ยืนยันการลบสิทธิ์ตัวแทนรายนี้ออกหรือไม่?")) {
-        agents = agents.filter(a => a.id !== id); saveAgents(); renderAdminAgents(); checkAgentRoute();
-        try { await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); } catch(e){}
+        try { 
+          await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); 
+          await fetchOnlineAgents();
+        } catch(e){}
       }
     }
   });
@@ -387,7 +382,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
   const message = document.querySelector("#login-message");
   const headingTitle = document.querySelector("#admin-title-heading");
 
-  if (message) message.textContent = "กำลังซิงค์ฐานข้อมูลสายงาน...";
+  if (message) message.textContent = "กำลังเชื่อมต่อคลาวด์เซิร์ฟเวอร์...";
   await fetchOnlineAgents();
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
@@ -416,7 +411,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
     
     renderAgentLeads(memberAgent.id);
-    renderSubTeams(memberAgent.id); // 🌟 เรียกให้โหลดตารางลูกทีมขึ้นมาทำหน้าที่ทันที
+    renderSubTeams(memberAgent.id); 
     return;
   }
   message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
@@ -424,8 +419,8 @@ document.querySelector("#login-button").addEventListener("click", async () => {
 
 function renderAdminItems() { if (!adminItems) return; adminItems.innerHTML = properties.map((item) => ` <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line);"> <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> <div> <h4 style="margin:0 0 4px 0;">${item.title}</h4> <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> <div class="admin-actions"> <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> </div> </div> </article> `).join(""); }
 function fillForm(item) { document.querySelector("#property-id").value = item.id; document.querySelector("#property-type").value = item.type; document.querySelector("#property-price").value = item.price; document.querySelector("#property-title").value = item.title; document.querySelector("#property-location").value = item.location; document.querySelector("#property-description").value = item.description; document.querySelector("#property-features").value = (item.features || []).join(" | "); document.querySelector("#property-images").value = (item.images || []).join(" | "); document.querySelector("#property-video").value = item.video || ""; }
-function resetForm() { if (propertyForm) propertyForm.reset(); document.querySelector("#property-id").value = ""; }
 
-checkAgentRoute();
-renderProperties();
-fetchOnlineAgents();
+fetchOnlineAgents().then(() => {
+  checkAgentRoute();
+  renderProperties();
+});
