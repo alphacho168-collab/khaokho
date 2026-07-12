@@ -2,7 +2,6 @@ const STORAGE_KEY = "khaokho-estate-properties";
 const LEADS_STORAGE_KEY = "khaokho-estate-leads";
 const AGENTS_STORAGE_KEY = "khaokho-estate-agents"; 
 
-// เปลี่ยนข้อมูลการล็อกอินแอดมินตามที่สั่ง
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 
@@ -39,7 +38,7 @@ const demoProperties = [
     price: "เริ่มต้น 3,200,000 บาท/ไร่",
     description:
       "ที่ดินโฉนดพร้อมโอน วิวภูเขาสลับซับซ้อน อากาศเย็นสบายทั้งปี เหมาะสร้างพูลวิลล่า รีสอร์ตขนาดเล็ก คาเฟ่วิวหมอก หรือถือครองเพื่อการลงทุน",
-    features: ["โฉนดครุฑแดง", "แบ่งขาย 2-12 ไร่", "ถนนเข้าถึง", "ไฟฟ้าพร้อม"],
+    features: ["โฉนดครุฑแดง", "แบ่งขาย 2-12 ไร่", "ถนนเข้าถึง"],
     images: [
       "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85"
@@ -137,7 +136,6 @@ function renderProperties() {
 
   propertyContainer.innerHTML = visible
     .map((item) => {
-      // ปรับภาพปกหลักสำรองให้ชี้ไปที่รูป khao-kho-hero.png หน้าแรกของ GitHub
       const image = item.images?.[0] || "khao-kho-hero.png";
       const features = (item.features || []).slice(0, 3).map((feature) => `<span>${feature}</span>`).join("");
       return `
@@ -379,11 +377,9 @@ document.querySelector(".close-detail").addEventListener("click", () => { detail
 document.querySelector("#admin-open").addEventListener("click", () => { adminModal.hidden = false; });
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
 
-// จัดการปุ่มเปิดปิดสำหรับ Modal Sign up ทีมงานให้ตอบสนองสมบูรณ์
 document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; });
 document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
 
-// ฟังก์ชัน Login แอดมินหลักแบบระบุ 2 ช่อง Username & Password
 document.querySelector("#login-button").addEventListener("click", () => {
   const username = document.querySelector("#admin-username").value.trim();
   const password = document.querySelector("#admin-password").value;
