@@ -75,15 +75,25 @@ function saveAgents() { localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
 function splitList(value) { return value.split("|").map((item) => item.trim()).filter(Boolean); }
 
+// 🌟 ปรับปรุงการเช็กเส้นทางลิงก์ตัวแทนให้จำค่าลงระบบได้แม่นยำขึ้น
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
   if (agentId) {
     const agent = agents.find(a => a.id === agentId && a.status === "approved");
-    if (agent) { currentAgent = agent; applyAgentContact(agent); return; }
+    if (agent) { 
+      currentAgent = agent; 
+      applyAgentContact(agent); 
+      // ใส่ชื่อผู้แนะนำลงในฟอร์มสมัครสมาชิกให้เห็นชัดเจน
+      const regParentLabel = document.querySelector("#reg-parent-label");
+      if (regParentLabel) regParentLabel.textContent = agent.name;
+      return; 
+    }
   }
   currentAgent = null;
   applyAgentContact(DEFAULT_CONTACT);
+  const regParentLabel = document.querySelector("#reg-parent-label");
+  if (regParentLabel) regParentLabel.textContent = "บริษัท (Master)";
 }
 
 function applyAgentContact(contact) {
@@ -91,12 +101,18 @@ function applyAgentContact(contact) {
   if (phoneBtn) {
     phoneBtn.href = "javascript:void(0);";
     phoneBtn.onclick = function() {
-      alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈\n\nคุณสามารถคัดลอกหมายเลขนี้เพื่อนำไปโทรติดต่อได้ทันทีค่ะ");
+      alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈");
     };
     phoneBtn.setAttribute("title", "คลิกเพื่อดูเบอร์โทรศัพท์: " + contact.phone);
   }
-  document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
-  document.querySelector("#display-facebook-link").href = contact.facebook || "#";
+  const lineLink = document.querySelector("#display-line-link");
+  if (lineLink) {
+    lineLink.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
+  }
+  const fbLink = document.querySelector("#display-facebook-link");
+  if (fbLink) {
+    fbLink.href = contact.facebook || "#";
+  }
 }
 
 function fileToBase64(file) {
@@ -129,48 +145,6 @@ function renderProperties() {
       </article>
     `;
   }).join("");
-  if (!visible.length) propertyContainer.innerHTML = `<p class="form-note" style="grid-column: 1/-1; text-align:center;">ยังไม่มีรายการในหมวดนี้</p>`;
-}
-
-function openDetail(id) {
-  const item = properties.find((property) => property.id === id);
-  if (!item) return;
-
-  const detailFeaturesHtml = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
-  const detailGalleryHtml = (item.images || []).map((image) => `<img src="${image}" alt="${item.title}" loading="lazy" />`).join("");
-  const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
-
-  detailPanel.innerHTML = `
-    <div class="detail-shell">
-      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
-      <div class="detail-gallery">${detailGalleryHtml}</div>
-      <div class="detail-copy">
-        <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
-        <h2>${item.title}</h2>
-        <p class="detail-location">${item.location}</p>
-        <p class="detail-price">${item.price}</p>
-        <p>${item.description}</p>
-        <ul class="feature-list">${detailFeaturesHtml}</div>
-        <div class="video-wrap">${detailVideoHtml}</div>
-        <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;">สนใจทรัพย์นี้</button>
-          <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
-        </div>
-      </div>
-    </div>
-  `;
-
-  detailPanel.hidden = false;
-  detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  document.querySelector("#popup-interest-cta").addEventListener("click", () => {
-    detailPanel.hidden = true;
-    const contactSection = document.querySelector("#contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(() => { document.querySelector("#lead-name").focus(); }, 400);
-    }
-  });
 }
 
 if (agentRegisterForm) {
@@ -183,10 +157,12 @@ if (agentRegisterForm) {
     let slipBase64 = "";
     if (fileInput) slipBase64 = await fileToBase64(fileInput);
 
-    // คำนวณวันหมดอายุเริ่มต้นเบื้องต้น 1 ปีนับจากวันกรอกฟอร์มลงทะเบียน
     const today = new Date();
     const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
     const initialExpireStr = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
+
+    // ตรวจสอบคีย์ผู้แนะนำให้ล็อกกับตัวแทนเจ้าของลิงก์จริง ๆ
+    const parent = currentAgent ? currentAgent.id : "master";
 
     const newAgent = {
       id: 'ag-' + Math.random().toString(36).substr(2, 9),
@@ -197,7 +173,7 @@ if (agentRegisterForm) {
       facebook: document.querySelector("#reg-facebook").value.trim(),
       slip: slipBase64,
       status: "pending",
-      parentId: currentAgent ? currentAgent.id : "master",
+      parentId: parent,
       expireAt: initialExpireStr,
       submittedAt: new Date().toISOString()
     };
@@ -263,6 +239,8 @@ function renderAgentLeads(agentId) {
 function renderSubTeams(agentId) {
   const tableBody = document.querySelector("#agent-subteams-table-body");
   if (!tableBody) return;
+  
+  // กรองหาลูกทีมที่สมัครต่อจาก agentId นี้
   const subAgents = agents.filter(a => a.parentId === agentId);
 
   if (subAgents.length === 0) {
@@ -287,20 +265,12 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
-// 🌟 ปรับปรุงการแสดงผลฝั่งแอดมินหลัก ให้นำ "วันที่หมดอายุจริง (expireAt)" มาโชว์แทนค่าข้อความแบบกว้าง ๆ 
 function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   adminAgentsList.innerHTML = agents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    
-    // หากมีค่าวันที่หมดอายุออนไลน์จากระบบ ให้ดึงมาแสดงผลทันที หรือหากไม่มีให้คำนวณแบบสากลเผื่อไว้
-    let displayExpire = agent.expireAt;
-    if (!displayExpire || displayExpire === "-" || displayExpire === "1 ปีนับจากวันอนุมัติ") {
-      const today = new Date();
-      const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
-      displayExpire = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
-    }
+    let displayExpire = agent.expireAt || "1 ปีนับจากวันอนุมัติ";
 
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink);">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
@@ -325,6 +295,7 @@ async function fetchOnlineAgents() {
       if (onlineAgents && onlineAgents.length > 0) { 
         agents = onlineAgents; 
         saveAgents(); 
+        checkAgentRoute(); // รีแมปเช็กสถานะสายงานหลังได้ข้อมูลใหม่
         if (!adminPanel.hidden) renderAdminAgents(); 
       }
     }
@@ -369,7 +340,7 @@ document.querySelector("#admin-open").addEventListener("click", async () => {
   await fetchOnlineAgents();
 });
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
-document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; });
+document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; checkAgentRoute(); });
 document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
 
 document.querySelector("#login-button").addEventListener("click", async () => {
@@ -400,19 +371,13 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     document.querySelector("#back-agent-full-url").textContent = myShareLink;
     document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
     document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
-    
-    // ซิงค์วันที่หมดอายุตัวแทนแบบเฉพาะตัวเลขวันที่ไปโชว์ที่ฝั่งแดชบอร์ดส่วนตัวของลูกทีมด้วยเช่นกัน
-    let userExpire = memberAgent.expireAt;
-    if (!userExpire || userExpire === "-" || userExpire === "1 ปีนับจากวันอนุมัติ") {
-      const today = new Date();
-      const nextYear = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
-      userExpire = nextYear.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
-    }
-    document.querySelector("#back-agent-expire").textContent = userExpire;
+    document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt || "1 ปีนับจากวันอนุมัติ";
 
     agentDashboardPanel.hidden = false;
     agentDashboardName.textContent = memberAgent.name;
     headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
+    
+    // โหลดตารางสายงาน
     renderAgentLeads(memberAgent.id);
     renderSubTeams(memberAgent.id); 
     return;
@@ -421,9 +386,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
 });
 
 function renderAdminItems() { if (!adminItems) return; adminItems.innerHTML = properties.map((item) => ` <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line);"> <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> <div> <h4 style="margin:0 0 4px 0;">${item.title}</h4> <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> <div class="admin-actions"> <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> </div> </div> </article> `).join(""); }
-function fillForm(item) { document.querySelector("#property-id").value = item.id; document.querySelector("#property-type").value = item.type; document.querySelector("#property-price").value = item.price; document.querySelector("#property-title").value = item.title; document.querySelector("#property-location").value = item.location; document.querySelector("#property-description").value = item.description; document.querySelector("#property-features").value = (item.features || []).join(" | "); document.querySelector("#property-images").value = (item.images || []).join(" | "); document.querySelector("#property-video").value = item.video || ""; }
 if (leadForm) { leadForm.addEventListener("submit", handleLeadSubmit); }
-document.querySelector("#reset-form").addEventListener("click", resetForm);
 
 checkAgentRoute();
 renderProperties();
