@@ -44,22 +44,6 @@ let agents = [];
 let activeFilter = "all";
 let currentAgent = null;
 
-const propertyContainer = document.querySelector("#properties");
-const statCount = document.querySelector("#stat-count");
-const detailPanel = document.querySelector("#detail-panel");
-const adminModal = document.querySelector("#admin-modal");
-const adminPanel = document.querySelector("#admin-panel");
-const adminLogin = document.querySelector("#admin-login");
-const adminItems = document.querySelector("#admin-items");
-const propertyForm = document.querySelector("#property-form");
-const leadForm = document.querySelector("#lead-form");
-const leadMessage = document.querySelector("#lead-message");
-
-const agentRegisterModal = document.querySelector("#agent-register-modal");
-const agentRegisterForm = document.querySelector("#agent-register-form");
-const regMessage = document.querySelector("#reg-message");
-const adminAgentsList = document.querySelector("#admin-agents-list");
-
 function createId() {
   return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
@@ -81,7 +65,7 @@ function splitList(value) {
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
-  if (agentId) {
+  if (agentId && agents && agents.length > 0) {
     const agent = agents.find(a => a.id === agentId && a.status === "approved");
     if (agent) { currentAgent = agent; applyAgentContact(agent); return; }
   }
@@ -113,36 +97,44 @@ function fileToBase64(file) {
 }
 
 function renderProperties() {
+  const propertyContainer = document.querySelector("#properties");
   if (!propertyContainer) return;
   const visible = activeFilter === "all" ? properties : properties.filter((item) => item.type === activeFilter);
+  
+  const statCount = document.querySelector("#stat-count");
   if (statCount) statCount.textContent = properties.length.toString();
 
   propertyContainer.innerHTML = visible.map((item) => {
-    const image = item.images?.[0] || "khao-kho-hero.png";
+    const image = item.images?.[0] || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85";
     const features = (item.features || []).slice(0, 3).map((f) => `<span>${f}</span>`).join("");
     return `
-      <article class="property-card">
-        <figure><img src="${image}" alt="${item.title}" loading="lazy" /><span class="badge">${propertyTypeLabel(item.type)}</span></figure>
-        <div class="card-body">
-          <h3>${item.title}</h3>
-          <p class="location">${item.location}</p>
-          <p class="price">${item.price}</p>
-          <div class="mini-features">${features}</div>
-          <button class="button neutral" type="button" data-detail="${item.id}">ดูรายละเอียด</button>
+      <article class="property-card" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; margin-bottom: 15px;">
+        <figure><img src="${image}" alt="${item.title}" style="width:100%; height:200px; object-fit:cover; border-radius: 6px;" /><br><span class="badge" style="background:#0052cc; color:#fff; padding:2px 6px; border-radius:4px; font-size:12px;">${propertyTypeLabel(item.type)}</span></figure>
+        <div class="card-body" style="margin-top:10px;">
+          <h3 style="margin:0 0 5px 0;">${item.title}</h3>
+          <p class="location" style="color:#666; margin:0 0 5px 0; font-size:13px;">📍 ${item.location}</p>
+          <p class="price" style="color:green; font-weight:bold; margin:0 0 10px 0;">${item.price}</p>
+          <div class="mini-features" style="display:flex; gap:5px; flex-wrap:wrap; margin-bottom:10px; font-size:12px; color:#555;">${features}</div>
+          <button class="button neutral btn-click-detail" type="button" data-detail="${item.id}" style="width:100%; padding:8px; cursor:pointer;">ดูรายละเอียด</button>
         </div>
       </article>
     `;
   }).join("");
 }
 
-if (propertyContainer) {
-  propertyContainer.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-detail]");
-    if (button) openDetail(button.dataset.detail);
-  });
-}
+// ผูก Event การดูรายละเอียดทรัพย์แบบปลอดภัย
+document.addEventListener("click", (event) => {
+  const button = event.target.closest(".btn-click-detail");
+  if (button) {
+    event.preventDefault();
+    openDetail(button.dataset.detail);
+  }
+});
 
 function openDetail(id) {
+  const detailPanel = document.querySelector("#detail-panel");
+  if (!detailPanel) return;
+
   const item = properties.find((property) => property.id === id);
   if (!item) return;
 
@@ -156,20 +148,20 @@ function openDetail(id) {
   const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
 
   detailPanel.innerHTML = `
-    <div class="detail-shell">
-      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
-      <div class="detail-gallery" style="display:flex; flex-direction:column; gap:10px;">${detailGalleryHtml}</div>
+    <div class="detail-shell" style="background:#fff; padding:20px; border-radius:12px; max-width:600px; margin:20px auto; position:relative; box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+      <button class="close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" style="position:absolute; top:10px; right:15px; font-size:24px; border:none; background:none; cursor:pointer;">×</button>
+      <div class="detail-gallery">${detailGalleryHtml}</div>
       <div class="detail-copy" style="margin-top:16px;">
-        <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
-        <h2>${item.title}</h2>
-        <p class="detail-location">${item.location}</p>
-        <p class="detail-price" style="font-size:20px; color:var(--forest); font-weight:bold; margin:8px 0;">${item.price}</p>
+        <p style="color:#0052cc; font-weight:bold; margin:0;">${propertyTypeLabel(item.type)}</p>
+        <h2 style="margin:5px 0;">${item.title}</h2>
+        <p style="color:#666; font-size:14px;">📍 ${item.location}</p>
+        <p style="font-size:20px; color:green; font-weight:bold; margin:10px 0;">${item.price}</p>
         <p style="white-space: pre-line; line-height:1.6;">${item.description}</p>
-        <ul class="feature-list" style="margin:16px 0; padding-left:20px;">${detailFeaturesHtml}</ul>
-        <div class="video-wrap" style="margin-top:16px;">${detailVideoHtml}</div>
+        <ul style="margin:16px 0; padding-left:20px;">${detailFeaturesHtml}</ul>
+        <div class="video-wrap">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <button class="button primary" type="button" style="width:100%;" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
-          <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
+          <button type="button" style="width:100%; padding:10px; background:green; color:#fff; border:none; border-radius:6px; cursor:pointer;" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
+          <button onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; padding:10px; background:#eaeaea; color:#333; border:none; border-radius:6px; cursor:pointer;">ปิดหน้าต่างนี้</button>
         </div>
       </div>
     </div>
@@ -178,11 +170,13 @@ function openDetail(id) {
   detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+// ผูก Event ส่งแบบฟอร์มสมัครตัวแทนอย่างปลอดภัย
+const agentRegisterForm = document.querySelector("#agent-register-form");
 if (agentRegisterForm) {
   agentRegisterForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    regMessage.style.color = "var(--forest)";
-    regMessage.textContent = "กำลังส่งข้อมูลลงทะเบียนเว็บลูก...";
+    const regMessage = document.querySelector("#reg-message");
+    if (regMessage) { regMessage.style.color = "green"; regMessage.textContent = "กำลังส่งข้อมูลลงทะเบียนเว็บลูก..."; }
 
     const fileInput = document.querySelector("#reg-slip").files[0];
     let slipBase64 = "";
@@ -201,16 +195,19 @@ if (agentRegisterForm) {
 
     try {
       await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newAgent) });
-      regMessage.textContent = "ส่งเอกสารลงทะเบียนเรียบร้อยแล้วค่ะ รอแอดมินอนุมัติสิทธิ์ระบบ";
+      if (regMessage) regMessage.textContent = "ส่งเอกสารลงทะเบียนเรียบร้อยแล้วค่ะ รอแอดมินอนุมัติสิทธิ์ระบบ";
       agentRegisterForm.reset();
       await fetchOnlineAgents();
     } catch (err) { console.error(err); }
   });
 }
 
+// ผูก Event ส่งข้อมูลลูกค้า Lead
+const leadForm = document.querySelector("#lead-form");
 if (leadForm) {
   leadForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const leadMessage = document.querySelector("#lead-message");
     const lead = {
       name: document.querySelector("#lead-name").value.trim(),
       phone: document.querySelector("#lead-phone").value.trim(),
@@ -222,11 +219,10 @@ if (leadForm) {
 
     try {
       await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
-      leadMessage.classList.remove("error");
-      leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
+      if (leadMessage) { leadMessage.style.color = "green"; leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว"; }
       leadForm.reset();
     } catch { 
-      leadMessage.classList.add("error"); 
+      if (leadMessage) { leadMessage.style.color = "red"; leadMessage.textContent = "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"; }
     }
   });
 }
@@ -234,7 +230,7 @@ if (leadForm) {
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
-  tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
+  tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:#666;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
 }
 
 function renderSubTeams(agentId) {
@@ -243,16 +239,16 @@ function renderSubTeams(agentId) {
   const subAgents = agents.filter(a => a.parentId === agentId);
 
   if (subAgents.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="6" style="padding:12px; text-align:center; color:var(--muted);">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="6" style="padding:12px; text-align:center; color:#666;">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
     return;
   }
   tableBody.innerHTML = subAgents.map(sa => {
-    return `<tr style="border-bottom: 1px solid var(--line);">
+    return `<tr style="border-bottom: 1px solid #eee;">
       <td style="padding:12px; font-weight:bold;">${sa.name}</td>
       <td style="padding:12px;">${sa.phone}</td>
       <td style="padding:12px;">${sa.line}</td>
-      <td style="padding:12px;"><a href="${sa.facebook}" target="_blank" style="color: var(--forest-2); text-decoration:underline;">เปิดโปรไฟล์</a></td>
-      <td style="padding:12px; font-weight:bold; color:var(--danger);">${sa.expireAt || '-'}</td>
+      <td style="padding:12px;"><a href="${sa.facebook}" target="_blank" style="color: blue; text-decoration:underline;">เปิดโปรไฟล์</a></td>
+      <td style="padding:12px; font-weight:bold; color:red;">${sa.expireAt || '-'}</td>
       <td style="padding:12px;"><span style="color:${sa.status === 'approved' ? 'green' : 'orange'}; font-weight:bold;">${sa.status === 'approved' ? 'อนุมัติแล้ว' : 'รอแอดมินอนุมัติ'}</span></td>
     </tr>`;
   }).join("");
@@ -265,20 +261,21 @@ function viewSlipInModal(base64Data) {
 }
 
 function renderAdminAgents() {
+  const adminAgentsList = document.querySelector("#admin-agents-list");
   if (!adminAgentsList) return;
-  if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
+  if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p style="color:#666">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   adminAgentsList.innerHTML = agents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink);">
+    return `<div style="background:#f9f9f9; padding:14px; border:1px solid #ccc; border-radius:8px; margin-bottom:12px; font-size:14px; color:#333;">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
       โทร: ${agent.phone} | Line: ${agent.line}<br>
-      <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
-      <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
-      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
+      <span style="color: green; font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
+      <span style="color: #666">ผู้แนะนำ: ${agent.parentId}</span><br>
+      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:blue; text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
-        ${agent.slip ? `<button class="button neutral btn-view-slip" data-slipdata="${agent.slip}" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
-        ${agent.status === 'pending' ? `<button class="button primary btn-approve-agent" data-id="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
-        <button class="button danger btn-delete-agent" data-id="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
+        ${agent.slip ? `<button type="button" class="btn-view-slip" data-slipdata="${agent.slip}" style="padding:4px 8px; font-size:12px; cursor:pointer;">ดูรูปสลิป</button>` : ''}
+        ${agent.status === 'pending' ? `<button type="button" class="btn-approve-agent" data-id="${agent.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:green; color:#fff; border:none; border-radius:4px;">อนุมัติเปิดระบบ</button>` : ''}
+        <button type="button" class="btn-delete-agent" data-id="${agent.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:red; color:#fff; border:none; border-radius:4px;">ลบ</button>
       </div>
     </div>`;
   }).join("");
@@ -292,22 +289,22 @@ async function fetchOnlineAgents() {
       if (onlineAgents) { 
         agents = onlineAgents; 
         checkAgentRoute(); 
-        if (!adminPanel.hidden) renderAdminAgents(); 
+        const adminPanel = document.querySelector("#admin-panel");
+        if (adminPanel && !adminPanel.hidden) renderAdminAgents(); 
       }
     }
   } catch (err) { console.log(err); }
 }
 
-// 🌟 ปรับปรุงการกดปุ่มตรงส่วนจัดการสิทธิ์โดยระบุ Class เจาะจง ป้องกันกล่องเด้งชนกัน
+// ผูกระบบจัดการสิทธิ์ตัวแทนหลังบ้านอย่างปลอดภัย
+const adminAgentsList = document.querySelector("#admin-agents-list");
 if (adminAgentsList) {
   adminAgentsList.addEventListener("click", async (event) => {
     const viewSlipBtn = event.target.closest(".btn-view-slip");
     const approveBtn = event.target.closest(".btn-approve-agent");
     const deleteBtn = event.target.closest(".btn-delete-agent");
     
-    if (viewSlipBtn) {
-      viewSlipInModal(viewSlipBtn.dataset.slipdata);
-    }
+    if (viewSlipBtn) viewSlipInModal(viewSlipBtn.dataset.slipdata);
     if (approveBtn) {
       const id = approveBtn.dataset.id;
       try { 
@@ -327,81 +324,135 @@ if (adminAgentsList) {
   });
 }
 
-document.querySelectorAll(".filter").forEach((button) => {
-  button.addEventListener("click", () => {
+// ผูกตัวกรองประเภททรัพย์
+document.addEventListener("click", (e) => {
+  const filterBtn = e.target.closest(".filter");
+  if (filterBtn) {
     document.querySelectorAll(".filter").forEach((item) => item.classList.remove("active"));
-    button.classList.add("active");
-    activeFilter = button.dataset.filter;
+    filterBtn.classList.add("active");
+    activeFilter = filterBtn.dataset.filter;
     renderProperties();
+  }
+});
+
+// เปิด-ปิด Modals
+const adminOpenBtn = document.querySelector("#admin-open");
+if (adminOpenBtn) {
+  adminOpenBtn.addEventListener("click", async () => { 
+    const adminLogin = document.querySelector("#admin-login");
+    const adminPanel = document.querySelector("#admin-panel");
+    const agentDashboard = document.querySelector("#agent-dashboard-panel");
+    const adminModal = document.querySelector("#admin-modal");
+
+    if (adminLogin) adminLogin.hidden = false; 
+    if (adminPanel) adminPanel.hidden = true; 
+    if (agentDashboard) agentDashboard.hidden = true;
+    if (adminModal) adminModal.hidden = false; 
+    await fetchOnlineAgents();
   });
-});
+}
 
-document.querySelector("#admin-open").addEventListener("click", async () => { 
-  adminLogin.hidden = false; adminPanel.hidden = true; document.querySelector("#agent-dashboard-panel").hidden = true;
-  adminModal.hidden = false; 
-  await fetchOnlineAgents();
-});
-document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
-document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; checkAgentRoute(); });
-document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
+const adminCloseBtn = document.querySelector("#admin-close");
+if (adminCloseBtn) {
+  adminCloseBtn.addEventListener("click", () => {
+    const adminModal = document.querySelector("#admin-modal");
+    if (adminModal) adminModal.hidden = true;
+  });
+}
 
-document.querySelector("#login-button").addEventListener("click", async () => {
-  const username = document.querySelector("#admin-username").value.trim();
-  const password = document.querySelector("#admin-password").value;
-  const message = document.querySelector("#login-message");
-  const headingTitle = document.querySelector("#admin-title-heading");
+const agentRegisterOpenBtn = document.querySelector("#agent-register-open");
+if (agentRegisterOpenBtn) {
+  agentRegisterOpenBtn.addEventListener("click", () => {
+    const regModal = document.querySelector("#agent-register-modal");
+    if (regModal) regModal.hidden = false; 
+    checkAgentRoute();
+  });
+}
 
-  if (message) message.textContent = "กำลังเชื่อมต่อคลาวด์เซิร์ฟเวอร์...";
-  await fetchOnlineAgents();
+const agentRegisterCloseBtn = document.querySelector("#agent-register-close");
+if (agentRegisterCloseBtn) {
+  agentRegisterCloseBtn.addEventListener("click", () => {
+    const regModal = document.querySelector("#agent-register-modal");
+    if (regModal) regModal.hidden = true;
+  });
+}
 
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    if (message) message.textContent = ""; 
-    adminLogin.hidden = true; adminPanel.hidden = false; document.querySelector("#agent-dashboard-panel").hidden = true;
-    headingTitle.textContent = "ระบบหลังบ้านแอดมิน (เว็บแม่)";
-    renderAdminItems(); renderAdminAgents(); return;
-  }
+// ปุ่มล็อกอินระบบหลังบ้าน
+const loginBtn = document.querySelector("#login-button");
+if (loginBtn) {
+  loginBtn.addEventListener("click", async () => {
+    const username = document.querySelector("#admin-username").value.trim();
+    const password = document.querySelector("#admin-password").value;
+    const message = document.querySelector("#login-message");
+    const headingTitle = document.querySelector("#admin-title-heading");
+    const adminLogin = document.querySelector("#admin-login");
+    const adminPanel = document.querySelector("#admin-panel");
 
-  const memberAgent = agents.find(a => a.phone === username && a.status === "approved");
-  if (memberAgent && password === AGENT_PASSWORD) {
-    if (message) message.textContent = ""; 
-    adminLogin.hidden = true; adminPanel.hidden = true;
-    
-    const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
-    const agentDashboardName = document.querySelector("#agent-dashboard-name");
-    
-    document.querySelector("#back-agent-full-url").textContent = `${window.location.origin}${window.location.pathname}?agent=${memberAgent.id}`;
-    document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
-    document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
-    document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt;
+    if (message) message.textContent = "กำลังเชื่อมต่อคลาวด์เซิร์ฟเวอร์...";
+    await fetchOnlineAgents();
 
-    agentDashboardPanel.hidden = false;
-    agentDashboardName.textContent = memberAgent.name;
-    headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
-    
-    renderAgentLeads(memberAgent.id);
-    renderSubTeams(memberAgent.id); 
-    return;
-  }
-  message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
-});
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      if (message) message.textContent = ""; 
+      if (adminLogin) adminLogin.hidden = true; 
+      if (adminPanel) adminPanel.hidden = false; 
+      const agentDashboard = document.querySelector("#agent-dashboard-panel");
+      if (agentDashboard) agentDashboard.hidden = true;
+      if (headingTitle) headingTitle.textContent = "ระบบหลังบ้านแอดมิน (เว็บแม่)";
+      renderAdminItems(); renderAdminAgents(); return;
+    }
+
+    const memberAgent = agents.find(a => a.phone === username && a.status === "approved");
+    if (memberAgent && password === AGENT_PASSWORD) {
+      if (message) message.textContent = ""; 
+      if (adminLogin) adminLogin.hidden = true; 
+      if (adminPanel) adminPanel.hidden = true;
+      
+      const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
+      const agentDashboardName = document.querySelector("#agent-dashboard-name");
+      
+      const backUrl = document.querySelector("#back-agent-full-url");
+      if (backUrl) backUrl.textContent = `${window.location.origin}${window.location.pathname}?agent=${memberAgent.id}`;
+      
+      const bLine = document.querySelector("#back-agent-line-link");
+      if (bLine) bLine.textContent = memberAgent.line;
+      
+      const bFb = document.querySelector("#back-agent-fb-link");
+      if (bFb) bFb.textContent = memberAgent.facebook;
+      
+      const bExp = document.querySelector("#back-agent-expire");
+      if (bExp) bExp.textContent = memberAgent.expireAt;
+
+      if (agentDashboardPanel) agentDashboardPanel.hidden = false;
+      if (agentDashboardName) agentDashboardName.textContent = memberAgent.name;
+      if (headingTitle) headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
+      
+      renderAgentLeads(memberAgent.id);
+      renderSubTeams(memberAgent.id); 
+      return;
+    }
+    if (message) message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
+  });
+}
 
 function renderAdminItems() { 
+  const adminItems = document.querySelector("#admin-items");
   if (!adminItems) return; 
   adminItems.innerHTML = properties.map((item) => `
-    <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line);"> 
-      <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
+    <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid #eee;"> 
+      <img src="${item.images?.[0] || 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
       <div> 
         <h4 style="margin:0 0 4px 0;">${item.title}</h4> 
-        <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> 
+        <p style="margin:0 0 6px 0; font-size:13px; color:#666;">${propertyTypeLabel(item.type)} · ${item.price}</p> 
         <div class="admin-actions"> 
-          <button class="button neutral data-btn-edit" type="button" data-id="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> 
-          <button class="button danger data-btn-delete" type="button" data-id="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> 
+          <button class="data-btn-edit" type="button" data-id="${item.id}" style="padding:4px 8px; font-size:12px; cursor:pointer;">แก้ไข</button> 
+          <button class="data-btn-delete" type="button" data-id="${item.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:red; color:#fff; border:none; border-radius:4px;">ลบ</button> 
         </div> 
       </div> 
     </article>
   `).join(""); 
 }
 
+const propertyForm = document.querySelector("#property-form");
 if (propertyForm) {
   propertyForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -430,6 +481,7 @@ if (propertyForm) {
   });
 }
 
+const adminItems = document.querySelector("#admin-items");
 if (adminItems) {
   adminItems.addEventListener("click", (event) => {
     const editBtn = event.target.closest(".data-btn-edit");
@@ -464,8 +516,10 @@ function fillForm(item) {
 }
 
 function resetForm() { 
-  if (propertyForm) propertyForm.reset(); 
-  document.querySelector("#property-id").value = ""; 
+  const pForm = document.querySelector("#property-form");
+  if (pForm) pForm.reset(); 
+  const pId = document.querySelector("#property-id");
+  if (pId) pId.value = ""; 
 }
 
 const resetBtn = document.querySelector("#reset-form");
@@ -484,7 +538,10 @@ if (restoreBtn) {
   });
 }
 
-fetchOnlineAgents().then(() => {
-  checkAgentRoute();
-  renderProperties();
+// เริ่มรันระบบออนไลน์เมื่อโหลดเสร็จอย่างปลอดภัย
+window.addEventListener("DOMContentLoaded", () => {
+  fetchOnlineAgents().then(() => {
+    checkAgentRoute();
+    renderProperties();
+  });
 });
