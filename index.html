@@ -1,4 +1,60 @@
-<section class="intro-band" id="experience">
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KHAO KHO PRIME ESTATE | พูลวิลล่าและที่ดินวิวภูเขา</title>
+    <meta
+      name="description"
+      content="ขายพูลวิลล่าและที่ดินบนเขาค้อ วิวภูเขา อากาศดี พร้อมรูปภาพ วิดีโอ ราคา และระบบจัดการข้อมูล"
+    />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="กลับหน้าหลัก">
+        <img class="brand-logo" src="assets/khao-kho-prime-logo.png" alt="KHAO KHO PRIME ESTATE logo" />
+        <span>
+          <strong>KHAO KHO PRIME ESTATE</strong>
+          <small>พูลวิลล่าและที่ดินวิวภูเขา</small>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="เมนูหลัก">
+        <a href="#properties">ทรัพย์เด่น</a>
+        <a href="#experience">บรรยากาศ</a>
+        <a class="nav-cta" href="#contact">นัดชมสถานที่</a>
+        <button class="admin-trigger" type="button" id="agent-register-open" style="border-color: var(--gold); color: var(--gold);">Sign up</button>
+        <button class="admin-trigger" type="button" id="admin-open">Login</button>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <img src="khao-kho-hero.png" alt="วิวภูเขาและทะเลหมอกเขาค้อ" />
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">เขาค้อ เพชรบูรณ์</p>
+          <h1>พูลวิลล่าและที่ดินวิวภูเขา อากาศดีเหมือนสวิตเซอร์แลนด์เมืองไทย</h1>
+          <p>
+            คัดทรัพย์ทำเลสวยสำหรับบ้านพักตากอากาศ รีสอร์ตส่วนตัว และการลงทุนระยะยาว
+            พร้อมภาพ ราคา รายละเอียด และช่องทางนัดชมครบในที่เดียว
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#properties">ดูทรัพย์พร้อมขาย</a>
+            <a class="button ghost" href="#contact">สอบถามกับทีมขาย</a>
+          </div>
+          <div class="hero-stats" aria-label="ข้อมูลเด่น">
+            <span><strong id="stat-count">0</strong> รายการ</span>
+            <span><strong>850-1,200 ม.</strong> เหนือระดับทะเล</span>
+            <span><strong>360°</strong> วิวภูเขา</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-band" id="experience">
         <div class="intro-left-box">
           <p class="section-kicker">KHAO KHO LIFESTYLE & INVESTMENT</p>
           <h2>ใช้ชีวิตท่ามกลางทะเลหมอก สูดอากาศบริสุทธิ์ได้ทุกวัน</h2>
@@ -35,3 +91,235 @@
           </div>
         </div>
       </section>
+
+      <section class="filters" aria-label="ตัวกรองทรัพย์">
+        <button class="filter active" type="button" data-filter="all">ทั้งหมด</button>
+        <button class="filter" type="button" data-filter="villa">พูลวิลล่า</button>
+        <button class="filter" type="button" data-filter="land">ที่ดิน</button>
+      </section>
+
+      <section class="properties" id="properties" aria-live="polite"></section>
+
+      <section class="detail-panel" id="detail-panel" hidden>
+        <div class="detail-shell">
+          <button class="icon-button close-detail" type="button" aria-label="ปิดรายละเอียด">×</button>
+          <div class="detail-gallery" id="detail-gallery"></div>
+          <div class="detail-copy">
+            <p class="section-kicker" id="detail-type"></p>
+            <h2 id="detail-title"></h2>
+            <p class="detail-location" id="detail-location"></p>
+            <p class="detail-price" id="detail-price"></p>
+            <p id="detail-description"></p>
+            <ul class="feature-list" id="detail-features"></ul>
+            <div class="video-wrap" id="detail-video"></div>
+            <a class="button primary" href="#contact">สนใจทรัพย์นี้</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-modal" id="admin-modal" hidden>
+        <div class="admin-dialog">
+          <button class="icon-button close-admin" type="button" id="admin-close" aria-label="ปิดระบบหลังบ้าน">×</button>
+          <div class="section-heading">
+            <p class="section-kicker">ระบบหลังบ้าน</p>
+            <h2>จัดการรายการทรัพย์และทีมงาน</h2>
+          </div>
+
+          <div class="admin-login" id="admin-login">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <label>
+                ชื่อผู้ใช้งาน (Username)
+                <input id="admin-username" type="text" placeholder="ใส่ชื่อผู้ใช้งานแอดมิน" />
+              </label>
+              <label>
+                รหัสผ่าน (Password)
+                <input id="admin-password" type="password" placeholder="ใส่รหัสผ่านแอดมิน" />
+              </label>
+              <button class="button primary" type="button" id="login-button" style="width: 100%; margin-top: 6px;">เข้าสู่ระบบ</button>
+            </div>
+            <p class="form-note" id="login-message"></p>
+          </div>
+
+          <div class="admin-grid" id="admin-panel" hidden>
+            <form class="property-form" id="property-form">
+              <input type="hidden" id="property-id" />
+              <div class="form-row two">
+                <label>
+                  ประเภท
+                  <select id="property-type">
+                    <option value="villa">พูลวิลล่า</option>
+                    <option value="land">ที่ดิน</option>
+                  </select>
+                </label>
+                <label>
+                  ราคา
+                  <input id="property-price" type="text" placeholder="เช่น 18,900,000 บาท" required />
+                </label>
+              </div>
+              <label>
+                ชื่อทรัพย์
+                <input id="property-title" type="text" placeholder="เช่น พูลวิลล่าวิวทะเลหมอก" required />
+              </label>
+              <label>
+                ทำเล
+                <input id="property-location" type="text" placeholder="เช่น แคมป์สน เขาค้อ" required />
+              </label>
+              <label>
+                รายละเอียด
+                <textarea id="property-description" rows="5" placeholder="เล่าจุดเด่น บรรยากาศ และพื้นที่ใช้สอย" required></textarea>
+              </label>
+              <label>
+                จุดเด่น
+                <input id="property-features" type="text" placeholder="คั่นแต่ละรายการด้วย |" />
+              </label>
+              <label>
+                รูปภาพ
+                <textarea id="property-images" rows="4" placeholder="https://...jpg | https://...jpg"></textarea>
+              </label>
+              <label>
+                วิดีโอ YouTube embed
+                <input id="property-video" type="url" placeholder="https://www.youtube.com/embed/..." />
+              </label>
+              <div class="form-actions">
+                <button class="button primary" type="submit">บันทึกข้อมูล</button>
+                <button class="button neutral" type="button" id="reset-form">ล้างฟอร์ม</button>
+              </div>
+            </form>
+
+            <div class="admin-grid-right" style="display: flex; flex-direction: column; gap: 22px;">
+              <div class="admin-list">
+                <div class="admin-list-head">
+                  <h3>รายการทั้งหมด</h3>
+                  <button class="button neutral" type="button" id="restore-demo">คืนค่าข้อมูลตัวอย่าง</button>
+                </div>
+                <div id="admin-items"></div>
+              </div>
+
+              <div class="admin-list">
+                <h3>จัดการอนุมัติเว็บลูก (รายชื่อทีมงาน)</h3>
+                <div id="admin-agents-list" style="margin-top: 14px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="contact-copy">
+          <p class="section-kicker">นัดชมสถานที่</p>
+          <h2>คุยกับทีมขายเพื่อเลือกทำเลที่เหมาะกับเป้าหมายของคุณ</h2>
+          <p class="contact-intro">
+            แจ้งงบประมาณ ประเภททรัพย์ และช่วงเวลาที่สะดวก ทีมงานจะช่วยคัดรายการและจัดคิวนัดชมให้
+          </p>
+          <div class="contact-lines">
+            <a class="contact-method" href="tel:0639789356" id="display-phone-link">
+              <span>โทร</span>
+              <strong id="display-phone">063 978 9356</strong>
+            </a>
+            <a class="contact-method" href="https://line.me/R/ti/p/@812fqegp" id="display-line-link">
+              <span>Line</span>
+              <strong id="display-line">@812fqegp</strong>
+            </a>
+            <a class="contact-method" href="#" id="display-facebook-link" target="_blank">
+              <span>Facebook</span>
+              <strong id="display-facebook">ไม่มีข้อมูล</strong>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-card lead-form" id="lead-form">
+          <label>
+            ชื่อผู้ติดต่อ
+            <input id="lead-name" name="name" type="text" placeholder="ชื่อผู้ติดต่อ" required />
+          </label>
+          <label>
+            เบอร์โทร
+            <input id="lead-phone" name="phone" type="tel" placeholder="063 978 9356" required />
+          </label>
+          <label>
+            Line ID
+            <input id="lead-line" name="line" type="text" placeholder="@lineid หรือ Line ID" />
+          </label>
+          <label>
+            สนใจ
+            <select id="lead-interest" name="interest" required>
+              <option value="">เลือกรายการที่สนใจ</option>
+              <option value="พูลวิลล่า">พูลวิลล่า</option>
+              <option value="ที่ดิน">ที่ดิน</option>
+              <option value="ทั้งสองประเภท">ทั้งสองประเภท</option>
+            </select>
+          </label>
+          <button class="button primary" type="submit">ส่งข้อมูลนัดชมสถานที่</button>
+          <p class="form-note lead-message" id="lead-message"></p>
+        </form>
+      </section>
+
+      <section class="intro-band" id="agent-dashboard-panel" style="background: #ffffff; border-top: 1px solid var(--line);" hidden>
+        <div style="grid-column: 1 / -1;">
+          <p class="section-kicker" style="color: var(--gold);">AGENT DASHBOARD</p>
+          <h2 style="font-size: 32px;">ระบบจัดการลูกค้าของ: <span id="agent-dashboard-name" style="color: var(--forest);"></span></h2>
+          <p>ด้านล่างนี้คือรายชื่อลูกค้าทั้งหมดที่กรอกลงทะเบียนนัดชมทรัพย์ผ่านลิงก์เว็บลูกของคุณ</p>
+          
+          <div class="admin-list" style="margin-top: 24px; padding: 22px;">
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; text-align: left; background: white;">
+                <thead>
+                  <tr style="background: var(--forest); color: white; border-bottom: 2px solid var(--line);">
+                    <th style="padding: 14px;">ชื่อผู้ติดต่อ</th>
+                    <th style="padding: 14px;">เบอร์โทร</th>
+                    <th style="padding: 14px;">Line ID</th>
+                    <th style="padding: 14px;">สิ่งที่สนใจ</th>
+                    <th style="padding: 14px;">วันที่ลงทะเบียน</th>
+                  </tr>
+                </thead>
+                <tbody id="agent-leads-table-body">
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-modal" id="agent-register-modal" hidden>
+        <div class="admin-dialog" style="max-width: 600px;">
+          <button class="icon-button close-admin" type="button" id="agent-register-close" aria-label="ปิดลงทะเบียน">×</button>
+          <div class="section-heading">
+            <p class="section-kicker">สมัครใช้งานระบบเว็บลูก</p>
+            <h2>ลงทะเบียนเปิดสิทธิ์เว็บลูก</h2>
+          </div>
+
+          <form class="lead-form" id="agent-register-form">
+            <label>ชื่อ-นามสกุลทีมงาน <input id="reg-name" type="text" placeholder="เช่น สมชาย ใจดี" required /></label>
+            <label>เบอร์โทรติดต่อ <input id="reg-phone" type="tel" placeholder="เช่น 0812345678" required /></label>
+            <label>Line ID <input id="reg-line" type="text" placeholder="เช่น @line_team" required /></label>
+            <label>Link Facebook <input id="reg-facebook" type="url" placeholder="https://facebook.com/..." required /></label>
+            
+            <hr style="border: 0; border-top: 1px dashed var(--line); margin: 20px 0;">
+            
+            <div style="background: var(--mist); padding: 18px; border-radius: 8px; margin-bottom: 16px; color: var(--ink); font-weight: 600;">
+              <p style="margin: 0 0 8px 0; color: var(--forest); font-size: 15px;"><strong>ขั้นตอนการชำระค่าบริการ:</strong></p>
+              ค่าบริการรายปี <strong>1,500 บาท</strong> เพื่อสิทธิ์การเปลี่ยนข้อมูลติดต่อบนหน้าเว็บให้เป็นของคุณ<br><br>
+              <strong>ข้อมูลการโอนเงิน:</strong><br>
+              ธนาคาร: XXXXXXXX <br>
+              เลขที่บัญชี: 999999999 <br>
+              ชื่อบัญชี: xxxxxxxx
+            </div>
+
+            <label>อัปโหลดสลิปหลักฐานการโอนเงิน
+              <input id="reg-slip" type="file" accept="image/*" required />
+            </label>
+            <button class="button primary" type="submit" style="margin-top: 10px;">ส่งข้อมูลสมัครและแนบสลิป</button>
+            <p class="form-note" id="reg-message" style="font-weight: 800; color: var(--forest); margin-top: 10px;"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 KHAO KHO PRIME ESTATE</span>
+      <a href="#home">กลับขึ้นด้านบน</a>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
