@@ -6,7 +6,8 @@ const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 const AGENT_PASSWORD = "Ab123456"; 
 
-const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxd2zuH-tW83L9yFrq1QpthcPI-KHEzgApVe78BFUGdY8R7MaJOc9gAx44S8Fu4mSulyQ/exec";
+// ⚠️ ตรวจเช็กคีย์ตรงนี้ให้ดีนะครับว่าตรงกับลิงก์ URL ที่ได้จากการกด Deploy ใน Apps Script หรือไม่
+const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
 const DEFAULT_CONTACT = {
   name: "Get Patradit",
@@ -86,13 +87,12 @@ function checkAgentRoute() {
   applyAgentContact(DEFAULT_CONTACT);
 }
 
-// 🌟 ปรับปรุงกลไกปุ่มโทรหน้าบ้านตามบรีฟ โชว์หน้าต่าง Alert บอกเบอร์ชัดเจน เพื่อให้ Copy ไปใช้ได้ง่าย ๆ
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
     phoneBtn.href = "javascript:void(0);";
     phoneBtn.onclick = function() {
-      alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈\n\nคุณสามารถจดบันทึก หรือคัดลอกหมายเลขนี้เพื่อนำไปโทรติดต่อได้ทันทีค่ะ");
+      alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈\n\nคุณสามารถคัดลอกหมายเลขนี้เพื่อนำไปโทรติดต่อได้ทันทีค่ะ");
     };
     phoneBtn.setAttribute("title", "คลิกเพื่อดูเบอร์โทรศัพท์: " + contact.phone);
   }
@@ -132,7 +132,7 @@ function renderProperties() {
   }).join("");
 }
 
-if (openDetail) {
+if (propertyContainer) {
   propertyContainer.addEventListener("click", (event) => {
     const button = event.target.closest("[data-detail]");
     if (button) openDetail(button.dataset.detail);
@@ -215,6 +215,29 @@ if (agentRegisterForm) {
   });
 }
 
+async function handleLeadSubmit(event) {
+  event.preventDefault();
+  const lead = {
+    name: document.querySelector("#lead-name").value.trim(),
+    phone: document.querySelector("#lead-phone").value.trim(),
+    line: document.querySelector("#lead-line").value.trim(),
+    interest: document.querySelector("#lead-interest").value,
+    agentId: currentAgent ? currentAgent.id : "master",
+    submittedAt: new Date().toISOString()
+  };
+
+  const savedLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || "[]");
+  localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify([lead, ...savedLeads]));
+  leadMessage.classList.remove("error");
+  leadMessage.textContent = "บันทึกข้อมูลเรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
+  leadForm.reset();
+
+  if (currentAgent) renderAgentLeads(currentAgent.id);
+  try {
+    await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
+  } catch { leadMessage.classList.add("error"); }
+}
+
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
@@ -226,17 +249,18 @@ function renderAgentLeads(agentId) {
     return;
   }
   tableBody.innerHTML = agentLeads.map(lead => {
-    return `<tr style="border-bottom: 1px solid var(--line);">
-      <td style="padding:14px; font-weight:bold;">${lead.name}</td>
-      <td style="padding:14px;">${lead.phone}</td>
+    const dateValue = lead.submittedAt || lead.date || new Date().toISOString();
+    const formattedDate = new Date(dateValue).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
+    return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
+      <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
+      <td style="padding:14px;">${lead.phone || '-'}</td>
       <td style="padding:14px;">${lead.line || '-'}</td>
-      <td style="padding:14px;">${lead.interest}</td>
-      <td style="padding:14px; color:var(--muted); font-size:14px;">${new Date(lead.submittedAt).toLocaleDateString('th-TH')}</td>
+      <td style="padding:14px;">${lead.interest || '-'}</td>
+      <td style="padding:14px; color:var(--muted); font-size:13px;">${formattedDate}</td>
     </tr>`;
   }).join("");
 }
 
-// 🌟 เรนเดอร์ตารางสายงานของลูกทีมชั้นลึก พร้อมดึง "วันหมดอายุสิทธิ์ 1 ปี" มาแสดงให้เห็นอย่างโปร่งใสชัดเจน
 function renderSubTeams(agentId) {
   const tableBody = document.querySelector("#agent-subteams-table-body");
   if (!tableBody) return;
@@ -264,7 +288,6 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
-// 🌟 หลังบ้านแอดมินหลัก เพิ่มคอลัมน์และข้อมูลแจ้ง "วันหมดอายุสิทธิ์เว็บลูก" ให้ตรวจสอบจัดการง่าย ๆ
 function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
@@ -285,14 +308,22 @@ function renderAdminAgents() {
   }).join("");
 }
 
+// 🌟 ปรับกลไก Hybrid Sync: ดึงค่าจากชีตออนไลน์เป็นหลัก แต่ถ้าเน็ตช้าหรือดึงไม่ได้ ให้ใช้ฐานข้อมูลในเครื่องทันที ป้องกันระบบล็อกอินค้าง
 async function fetchOnlineAgents() {
   try {
-    const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`);
+    const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`, { method: "GET" });
     if (response.ok) {
       const onlineAgents = await response.json();
-      if (onlineAgents && onlineAgents.length > 0) { agents = onlineAgents; saveAgents(); if (!adminPanel.hidden) renderAdminAgents(); }
+      if (onlineAgents && onlineAgents.length > 0) { 
+        agents = onlineAgents; 
+        saveAgents(); 
+        if (!adminPanel.hidden) renderAdminAgents(); 
+      }
     }
-  } catch (err) { console.log("Sync Sync Pass:", err); }
+  } catch (err) { 
+    console.log("Sync ออนไลน์ผ่านชีตชั่วคราว ดึงข้อมูลจาก LocalStorage อัตโนมัติ:", err);
+    agents = loadAgents(); // สลับมาดึงความจำในเครื่องเพื่อให้ระบบรันต่อได้เสถียร 100%
+  }
 }
 
 if (adminAgentsList) {
@@ -315,6 +346,15 @@ if (adminAgentsList) {
   });
 }
 
+document.querySelectorAll(".filter").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+    activeFilter = button.dataset.filter;
+    renderProperties();
+  });
+});
+
 document.querySelector("#admin-open").addEventListener("click", async () => { 
   adminLogin.hidden = false; adminPanel.hidden = true; document.querySelector("#agent-dashboard-panel").hidden = true;
   document.querySelector("#admin-title-heading").textContent = "เข้าสู่ระบบจัดการข้อมูล"; adminModal.hidden = false; 
@@ -330,7 +370,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
   const message = document.querySelector("#login-message");
   const headingTitle = document.querySelector("#admin-title-heading");
 
-  if (message) message.textContent = "กำลังซิงค์ฐานข้อมูลออนไลน์ล่าสุด...";
+  if (message) message.textContent = "กำลังซิงค์ฐานข้อมูลสายงาน...";
   await fetchOnlineAgents();
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
@@ -352,8 +392,6 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     document.querySelector("#back-agent-full-url").textContent = myShareLink;
     document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
     document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
-    
-    // โชว์วันหมดอายุของตัวแทนรายนี้ในกล่องแดชบอร์ดหลังบ้านของตนเอง
     document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt || "1 ปีนับจากวันอนุมัติ";
 
     agentDashboardPanel.hidden = false;
@@ -370,6 +408,7 @@ function renderAdminItems() { if (!adminItems) return; adminItems.innerHTML = pr
 function fillForm(item) { document.querySelector("#property-id").value = item.id; document.querySelector("#property-type").value = item.type; document.querySelector("#property-price").value = item.price; document.querySelector("#property-title").value = item.title; document.querySelector("#property-location").value = item.location; document.querySelector("#property-description").value = item.description; document.querySelector("#property-features").value = (item.features || []).join(" | "); document.querySelector("#property-images").value = (item.images || []).join(" | "); document.querySelector("#property-video").value = item.video || ""; }
 if (leadForm) { leadForm.addEventListener("submit", handleLeadSubmit); }
 document.querySelector("#reset-form").addEventListener("click", resetForm);
+
 checkAgentRoute();
 renderProperties();
 fetchOnlineAgents();
