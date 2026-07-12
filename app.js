@@ -178,7 +178,6 @@ if (agentRegisterForm) {
     let slipBase64 = "";
     if (fileInput) slipBase64 = await fileToBase64(fileInput);
 
-    // 🌟 ส่งค่า id ว่ายน้ำไปเปล่า ๆ เพื่อให้ฝั่งสคริปต์ Google Sheets คำนวณรัน ag-0001 เอง
     const newAgent = {
       id: "", 
       type: "agent_registration",
@@ -393,7 +392,105 @@ document.querySelector("#login-button").addEventListener("click", async () => {
   message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
 });
 
-function renderAdminItems() { if (!adminItems) return; adminItems.innerHTML = properties.map((item) => ` <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line);"> <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> <div> <h4 style="margin:0 0 4px 0;">${item.title}</h4> <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> <div class="admin-actions"> <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> </div> </div> </article> `).join(""); }
+// 🌟 [เพิ่มกลับมาแก้ไขปัญหา] ระบบการเพิ่มและบริหารจัดการทรัพย์สินฝั่งแอดมินแม่
+function renderAdminItems() { 
+  if (!adminItems) return; 
+  adminItems.innerHTML = properties.map((item) => `
+    <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line);"> 
+      <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
+      <div> 
+        <h4 style="margin:0 0 4px 0;">${item.title}</h4> 
+        <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> 
+        <div class="admin-actions"> 
+          <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> 
+          <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> 
+        </div> 
+      </div> 
+    </article>
+  `).join(""); 
+}
+
+if (propertyForm) {
+  propertyForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const id = document.querySelector("#property-id").value;
+    const type = document.querySelector("#property-type").value;
+    const price = document.querySelector("#property-price").value.trim();
+    const title = document.querySelector("#property-title").value.trim();
+    const location = document.querySelector("#property-location").value.trim();
+    const description = document.querySelector("#property-description").value.trim();
+    const features = splitList(document.querySelector("#property-features").value);
+    const images = splitList(document.querySelector("#property-images").value);
+    const video = document.querySelector("#property-video").value.trim();
+
+    if (id) {
+      // โหมดแก้ไขทรัพย์เดิม
+      properties = properties.map((p) => p.id === id ? { id, type, price, title, location, description, features, images, video } : p);
+    } else {
+      // โหมดเพิ่มทรัพย์ใหม่
+      properties.push({ id: createId(), type, price, title, location, description, features, images, video });
+    }
+
+    saveProperties();
+    renderProperties();
+    renderAdminItems();
+    resetForm();
+    alert("บันทึกข้อมูลทรัพย์สินเรียบร้อยแล้วครับ!");
+  });
+}
+
+if (adminItems) {
+  adminItems.addEventListener("click", (event) => {
+    const editBtn = event.target.closest("[data-edit]");
+    const deleteBtn = event.target.closest("[data-delete]");
+    
+    if (editBtn) {
+      const item = properties.find((p) => p.id === editBtn.dataset.edit);
+      if (item) fillForm(item);
+    }
+    if (deleteBtn) {
+      if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบทรัพย์รายการนี้ออกจากระบบ?")) {
+        properties = properties.filter((p) => p.id !== deleteBtn.dataset.delete);
+        saveProperties();
+        renderProperties();
+        renderAdminItems();
+      }
+    }
+  });
+}
+
+function fillForm(item) { 
+  document.querySelector("#property-id").value = item.id; 
+  document.querySelector("#property-type").value = item.type; 
+  document.querySelector("#property-price").value = item.price; 
+  document.querySelector("#property-title").value = item.title; 
+  document.querySelector("#property-location").value = item.location; 
+  document.querySelector("#property-description").value = item.description; 
+  document.querySelector("#property-features").value = (item.features || []).join(" | "); 
+  document.querySelector("#property-images").value = (item.images || []).join(" | "); 
+  document.querySelector("#property-video").value = item.video || ""; 
+}
+
+function resetForm() { 
+  if (propertyForm) propertyForm.reset(); 
+  document.querySelector("#property-id").value = ""; 
+}
+
+const resetBtn = document.querySelector("#reset-form");
+if (resetBtn) resetBtn.addEventListener("click", resetForm);
+
+const restoreBtn = document.querySelector("#restore-demo");
+if (restoreBtn) {
+  restoreBtn.addEventListener("click", () => {
+    if (confirm("คุณต้องการล้างข้อมูลทั้งหมดเพื่อกลับไปใช้ข้อมูลทรัพย์ตัวอย่างใช่หรือไม่?")) {
+      properties = [...demoProperties];
+      saveProperties();
+      renderProperties();
+      renderAdminItems();
+      resetForm();
+    }
+  });
+}
 
 fetchOnlineAgents().then(() => {
   checkAgentRoute();
