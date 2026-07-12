@@ -6,6 +6,7 @@ const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 const AGENT_PASSWORD = "Ab123456"; 
 
+// 🔗 ลิงก์ Web App ออนไลน์ตัวล่าสุดของพี่ Get
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
 const DEFAULT_CONTACT = {
@@ -177,8 +178,9 @@ if (agentRegisterForm) {
     let slipBase64 = "";
     if (fileInput) slipBase64 = await fileToBase64(fileInput);
 
+    // 🌟 ส่งค่า id ว่ายน้ำไปเปล่า ๆ เพื่อให้ฝั่งสคริปต์ Google Sheets คำนวณรัน ag-0001 เอง
     const newAgent = {
-      id: 'ag-' + Math.random().toString(36).substr(2, 9),
+      id: "", 
       type: "agent_registration",
       name: document.querySelector("#reg-name").value.trim(),
       phone: document.querySelector("#reg-phone").value.trim(),
@@ -197,10 +199,56 @@ if (agentRegisterForm) {
   });
 }
 
+if (leadForm) {
+  leadForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const lead = {
+      name: document.querySelector("#lead-name").value.trim(),
+      phone: document.querySelector("#lead-phone").value.trim(),
+      line: document.querySelector("#lead-line").value.trim(),
+      interest: document.querySelector("#lead-interest").value,
+      agentId: currentAgent ? currentAgent.id : "master",
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
+      leadMessage.classList.remove("error");
+      leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
+      leadForm.reset();
+      if (currentAgent) renderAgentLeads(currentAgent.id);
+    } catch { 
+      leadMessage.classList.add("error"); 
+    }
+  });
+}
+
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
-  tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
+  
+  fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getLeads&agentId=${agentId}`)
+    .then(res => res.json())
+    .then(agentLeads => {
+      if (!agentLeads || agentLeads.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
+        return;
+      }
+      tableBody.innerHTML = agentLeads.map(lead => {
+        const dateValue = lead.submittedAt || lead.date || new Date().toISOString();
+        const formattedDate = new Date(dateValue).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
+        return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
+          <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
+          <td style="padding:14px;">${lead.phone || '-'}</td>
+          <td style="padding:14px;">${lead.line || '-'}</td>
+          <td style="padding:14px;">${lead.interest || '-'}</td>
+          <td style="padding:14px; color:var(--muted); font-size:13px;">${formattedDate}</td>
+        </tr>`;
+      }).join("");
+    })
+    .catch(() => {
+      tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
+    });
 }
 
 function renderSubTeams(agentId) {
