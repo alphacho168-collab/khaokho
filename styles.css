@@ -67,11 +67,13 @@ a {
   min-width: 230px;
 }
 
+/* ✨ แนะนำให้เปลี่ยนเป็นขนาดใหม่ (ใหญ่เต็มตาขึ้น) ✨ */
 .brand-logo {
-  width: 60px;
-  height: 60px;
+  width: 85px;   /* ปรับเพิ่มความกว้างจาก 60px เป็น 85px */
+  height: 85px;  /* ปรับเพิ่มความสูงจาก 60px เป็น 85px */
   object-fit: contain;
   flex: 0 0 auto;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1)); /* เพิ่มเงาจาง ๆ ให้โลโก้ลอยตัวหรูหราขึ้น */
 }
 
 .brand small {
