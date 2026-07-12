@@ -125,21 +125,51 @@ function renderProperties() {
   if (!visible.length) propertyContainer.innerHTML = `<p class="form-note" style="grid-column: 1/-1; text-align:center;">ยังไม่มีรายการในหมวดนี้</p>`;
 }
 
+// ฟังก์ชันเปิดแสดงกล่องดีไซน์ Pop-up รายละเอียดทรัพย์เด่น
 function openDetail(id) {
   const item = properties.find((property) => property.id === id);
   if (!item) return;
 
-  document.querySelector("#detail-type").textContent = propertyTypeLabel(item.type);
-  document.querySelector("#detail-title").textContent = item.title;
-  document.querySelector("#detail-location").textContent = item.location;
-  document.querySelector("#detail-price").textContent = item.price;
-  document.querySelector("#detail-description").textContent = item.description;
-  document.querySelector("#detail-features").innerHTML = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
-  document.querySelector("#detail-gallery").innerHTML = (item.images || []).map((image) => `<img src="${image}" alt="${item.title}" loading="lazy" />`).join("");
-  document.querySelector("#detail-video").innerHTML = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
+  const detailFeaturesHtml = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
+  const detailGalleryHtml = (item.images || []).map((image) => `<img src="${image}" alt="${item.title}" loading="lazy" />`).join("");
+  const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
+
+  // ปรับโครงสร้างชุดป๊อปอัปให้เพิ่มปุ่มกดปิดด้านล่างเพิ่มเข้ามาตามบรีฟบอร์ดรูปภาพ
+  detailPanel.innerHTML = `
+    <div class="detail-shell">
+      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
+      <div class="detail-gallery">${detailGalleryHtml}</div>
+      <div class="detail-copy">
+        <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
+        <h2>${item.title}</h2>
+        <p class="detail-location">${item.location}</p>
+        <p class="detail-price">${item.price}</p>
+        <p>${item.description}</p>
+        <ul class="feature-list">${detailFeaturesHtml}</div>
+        <div class="video-wrap">${detailVideoHtml}</div>
+        
+        <!-- ปรับปรุงโครงสร้างปุ่มควบคุมฟังก์ชันตามภาพบรีฟบอร์ดขอนัดชมสถานที่ -->
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
+          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;">สนใจทรัพย์นี้</button>
+          <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
+        </div>
+      </div>
+    </div>
+  `;
 
   detailPanel.hidden = false;
   detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  // ผูกตัวดักจับเมื่อลูกค้าคลิกปุ่ม "สนใจทรัพย์นี้" ให้ดีดหน้าจอลงไปโฟกัสกล่องฟอร์มทันที
+  document.querySelector("#popup-interest-cta").addEventListener("click", () => {
+    detailPanel.hidden = true; // ปิดหน้าต่างโมดอลลงทันที
+    const contactSection = document.querySelector("#contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      // สั่งโฟกัสไปที่ช่องกรอกชื่อผู้ติดต่อทันทีเพิ่มความรวดเร็ว
+      setTimeout(() => { document.querySelector("#lead-name").focus(); }, 400);
+    }
+  });
 }
 
 function renderAdminItems() {
@@ -192,7 +222,6 @@ if (propertyForm) {
       video: document.querySelector("#property-video").value.trim()
     };
 
-    // ปรับปรุงกลไกไม่ให้โครงสร้าง Array พัง ช่วยให้หน้าบ้านดึงข้อมูลไปเรนเดอร์ได้ตลอดเวลา
     properties = properties.some((item) => item.id === id)
       ? properties.map((item) => (item.id === id ? nextProperty : item))
       : [nextProperty, ...properties];
@@ -327,7 +356,6 @@ function renderAdminAgents() {
       <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId || 'master'}</span><br>
       ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
-        <!-- ปรับฟังก์ชันแก้ปัญหาจอขาว ให้คลิกเรียกดูสลิปแบบเลเยอร์กล่องป๊อปอัปภายในเว็บแทนการเปิด Window ใหม่ -->
         ${agent.slip ? `<button class="button neutral" onclick="viewSlipInModal('${agent.slip}')" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
         ${agent.status === 'pending' ? `<button class="button primary" data-approve="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติ</button>` : ''}
         <button class="button danger" data-delagent="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
@@ -371,7 +399,6 @@ if (propertyContainer) {
   });
 }
 
-document.querySelector(".close-detail").addEventListener("click", () => { detailPanel.hidden = true; });
 document.querySelector("#admin-open").addEventListener("click", () => { 
   adminLogin.hidden = false;
   adminPanel.hidden = true;
