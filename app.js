@@ -1,7 +1,11 @@
 const STORAGE_KEY = "khaokho-estate-properties";
 const LEADS_STORAGE_KEY = "khaokho-estate-leads";
 const AGENTS_STORAGE_KEY = "khaokho-estate-agents"; 
-const ADMIN_PASSWORD = "khaokho";
+
+// เปลี่ยนข้อมูลการล็อกอินแอดมินตามที่สั่ง
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "zaq123";
+
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxd2zuH-tW83L9yFrq1QpthcPI-KHEzgApVe78BFUGdY8R7MaJOc9gAx44S8Fu4mSulyQ/exec";
 
 const DEFAULT_CONTACT = {
@@ -23,9 +27,7 @@ const demoProperties = [
     features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 420 ตร.ม.", "ที่ดิน 1 ไร่"],
     images: [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85"
     ],
     video: "https://www.youtube.com/embed/tgbNymZ7vqY"
   },
@@ -37,27 +39,10 @@ const demoProperties = [
     price: "เริ่มต้น 3,200,000 บาท/ไร่",
     description:
       "ที่ดินโฉนดพร้อมโอน วิวภูเขาสลับซับซ้อน อากาศเย็นสบายทั้งปี เหมาะสร้างพูลวิลล่า รีสอร์ตขนาดเล็ก คาเฟ่วิวหมอก หรือถือครองเพื่อการลงทุน",
-    features: ["โฉนดครุฑแดง", "แบ่งขาย 2-12 ไร่", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
+    features: ["โฉนดครุฑแดง", "แบ่งขาย 2-12 ไร่", "ถนนเข้าถึง", "ไฟฟ้าพร้อม"],
     images: [
       "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1200&q=85"
-    ],
-    video: ""
-  },
-  {
-    id: createId(),
-    type: "villa",
-    title: "Mountain Glass Pool Villa",
-    location: "เขาค้อ ใกล้จุดชมวิวทะเลหมอก",
-    price: "24,500,000 บาท",
-    description:
-      "บ้านกระจกดีไซน์โมเดิร์น เปิดรับวิวรอบด้าน มีดาดฟ้าชมดาว โซนปาร์ตี้ส่วนตัว และห้องนอนทุกห้องหันออกสู่ภูเขา เหมาะสำหรับลูกค้าที่ต้องการทรัพย์มีเอกลักษณ์สูง",
-    features: ["5 ห้องนอน", "วิว 360 องศา", "ดาดฟ้าชมดาว", "รองรับ 14-18 คน", "พร้อมเฟอร์นิเจอร์"],
-    images: [
-      "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85"
     ],
     video: ""
   }
@@ -103,7 +88,6 @@ function saveAgents() { localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
 function splitList(value) { return value.split("|").map((item) => item.trim()).filter(Boolean); }
 
-// ฟังก์ชันดึงพารามิเตอร์ลิงก์เพื่อทำเว็บลูกแยกของแต่ละทีมงาน
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
@@ -146,14 +130,15 @@ function fileToBase64(file) {
   });
 }
 
-// เรนเดอร์รายการทรัพย์ตามโครงสร้างและดีไซน์เดิมของคุณ
 function renderProperties() {
+  if (!propertyContainer) return;
   const visible = activeFilter === "all" ? properties : properties.filter((item) => item.type === activeFilter);
   if (statCount) statCount.textContent = properties.length.toString();
 
   propertyContainer.innerHTML = visible
     .map((item) => {
-      const image = item.images?.[0] || "assets/khao-kho-hero.png";
+      // ปรับภาพปกหลักสำรองให้ชี้ไปที่รูป khao-kho-hero.png หน้าแรกของ GitHub
+      const image = item.images?.[0] || "khao-kho-hero.png";
       const features = (item.features || []).slice(0, 3).map((feature) => `<span>${feature}</span>`).join("");
       return `
         <article class="property-card">
@@ -178,7 +163,6 @@ function renderProperties() {
   }
 }
 
-// ฟังก์ชันเปิดดูรายละเอียด Pop-up เดิมของคุณ 100%
 function openDetail(id) {
   const item = properties.find((property) => property.id === id);
   if (!item) return;
@@ -200,12 +184,11 @@ function openDetail(id) {
   detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// เรนเดอร์รายการทรัพย์ในเมนูแอดมินเดิม
 function renderAdminItems() {
   adminItems.innerHTML = properties
     .map((item) => `
       <article class="admin-item">
-        <img src="${item.images?.[0] || "assets/khao-kho-hero.png"}" alt="${item.title}" />
+        <img src="${item.images?.[0] || "khao-kho-hero.png"}" alt="${item.title}" />
         <div>
           <h4>${item.title}</h4>
           <p>${propertyTypeLabel(item.type)} · ${item.price}</p>
@@ -261,12 +244,11 @@ function handlePropertySubmit(event) {
   resetForm();
 }
 
-// จัดการการบันทึกสิทธิ์เว็บลูกตัวแทน
 if (agentRegisterForm) {
   agentRegisterForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     regMessage.style.color = "var(--forest)";
-    regMessage.textContent = "กำลังลงทะเบียนสิทธิ์ใช้งานเว็บลูก...";
+    regMessage.textContent = "กำลังส่งข้อมูลลงทะเบียนเว็บลูก...";
 
     const fileInput = document.querySelector("#reg-slip").files[0];
     let slipBase64 = "";
@@ -286,7 +268,7 @@ if (agentRegisterForm) {
 
     agents.push(newAgent);
     saveAgents();
-    regMessage.textContent = "ลงทะเบียนเสร็จสิ้น! โปรดรอแอดมินเว็บแม่อนุมัติสิทธิ์การเข้าใช้งานระบบ";
+    regMessage.textContent = "ส่งเอกสารลงทะเบียนเรียบร้อยแล้วค่ะ รอแอดมินอนุมัติสิทธิ์ระบบ";
     agentRegisterForm.reset();
 
     try {
@@ -295,10 +277,8 @@ if (agentRegisterForm) {
   });
 }
 
-// อัปเดตฟังก์ชันลงทะเบียนรายชื่อของลูกค้าที่กรอกเข้ามาให้พ่วง Agent ID ติดไปด้วย
 async function handleLeadSubmit(event) {
   event.preventDefault();
-
   const lead = {
     name: document.querySelector("#lead-name").value.trim(),
     phone: document.querySelector("#lead-phone").value.trim(),
@@ -310,27 +290,16 @@ async function handleLeadSubmit(event) {
 
   const savedLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || "[]");
   localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify([lead, ...savedLeads]));
-
   leadMessage.classList.remove("error");
   leadMessage.textContent = "บันทึกข้อมูลเรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
   leadForm.reset();
 
   if (currentAgent) renderAgentLeads(currentAgent.id);
-
   try {
-    await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(lead)
-    });
-  } catch {
-    leadMessage.classList.add("error");
-    leadMessage.textContent = "บันทึกในเครื่องแล้ว แต่ยังส่งไป Google Sheets ไม่สำเร็จ";
-  }
+    await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
+  } catch { leadMessage.classList.add("error"); }
 }
 
-// ดึงรายชื่อตารางข้อมูลลูกค้าเว็บลูก
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
@@ -338,13 +307,13 @@ function renderAgentLeads(agentId) {
   const agentLeads = allLeads.filter(lead => lead.agentId === agentId);
 
   if (agentLeads.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีลูกค้าลงทะเบียนผ่านลิงก์เว็บของคุณในขณะนี้</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
     return;
   }
   tableBody.innerHTML = agentLeads.map(lead => {
     return `<tr style="border-bottom: 1px solid var(--line);">
-      <td style="padding:14px; font-weight:bold; color:var(--ink);">${lead.name}</td>
-      <td style="padding:14px;"><a href="tel:${lead.phone}" style="color:var(--forest-2); text-decoration:underline;">${lead.phone}</a></td>
+      <td style="padding:14px; font-weight:bold;">${lead.name}</td>
+      <td style="padding:14px;">${lead.phone}</td>
       <td style="padding:14px;">${lead.line || '-'}</td>
       <td style="padding:14px;">${lead.interest}</td>
       <td style="padding:14px; color:var(--muted); font-size:14px;">${new Date(lead.submittedAt).toLocaleDateString('th-TH')}</td>
@@ -352,23 +321,22 @@ function renderAgentLeads(agentId) {
   }).join("");
 }
 
-// ตารางจัดการตัวแทนฝั่งหลังบ้านแอดมินหลัก
 function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (agents.length === 0) {
-    adminAgentsList.innerHTML = `<p class="form-note">ยังไม่มีทีมงานลงทะเบียนขอสิทธิ์เว็บลูกเข้ามา</p>`;
+    adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`;
     return;
   }
   adminAgentsList.innerHTML = agents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    return `<div style="background:#fff; padding:16px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink);">
-      <strong>ทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
+    return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink);">
+      <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
       โทร: ${agent.phone} | Line: ${agent.line}<br>
-      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="text-decoration:underline; color:var(--forest-2);">${currentUrl}</a></small>` : ''}
+      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
         ${agent.slip ? `<button class="button neutral" onclick="window.open('${agent.slip}')" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูสลิป</button>` : ''}
-        ${agent.status === 'pending' ? `<button class="button primary" data-approve="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
-        <button class="button danger" data-delagent="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบออก</button>
+        ${agent.status === 'pending' ? `<button class="button primary" data-approve="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติ</button>` : ''}
+        <button class="button danger" data-delagent="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
       </div>
     </div>`;
   }).join("");
@@ -385,7 +353,7 @@ if (adminAgentsList) {
     }
     if (deleteBtn) {
       const id = deleteBtn.dataset.delagent;
-      if (confirm("คุณต้องการลบสิทธิ์สมาชิกทีมงานรายนี้หรือไม่?")) {
+      if (confirm("ยืนยันการลบตัวแทนรายนี้ออกหรือไม่?")) {
         agents = agents.filter(a => a.id !== id);
         saveAgents(); renderAdminAgents(); checkAgentRoute();
       }
@@ -393,7 +361,6 @@ if (adminAgentsList) {
   });
 }
 
-// การทำงานควบคุมส่วนปุ่มตัวกรอง Filter เดิมของคุณ
 document.querySelectorAll(".filter").forEach((button) => {
   button.addEventListener("click", () => {
     document.querySelectorAll(".filter").forEach((item) => item.classList.remove("active"));
@@ -412,16 +379,18 @@ document.querySelector(".close-detail").addEventListener("click", () => { detail
 document.querySelector("#admin-open").addEventListener("click", () => { adminModal.hidden = false; });
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
 
-// ปุ่ม Sign up ของฝั่งทีมงาน
+// จัดการปุ่มเปิดปิดสำหรับ Modal Sign up ทีมงานให้ตอบสนองสมบูรณ์
 document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; });
 document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
 
+// ฟังก์ชัน Login แอดมินหลักแบบระบุ 2 ช่อง Username & Password
 document.querySelector("#login-button").addEventListener("click", () => {
+  const username = document.querySelector("#admin-username").value.trim();
   const password = document.querySelector("#admin-password").value;
   const message = document.querySelector("#login-message");
 
-  if (password !== ADMIN_PASSWORD) {
-    message.textContent = "รหัสผ่านไม่ถูกต้อง";
+  if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+    message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง";
     return;
   }
 
@@ -435,17 +404,13 @@ document.querySelector("#login-button").addEventListener("click", () => {
 adminItems.addEventListener("click", (event) => {
   const editButton = event.target.closest("[data-edit]");
   const deleteButton = event.target.closest("[data-delete]");
-
   if (editButton) {
     const item = properties.find((property) => property.id === editButton.dataset.edit);
     if (item) fillForm(item);
   }
-
   if (deleteButton) {
     properties = properties.filter((property) => property.id !== deleteButton.dataset.delete);
-    saveProperties();
-    renderProperties();
-    renderAdminItems();
+    saveProperties(); renderProperties(); renderAdminItems();
   }
 });
 
