@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1050" role="img" aria-labelledby="title desc">
+  <title id="title">Khao Kho mountain and mist view</title>
+  <desc id="desc">A scenic mountain sunrise with misty valleys inspired by Khao Kho, Phetchabun.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#b9d5dc"/>
+      <stop offset=".42" stop-color="#f4d9aa"/>
+      <stop offset="1" stop-color="#edf2e8"/>
+    </linearGradient>
+    <linearGradient id="ridge1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#214236"/>
+      <stop offset="1" stop-color="#4f745f"/>
+    </linearGradient>
+    <linearGradient id="ridge2" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#315a4a"/>
+      <stop offset="1" stop-color="#7d926e"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#6f8f61"/>
+      <stop offset=".58" stop-color="#b28a4a"/>
+      <stop offset="1" stop-color="#4c6f52"/>
+    </linearGradient>
+    <radialGradient id="sun" cx=".56" cy=".27" r=".2">
+      <stop offset="0" stop-color="#fff8d5"/>
+      <stop offset=".48" stop-color="#f4c56d"/>
+      <stop offset="1" stop-color="#f4c56d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="1800" height="1050" fill="url(#sky)"/>
+  <circle cx="1040" cy="250" r="210" fill="url(#sun)"/>
+  <path d="M0 520 C180 425 275 430 430 500 C595 575 760 350 945 440 C1110 520 1195 390 1365 440 C1535 490 1625 410 1800 475 L1800 1050 L0 1050 Z" fill="#b5c8bf" opacity=".54"/>
+  <path d="M0 630 C175 520 310 530 470 600 C640 675 805 470 980 540 C1160 610 1265 495 1425 540 C1580 585 1670 540 1800 600 L1800 1050 L0 1050 Z" fill="url(#ridge2)"/>
+  <path d="M0 690 C205 570 390 600 545 682 C715 770 850 535 1040 635 C1180 710 1345 565 1500 640 C1625 700 1710 650 1800 690 L1800 1050 L0 1050 Z" fill="url(#ridge1)"/>
+  <g opacity=".78" filter="url(#soft)">
+    <path d="M-120 620 C130 560 300 610 515 585 C785 555 890 630 1110 590 C1350 548 1515 600 1910 555 L1910 705 C1540 770 1360 705 1125 738 C895 770 745 695 510 735 C270 775 120 720 -120 775 Z" fill="#fff"/>
+    <path d="M-90 720 C175 680 370 715 570 692 C810 665 960 720 1185 692 C1410 665 1590 710 1900 670 L1900 810 C1600 850 1380 810 1190 835 C965 865 805 815 585 840 C350 865 145 825 -90 850 Z" fill="#edf4f1"/>
+  </g>
+  <path d="M0 835 C180 780 330 815 520 782 C755 742 925 800 1080 760 C1275 710 1425 790 1610 742 C1710 715 1770 730 1800 748 L1800 1050 L0 1050 Z" fill="url(#field)"/>
+  <path d="M240 1050 C380 920 555 865 785 830 C975 800 1155 770 1395 735 C1255 875 1110 968 940 1050 Z" fill="#d5a451" opacity=".42"/>
+  <g fill="#173428" opacity=".68">
+    <path d="M126 733 l24 -74 l24 74 h-17 v82 h-14 v-82z"/>
+    <path d="M1560 670 l30 -95 l30 95 h-21 v104 h-18 v-104z"/>
+    <path d="M1510 720 l18 -58 l18 58 h-13 v70 h-10 v-70z"/>
+  </g>
+</svg>
