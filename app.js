@@ -60,13 +60,12 @@ const demoProperties = [
     description: "ที่ดินแปลงสวย ทำเลศักยภาพ วิววัดผาซ่อนแก้ว\n\nPrestige Life ขอเสนอที่ดินแปลงสวย เนื้อที่ 25 ไร่ พร้อม โฉนดครุฑแดง ถูกต้องตามกฎหมาย พร้อมโอน\n\n✨ จุดเด่นของที่ดิน\n- เนื้อที่รวม 25 ไร่\n- เอกสารสิทธิ์ โฉนดครุฑแดง\n- ติดถนนสายหลัก AH16 เดินทางสะดวก\n- หน้ากว้างประมาณ 100 เมตร\n- มองเห็นวิว วัดพระธาตุผาซ่อนแก้ว ได้อย่างสวยงาม\n- ใกล้แหล่งชุมชน ร้านค้า ร้านอาหาร และสถานที่ท่องเที่ยวสำคัญ\n- สาธารณูปโภคเข้าถึง เหมาะสำหรับการพัฒนาโครงการ\n\n🏡 เหมาะสำหรับ\n- โครงการพูลวิลล่าและบ้านพักตากอากาศ\n- รีสอร์ทหรือโรงแรม\n- คาเฟ่ ร้านอาหาร และแลนด์มาร์กท่องเที่ยว\n- ศูนย์สุขภาพ Wellness Retreat\n- การลงทุนเพื่อเก็งกำไรในอนาคต\n\nด้วยทำเลที่โดดเด่น ติดถนนสายหลัก วิวภูเขาสวย และสามารถมองเห็นวัดผาซ่อนแก้ว ซึ่งเป็นหนึ่งในสถานที่ท่องเที่ยวสำคัญของเขาค้อ ทำให้ที่ดินแปลงนี้มีศักยภาพสูงทั้งสำหรับการพัฒนาเชิงพาณิชย์และการลงทุนระยะยาว\n\nPrestige Life \"ที่ดินคุณภาพ เพื่อการลงทุนที่คุ้มค่าในอนาคต\"",
     features: ["โฉนดครุฑแดง", "เนื้อที่ 25 ไร่", "ติดถนนสายหลัก", "ไฟฟ้าพร้อม", "วิววัดผาซ่อนแก้ว"],
     images: [
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0083-Enhanced-NR.JPG?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0111.JPG?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0112-Enhanced-NR.JPG?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0609-Enhanced-NR.JPG?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0102-Enhanced-NR.JPG?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/11.jpg?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/12.jpg?auto=format&fit=crop&w=1920&q=85"
+      "images/land/PL4.JPG",
+      "images/land/PL1.JPG",
+      "images/land/PL2.jpg",
+      "images/land/PL3.JPG",
+      "images/land/PL6.JPG",
+      "images/land/PL5.JPG"
     ],
     video: "https://www.youtube.com/embed/gx32pVlKqV8?si=Rvb5mBA4pvcjzyQo"
   },
