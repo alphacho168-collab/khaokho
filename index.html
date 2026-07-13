@@ -4,176 +4,191 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
+  <!-- ==================== 📈 🚀 SEO & AI SEARCH OPTIMIZATION ==================== -->
   <title>KHAO KHO LAND | ขายที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวทะเลหมอก โฉนดครุฑแดงพร้อมโอน</title>
   <meta name="description" content="KHAO KHO LAND คัดสรรที่ดินเขาค้อเจ้าของขายเองแบ่งขายราคาถูก วิวภูเขาและทะเลหมอก 360 องศา ทำเลทองแคมป์สน ทุ่งสมอ เอกสารสิทธิ์โฉนดครุฑแดงถูกต้องพร้อมโอน ปรึกษาลงทุนฟรี">
   <meta name="keywords" content="ขายที่ดินเขาค้อเจ้าของขายเอง, ที่ดินเขาค้อแบ่งขาย, ที่ดินเขาค้อวิวทะเลหมอก, ที่ดินเขาค้อราคาถูก, ซื้อพูลวิลล่าเขาค้อ, บ้านพักตากอากาศเขาค้อ, พูลวิลล่าวิวภูเขา เขาค้อ, ที่ดินเขาค้อโฉนดครุฑแดง">
   
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- 🌟 โค้ดบังคับซ่อนการค้างของ Modals ทุกตัวอย่างเด็ดขาด 100% -->
   <style>
-    /* 🌟 โค้ดดีไซน์โมเดิร์นแบบเบ็ดเสร็จ บังคับล้างเอฟเฟกต์เบี้ยวค้างทั้งหมดถาวร */
-    :root { --forest: #23483a; --gold: #c58d37; --ink: #333; --light: #f9f9f9; --line: #eee; }
-    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; color: var(--ink); background: #fff; line-height: 1.6; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
-    
-    header { background: linear-gradient(135deg, #1e3d30, #2d5a47); color: white; padding: 60px 20px; text-align: center; }
-    header h1 { margin: 0 0 10px 0; font-size: 2.5rem; letter-spacing: 2px; }
-    
-    .button { padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: all 0.2s; font-size: 14px; }
-    .button.primary { background: var(--forest); color: white; }
-    .button.primary:hover { background: #1a382b; }
-    .button.neutral { background: #eaeaea; color: #333; }
-    .button.danger { background: #dc2626; color: white; }
-    
-    .filter-section button { background: none; border: 1px solid var(--line); padding: 8px 16px; margin: 0 4px; border-radius: 20px; cursor: pointer; }
-    .filter-section button.active { background: var(--forest); color: white; border-color: var(--forest); }
-    
-    .properties-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 30px; }
-    .property-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .property-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
-    .property-card .card-body { padding: 20px; }
-    .property-card h3 { margin: 0 0 10px 0; font-size: 18px; }
-    .property-card .price { color: var(--forest); font-size: 18px; font-weight: bold; margin: 10px 0; }
-    .property-card .mini-features { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
-    .property-card .mini-features span { background: var(--light); padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #666; }
-    
-    /* 🌟 ระบบความปลอดภัยมอดอล ป้องกันค้าง 100% */
-    [hidden] { display: none !important; }
-    .modal-backdrop-layer {
-      position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important;
-      background: rgba(0,0,0,0.6) !important; display: flex !important; justify-content: center !important; align-items: center !important;
-      z-index: 99999 !important; overflow-y: auto !important; padding: 20px !important; box-sizing: border-box !important;
+    /* ซ่อนหน้าต่างที่ตั้ง hidden ไว้ทั้งหมด ไม่ให้โผล่มาบังหน้าจอเด็ดขาด */
+    #admin-modal[hidden], 
+    #agent-register-modal[hidden], 
+    #slip-preview-modal[hidden],
+    #detail-panel[hidden],
+    #admin-panel[hidden],
+    #agent-dashboard-panel[hidden] {
+      display: none !important;
     }
-    .modal-shell-box {
-      background: white !important; padding: 24px !important; border-radius: 12px !important; max-width: 600px !important;
-      width: 100% !important; box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important; position: relative !important; box-sizing: border-box !important;
+    
+    /* สไตล์คุมมอดอลให้ลอยสวยงามตรงกลางจอเมื่อสั่งเปิด */
+    .custom-backdrop-fix {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: rgba(0, 0, 0, 0.6) !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      z-index: 99999 !important;
+      overflow-y: auto !important;
+      padding: 20px !important;
+      box-sizing: border-box !important;
     }
-    .form-group-item { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left; }
-    .form-group-item label { font-weight: bold; }
-    .form-group-item input, .form-group-item select, .form-group-item textarea { 
+
+    .modal-inner-content {
+      background: white !important;
+      padding: 24px !important;
+      border-radius: 12px !important;
+      max-width: 600px !important;
+      width: 100% !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+      position: relative !important;
+      color: #333 !important;
+      box-sizing: border-box !important;
+    }
+
+    .form-group-block { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left; }
+    .form-group-block label { font-weight: bold; color: #333; }
+    .form-group-block input, .form-group-block select, .form-group-block textarea { 
       padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; font-size: 14px; width: 100%; box-sizing: border-box;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="container">
+  <!-- โครงสร้างหน้าหลักเว็บ -->
+  <header class="hero-section">
+    <div class="container" style="text-align: center; padding: 40px 20px;">
       <h1>KHAO KHO LAND</h1>
       <p>คลังทรัพย์สิน ที่ดิน และพูลวิลล่าวิวภูเขาที่ดีที่สุดในเขาค้อ</p>
-      <div style="margin: 10px 0;">จำนวนทรัพย์สินพร้อมขาย: <span id="stat-count">0</span> รายการ</div>
-      <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-        <button class="button primary" id="admin-open" type="button" style="background:var(--gold);">ระบบหลังบ้าน (Admin/ตัวแทน)</button>
+      <div class="stats-bar" style="margin: 10px 0; font-weight: bold;">
+        จำนวนทรัพย์สินพร้อมขาย: <span id="stat-count">0</span> รายการ
+      </div>
+      <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
+        <button class="button primary" id="admin-open" type="button">ระบบหลังบ้าน (Admin/ตัวแทน)</button>
         <button class="button neutral" id="agent-register-open" type="button">สมัครตัวแทน (เว็บลูก)</button>
       </div>
     </div>
   </header>
 
-  <section class="filter-section container" style="margin-top: 30px; text-align: center;">
+  <section class="filter-section container" style="margin-top: 20px; text-align: center;">
     <button class="filter active" data-filter="all">ทั้งหมด</button>
     <button class="filter" data-filter="villa">พูลวิลล่า</button>
     <button class="filter" data-filter="land">ที่ดิน</button>
   </section>
 
-  <main class="container">
+  <main class="container" style="margin-top: 20px;">
     <div id="properties" class="properties-grid"></div>
   </main>
 
-  <div id="detail-panel" hidden class="modal-backdrop-layer"></div>
+  <!-- รายละเอียดทรัพย์สิน Panel -->
+  <div id="detail-panel" hidden class="detail-panel-backdrop"></div>
 
-  <section id="lead-section" class="container" style="margin-top: 50px; background: var(--light); padding: 30px; border-radius: 12px; border: 1px solid var(--line);">
+  <!-- ฟอร์มลงทะเบียนลูกค้า (Lead Form) -->
+  <section id="lead-section" class="container" style="margin-top: 40px; background: #f9f9f9; padding: 24px; border-radius: 12px; border: 1px solid #eee;">
     <h3>ติดต่อสอบถาม / นัดชมสถานที่</h3>
-    <form id="lead-form" style="display: grid; gap: 12px; max-width: 500px;">
-      <div class="form-group-item"><label for="lead-name">ชื่อ-นามสกุล</label><input type="text" id="lead-name" required placeholder="กรอกชื่อของคุณ"></div>
-      <div class="form-group-item"><label for="lead-phone">เบอร์โทรศัพท์</label><input type="tel" id="lead-phone" required placeholder="เช่น 081XXXXXXX"></div>
-      <div class="form-group-item"><label for="lead-line">Line ID</label><input type="text" id="lead-line" placeholder="กรอก Line ID (ถ้ามี)"></div>
-      <div class="form-group-item">
-        <label for="lead-interest">ทรัพย์ที่สนใจ</label>
-        <select id="lead-interest"><option value="นัดชมโครงการ">ทั่วไป / นัดชมโครงการ</option><option value="สนใจพูลวิลล่า">สนใจพูลวิลล่า</option><option value="สนใจที่ดิน">สนใจที่ดิน</option></select>
+    <form id="lead-form" style="display: grid; gap: 12px; max-width: 500px; margin-top: 15px;">
+      <div class="form-group-block"><label for="lead-name">ชื่อ-นามสกุล</label><input type="text" id="lead-name" required placeholder="กรอกชื่อของคุณ"></div>
+      <div class="form-group-block"><label for="lead-phone">เบอร์โทรศัพท์</label><input type="tel" id="lead-phone" required placeholder="เช่น 081XXXXXXX"></div>
+      <div class="form-group-block"><label for="lead-line">Line ID</label><input type="text" id="lead-line" placeholder="กรอก Line ID (ถ้ามี)"></div>
+      <div class="form-group-block">
+        <label for="lead-interest">ทรัพย์ที่ท่านสนใจ / ข้อความถึงเรา</label>
+        <select id="lead-interest">
+          <option value="ทั่วไป / นัดชมโครงการ">ทั่วไป / นัดชมโครงการ</option>
+          <option value="สนใจพูลวิลล่า">สนใจพูลวิลล่า</option>
+          <option value="สนใจที่ดิน">สนใจที่ดิน</option>
+        </select>
       </div>
       <button type="submit" class="button primary">ส่งข้อมูลนัดหมาย</button>
-      <p id="lead-message" style="margin-top: 8px; font-weight: bold; color: green;"></p>
+      <p id="lead-message" style="margin-top: 8px; font-weight: bold;"></p>
     </form>
   </section>
 
-  <footer class="container" style="margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--line); text-align: center;">
-    <p>ติดต่อเราด่วนผ่านช่องทางด้านล่างนี้:</p>
-    <div style="display: flex; gap: 15px; justify-content: center; margin-top: 15px;">
-      <a id="display-phone-link" href="#" class="button neutral" style="text-decoration:none;">📞 โทรติดต่อทีมงาน</a>
-      <a id="display-line-link" href="#" target="_blank" class="button primary" style="background:#06C755; text-decoration:none; padding:10px 20px; border-radius:6px; color:#fff;">💬 ไลน์ทีมงาน</a>
-      <a id="display-facebook-link" href="#" target="_blank" class="button primary" style="background:#1877F2; text-decoration:none; padding:10px 20px; border-radius:6px; color:#fff;">📘 FB ทีมงาน</a>
+  <footer class="container" style="margin-top: 40px; padding: 20px 0; border-top: 1px solid #eee; text-align: center;">
+    <div class="contact-channels">
+      <p>ติดต่อเราด่วนผ่านช่องทางด้านล่างนี้:</p>
+      <div style="display: flex; gap: 15px; justify-content: center; margin-top: 10px;">
+        <a id="display-phone-link" href="#" class="button neutral">📞 โทรติดต่อทีมงาน</a>
+        <a id="display-line-link" href="#" target="_blank" class="button primary" style="background:#06C755; color:#fff; text-decoration:none; padding:8px 12px; border-radius:6px;">💬 ไลน์ทีมงาน</a>
+        <a id="display-facebook-link" href="#" target="_blank" class="button primary" style="background:#1877F2; color:#fff; text-decoration:none; padding:8px 12px; border-radius:6px;">📘 เฟสบุ๊คทีมงาน</a>
+      </div>
     </div>
   </footer>
 
-  <div id="admin-modal" hidden class="modal-backdrop-layer">
-    <div class="modal-shell-box">
+  <!-- ==================== 📦 มอดอลหลังบ้าน ==================== -->
+  <div id="admin-modal" hidden class="custom-backdrop-fix">
+    <div class="modal-inner-content">
       <button id="admin-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
-      <h2 id="admin-title-heading" style="margin: 0 0 20px 0;">ระบบเข้าสู่หลังบ้าน</h2>
+      <h2 id="admin-title-heading" style="margin-top: 0; margin-bottom: 20px;">ระบบเข้าสู่หลังบ้าน</h2>
 
       <div id="admin-login">
-        <div class="form-group-item"><label for="admin-username">ชื่อผู้ใช้งาน (หรือเบอร์โทรตัวแทน)</label><input type="text" id="admin-username" placeholder="Username"></div>
-        <div class="form-group-item"><label for="admin-password">รหัสผ่าน</label><input type="password" id="admin-password" placeholder="Password"></div>
+        <div class="form-group-block"><label for="admin-username">ชื่อผู้ใช้งาน (หรือเบอร์โทรตัวแทน)</label><input type="text" id="admin-username" placeholder="Username"></div>
+        <div class="form-group-block"><label for="admin-password">รหัสผ่าน</label><input type="password" id="admin-password" placeholder="Password"></div>
         <button id="login-button" class="button primary" style="width: 100%; margin-top: 10px;" type="button">เข้าสู่ระบบ</button>
         <p id="login-message" style="color: red; margin-top: 8px; font-weight: bold;"></p>
       </div>
 
       <div id="admin-panel" hidden>
-        <h3>ฟอร์มจัดการทรัพย์สิน</h3>
+        <h3>ฟอร์มจัดการทรัพย์สิน (อัปเดตรูปได้หลายรูปคั่นด้วย | )</h3>
         <form id="property-form">
           <input type="hidden" id="property-id" value="">
-          <div class="form-group-item"><label for="property-type">ประเภททรัพย์</label><select id="property-type"><option value="villa">พูลวิลล่า</option><option value="land">ที่ดิน</option></select></div>
-          <div class="form-group-item"><label for="property-title">ชื่อทรัพย์สิน</label><input type="text" id="property-title" required></div>
-          <div class="form-group-item"><label for="property-location">ทำเลที่ตั้ง</label><input type="text" id="property-location" required></div>
-          <div class="form-group-item"><label for="property-price">ราคา</label><input type="text" id="property-price" required></div>
-          <div class="form-group-item"><label for="property-description">รายละเอียด</label><textarea id="property-description" rows="3"></textarea></div>
-          <div class="form-group-item"><label for="property-features">จุดเด่น (คั่นด้วย | )</label><input type="text" id="property-features"></div>
-          <div class="form-group-item"><label for="property-images">ลิงก์รูปภาพทั้งหมด (คั่นด้วย | )</label><textarea id="property-images" rows="3"></textarea></div>
-          <div class="form-group-item"><label for="property-video">ลิงก์วิดีโอ YouTube (ถ้ามี)</label><input type="text" id="property-video"></div>
-          <div style="display: flex; gap: 12px; margin-top: 20px;"><button type="submit" class="button primary" style="flex: 1;">บันทึกข้อมูลทรัพย์</button><button type="button" id="reset-form" class="button neutral">ล้างฟอร์ม</button></div>
+          <div class="form-group-block"><label for="property-type">ประเภททรัพย์</label><select id="property-type"><option value="villa">พูลวิลล่า</option><option value="land">ที่ดิน</option></select></div>
+          <div class="form-group-block"><label for="property-title">ชื่อทรัพย์สิน</label><input type="text" id="property-title" required></div>
+          <div class="form-group-block"><label for="property-location">ทำเล / ที่ตั้ง</label><input type="text" id="property-location" required></div>
+          <div class="form-group-block"><label for="property-price">ราคา</label><input type="text" id="property-price" required></div>
+          <div class="form-group-block"><label for="property-description">รายละเอียดทรัพย์สิน</label><textarea id="property-description" rows="4"></textarea></div>
+          <div class="form-group-block"><label for="property-features">จุดเด่น (คั่นด้วย | )</label><input type="text" id="property-features"></div>
+          <div class="form-group-block"><label for="property-images">ลิงก์รูปภาพทั้งหมด (คั่นด้วย | )</label><textarea id="property-images" rows="4"></textarea></div>
+          <div class="form-group-block"><label for="property-video">ลิงก์วิดีโอ Youtube (ถ้ามี)</label><input type="text" id="property-video"></div>
+          <div style="display: flex; gap: 12px; margin-top: 20px;"><button type="submit" class="button primary" style="flex: 1;">บันทึกข้อมูลทรัพย์</button><button type="button" id="reset-form" style="padding:10px; background:#ccc; border:none; border-radius:6px; cursor:pointer;">ล้างฟอร์ม</button></div>
         </form>
-        <hr style="margin:20px 0;">
-        <div style="display:flex; justify-content:space-between;"><legend style="font-weight:bold;">รายการทรัพย์สินปัจจุบัน</legend><button id="restore-demo" class="button danger" style="padding:4px 8px; font-size:12px;">ใช้ค่าตัวอย่าง</button></div>
-        <div id="admin-items" style="max-height: 180px; overflow-y: auto; margin-top: 10px;"></div>
-        <hr style="margin:20px 0;">
-        <h3>รายชื่อการอนุมัติสิทธิ์ตัวแทน</h3>
-        <div id="admin-agents-list"></div>
+        <hr style="margin: 24px 0; border: 0; border-top: 1px solid #eee;">
+        <div style="display: flex; justify-content: space-between; align-items: center;"><h3>รายการทรัพย์สินปัจจุบัน</h3><button type="button" id="restore-demo" class="button danger" style="padding: 6px 12px; font-size: 13px;">รีเซ็ตค่าตัวอย่าง</button></div>
+        <div id="admin-items" style="max-height: 200px; overflow-y: auto; margin-top: 10px;"></div>
+        <hr style="margin: 24px 0; border: 0; border-top: 1px solid #eee;">
+        <h3>รายชื่อและการอนุมัติสิทธิ์ตัวแทน (เว็บลูก)</h3>
+        <div id="admin-agents-list" style="margin-top: 15px;"></div>
       </div>
 
       <div id="agent-dashboard-panel" hidden>
-        <p>ยินดีต้อนรับคุณ: <strong id="agent-dashboard-name" style="color:var(--forest);"></strong></p>
-        <div style="background: #f0fdf4; padding: 14px; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 20px;">
-          <span>🔗 ลิงก์ทำตลาดของคุณ (เว็บลูก):</span><br><small id="back-agent-full-url" style="word-break:break-all; font-weight:bold; color:green;"></small>
-        </div>
-        <p style="font-size:13px; color:#666;">วันหมดอายุสิทธิ์ระบบ: <span id="back-agent-expire" style="color:red; font-weight:bold;">-</span></p>
-        <hr style="margin:15px 0;">
+        <p>ยินดีต้อนรับคุณ: <strong id="agent-dashboard-name"></strong></p>
+        <div style="background: #f0fdf4; padding: 14px; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 20px;"><span>🔗 ลิงก์สำหรับทำตลาดของคุณ (เว็บลูก):</span><br><small id="back-agent-full-url" style="word-break: break-all; color: #166534; font-weight: bold; font-size: 14px;"></small></div>
+        <p style="font-size: 13px; color: #666;">ข้อมูลการติดต่อ: Line: <span id="back-agent-line-link">-</span> | FB: <span id="back-agent-fb-link">-</span><br>📅 วันหมดอายุสิทธิ์ระบบ: <span id="back-agent-expire" style="color:red; font-weight:bold;">-</span></p>
+        <hr style="margin: 20px 0; border:0; border-top:1px solid #eee;">
         <h4>รายชื่อลูกค้าที่ลงทะเบียนผ่านลิงก์ของคุณ</h4>
-        <div style="overflow-x:auto;"><table style="width:100%; font-size:13px; text-align:left;"><thead style="background:#f4f4f4;"><tr><th style="padding:8px;">ชื่อลูกค้า</th><th style="padding:8px;">เบอร์โทร</th><th style="padding:8px;">Line ID</th><th style="padding:8px;">ทรัพย์ที่สนใจ</th></tr></thead><tbody id="agent-leads-table-body"></tbody></table></div>
-        <hr style="margin:15px 0;">
-        <h4>สมาชิกทีมงานในสายงานของคุณ</h4>
-        <div style="overflow-x:auto;"><table style="width:100%; font-size:13px; text-align:left;"><thead style="background:#f4f4f4;"><tr><th style="padding:8px;">ชื่อลูกทีม</th><th style="padding:8px;">เบอร์โทร</th><th style="padding:8px;">Line ID</th><th style="padding:8px;">วันหมดอายุ</th><th style="padding:8px;">สถานะ</th></tr></thead><tbody id="agent-subteams-table-body"></tbody></table></div>
+        <div style="overflow-x: auto;"><table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;"><thead style="background: #f4f4f4;"><tr><th style="padding: 10px;">ชื่อลูกค้า</th><th style="padding: 10px;">เบอร์โทร</th><th style="padding: 10px;">Line ID</th><th style="padding: 10px;">ทรัพย์ที่สนใจ</th></tr></thead><tbody id="agent-leads-table-body"></tbody></table></div>
       </div>
     </div>
   </div>
 
-  <div id="agent-register-modal" hidden class="modal-backdrop-layer">
-    <div class="modal-shell-box" style="max-width: 500px !important;">
+  <!-- ==================== 📦 มอดอลสมัครตัวแทน ==================== -->
+  <div id="agent-register-modal" hidden class="custom-backdrop-fix">
+    <div class="modal-inner-content" style="max-width: 500px !important;">
       <button id="agent-register-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
-      <h2 style="margin: 0 0 15px 0;">สมัครใช้งานเว็บลูก (ตัวแทน)</h2>
+      <h2>สมัครใช้งานระบบเว็บลูก (ตัวแทน)</h2>
       <form id="agent-register-form">
-        <div class="form-group-item"><label for="reg-name">ชื่อ-นามสกุล ตัวแทน</label><input type="text" id="reg-name" required placeholder="กรอกชื่อ-นามสกุล"></div>
-        <div class="form-group-item"><label for="reg-phone">เบอร์โทรศัพท์ (ใช้ล็อกอิน)</label><input type="tel" id="reg-phone" required placeholder="เบอร์โทร 10 หลัก"></div>
-        <div class="form-group-item"><label for="reg-line">Line ID ของคุณ</label><input type="text" id="reg-line" required placeholder="เช่น @line"></div>
-        <div class="form-group-item"><label for="reg-facebook">ลิงก์โปรไฟล์ Facebook</label><input type="url" id="reg-facebook" placeholder="https://facebook.com/..."></div>
-        <div class="form-group-item"><label for="reg-slip">แนบสลิปหลักฐานการสมัคร</label><input type="file" id="reg-slip" accept="image/*" required></div>
+        <div class="form-group-block"><label for="reg-name">ชื่อ-นามสกุล ตัวแทน</label><input type="text" id="reg-name" required placeholder="กรอกชื่อ-นามสกุลของคุณ"></div>
+        <div class="form-group-block"><label for="reg-phone">เบอร์โทรศัพท์ (ใช้เป็น Username)</label><input type="tel" id="reg-phone" required placeholder="กรอกเบอร์โทร 10 หลัก"></div>
+        <div class="form-group-block"><label for="reg-line">Line ID ของคุณ</label><input type="text" id="reg-line" required placeholder="เช่น @yourline"></div>
+        <div class="form-group-block"><label for="reg-facebook">ลิงก์โปรไฟล์ Facebook</label><input type="url" id="reg-facebook" placeholder="https://facebook.com/username"></div>
+        <div class="form-group-block"><label for="reg-slip">แนบหลักฐานสลิปการสมัคร/โอนเงิน</label><input type="file" id="reg-slip" accept="image/*" required></div>
         <button type="submit" class="button primary" style="width: 100%; margin-top: 15px;">ส่งข้อมูลสมัครตัวแทน</button>
         <p id="reg-message" style="margin-top: 10px; font-weight: bold; text-align: center; color: green;"></p>
       </form>
     </div>
   </div>
 
-  <div id="slip-preview-modal" hidden class="modal-backdrop-layer">
-    <div class="modal-shell-box" style="max-width: 400px !important; text-align: center;">
+  <!-- ==================== 📦 มอดอลพรีวิวสลิป ==================== -->
+  <div id="slip-preview-modal" hidden class="custom-backdrop-fix">
+    <div class="modal-inner-content" style="max-width: 400px !important; text-align: center !important;">
       <button onclick="document.querySelector('#slip-preview-modal').hidden = true;" style="position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
-      <h4 style="margin: 0 0 10px 0;">รูปภาพสลิปหลักฐาน</h4>
-      <img id="slip-preview-img" src="" alt="Slip" style="width: 100%; max-height: 400px; object-fit: contain; border: 1px solid var(--line); border-radius: 6px;">
+      <h4 style="margin-top: 0; margin-bottom: 10px;">รูปภาพสลิปหลักฐาน</h4>
+      <img id="slip-preview-img" src="" alt="Slip Preview" style="width: 100%; max-height: 450px; object-fit: contain; border: 1px solid #ddd; border-radius: 6px;">
     </div>
   </div>
 
