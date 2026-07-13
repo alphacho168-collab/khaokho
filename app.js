@@ -114,15 +114,12 @@ const demoProperties = [
     description: "Scenery Khao Kho - Mountain View\nพูลวิลล่าท่ามกลางวิวภูเขาและทะเลหมอก\n\nตื่นเช้ามาพร้อมวิวภูเขาสลับซับซ้อน สูดอากาศบริสุทธิ์ และสัมผัสทะเลหมอกที่ทอดยาวสุดสายตา Scenery Khao Kho - Mountain View พูลวิลล่าระดับพรีเมียมบนทำเลศักยภาพของเขาค้อ ที่ออกแบบมาเพื่อคนที่ต้องการทั้งบ้านพักตากอากาศ และโอกาสสร้างรายได้จากการปล่อยเช่า\n\n✨ จุดเด่นของโครงการ\n- พูลวิลล่าส่วนตัว: พร้อมสระว่ายน้ำและพื้นที่พักผ่อนส่วนตัว ให้คุณและครอบครัวได้ใช้เวลาคุณภาพท่ามกลางธรรมชาติ\n- วิวภูเขาและทะเลหมอกตลอดปี: ทำเลที่โดดเด่นด้วยทัศนียภาพสวยงาม เป็นจุดหมายปลายทางที่นักท่องเที่ยวอยากกลับมาเยือนซ้ำ\n- ทำเลท่องเที่ยวยอดนิยมของเขาค้อ: ใกล้แหล่งท่องเที่ยว ร้านอาหาร คาเฟ่ และจุดชมวิวสำคัญ เดินทางสะดวก เหมาะทั้งพักอาศัยและลงทุน\n- สร้างรายได้จากการปล่อยเช่า: ตอบโจทย์นักลงทุนที่ต้องการสร้างกระแสเงินสดจากตลาดท่องเที่ยวที่เติบโตอย่างต่อเนื่อง\n- บรรยากาศเงียบสงบ เป็นส่วนตัว: หลีกหนีความวุ่นวายของเมืองใหญ่ ใช้ชีวิตท่ามกลางธรรมชาติได้อย่างเต็มที่\n\nเพราะบางครั้ง... ความสุขไม่ได้วัดจากขนาดของบ้าน แต่วัดจากการได้ตื่นมาพร้อมวิวที่สวยทุกเช้า ได้ใช้เวลากับคนที่คุณรัก และได้เป็นเจ้าของสถานที่ที่ใครหลายคนใฝ่ฝันอยากมาพักผ่อน\n\nScenery Khao Kho - Mountain View โอกาสครอบครองพูลวิลล่าวิวหลักล้าน บนทำเลศักยภาพของเขาค้อ",
     features: ["4 ห้องนอน", "6 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 358 ตร.ม.", "Rooftop ส่วนตัว"],
     images: [
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho8.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho7.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho3.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho4.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho5.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho6.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho2.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a32853c8e8852737b3a05c5.imgix.net/khaokho1.png?auto=format&fit=crop&w=1920&q=85"
+      "images/villa/khaokho8.png",
+      "images/villa/khaokho10.png",
+      "images/villa/khaokho6.png",
+      "images/villa/khaokho5.png",
+      "images/villa/khaokho3.png",
+      "images/villa/khaokho1.png"
     ],
     video: ""
   },
