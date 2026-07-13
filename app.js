@@ -1,3 +1,4 @@
+
 const STORAGE_KEY = "khaokho-estate-properties";
 const LEADS_STORAGE_KEY = "khaokho-estate-leads";
 const AGENTS_STORAGE_KEY = "khaokho-estate-agents"; 
@@ -243,10 +244,9 @@ function renderAdminAgents() {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid #ccc; border-radius:8px; margin-bottom:12px; font-size:14px; color:#333;">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
-      โทร: ${agent.phone} | Line: ${agent.line}<br>
+      โทร: ${agent.phone} \vert{} Line:${agent.line}<br>
       <span style="color: green; font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
-      <span style="color: #666">ผู้แนะนำ: ${agent.parentId}</span><br>
-      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:blue; text-decoration:underline;">${currentUrl}</a></small>` : ''}
+      <span style="color: #666">ผู้แนะนำ: ${agent.parentId}</span><br>${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:blue; text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
         ${agent.slip ? `<button type="button" class="btn-only-view-slip" data-slipdata="${agent.slip}" style="padding:4px 8px; font-size:12px; cursor:pointer;">ดูรูปสลิป</button>` : ''}
         ${agent.status === 'pending' ? `<button type="button" class="btn-approve-agent" data-id="${agent.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:green; color:#fff; border:none; border-radius:4px;">อนุมัติเปิดระบบ</button>` : ''}
@@ -271,7 +271,6 @@ async function fetchOnlineAgents() {
   } catch (err) { console.log(err); }
 }
 
-// 🌟 ผูก Event ระบบจัดการตัวแทนโดยใช้คลาสเฉพาะเจาะจง บล็อกไม่ให้ชนกับ Event ชั้นอื่นเด็ดขาด
 const adminAgentsList = document.querySelector("#admin-agents-list");
 if (adminAgentsList) {
   adminAgentsList.addEventListener("click", async (event) => {
@@ -279,10 +278,7 @@ if (adminAgentsList) {
     const approveBtn = event.target.closest(".btn-approve-agent");
     const deleteBtn = event.target.closest(".btn-delete-agent");
     
-    if (viewSlipBtn) {
-      event.preventDefault();
-      viewSlipInModal(viewSlipBtn.dataset.slipdata);
-    }
+    if (viewSlipBtn) { event.preventDefault(); viewSlipInModal(viewSlipBtn.dataset.slipdata); }
     if (approveBtn) {
       event.preventDefault();
       const id = approveBtn.dataset.id;
@@ -330,7 +326,6 @@ document.querySelector("#admin-close")?.addEventListener("click", () => {
 
 document.querySelector("#agent-register-open")?.addEventListener("click", () => {
   document.querySelector("#agent-register-modal").hidden = false; 
-  checkAgentRoute();
 });
 
 document.querySelector("#agent-register-close")?.addEventListener("click", () => {
@@ -385,101 +380,4 @@ function renderAdminItems() {
     <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid #eee;"> 
       <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
       <div> 
-        <h4 style="margin:0 0 4px 0;">${item.title}</h4> 
-        <p style="margin:0 0 6px 0; font-size:13px; color:#666;">${propertyTypeLabel(item.type)} · ${item.price}</p> 
-        <div class="admin-actions"> 
-          <button class="data-btn-edit" type="button" data-id="${item.id}">แก้ไข</button> 
-          <button class="data-btn-delete" type="button" data-id="${item.id}" style="background:red; color:#fff; border:none; border-radius:4px; padding:2px 6px; cursor:pointer;">ลบ</button> 
-        </div> 
-      </div> 
-    </article>
-  `).join(""); 
-}
-
-const propertyForm = document.querySelector("#property-form");
-if (propertyForm) {
-  propertyForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const id = document.querySelector("#property-id").value;
-    const type = document.querySelector("#property-type").value;
-    const price = document.querySelector("#property-price").value.trim();
-    const title = document.querySelector("#property-title").value.trim();
-    const location = document.querySelector("#property-location").value.trim();
-    const description = document.querySelector("#property-description").value.trim();
-    const features = splitList(document.querySelector("#property-features").value);
-    const images = splitList(document.querySelector("#property-images").value);
-    const video = document.querySelector("#property-video").value.trim();
-
-    if (id && id.trim() !== "") {
-      properties = properties.map((p) => p.id === id ? { id, type, price, title, location, description, features, images, video } : p);
-      alert("แก้ไขข้อมูลทรัพย์สินสำเร็จ!");
-    } else {
-      properties.push({ id: createId(), type, price, title, location, description, features, images, video });
-      alert("เพิ่มข้อมูลทรัพย์สินใหม่เรียบร้อยแล้ว!");
-    }
-
-    saveProperties();
-    renderProperties();
-    renderAdminItems();
-    resetForm();
-  });
-}
-
-const adminItemsContainer = document.querySelector("#admin-items");
-if (adminItemsContainer) {
-  adminItemsContainer.addEventListener("click", (event) => {
-    const editBtn = event.target.closest(".data-btn-edit");
-    const deleteBtn = event.target.closest(".data-btn-delete");
-    
-    if (editBtn) {
-      const item = properties.find((p) => p.id === editBtn.dataset.id);
-      if (item) fillForm(item);
-    }
-    if (deleteBtn) {
-      if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบทรัพย์รายการนี้ออกจากระบบ?")) {
-        properties = properties.filter((p) => p.id !== deleteBtn.dataset.id);
-        saveProperties();
-        renderProperties();
-        renderAdminItems();
-      }
-    }
-  });
-}
-
-function fillForm(item) { 
-  document.querySelector("#property-id").value = item.id; 
-  document.querySelector("#property-type").value = item.type; 
-  document.querySelector("#property-price").value = item.price; 
-  document.querySelector("#property-title").value = item.title; 
-  document.querySelector("#property-location").value = item.location; 
-  document.querySelector("#property-description").value = item.description; 
-  document.querySelector("#property-features").value = (item.features || []).join(" | "); 
-  document.querySelector("#property-images").value = (item.images || []).join(" | "); 
-  document.querySelector("#property-video").value = item.video || ""; 
-  document.querySelector("#property-form")?.scrollIntoView({ behavior: "smooth" });
-}
-
-function resetForm() { 
-  if (document.querySelector("#property-form")) document.querySelector("#property-form").reset(); 
-  if (document.querySelector("#property-id")) document.querySelector("#property-id").value = ""; 
-}
-
-document.querySelector("#reset-form")?.addEventListener("click", resetForm);
-
-document.querySelector("#restore-demo")?.addEventListener("click", () => {
-  if (confirm("คุณต้องการล้างข้อมูลทั้งหมดเพื่อกลับไปใช้ข้อมูลทรัพย์ตัวอย่างใช่หรือไม่?")) {
-    properties = [...demoProperties];
-    saveProperties();
-    renderProperties();
-    renderAdminItems();
-    resetForm();
-  }
-});
-
-// โหลดคลังทรัพย์สิน 9 รายการจากเบราว์เซอร์เครื่องหลักขึ้นมาเรนเดอร์ก่อนอย่างปลอดภัย
-checkAgentRoute();
-renderProperties();
-
-window.addEventListener("DOMContentLoaded", () => {
-  fetchOnlineAgents();
-});
+        <h4 style="margin:0 0 4
