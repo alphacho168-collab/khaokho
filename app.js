@@ -147,7 +147,7 @@ const demoProperties = [
     title: "𝑷𝒐𝒐𝒍 𝑽𝒊𝒍𝒍𝒂 𝑲𝒉𝒂𝒐 𝑲𝒉𝒐 PHASE 2 | พูลวิลล่าตากอากาศหรูวิวกังหันลม",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "8,900,000 บาท",
-    description: "โอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น\n✅ สร้างกระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด สิทธิ์พิเศษสำหรับผู้จองล่วงหน้า\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย พร้อมโซนห้องครัว\n- สระว่ายน้ำส่วนตัว (Private pool & Kid pool) ขนาด 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน\n- พื้นที่ใช้สอยรวม 362.16 ตร.ม. บนวิวเขาค้อ Panorama view และวิวกังหันลม\n\n🎈 จุดเด่นที่ “หาไม่ได้ง่ายในทำเลนี้”\n... ใกล้แลนด์มาร์คยอดฮิตของเขาค้อ เช่น วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลม เขาค้อ, Pino Latte Restaurant & Cafe, และ The Blue Sky Resort Khao Kho รวมถึงคาเฟ่ร้านอาหารวิวหลักล้านอีกมากมาย\n\n🔶 เหมาะมากสำหรับ\n- ซื้ออยู่เองเป็นบ้านพักตากอากาศระดับ Luxury เพื่อการพักผ่อนของครอบครัว\n- ซื้อปล่อยเช่าทำ Pool Villa ขยายเม็ดเงินรายได้สูงในทำเลท่องเที่ยว\n- ซื้อเก็บเป็นสินทรัพย์คุณภาพที่มีมูลค่าเติบโตต่อเนื่อง\n\n📌 หมายเหตุ: ราคาดังกล่าวไม่รวมตกแต่ง บิวท์อิน และเฟอร์นิเจอร์",
+    description: "โอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น\n✅ สร้างกระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด สิทธิ์พิเศษสำหรับผู้จองล่วงหน้า\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย พร้อมโซนห้องครัว\n- สระว่ายน้ำส่วนตัว (Private pool & Kid pool) ขนาด 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน\n- พื้นที่ใช้สอยรวม 362.16 ตร.ม. บนวิวเขาค้อ Panorama view และวิวกังหันลม\n\n🎈 จุดเด่นที่ “หาไม่ได้ง่ายในทำเลนี้”\n... ใกล้แลนด์มาร์คยอดฮิตของเขาค้อ เช่น วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลม เขาค้อ, Pino Latte Restaurant & Cafe, และ The Blue Sky Resort Khao Kho รวมถึงคาเฟ่ร้านอาหารวิวหลักล้านอีกมากมาย\n\n🔶 เหมาะมากสำหรับ\n- ซื้ออยู่เองเป็นบ้านพักตากอากาศระดับ Luxury เพื่อการพักผ่อนของครอบครัว\n- ซื้อปล่อยเช่าทำ Pool Villa ขยายเม็ดเงินรายได้สูงในทำเลท่องเที่ยว\n- ซื้อเก็บเป็นสินทรัพย์คุณภาพที่มีมูลค่าเติบโตต่อเนื่อง\n\n📌 หมายเหตุ: ราคาดังกล่าวไม่รวมตกแต่ง บิวท์อิน และเฟอร์นิเจอร์",
     features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 362.16 ตร.ม.", "ที่ดิน 100 ตรว."],
     images: [
       "images/villa/N1.jpg",
@@ -431,12 +431,11 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
-// 🌟 [ปรับปรุงเป็น 4 เมนูหลังบ้าน + แดชบอร์ดสถิติระดับพรีเมียมและระบบติดตามพนักงาน]
 function initAdminInterface() {
   const headingTitle = document.querySelector("#admin-title-heading");
-  if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (Lyftyng Admin)";
+  // 🌟 [อัปเดตชื่อโครงการเป็นเดรสบอร์ดแบรนด์หลักของคุณ Get เรียบร้อยครับ]
+  if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (KhaoKhaLand Admin)";
 
-  // สร้างโครงสร้างแถบปุ่มเมนูสลับแท็บใหม่ด้านบนกล่องควบคุมหลัก
   if (adminPanel && !document.querySelector("#admin-nav-tabs")) {
     const navBar = document.createElement("div");
     navBar.id = "admin-nav-tabs";
@@ -457,13 +456,11 @@ function initAdminInterface() {
 
     adminPanel.insertBefore(navBar, adminPanel.firstChild);
 
-    // ย้ายกล่องฟอร์มกับรายการทรัพย์สินไปใส่แท็บควบคุมแยกต่างหาก
     const propTabWrapper = document.createElement("div");
     propTabWrapper.id = "tab-properties-content";
     propTabWrapper.className = "admin-tab-content";
     propTabWrapper.style.display = "none";
     
-    // ย้าย Node ลูกเดิมเข้าแท็บทรัพย์สิน
     const originalLeft = adminPanel.querySelector(".grid-left") || adminPanel.children[1];
     const originalRight = adminPanel.querySelector(".grid-right") || adminPanel.children[2];
     
@@ -471,7 +468,6 @@ function initAdminInterface() {
     if (originalRight) propTabWrapper.appendChild(originalRight);
     adminPanel.appendChild(propTabWrapper);
 
-    // สร้างแท็บแดชบอร์ด
     const dashWrapper = document.createElement("div");
     dashWrapper.id = "tab-dashboard-content";
     dashWrapper.className = "admin-tab-content";
@@ -497,7 +493,6 @@ function initAdminInterface() {
     `;
     adminPanel.appendChild(dashWrapper);
 
-    // สร้างแท็บลูกค้าลงทะเบียน
     const leadsWrapper = document.createElement("div");
     leadsWrapper.id = "tab-leads-content";
     leadsWrapper.className = "admin-tab-content";
@@ -523,7 +518,6 @@ function initAdminInterface() {
     `;
     adminPanel.appendChild(leadsWrapper);
 
-    // ย้ายแท็บทีมงาน
     const agentsWrapper = document.createElement("div");
     agentsWrapper.id = "tab-agents-content";
     agentsWrapper.className = "admin-tab-content";
@@ -535,7 +529,6 @@ function initAdminInterface() {
     }
     adminPanel.appendChild(agentsWrapper);
 
-    // โลจิกสลับแท็บ
     navBar.addEventListener("click", (e) => {
       const btn = e.target.closest(".admin-tab-btn");
       if (!btn) return;
@@ -604,7 +597,6 @@ function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   
-  // เพิ่มตารางแทร็กกิ่งยอดเปิดเว็บบนหัวข้อรายชื่อทีมงาน
   adminAgentsList.innerHTML = `
     <div style="margin-bottom: 20px; background: #fefbf7; padding: 14px; border: 1px solid #e7e5e4; border-radius: 8px;">
       <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #44403c;">📊 สถิติยอดคลิกผู้เข้าชมเว็บของแต่ละทีมงาน (Traffic Tracking)</h4>
@@ -817,7 +809,6 @@ function fillForm(item) {
   document.querySelector("#property-images").value = (item.images || []).join(" | "); 
   document.querySelector("#property-video").value = item.video || ""; 
   
-  // สลับแท็บไปหน้าเพิ่ม/แก้ไขอัตโนมัติเมื่อกดปุ่มแก้ไข
   const propTabBtn = document.querySelector('.admin-tab-btn[data-target="tab-properties"]');
   if (propTabBtn) propTabBtn.click();
 
