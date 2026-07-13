@@ -43,12 +43,11 @@ const demoProperties = [
     description: "ที่ดินวิวสวย ดุจสวิตเซอร์แลนด์เมืองไทย\n\nสัมผัสเสน่ห์ของธรรมชาติท่ามกลางขุนเขาและสายหมอก กับ Blue Diamond ที่ดินทำเลพิเศษสำหรับผู้ที่กำลังมองหาพื้นที่สร้างบ้านพักตากอากาศ รีสอร์ท หรือเก็บไว้เป็นสินทรัพย์เพื่อการลงทุนในอนาคต\n\n🌿 แบ่งขายแปลงเนื้อที่ขนาด 2 – 4 ไร่ ราคา 25,000 บาท/ตรว. ขนาดกำลังดี ออกแบบและพัฒนาได้หลากหลายตามความต้องการ\n\n✨ จุดเด่นของโครงการ\n- วิวภูเขาแบบพาโนรามา สวยงามตลอดทั้งปี\n- บรรยากาศเงียบสงบ อากาศบริสุทธิ์\n- รายล้อมด้วยธรรมชาติและพื้นที่สีเขียว\n- เหมาะสำหรับสร้างบ้านพักตากอากาศ พูลวิลล่า หรือรีสอร์ทขนาดเล็ก\n- เดินทางสะดวก ใกล้แหล่งท่องเที่ยวและสิ่งอำนวยความสะดวก\n- ทำเลมีศักยภาพในการเติบโตและเพิ่มมูลค่าในอนาคต\n\n🏡 สร้างชีวิตในแบบที่คุณฝัน\nตื่นเช้าพร้อมวิวทะเลหมอก จิบกาแฟท่ามกลางอากาศเย็นสบาย และใช้ชีวิตใกล้ชิดธรรมชาติในทุกวัน\n\nBlue Diamond \"อัญมณีแห่งขุนเขา ที่พร้อมให้คุณเป็นเจ้าของ\"\n\n📍 เปิดจองแปลงสวย ขนาด 2 – 4 ไร่ จำนวนจำกัด",
     features: ["โฉนดครุฑแดง", "แบ่งขาย 2 - 5 ไร่", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
-      "https://6a2a57f488751837051fb26a.imgix.net/IMG_0911.jpg?auto=format&fit=crop&w=1200&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0086%20(1).JPG?auto=format&fit=crop&w=1200&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0986(1).jpg?auto=format&fit=crop&w=1200&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0056.JPG?auto=format&fit=crop&w=1200&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0043.JPG?auto=format&fit=crop&w=1200&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/Screenshot_3.png?auto=format&fit=crop&w=1200&q=85"
+      "images/land/BM1.jpg",
+      "images/land/BM2.jpg",
+      "images/land/BM3.jpg",
+      "images/land/BM4.jpg",
+      "images/land/BM5.jpg"
     ],
     video: "https://www.youtube.com/embed/naKp5kfTIkI?si=eXApp3p5BwwmaWvq"
   },
@@ -177,7 +176,7 @@ const demoProperties = [
       "images/villa/G2.jpg",
       "images/villa/G3.jpg",
       "images/villa/G4.jpg",
-      "images/villa/G5.jpg",
+      "images/villa/G5.jpg"
     ],
     video: "https://www.youtube.com/embed/yMPFrs6sKP8?si=ouW4eGoYN9BTZuZ8"
   }
