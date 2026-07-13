@@ -7,12 +7,34 @@
   <title>KHAO KHO LAND | ขายที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวทะเลหมอก โฉนดครุฑแดงพร้อมโอน</title>
   <meta name="description" content="KHAO KHO LAND คัดสรรที่ดินเขาค้อเจ้าของขายเองแบ่งขายราคาถูก วิวภูเขาและทะเลหมอก 360 องศา ทำเลทองแคมป์สน ทุ่งสมอ เอกสารสิทธิ์โฉนดครุฑแดงถูกต้องพร้อมโอน ปรึกษาลงทุนฟรี">
   <meta name="keywords" content="ขายที่ดินเขาค้อเจ้าของขายเอง, ที่ดินเขาค้อแบ่งขาย, ที่ดินเขาค้อวิวทะเลหมอก, ที่ดินเขาค้อราคาถูก, ซื้อพูลวิลล่าเขาค้อ, บ้านพักตากอากาศเขาค้อ, พูลวิลล่าวิวภูเขา เขาค้อ, ที่ดินเขาค้อโฉนดครุฑแดง">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="KHAO KHO LAND">
   
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": "KHAO KHO LAND",
+    "description": "ผู้เชี่ยวชาญการลงทุนที่ดินเขาค้อ พูลวิลล่าตากอากาศ และโครงการอสังหาริมทรัพย์ทำเลทอง วิวภูเขา ทะเลหมอก โฉนดครุฑแดงถูกต้องสากล",
+    "url": "https://alphacho168-collab.github.io/khaokho/",
+    "logo": "logo.png",
+    "telephone": "0639789356",
+    "priceRange": "$$$$"
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css">
   
   <style>
-    /* สไตล์คุมมอดอลให้ลอยสวยงามตรงกลางจอเมื่อสั่งเปิด */
-    .custom-backdrop-fix {
+    /* 🌟 บังคับสั่งซ่อน Modals ทุกชั้นไม่ให้เด้งโผล่มาหลอนหน้าแรกเด็ดขาดด้วยคำสั่ง Inline พิเศษ */
+    #admin-modal[hidden], 
+    #agent-register-modal[hidden], 
+    #slip-preview-modal[hidden],
+    #detail-panel[hidden] {
+      display: none !important;
+    }
+
+    #admin-modal, #agent-register-modal, #slip-preview-modal {
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
@@ -23,38 +45,17 @@
       justify-content: center !important;
       align-items: center !important;
       z-index: 99999 !important;
-      overflow-y: auto !important;
-      padding: 20px !important;
-      box-sizing: border-box !important;
-    }
-
-    .modal-inner-content {
-      background: white !important;
-      padding: 24px !important;
-      border-radius: 12px !important;
-      max-width: 600px !important;
-      width: 100% !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
-      position: relative !important;
-      color: #333 !important;
-      box-sizing: border-box !important;
-    }
-
-    .form-group-block { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left; }
-    .form-group-block label { font-weight: bold; color: #333; }
-    .form-group-block input, .form-group-block select, .form-group-block textarea { 
-      padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; font-size: 14px; width: 100%; box-sizing: border-box;
     }
   </style>
 </head>
 <body>
 
   <header class="hero-section">
-    <div class="container" style="text-align: center; padding: 40px 20px;">
+    <div class="container">
       <h1>KHAO KHO LAND</h1>
       <p>คลังทรัพย์สิน ที่ดิน และพูลวิลล่าวิวภูเขาที่ดีที่สุดในเขาค้อ</p>
-      <div class="stats-bar" style="margin: 10px 0; font-weight: bold;">
-        จำนวนทรัพย์สินพร้อมขาย: <span id="stat-count">0</span> รายการ
+      <div class="stats-bar">
+        จำนวนทรัพย์สินทั้งหมด: <span id="stat-count">0</span> รายการ
       </div>
       <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
         <button class="button primary" id="admin-open" type="button">ระบบหลังบ้าน (Admin/ตัวแทน)</button>
@@ -69,28 +70,51 @@
     <button class="filter" data-filter="land">ที่ดิน</button>
   </section>
 
-  <main class="container" style="margin-top: 20px;">
+  <main class="container">
     <div id="properties" class="properties-grid"></div>
   </main>
 
-  <div id="detail-panel" style="display: none !important;" class="detail-panel-backdrop"></div>
+  <div id="detail-panel" hidden class="detail-panel-backdrop"></div>
+
+  <section class="faq-section container" style="margin-top: 40px; padding: 24px; background:#fff; border-radius:12px; border:1px solid #eee;">
+    <h3 style="margin-top:0; color:#1a365d;">คำถามที่พบบ่อยสำหรับผู้หา ซื้อที่ดินเขาค้อเจ้าของขายเอง</h3>
+    <div style="display:grid; gap:16px; margin-top:14px; font-size:14px; line-height:1.6;">
+      <div>
+        <strong>Q: ซื้อที่ดินเขาค้อแบ่งขาย วิวทะเลหมอก ควรเลือกทำเลโซนไหนดี?</strong>
+        <p style="margin:4px 0 0 0; color:#555;">A: ทำเลยอดนิยมคือโซนแคมป์สน และ ทุ่งสมอ เนื่องจากเดินทางสะดวก ใกล้คาเฟ่ และมีจุดชมทัศนียภาพภูเขาโอบล้อมรอบตัว 360 องศา</p>
+      </div>
+      <div>
+        <strong>Q: เอกสารสิทธิ์ประเภทใดที่ปลอดภัยที่สุดในการซื้อขายที่ดินเขาค้อ?</strong>
+        <p style="margin:4px 0 0 0; color:#555;">A: ควรเลือกถือครองที่ดินที่เป็น 'โฉนดครุฑแดง' พร้อมโอนกรรมสิทธิ์ ณ สำนักงานที่ดิน ซึ่งโครงการในคลังของ KHAO KHO LAND ทุกแปลงได้รับการตรวจสอบสิทธิ์ถูกต้องแล้ว</p>
+      </div>
+    </div>
+  </section>
 
   <section id="lead-section" class="container" style="margin-top: 40px; background: #f9f9f9; padding: 24px; border-radius: 12px; border: 1px solid #eee;">
     <h3>ติดต่อสอบถาม / นัดชมสถานที่</h3>
     <form id="lead-form" style="display: grid; gap: 12px; max-width: 500px; margin-top: 15px;">
-      <div class="form-group-block"><label for="lead-name">ชื่อ-นามสกุล</label><input type="text" id="lead-name" required placeholder="กรอกชื่อของคุณ"></div>
-      <div class="form-group-block"><label for="lead-phone">เบอร์โทรศัพท์</label><input type="tel" id="lead-phone" required placeholder="เช่น 081XXXXXXX"></div>
-      <div class="form-group-block"><label for="lead-line">Line ID</label><input type="text" id="lead-line" placeholder="กรอก Line ID (ถ้ามี)"></div>
-      <div class="form-group-block">
-        <label for="lead-interest">ทรัพย์ที่ท่านสนใจ / ข้อความถึงเรา</label>
-        <select id="lead-interest">
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <label style="font-weight:bold;">ชื่อ-นามสกุล</label>
+        <input type="text" id="lead-name" required placeholder="กรอกชื่อของคุณ" style="padding:10px; border:1px solid #ccc; border-radius:6px;">
+      </div>
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <label style="font-weight:bold;">เบอร์โทรศัพท์</label>
+        <input type="tel" id="lead-phone" required placeholder="เช่น 081XXXXXXX" style="padding:10px; border:1px solid #ccc; border-radius:6px;">
+      </div>
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <label style="font-weight:bold;">Line ID</label>
+        <input type="text" id="lead-line" placeholder="กรอก Line ID (ถ้ามี)" style="padding:10px; border:1px solid #ccc; border-radius:6px;">
+      </div>
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <label style="font-weight:bold;">ทรัพย์ที่ท่านสนใจ / ข้อความถึงเรา</label>
+        <select id="lead-interest" style="padding:10px; border:1px solid #ccc; border-radius:6px;">
           <option value="ทั่วไป / นัดชมโครงการ">ทั่วไป / นัดชมโครงการ</option>
           <option value="สนใจพูลวิลล่า">สนใจพูลวิลล่า</option>
           <option value="สนใจที่ดิน">สนใจที่ดิน</option>
         </select>
       </div>
-      <button type="submit" class="button primary">ส่งข้อมูลนัดหมาย</button>
-      <p id="lead-message" style="margin-top: 8px; font-weight: bold;"></p>
+      <button type="submit" class="button primary" style="padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;">ส่งข้อมูลนัดหมาย</button>
+      <p id="lead-message" style="margin-top: 8px; font-weight: bold; color: green;"></p>
     </form>
   </section>
 
@@ -105,70 +129,90 @@
     </div>
   </footer>
 
-  <div id="admin-modal" style="display: none !important;" class="custom-backdrop-fix">
-    <div class="modal-inner-content">
+  <div id="admin-modal" hidden>
+    <div style="background: white; padding: 24px; border-radius: 12px; max-width: 600px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: relative;">
       <button id="admin-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
-      <h2 id="admin-title-heading" style="margin-top: 0; margin-bottom: 20px;">ระบบเข้าสู่หลังบ้าน</h2>
+      <h2 id="admin-title-heading" style="margin-top: 0; margin-bottom: 20px; color:#333;">ระบบเข้าสู่หลังบ้าน</h2>
 
       <div id="admin-login">
-        <div class="form-group-block"><label for="admin-username">ชื่อผู้ใช้งาน (หรือเบอร์โทรตัวแทน)</label><input type="text" id="admin-username" placeholder="Username"></div>
-        <div class="form-group-block"><label for="admin-password">รหัสผ่าน</label><input type="password" id="admin-password" placeholder="Password"></div>
-        <button id="login-button" class="button primary" style="width: 100%; margin-top: 10px;" type="button">เข้าสู่ระบบ</button>
+        <div style="display:flex; flex-direction:column; gap:5px; margin-bottom:12px;">
+          <label style="font-weight:bold; color:#333;">ชื่อผู้ใช้งาน (หรือเบอร์โทรตัวแทน)</label>
+          <input type="text" id="admin-username" style="padding:10px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px; margin-bottom:12px;">
+          <label style="font-weight:bold; color:#333;">รหัสผ่าน</label>
+          <input type="password" id="admin-password" style="padding:10px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <button id="login-button" class="button primary" style="width: 100%; margin-top: 10px; padding:10px;" type="button">เข้าสู่ระบบ</button>
         <p id="login-message" style="color: red; margin-top: 8px; font-weight: bold;"></p>
       </div>
 
-      <div id="admin-panel" style="display: none !important;">
-        <h3>ฟอร์มจัดการทรัพย์สิน (อัปเดตรูปได้หลายรูปคั่นด้วย | )</h3>
-        <form id="property-form">
+      <div id="admin-panel" hidden>
+        <h3 style="color:#333;">ฟอร์มจัดการทรัพย์สิน (อัปเดตรูปได้หลายรูปคั่นด้วย | )</h3>
+        <form id="property-form" style="display:grid; gap:10px;">
           <input type="hidden" id="property-id" value="">
-          <div class="form-group-block"><label for="property-type">ประเภททรัพย์</label><select id="property-type"><option value="villa">พูลวิลล่า</option><option value="land">ที่ดิน</option></select></div>
-          <div class="form-group-block"><label for="property-title">ชื่อทรัพย์สิน</label><input type="text" id="property-title" required></div>
-          <div class="form-group-block"><label for="property-location">ทำเล / ที่ตั้ง</label><input type="text" id="property-location" required></div>
-          <div class="form-group-block"><label for="property-price">ราคา</label><input type="text" id="property-price" required></div>
-          <div class="form-group-block"><label for="property-description">รายละเอียดทรัพย์สิน</label><textarea id="property-description" rows="4"></textarea></div>
-          <div class="form-group-block"><label for="property-features">จุดเด่น (คั่นด้วย | )</label><input type="text" id="property-features"></div>
-          <div class="form-group-block"><label for="property-images">ลิงก์รูปภาพทั้งหมด (คั่นด้วย | )</label><textarea id="property-images" rows="4"></textarea></div>
-          <div class="form-group-block"><label for="property-video">ลิงก์วิดีโอ Youtube (ถ้ามี)</label><input type="text" id="property-video"></div>
-          <div style="display: flex; gap: 12px; margin-top: 20px;"><button type="submit" class="button primary" style="flex: 1;">บันทึกข้อมูลทรัพย์</button><button type="button" id="reset-form" style="padding:10px; background:#ccc; border:none; border-radius:6px; cursor:pointer;">ล้างฟอร์ม</button></div>
+          <div style="display:flex; flex-direction:column;"><label style="font-weight:bold; color:#333;">ประเภททรัพย์</label><select id="property-type" style="padding:10px;"><option value="villa">พูลวิลล่า</option><option value="land">ที่ดิน</option></select></div>
+          <div style="display:flex; flex-direction:column;"><label style="font-weight:bold; color:#333;">ชื่อทรัพย์สิน</label><input type="text" id="property-title" required style="padding:10px;"></div>
+          <div style="display:flex; flex-direction:column;"><label style="font-weight:bold; color:#333;">ทำเล / ที่ตั้ง</label><input type="text" id="property-location" required style="padding:10px;"></div>
+          <div style="display:flex; flex-direction:column;"><label style="font-weight:bold; color:#333;">ราคา</label><input type="text" id="property-price" required style="padding:10px;"></div>
+          <div style="display:flex; flex-direction:column;"><label style="font-weight:bold; color:#333;">รายละเอียดทรัพย์สิน</label><textarea id="property-description" rows="3" style="padding:10px;"></textarea></div>
+          <div style="display:flex; flex-direction:column;"><label style="font-weight:bold; color:#333;">จุดเด่น (คั่นด้วย | )</label><input type="text" id="property-features" style="padding:10px;"></div>
+          <div style="display:flex; flex-direction:column;"><label style="font-weight:bold; color:#333;">ลิงก์รูปภาพทั้งหมด (คั่นด้วย | )</label><textarea id="property-images" rows="3" style="padding:10px;"></textarea></div>
+          <div style="display:flex; flex-direction:column;"><label style="font-weight:bold; color:#333;">ลิงก์วิดีโอ Youtube (ถ้ามี)</label><input type="text" id="property-video" style="padding:10px;"></div>
+          <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button type="submit" class="button primary" style="flex: 1; padding:10px;">บันทึกข้อมูลทรัพย์</button>
+            <button type="button" id="reset-form" style="padding:10px; background:#ccc; border:none; border-radius:6px; cursor:pointer;">ล้างฟอร์ม</button>
+          </div>
         </form>
-        <hr style="margin: 24px 0; border: 0; border-top: 1px solid #eee;">
-        <div style="display: flex; justify-content: space-between; align-items: center;"><h3>รายการทรัพย์สินปัจจุบัน</h3><button type="button" id="restore-demo" class="button danger" style="padding: 6px 12px; font-size: 13px;">รีเซ็ตค่าตัวอย่าง</button></div>
-        <div id="admin-items" style="max-height: 200px; overflow-y: auto; margin-top: 10px;"></div>
-        <hr style="margin: 24px 0; border: 0; border-top: 1px solid #eee;">
-        <h3>รายชื่อและการอนุมัติสิทธิ์ตัวแทน (เว็บลูก)</h3>
-        <div id="admin-agents-list" style="margin-top: 15px;"></div>
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="color:#333; margin:0;">รายการทรัพย์สินปัจจุบัน</h3>
+          <button type="button" id="restore-demo" class="button danger" style="padding: 4px 8px; font-size: 12px;">รีเซ็ตค่าตัวอย่าง</button>
+        </div>
+        <div id="admin-items" style="max-height: 150px; overflow-y: auto; margin-top: 10px;"></div>
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+        <h3 style="color:#333;">รายชื่อและการอนุมัติสิทธิ์ตัวแทน (เว็บลูก)</h3>
+        <div id="admin-agents-list" style="margin-top: 10px;"></div>
       </div>
 
-      <div id="agent-dashboard-panel" style="display: none !important;">
-        <p>ยินดีต้อนรับคุณ: <strong id="agent-dashboard-name"></strong></p>
-        <div style="background: #f0fdf4; padding: 14px; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 20px;"><span>🔗 ลิงก์สำหรับทำตลาดของคุณ (เว็บลูก):</span><br><small id="back-agent-full-url" style="word-break: break-all; color: #166534; font-weight: bold; font-size: 14px;"></small></div>
+      <div id="agent-dashboard-panel" hidden style="color:#333;">
+        <p>ยินดีต้อนรับคุณ: <strong id="agent-dashboard-name" style="color:green;"></strong></p>
+        <div style="background: #f0fdf4; padding: 14px; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 15px;">
+          <span>🔗 ลิงก์สำหรับทำตลาดของคุณ (เว็บลูก):</span><br>
+          <small id="back-agent-full-url" style="word-break: break-all; color: #15803d; font-weight: bold; font-size: 13px;"></small>
+        </div>
         <p style="font-size: 13px; color: #666;">ข้อมูลการติดต่อ: Line: <span id="back-agent-line-link">-</span> | FB: <span id="back-agent-fb-link">-</span><br>📅 วันหมดอายุสิทธิ์ระบบ: <span id="back-agent-expire" style="color:red; font-weight:bold;">-</span></p>
-        <hr style="margin: 20px 0; border:0; border-top:1px solid #eee;">
+        <hr style="margin: 15px 0; border:0; border-top:1px solid #eee;">
         <h4>รายชื่อลูกค้าที่ลงทะเบียนผ่านลิงก์ของคุณ</h4>
-        <div style="overflow-x: auto;"><table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;"><thead style="background: #f4f4f4;"><tr><th style="padding: 10px;">ชื่อลูกค้า</th><th style="padding: 10px;">เบอร์โทร</th><th style="padding: 10px;">Line ID</th><th style="padding: 10px;">ทรัพย์ที่สนใจ</th></tr></thead><tbody id="agent-leads-table-body"></tbody></table></div>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+            <thead><tr style="background: #f4f4f4;"><th style="padding: 8px;">ชื่อลูกค้า</th><th style="padding: 8px;">เบอร์โทร</th><th style="padding: 8px;">Line ID</th><th style="padding: 8px;">ทรัพย์ที่สนใจ</th></tr></thead>
+            <tbody id="agent-leads-table-body"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
-  <div id="agent-register-modal" style="display: none !important;" class="custom-backdrop-fix">
-    <div class="modal-inner-content" style="max-width: 500px !important;">
+  <div id="agent-register-modal" hidden>
+    <div style="background: white; padding: 24px; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: relative; color:#333;">
       <button id="agent-register-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
-      <h2>สมัครใช้งานระบบเว็บลูก (ตัวแทน)</h2>
-      <form id="agent-register-form">
-        <div class="form-group-block"><label for="reg-name">ชื่อ-นามสกุล ตัวแทน</label><input type="text" id="reg-name" required placeholder="กรอกชื่อ-นามสกุลของคุณ"></div>
-        <div class="form-group-block"><label for="reg-phone">เบอร์โทรศัพท์ (ใช้เป็น Username)</label><input type="tel" id="reg-phone" required placeholder="กรอกเบอร์โทร 10 หลัก"></div>
-        <div class="form-group-block"><label for="reg-line">Line ID ของคุณ</label><input type="text" id="reg-line" required placeholder="เช่น @yourline"></div>
-        <div class="form-group-block"><label for="reg-facebook">ลิงก์โปรไฟล์ Facebook</label><input type="url" id="reg-facebook" placeholder="https://facebook.com/username"></div>
-        <div class="form-group-block"><label for="reg-slip">แนบหลักฐานสลิปการสมัคร/โอนเงิน</label><input type="file" id="reg-slip" accept="image/*" required></div>
-        <button type="submit" class="button primary" style="width: 100%; margin-top: 15px;">ส่งข้อมูลสมัครตัวแทน</button>
+      <h2 style="margin-top: 0; margin-bottom: 15px;">สมัครใช้งานระบบเว็บลูก (ตัวแทน)</h2>
+      <form id="agent-register-form" style="display:grid; gap:10px;">
+        <div style="display:flex; flex-direction:column;"><label style="font-weight:bold;">ชื่อ-นามสกุล ตัวแทน</label><input type="text" id="reg-name" required placeholder="กรอกชื่อ-นามสกุลของคุณ" style="padding:10px; border:1px solid #ccc; border-radius:6px;"></div>
+        <div style="display:flex; flex-direction:column;"><label style="font-weight:bold;">เบอร์โทรศัพท์ (ใช้เป็น Username)</label><input type="tel" id="reg-phone" required placeholder="กรอกเบอร์โทร 10 หลัก" style="padding:10px; border:1px solid #ccc; border-radius:6px;"></div>
+        <div style="display:flex; flex-direction:column;"><label style="font-weight:bold;">Line ID ของคุณ</label><input type="text" id="reg-line" required placeholder="เช่น @yourline" style="padding:10px; border:1px solid #ccc; border-radius:6px;"></div>
+        <div style="display:flex; flex-direction:column;"><label style="font-weight:bold;">ลิงก์โปรไฟล์ Facebook</label><input type="url" id="reg-facebook" placeholder="https://facebook.com/username" style="padding:10px; border:1px solid #ccc; border-radius:6px;"></div>
+        <div style="display:flex; flex-direction:column;"><label style="font-weight:bold;">แนบหลักฐานสลิปการสมัคร/โอนเงิน</label><input type="file" id="reg-slip" accept="image/*" required style="padding:10px;"></div>
+        <button type="submit" class="button primary" style="width: 100%; margin-top: 10px; padding:10px;">ส่งข้อมูลสมัครตัวแทน</button>
         <p id="reg-message" style="margin-top: 10px; font-weight: bold; text-align: center; color: green;"></p>
       </form>
     </div>
   </div>
 
-  <div id="slip-preview-modal" style="display: none !important;" class="custom-backdrop-fix">
-    <div class="modal-inner-content" style="max-width: 400px !important; text-align: center !important;">
-      <button id="slip-preview-close" style="position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
+  <div id="slip-preview-modal" hidden>
+    <div style="background: white; padding: 15px; border-radius: 8px; max-width: 400px; width: 90%; text-align: center; position: relative; color:#333;">
+      <button onclick="document.querySelector('#slip-preview-modal').hidden = true;" style="position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
       <h4 style="margin-top: 0; margin-bottom: 10px;">รูปภาพสลิปหลักฐาน</h4>
       <img id="slip-preview-img" src="" alt="Slip Preview" style="width: 100%; max-height: 450px; object-fit: contain; border: 1px solid #ddd; border-radius: 6px;">
     </div>
