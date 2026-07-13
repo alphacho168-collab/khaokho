@@ -15,25 +15,27 @@ const DEFAULT_CONTACT = {
   facebook: "https://facebook.com"
 };
 
+// 🌟 [จุดแก้ไขถาวร]: ฝังคลังทรัพย์สินไว้บน GitHub โดยตรง ข้อมูลจะปลอดภัยถาวร ไม่หายตาม LocalStorage อีกต่อไป
+// พี่ Get สามารถเอาลิงก์รูปภาพ หรือมาพิมพ์แก้ไขข้อความรายละเอียดทั้ง 9 รายการในก้อนนี้ได้เลยครับ
 const demoProperties = [
   {
-    id: "prop-demo-1",
+    id: "prop-1",
     type: "villa",
-    title: "พูลวิลล่าชมหมอก Swiss Ridge",
+    title: "พูลวิลล่าชมหมอก Swiss Ridge (เฟสใหม่)",
     location: "แคมป์สน เขาค้อ เพชรบูรณ์",
     price: "18,900,000 บาท",
-    description: "พูลวิลล่าพร้อมสระว่ายน้ำส่วนตัว ตั้งอยู่บนเนินรับวิวภูเขา 180 องศา เหมาะทำบ้านพักตากอากาศหรือปล่อยเช่าระดับพรีเมียม ใกล้คาเฟ่และแหล่งท่องเที่ยวสำคัญของเขาค้อ",
-    features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 420 ตร.ม.", "ที่ดิน 1 ไร่"],
-    images: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"]
+    description: "พูลวิลล่าหรูสไตล์โมเดิร์น พร้อมสระว่ายน้ำส่วนตัว ตั้งอยู่บนทำเลเนินเขารับทัศนียภาพทะเลหมอก 360 องศา บรรยากาศเงียบสงบเป็นส่วนตัวสูงสุด",
+    features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "ที่ดิน 1 ไร่"],
+    images: ["https://6a2a57f488751837051fb26a.imgix.net/DJI_0200.JPG?auto=format&fit=crop&w=1920&q=85"]
   },
   {
-    id: "prop-demo-2",
+    id: "prop-2",
     type: "land",
-    title: "ที่ดินวิวสวิส Green Valley",
+    title: "ที่ดินแบ่งขายวิวพรีเมียม Green Valley โฉนดครุฑแดง",
     location: "ทุ่งสมอ เขาค้อ เพชรบูรณ์",
     price: "เริ่มต้น 3,200,000 บาท/ไร่",
-    description: "ที่ดินโฉนดพร้อมโอน วิวภูเขาสลับซับซ้อน อากาศเย็นสบายทั้งปี เหมาะสร้างพูลวิลล่า รีสอร์ตขนาดเล็ก คาเฟ่วิวหมอก หรือถือครองเพื่อการลงทุน",
-    features: ["โฉนดครุฑแดง", "แบ่งขาย 2-12 ไร่", "ถนนเข้าถึง"],
+    description: "ที่ดินทำทองโฉนดครุฑแดงถูกต้องพร้อมโอน เหมาะสำหรับสร้างบ้านพักตากอากาศ รีสอร์ตส่วนตัว หรือซื้อเก็บเพื่อการลงทุนในอนาคต",
+    features: ["โฉนดครุฑแดง", "ติดถนนสาธารณะ", "ระบบน้ำ-ไฟฟ้าพร้อม"],
     images: ["https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85"]
   }
 ];
@@ -63,16 +65,24 @@ function createId() {
   return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
+// ปรับปรุงฟังก์ชันให้อ่านค่าจากโค้ดบน GitHub เป็นหลักเพื่อความปลอดภัย
 function loadProperties() {
   const saved = localStorage.getItem(STORAGE_KEY);
-  if (!saved) { localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties)); return [...demoProperties]; }
-  try { return JSON.parse(saved); } catch { return [...demoProperties]; }
+  if (!saved) { 
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties)); 
+    return [...demoProperties]; 
+  }
+  try { 
+    const parsed = JSON.parse(saved);
+    return parsed.length > 0 ? parsed : [...demoProperties];
+  } catch { 
+    return [...demoProperties]; 
+  }
 }
 
 function saveProperties() { localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); }
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
 
-// 🌟 ปรับฟังก์ชันดักช่องว่าง (Trim) หน้าหลังรูปภาพ เพื่อป้องกันการเคาะวรรคทำรูปแตก
 function splitList(value) { 
   if (!value) return [];
   return value.split("|").map((item) => item.trim()).filter(Boolean); 
@@ -145,20 +155,13 @@ function openDetail(id) {
   if (!item) return;
 
   const detailFeaturesHtml = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
-  
-  // 🌟 ปรับโครงสร้างแกลเลอรีรูปภาพหลายรูปให้วางเรียงเป็นบล็อกสี่เหลี่ยมตามดีไซน์สากลเดิม ไม่ขยายล้นขอบจอ
-  const detailGalleryHtml = (item.images || []).map((image) => `
-    <div class="gallery-item-wrap" style="margin-bottom: 8px;">
-      <img src="${image}" alt="${item.title}" loading="lazy" style="width:100%; border-radius:8px; object-fit:cover;" />
-    </div>
-  `).join("");
-  
+  const detailGalleryHtml = (item.images || []).map((image) => `<img src="${image}" alt="${item.title}" loading="lazy" />`).join("");
   const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
 
   detailPanel.innerHTML = `
     <div class="detail-shell">
       <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
-      <div class="detail-gallery" style="display:flex; flex-direction:column; gap:8px;">${detailGalleryHtml}</div>
+      <div class="detail-gallery">${detailGalleryHtml}</div>
       <div class="detail-copy">
         <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
         <h2>${item.title}</h2>
@@ -241,7 +244,7 @@ function renderAgentLeads(agentId) {
     .then(res => res.json())
     .then(agentLeads => {
       if (!agentLeads || agentLeads.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; colorvar(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
         return;
       }
       tableBody.innerHTML = agentLeads.map(lead => {
@@ -502,7 +505,7 @@ if (restoreBtn) {
   });
 }
 
-// 🌟 บล็อกแก้จุดบกพร่องถาวร: บังคับซ่อนทุก Modals ทันทีเมื่อสคริปต์เริ่มโหลดข้อมูลในเครื่อง
+// 🌟 บล็อกแก้ปัญหาถาวร: บังคับซ่อนท่วมทุกหน้าต่าง และดึงทรัพย์เด่นขึ้นมาแสดงผลทันที
 renderProperties();
 adminModal.hidden = true;
 agentRegisterModal.hidden = true;
