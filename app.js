@@ -25,12 +25,12 @@ const demoProperties = [
     description: "ที่ดินแปลงสวยที่สุด --ขายยกแปลง ไม่แบ่งขาย--\nโฉนดพร้อมโอน ในเทศบาล ตำบลแคมป์สน อำเภอเขาค้อ จังหวัดเพชรบูรณ์\nเนื้อที่ 27 ไร่ 3 งาน ราคาไร่ละ 6 ล้านบาท บนทำเลทองเพื่อการลงทุน\n\nเรียงรายด้วยต้นสนสามใบอายุกว่า 30 ปี ตลอดแนว ภายในโครงการพร้อมถนนคอนกรีตกว้าง 6 เมตร โอบล้อมด้วยริมธารน้ำไหลตลอดปี การเดินทางสะดวกจากทางหลวงเอเชีย AH 16 เพียง 9 นาที\n\nสิ่งอำนวยความสะดวก พร้อมแหล่งท่องเที่ยวชื่อดังเช่น วัดผาซ่อนแก้ว อ.เขาค้อ บรรยากาศเย็นสบาย พร้อมวิวทะเลหมอก เหมาะสำหรับลงทุน รีสอร์ท โรงแรม บ้านพักตากอากาศ พูลวิลล่า\n\nมาเป็นเจ้าของที่ดิน วิวหลักล้าน โอบล้อมด้วยขุนเขาได้แล้ววันนี้ที่ ที่ดินเขาค้อ เฟส 5 พาราไดซ์ (Paradise)",
     features: ["โฉนดครุฑแดง", "เนื้อที่ 23 ไร่ 3 งาน", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "วิวกังหันลมสวยงาม"],
     images: [
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0202-Enhanced-NR.JPG?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0200.JPG?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0187.JPG?auto=format&fit=crop&w=1200&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0175.JPG?auto=format&fit=crop&w=1200&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/DJI_0166-Enhanced-NR.JPG?auto=format&fit=crop&w=1200&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/Screenshot_1.png?auto=format&w=1200&q=80"
+     "images/land/PD2.JPG",
+      "images/land/PD1.JPG",
+      "images/land/PD3.JPG",
+      "images/land/PD4.JPG",
+      "images/land/PD5.JPG",
+      "images/land/PD6.png"
     ],
     video: "https://www.youtube.com/embed/koIPD1fREEU?si=BKL897KtuHgA90us"
   },
