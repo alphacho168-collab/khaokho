@@ -132,13 +132,12 @@ const demoProperties = [
     description: "✨เปิดจองบ้านพักตากอากาศเขาค้อ วิวกังหันลม พร้อมสระว่ายน้ำส่วนตัว 🌿💦\n\nบ้านสวยบรรยากาศดี ท่ามกลางธรรมชาติ เหมาะสำหรับพักผ่อนในวันหยุด หรือซื้อไว้ลงทุนปล่อยเช่าก็คุ้มค่า\n\n📍 ทำเลดี วิวสวย อากาศดีตลอดปี\n- พื้นที่: 54 ตารางวา\n- พื้นที่ใช้สอย: 160 ตารางเมตร \n- ฟังก์ชัน: 3 ห้องนอน | 3 ห้องน้ำ\n- สระว่ายน้ำส่วนตัว: ขนาด 3x6 เมตร \n- ดีไซน์: บ้านสไตล์โมเดิร์น\n\n🎁 ของแถมแบบจัดเต็ม\n- แอร์ 3 ตัว \n- ชุดโต๊ะรับแขก 1 ชุด\n- จัดสวนรอบบ้าน\n- ตู้เย็น และ เครื่องซักผ้า\n- ชุดเตียงนอนครบทั้ง 3 ห้อง \n- กล้องวงจรปิดรอบบ้าน\n\n✅ ยื่นสินเชื่อให้ฟรี!\n💰 บ้านเปล่า: 4.59 ล้านบาท\n💰 บ้านพร้อมเฟอร์นิเจอร์: 4.99 ล้านบาท",
     features: ["3 ห้องนอน", "3 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 160 ตร.ม.", "ที่ดิน 54 ตรว."],
     images: [
-      "https://6a2a57f488751837051fb26a.imgix.net/ChatGPT%20Image%2017%20%E0%B8%A1%E0%B8%B4.%E0%B8%A2.%202569%2001_28_13.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/S__2719800.jpg?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/S__2719802.jpg?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/S__2719803.jpg?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/ChatGPT%20Image%2017%20%E0%B8%A1%E0%B8%B4.%E0%B8%A2.%202569%2001_35_36.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/ChatGPT%20Image%2017%20%E0%B8%A1%E0%B8%B4.%E0%B8%A2.%202569%2001_35_45.png?auto=format&fit=crop&w=1920&q=85",
-      "https://6a2a57f488751837051fb26a.imgix.net/ChatGPT%20Image%2017%20%E0%B8%A1%E0%B8%B4.%E0%B8%A2.%202569%2001_37_25.png?auto=format&fit=crop&w=1920&q=85"
+      "images/villa/45VL1.png",
+      "images/villa/45VL2.jpg",
+      "images/villa/45VL3.jpg",
+      "images/villa/45VL4.png",
+      "images/villa/45VL5.png",
+      "images/villa/45VL6.png"
     ],
     video: ""
   },
