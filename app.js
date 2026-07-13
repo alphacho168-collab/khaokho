@@ -147,7 +147,7 @@ function openDetail(id) {
 
   detailPanel.innerHTML = `
     <div class="detail-shell">
-      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;">×</button>
+      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').style.setProperty('display', 'none', 'important');">×</button>
       <div class="detail-gallery">${detailGalleryHtml}</div>
       <div class="detail-copy">
         <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
@@ -158,13 +158,13 @@ function openDetail(id) {
         <ul class="feature-list">${detailFeaturesHtml}</ul>
         <div class="video-wrap">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <button type="button" class="button primary" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
-          <button onclick="document.querySelector('#detail-panel').hidden = true;" type="button" class="button neutral" style="background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
+          <button type="button" class="button primary" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').style.setProperty('display', 'none', 'important');">สนใจทรัพย์นี้</button>
+          <button onclick="document.querySelector('#detail-panel').style.setProperty('display', 'none', 'important');" type="button" class="button neutral" style="background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
         </div>
       </div>
     </div>
   `;
-  detailPanel.hidden = false;
+  detailPanel.style.setProperty('display', 'flex', 'important');
   detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -232,8 +232,15 @@ function renderAgentLeads(agentId) {
 function viewSlipInModal(base64Data) {
   const modal = document.querySelector("#slip-preview-modal");
   const img = document.querySelector("#slip-preview-img");
-  if (modal && img) { img.src = base64Data; modal.hidden = false; }
+  if (modal && img) { 
+    img.src = base64Data; 
+    modal.style.setProperty('display', 'flex', 'important'); 
+  }
 }
+
+document.querySelector("#slip-preview-close")?.addEventListener("click", () => {
+  document.querySelector("#slip-preview-modal").style.setProperty('display', 'none', 'important');
+});
 
 function renderAdminAgents() {
   const adminAgentsList = document.querySelector("#admin-agents-list");
@@ -265,7 +272,7 @@ async function fetchOnlineAgents() {
         agents = onlineAgents; 
         checkAgentRoute(); 
         const adminPanel = document.querySelector("#admin-panel");
-        if (adminPanel && !adminPanel.hidden) renderAdminAgents(); 
+        if (adminPanel && adminPanel.style.display !== 'none') renderAdminAgents(); 
       }
     }
   } catch (err) { console.log(err); }
@@ -311,25 +318,25 @@ document.addEventListener("click", (e) => {
 const adminOpenBtn = document.querySelector("#admin-open");
 if (adminOpenBtn) {
   adminOpenBtn.addEventListener("click", async () => { 
-    document.querySelector("#admin-login").hidden = false; 
-    document.querySelector("#admin-panel").hidden = true; 
-    document.querySelector("#agent-dashboard-panel").hidden = true;
-    document.querySelector("#admin-modal").hidden = false; 
+    document.querySelector("#admin-login").style.setProperty('display', 'block', 'important'); 
+    document.querySelector("#admin-panel").style.setProperty('display', 'none', 'important'); 
+    document.querySelector("#agent-dashboard-panel").style.setProperty('display', 'none', 'important');
+    document.querySelector("#admin-modal").style.setProperty('display', 'flex', 'important'); 
     await fetchOnlineAgents();
   });
 }
 
 document.querySelector("#admin-close")?.addEventListener("click", () => {
-  document.querySelector("#admin-modal").hidden = true;
+  document.querySelector("#admin-modal").style.setProperty('display', 'none', 'important');
 });
 
 document.querySelector("#agent-register-open")?.addEventListener("click", () => {
-  document.querySelector("#agent-register-modal").hidden = false; 
+  document.querySelector("#agent-register-modal").style.setProperty('display', 'flex', 'important'); 
   checkAgentRoute();
 });
 
 document.querySelector("#agent-register-close")?.addEventListener("click", () => {
-  document.querySelector("#agent-register-modal").hidden = true;
+  document.querySelector("#agent-register-modal").style.setProperty('display', 'none', 'important');
 });
 
 const loginBtn = document.querySelector("#login-button");
@@ -345,9 +352,9 @@ if (loginBtn) {
 
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       if (message) message.textContent = ""; 
-      document.querySelector("#admin-login").hidden = true; 
-      document.querySelector("#admin-panel").hidden = false; 
-      document.querySelector("#agent-dashboard-panel").hidden = true;
+      document.querySelector("#admin-login").style.setProperty('display', 'none', 'important'); 
+      document.querySelector("#admin-panel").style.setProperty('display', 'block', 'important'); 
+      document.querySelector("#agent-dashboard-panel").style.setProperty('display', 'none', 'important');
       if (headingTitle) headingTitle.textContent = "ระบบหลังบ้านแอดมิน (เว็บแม่)";
       renderAdminItems(); renderAdminAgents(); return;
     }
@@ -355,8 +362,8 @@ if (loginBtn) {
     const memberAgent = agents.find(a => a.phone === username && a.status === "approved");
     if (memberAgent && password === AGENT_PASSWORD) {
       if (message) message.textContent = ""; 
-      document.querySelector("#admin-login").hidden = true; 
-      document.querySelector("#admin-panel").hidden = true;
+      document.querySelector("#admin-login").style.setProperty('display', 'none', 'important'); 
+      document.querySelector("#admin-panel").style.setProperty('display', 'none', 'important');
       
       const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
       
@@ -365,7 +372,7 @@ if (loginBtn) {
       document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
       document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt;
 
-      if (agentDashboardPanel) agentDashboardPanel.hidden = false;
+      if (agentDashboardPanel) agentDashboardPanel.style.setProperty('display', 'block', 'important');
       if (document.querySelector("#agent-dashboard-name")) document.querySelector("#agent-dashboard-name").textContent = memberAgent.name;
       if (headingTitle) headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
       
@@ -474,7 +481,7 @@ document.querySelector("#restore-demo")?.addEventListener("click", () => {
   }
 });
 
-// บังคับให้โหลดข้อมูลจาก LocalStorage ขึ้นมาโชว์ทันทีก่อนสคริปต์ตัวอื่นทำงาน
+// บังคับให้โหลดข้อมูลขึ้นมาโชว์ทันทีก่อนสคริปต์ตัวอื่นทำงาน
 checkAgentRoute();
 renderProperties();
 
