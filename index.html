@@ -1,209 +1,329 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>KHAO KHO LAND | ขายที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวทะเลหมอก โฉนดครุฑแดงพร้อมโอน</title>
-  <meta name="description" content="KHAO KHO LAND คัดสรรที่ดินเขาค้อเจ้าของขายเองแบ่งขายราคาถูก วิวภูเขาและทะเลหมอก 360 องศา ทำเลทองแคมป์สน ทุ่งสมอ เอกสารสิทธิ์โฉนดครุฑแดงถูกต้องพร้อมโอน ปรึกษาลงทุนฟรี">
-  <meta name="keywords" content="ขายที่ดินเขาค้อเจ้าของขายเอง, ที่ดินเขาค้อแบ่งขาย, ที่ดินเขาค้อวิวทะเลหมอก, ที่ดินเขาค้อราคาถูก, ซื้อพูลวิลล่าเขาค้อ, บ้านพักตากอากาศเขาค้อ, พูลวิลล่าวิวภูเขา เขาค้อ, ที่ดินเขาค้อโฉนดครุฑแดง">
-  
-  <style>
-    /* 🌟 ชุบชีวิตดีไซน์ความสวยงามหรูหราดั้งเดิม บังคับจัดระเบียบใหม่ทั้งหมด ไม่พึ่งพาไฟล์เก่า */
-    :root { --forest: #23483a; --gold: #c58d37; --ink: #333; --light: #f9f9f9; --line: #eee; }
-    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; color: var(--ink); background: #fff; line-height: 1.6; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KHAO KHO LAND | ขายที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวทะเลหมอก โฉนดครุฑแดงพร้อมโอน</title>
+    <meta name="description" content="KHAO KHO LAND คัดสรรที่ดินเขาค้อเจ้าของขายเอง แบ่งขายราคาถูก วิวภูเขา วิวทะเลหมอก 360 องศา เหมาะสำหรับสร้างบ้านพักตากอากาศ รีสอร์ตส่วนตัว และพูลวิลล่าหรู ทำเลทองยอดนิยม แคมป์สน ทุ่งสมอ เอกสารสิทธิ์โฉนดครุฑแดงถูกต้องพร้อมโอน ปรึกษาการลงทุนฟรี" />
+    <meta name="keywords" content="ขายที่ดินเขาค้อเจ้าของขายเอง, ที่ดินเขาค้อแบ่งขาย, ที่ดินเขาค้อวิวทะเลหมอก, ที่ดินเขาค้อราคาถูก, ซื้อพูลวิลล่าเขาค้อ, บ้านพักตากอากาศเขาค้อ, พูลวิลล่าวิวภูเขา เขาค้อ, ที่ดินเขาค้อโฉนดครุฑแดง, ซื้อที่ดินเขาค้อโซนไหนดี, ที่ดินแคมป์สน, ที่ดินทุ่งสมอ" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="KHAO KHO LAND | ที่ดินเขาค้อเจ้าของขายเอง และพูลวิลล่าตากอากาศวิวภูเขา" />
+    <meta property="og:description" content="ค้นหาที่ดินแบ่งขายราคาพรีเมียม โฉนดครุฑแดง วิวทะเลหมอกเขาค้อ สำหรับสร้างบ้านพักตากอากาศและรีสอร์ต" />
+    <meta property="og:image" content="khao-kho-hero.png" />
+    <meta name="author" content="KHAO KHO LAND" />
+    <meta name="classification" content="Real Estate, Luxury Living, Khao Kho Investment" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    header { background: linear-gradient(135deg, #1e3d30, #2d5a47); color: white; padding: 50px 20px; text-align: center; }
-    header h1 { margin: 0 0 10px 0; font-size: 2.5rem; letter-spacing: 2px; }
-    header p { margin: 0; opacity: 0.9; }
-    
-    .button { padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: all 0.2s; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
-    .button.primary { background: var(--forest); color: white; }
-    .button.neutral { background: #eaeaea; color: #333; }
-    .button.danger { background: #dc2626; color: white; }
-    
-    .filter-section { margin: 25px 0; text-align: center; }
-    .filter-section button { background: none; border: 1px solid var(--line); padding: 8px 20px; margin: 0 4px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-    .filter-section button.active { background: var(--forest); color: white; border-color: var(--forest); }
-    
-    /* ควบคุมโครงสร้างการ์ดทรัพย์สินให้เรียงเป็นตาราง ล็อกขนาดรูปภาพให้พอดี ไม่ขยายเบี้ยวล้นจอ */
-    .properties-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 30px; }
-    .property-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-    .property-card figure { margin: 0; position: relative; }
-    .property-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
-    .property-card .badge { position: absolute; top: 12px; left: 12px; background: var(--gold); color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-    .property-card .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-    .property-card h3 { margin: 0 0 8px 0; font-size: 18px; color: #111; }
-    .property-card .location { margin: 0 0 8px 0; color: #666; font-size: 14px; }
-    .property-card .price { color: var(--forest); font-size: 18px; font-weight: bold; margin: 0 0 12px 0; }
-    
-    /* 🌟 กฎเหล็กบล็อกมอดอลค้าง บังคับซ่อนตัวเด็ดขาดจนกว่าจะกดปุ่ม */
-    [hidden] { display: none !important; }
-    .modal-backdrop-layer {
-      position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important;
-      background: rgba(0,0,0,0.6) !important; display: flex !important; justify-content: center !important; align-items: center !important;
-      z-index: 99999 !important; overflow-y: auto !important; padding: 20px !important; box-sizing: border-box !important;
-    }
-    .modal-shell-box {
-      background: white !important; padding: 24px !important; border-radius: 12px !important; max-width: 600px !important;
-      width: 100% !important; box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important; position: relative !important; box-sizing: border-box !important; color: #333 !important;
-    }
-    .form-group-item { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left; }
-    .form-group-item label { font-weight: bold; color: #333; }
-    .form-group-item input, .form-group-item select, .form-group-item textarea { 
-      padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; font-size: 14px; width: 100%; box-sizing: border-box;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="container">
-      <h1>KHAO KHO LAND</h1>
-      <p>คลังทรัพย์สิน ที่ดิน และพูลวิลล่าวิวภูเขาที่ดีที่สุดในเขาค้อ</p>
-      <div style="margin-top: 10px; font-weight: bold;">จำนวนทรัพย์สินพร้อมขาย: <span id="stat-count">0</span> รายการ</div>
-      <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-        <button class="button primary" id="admin-open" type="button" style="background:var(--gold);">ระบบหลังบ้าน (Admin/ตัวแทน)</button>
-        <button class="button neutral" id="agent-register-open" type="button">สมัครตัวแทน (เว็บลูก)</button>
-      </div>
-    </div>
-  </header>
-
-  <section class="filter-section container">
-    <button class="filter active" data-filter="all">ทั้งหมด</button>
-    <button class="filter" data-filter="villa">พูลวิลล่า</button>
-    <button class="filter" data-filter="land">ที่ดิน</button>
-  </section>
-
-  <main class="container">
-    <div id="properties" class="properties-grid"></div>
-  </main>
-
-  <div id="detail-panel" hidden class="modal-backdrop-layer"></div>
-
-  <section id="lead-section" class="container" style="margin-top: 50px; background: var(--light); padding: 30px; border-radius: 12px; border: 1px solid var(--line);">
-    <h3>ติดต่อสอบถาม / นัดชมสถานที่</h3>
-    <form id="lead-form" style="display: grid; gap: 12px; max-width: 500px;">
-      <div class="form-group-item"><label for="lead-name">ชื่อ-นามสกุล</label><input type="text" id="lead-name" required placeholder="กรอกชื่อของคุณ"></div>
-      <div class="form-group-item"><label for="lead-phone">เบอร์โทรศัพท์</label><input type="tel" id="lead-phone" required placeholder="เช่น 081XXXXXXX"></div>
-      <div class="form-group-item"><label for="lead-line">Line ID</label><input type="text" id="lead-line" placeholder="กรอก Line ID (ถ้ามี)"></div>
-      <div class="form-group-item">
-        <label for="lead-interest">ทรัพย์ที่สนใจ</label>
-        <select id="lead-interest"><option value="นัดชมโครงการ">ทั่วไป / นัดชมโครงการ</option><option value="สนใจพูลวิลล่า">สนใจพูลวิลล่า</option><option value="สนใจที่ดิน">สนใจที่ดิน</option></select>
-      </div>
-      <button type="submit" class="button primary">ส่งข้อมูลนัดหมาย</button>
-      <p id="lead-message" style="margin-top: 8px; font-weight: bold; color: green;"></p>
-    </form>
-  </section>
-
-  <footer class="container" style="margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--line); text-align: center;">
-    <p>ติดต่อเราด่วนผ่านช่องทางด้านล่างนี้:</p>
-    <div style="display: flex; gap: 15px; justify-content: center; margin-top: 15px;">
-      <a id="display-phone-link" href="tel:0639789356" class="button neutral">📞 โทรติดต่อทีมงาน</a>
-      <a id="display-line-link" href="https://line.me/R/ti/p/@812fqegp" target="_blank" class="button primary" style="background:#06C755; color:#fff;">💬 ไลน์ทีมงาน</a>
-      <a id="display-facebook-link" href="https://facebook.com" target="_blank" class="button primary" style="background:#1877F2; color:#fff;">📘 FB ทีมงาน</a>
-    </div>
-  </footer>
-
-  <div id="admin-modal" hidden class="modal-backdrop-layer">
-    <div class="modal-shell-box">
-      <button id="admin-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
-      <h2 id="admin-title-heading" style="margin: 0 0 20px 0;">ระบบเข้าสู่หลังบ้าน</h2>
-
-      <div id="admin-login">
-        <div class="form-group-item"><label for="admin-username">ชื่อผู้ใช้งาน</label><input type="text" id="admin-username" placeholder="Username"></div>
-        <div class="form-group-item"><label for="admin-password">รหัสผ่าน</label><input type="password" id="admin-password" placeholder="Password"></div>
-        <button id="login-button" class="button primary" style="width: 100%; margin-top: 10px;" type="button">เข้าสู่ระบบ</button>
-        <p id="login-message" style="color: red; margin-top: 8px; font-weight: bold;"></p>
-      </div>
-    </div>
-  </div>
-
-  <div id="agent-register-modal" hidden class="modal-backdrop-layer">
-    <div class="modal-shell-box" style="max-width: 500px !important;">
-      <button id="agent-register-close" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer;" type="button">×</button>
-      <h2>สมัครใช้งานเว็บลูก (ตัวแทน)</h2>
-      <form id="agent-register-form">
-        <div class="form-group-item"><label for="reg-name">ชื่อ-นามสกุล ตัวแทน</label><input type="text" id="reg-name" required placeholder="กรอกชื่อ-นามสกุล"></div>
-        <div class="form-group-item"><label for="reg-phone">เบอร์โทรศัพท์ (ใช้ล็อกอิน)</label><input type="tel" id="reg-phone" required placeholder="เบอร์โทร 10 หลัก"></div>
-        <div class="form-group-item"><label for="reg-line">Line ID ของคุณ</label><input type="text" id="reg-line" required placeholder="เช่น @line"></div>
-        <div class="form-group-item"><label for="reg-slip">แนบสลิปหลักฐานการสมัคร</label><input type="file" id="reg-slip" accept="image/*" required></div>
-        <button type="submit" class="button primary" style="width: 100%; margin-top: 15px;">ส่งข้อมูลสมัครตัวแทน</button>
-        <p id="reg-message" style="margin-top: 10px; font-weight: bold; text-align: center; color: green;"></p>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    const STORAGE_KEY = "khaokho-estate-properties";
-    let properties = [];
-    let activeFilter = "all";
-
-    function loadProperties() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try { return JSON.parse(saved); } catch(e) { return []; }
+    <style>
+      #admin-modal[hidden], 
+      #agent-register-modal[hidden], 
+      #slip-preview-modal[hidden],
+      #detail-panel[hidden] {
+        display: none !important;
       }
-      return [];
-    }
-
-    function renderProperties() {
-      const container = document.querySelector("#properties");
-      if (!container) return;
-      const visible = activeFilter === "all" ? properties : properties.filter(p => p.type === activeFilter);
-      
-      document.querySelector("#stat-count").textContent = properties.length;
-
-      if (properties.length === 0) {
-        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#666;">กำลังซิงค์คลังข้อมูลทรัพย์สิน... หากไม่ขึ้นกรุณารีเฟรชหน้าจอ</div>`;
-        return;
+      #admin-modal, #agent-register-modal, #slip-preview-modal {
+        position: fixed !important;
+        top: 0 !important; left: 0 !important;
+        width: 100% !important; height: 100% !important;
+        background: rgba(0, 0, 0, 0.7) !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 99999 !important;
       }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="กลับหน้าหลัก">
+        <img class="brand-logo" src="logo.png" onerror="this.src='assets/logo.png'; this.onerror=function(){this.src='LOGO.png';}" alt="KHAO KHO LAND logo" />
+        <span>
+          <strong>KHAO KHO LAND</strong>
+          <small>พูลวิลล่าและที่ดินวิวภูเขา</small>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="เมนูหลัก">
+        <a href="#properties">ทรัพย์เด่น</a>
+        <a href="#experience">บรรยากาศ</a>
+        <a class="nav-cta" href="#contact">นัดชมสถานที่</a>
+        <button class="admin-trigger" type="button" id="agent-register-open" style="border-color: var(--gold); color: var(--gold);">Sign up</button>
+        <button class="admin-trigger" type="button" id="admin-open">Login</button>
+      </nav>
+    </header>
 
-      container.innerHTML = visible.map(item => {
-        const img = item.images?.[0] || "https://images.unsplash.com/photo-11501785888041-af3ef285b470";
-        return `
-          <article class="property-card">
-            <figure>
-              <img src="${img}" alt="${item.title}" />
-              <span class="badge">${item.type === 'land' ? 'ที่ดิน' : 'พูลวิลล่า'}</span>
-            </figure>
-            <div class="card-body">
-              <h3>${item.title}</h3>
-              <p class="location">📍 ${item.location}</p>
-              <p class="price">${item.price}</p>
-              <button class="button neutral" onclick="alert('ชื่อทรัพย์: ${item.title}\\nทำเล: ${item.location}\\nราคา: ${item.price}')" type="button" style="width:100%; margin-top:auto;">ดูรายละเอียด</button>
+    <main id="home">
+      <section class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <img src="khao-kho-hero.png" alt="วิวภูเขาและทะเลหมอกเขาค้อ" />
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">เขาค้อ เพชรบูรณ์</p>
+          <h1>พูลวิลล่าและที่ดินวิวภูเขา อากาศดีเหมือนสวิตเซอร์แลนด์เมืองไทย</h1>
+          <p>
+            คัตทรัพย์ทำเลสวยสำหรับบ้านพักตากอากาศ รีสอร์ตส่วนตัว และการลงทุนระยะยาว
+            พร้อมภาพ ราคา รายละเอียด และช่องทางนัดชมครบในที่เดียว
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#properties">ดูทรัพย์พร้อมขาย</a>
+            <a class="button ghost" href="#contact">สอบถามกับทีมขาย</a>
+          </div>
+          <div class="hero-stats" aria-label="ข้อมูลเด่น">
+            <span><strong id="stat-count">0</strong> รายการ</span>
+            <span><strong>850-1,200 ม.</strong> เหนือระดับทะเล</span>
+            <span><strong>360°</strong> วิวภูเขา</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-band" id="experience">
+        <div class="intro-left-box">
+          <p class="section-kicker">KHAO KHO LIFESTYLE & INVESTMENT</p>
+          <h2>ใช้ชีวิตท่ามกลางทะเลหมอก สูดอากาศบริสุทธิ์ได้ทุกวัน</h2>
+          <p class="intro-sub-text">
+            สัมผัสประสบการณ์การพักผ่อนระดับพรีเมียมบนทำเลศักยภาพสูงสุดของเขาค้อ 
+            โอบล้อมด้วยทัศนียภาพภูเขาแบบพาโนรามาและสายหมอกยามเช้า 
+            ตอบโจทย์ทั้งการอยู่อาศัยเพื่อฟื้นฟูร่างกาย และการลงทุนที่สร้างมูลค่าเติบโตอย่างมั่นคงในอนาคต
+          </p>
+        </div>
+        
+        <div class="intro-right-features">
+          <div class="feature-item-block">
+            <div class="feature-icon-wrap">⛰️</div>
+            <div class="feature-content-wrap">
+              <h3>วิวภูเขาและทะเลหมอก</h3>
+              <p>ที่ดินเขาค้อเจ้าของขายเอง วิวภูเขาและวิวทะเลหมอก เหมาะสำหรับบ้านพักตากอากาศ รีสอร์ต และพูลวิลล่าส่วนตัว</p>
             </div>
-          </article>
-        `;
-      }).join("");
-    }
+          </div>
+          <div class="feature-item-block">
+            <div class="feature-icon-wrap">🍃</div>
+            <div class="feature-content-wrap">
+              <h3>อากาศบริสุทธิ์ตลอดปี</h3>
+              <p>เปลี่ยนทุกเช้าให้เป็นวันที่ดีตื่นมาพร้อมวิวภูเขา สายหมอก และอากาศเย็นสบายบนเขาค้อ จังหวัดเพชรบูรณ์</p>
+            </div>
+          </div>
+          <div class="feature-item-block">
+            <div class="feature-icon-wrap">📈</div>
+            <div class="feature-content-wrap">
+              <h3>พื้นที่เพื่อการลงทุน</h3>
+              <p>เหมาะสำหรับการลงทุนระยะยาว สร้างสรรค์รีสอร์ต พูลวิลล่า คาเฟ่ และบ้านพักตากอากาศบนทำเลทองที่มีการเติบโตต่อเนื่อง</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    // ระบบปุ่มควบคุมความปลอดภัย ป้องกันคำสั่งซ้ำซ้อน
-    document.querySelector("#admin-open").addEventListener("click", () => { document.querySelector("#admin-modal").hidden = false; });
-    document.querySelector("#admin-close").addEventListener("click", () => { document.querySelector("#admin-modal").hidden = true; });
-    document.querySelector("#agent-register-open").addEventListener("click", () => { document.querySelector("#agent-register-modal").hidden = false; });
-    document.querySelector("#agent-register-close").addEventListener("click", () => { document.querySelector("#agent-register-modal").hidden = true; });
+      <section class="filters" aria-label="ตัวกรองทรัพย์">
+        <button class="filter active" type="button" data-filter="all">ทั้งหมด</button>
+        <button class="filter" type="button" data-filter="villa">พูลวิลล่า</button>
+        <button class="filter" type="button" data-filter="land">ที่ดิน</button>
+      </section>
 
-    // สลับตัวกรองหมวดหมู่
-    document.querySelectorAll(".filter").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
-        e.target.classList.add("active");
-        activeFilter = e.target.dataset.filter;
-        renderProperties();
-      });
-    });
+      <section class="properties" id="properties" aria-live="polite"></section>
+      
+      <div class="admin-modal" id="detail-panel" hidden></div>
 
-    // เรียกทำงานทันที
-    properties = loadProperties();
-    renderProperties();
-    
-    // เคลียร์ทางล้างแคชค้างมอดอลทันทีเมื่อโหลดหน้ากระดาษสำเร็จ
-    window.addEventListener("DOMContentLoaded", () => {
-      document.querySelector("#admin-modal").hidden = true;
-      document.querySelector("#agent-register-modal").hidden = true;
-    });
-  </script>
-</body>
+      <section class="faq-section">
+        <div class="faq-container">
+          <p class="section-kicker" style="text-align: center;">FAQ | SEO & AI SEARCH</p>
+          <h2 class="faq-main-title">คำถามที่พบบ่อยเกี่ยวกับที่ดินเขาค้อ</h2>
+          <p class="faq-subtitle">ข้อมูลสำหรับผู้ที่กำลังค้นหา "ขายที่ดินเขาค้อเจ้าของขายเอง" และต้องการลงทุนในที่ดินวิวภูเขา วิวทะเลหมอก บนเขาค้อ</p>
+          <div class="faq-grid">
+            <div class="faq-card">
+              <h3>ซื้อที่ดินเขาค้อเจ้าของขายเองดีอย่างไร?</h3>
+              <p>การซื้อที่ดินเขาค้อจากเจ้าของโดยตรงช่วยให้ผู้ซื้อสามารถตรวจสอบข้อมูล ราคา เอกสารสิทธิ์ และรายละเอียดแปลงที่ดินได้ชัดเจน เหมาะสำหรับผู้ที่ต้องการ ซื้อที่ดินเพื่อสร้างบ้านพักตากอากาศ รีสอร์ต พูลวิลล่า หรือเก็บไว้ลงทุนระยะยาว</p>
+            </div>
+            <div class="faq-card">
+              <h3>ที่ดินเขาค้อเหมาะกับการลงทุนประเภทใด?</h3>
+              <p>ที่ดินเขาค้อเหมาะสำหรับสร้างรีสอร์ต พูลวิลล่า คาเฟ่ บ้านพักตากอากาศ และโครงการเพื่อการท่องเที่ยว เนื่องจากเขาค้อมีอากาศดี วิวภูเขาสวย มีทะเลหมอก และเป็นแหล่งท่องเที่ยวสำคัญของจังหวัดเพชรบูรณ์</p>
+            </div>
+            <div class="faq-card">
+              <h3>ก่อนซื้อที่ดินเขาค้อต้องตรวจสอบอะไรบ้าง?</h3>
+              <p>ก่อนซื้อที่ดินเขาค้อควรตรวจสอบเอกสารสิทธิ์ โฉนดครุฑแดง แนวเขตที่ดิน ทางเข้าออก ระบบไฟฟ้า น้ำประปา ราคาประเมิน ทำเลจริง และข้อกำหนดการใช้ประโยชน์ที่ดิน เพื่อให้มั่นใจว่าที่ดินเหมาะกับเป้าหมายการใช้งานและการลงทุน</p>
+            </div>
+            <div class="faq-card">
+              <h3>ทำเลที่ดินเขาค้อโซนไหนได้รับความนิยม?</h3>
+              <p>โซนที่ได้รับความนิยม ได้แก่ แคมป์สน ทุ่งสมอ พื้นที่ใกล้แชมป์ผาซ่อนแก้ว จุดชมวิวเขาค้อ และทำเลที่มีวิวภูเขา วิวทะเลหมอก หรือใกล้ถนนหลัก เหมาะกับการพัฒนาเป็นบ้านพักตากอากาศ รีสอร์ต และพูลวิลล่า</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-modal" id="admin-modal" hidden>
+        <div class="admin-dialog">
+          <button class="icon-button close-admin" type="button" id="admin-close" aria-label="ปิดระบบหลังบ้าน">×</button>
+          <div class="section-heading">
+            <p class="section-kicker">ระบบหลังบ้าน</p>
+            <h2 id="admin-title-heading">เข้าสู่ระบบจัดการข้อมูล</h2>
+          </div>
+
+          <div class="admin-login" id="admin-login">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <label>ชื่อผู้ใช้งาน (Username) <input id="admin-username" type="text" placeholder="แอดมินกรอก admin / ทีมงานกรอกเบอร์โทรท่าน" /></label>
+              <label>รหัสผ่าน (Password) <input id="admin-password" type="password" placeholder="ระบุรหัสผ่านระบบ" /></label>
+              <button class="button primary" type="button" id="login-button" style="width: 100%; margin-top: 6px;">เข้าสู่ระบบ</button>
+            </div>
+            <p class="form-note" id="login-message"></p>
+          </div>
+
+          <div class="admin-grid" id="admin-panel" hidden>
+            <form class="property-form" id="property-form">
+              <input type="hidden" id="property-id" />
+              <div class="form-row two">
+                <label>ประเภท <select id="property-type"><option value="villa">พูลวิลล่า</option><option value="land">ที่ดิน</option></select></label>
+                <label>ราคา <input id="property-price" type="text" placeholder="เช่น 18,900,000 บาท" required /></label>
+              </div>
+              <label>ชื่อทรัพย์ <input id="property-title" type="text" placeholder="เช่น พูลวิลล่าวิวทะเลหมอก" required /></label>
+              <label>ทำเล <input id="property-location" type="text" placeholder="เช่น แคมป์สน เขาค้อ" required /></label>
+              <label>รายละเอียด <textarea id="property-description" rows="5" placeholder="เล่าจุดเด่น บรรยากาศ และพื้นที่ใช้สอย" required></textarea></label>
+              <label>จุดเด่น <input id="property-features" type="text" placeholder="คั่นแต่ละรายการด้วย |" /></label>
+              
+              <label>รูปภาพลิงก์ทั้งหมด (คั่นแต่ละรูปด้วยสัญลักษณ์ | ) <textarea id="property-images" rows="4" placeholder="วางลิงก์รูปที่1.jpg | วางลิงก์รูปที่2.jpg"></textarea></label>
+              
+              <label>วิดีโอ YouTube embed <input id="property-video" type="url" placeholder="https://www.youtube.com/embed/..." /></label>
+              <div class="form-actions">
+                <button class="button primary" type="submit">บันทึกข้อมูล</button>
+                <button class="button neutral" type="button" id="reset-form">ล้างฟอร์ม</button>
+              </div>
+            </form>
+
+            <div class="admin-grid-right" style="display: flex; flex-direction: column; gap: 22px;">
+              <div class="admin-list">
+                <div class="admin-list-head">
+                  <h3>รายการทั้งหมด</h3>
+                  <button class="button neutral" type="button" id="restore-demo">คืนค่าข้อมูลตัวอย่าง</button>
+                </div>
+                <div id="admin-items"></div>
+              </div>
+              <div class="admin-list">
+                <h3>จัดการอนุมัติเว็บลูก (รายชื่อทีมงานทั้งหมดในระบบ)</h3>
+                <div id="admin-agents-list" style="margin-top: 14px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="agent-dashboard-panel" hidden style="margin-top: 20px; display: flex; flex-direction: column; gap: 24px;">
+            <p class="section-kicker" style="color: var(--gold);">AGENT DASHBOARD</p>
+            <h2 style="font-size: 26px; margin: 0;">ยินดีต้อนรับทีมงาน: <span id="agent-dashboard-name" style="color: var(--forest);"></span></h2>
+            
+            <div style="background: white; padding: 18px; border-radius: 10px; border: 1px solid var(--line); font-size: 14px; line-height: 1.6; color: var(--ink);">
+              <p style="margin: 0 0 8px 0; font-weight: bold; color: var(--forest);">🔗 ข้อมูลการตั้งค่าลิงก์แชร์ทีมงานของคุณ:</p>
+              <strong>ลิงก์ขยายงานแนะนำลูกค้า:</strong> <span id="back-agent-full-url" style="color: var(--gold); font-weight: bold;"></span><br>
+              <strong>วันหมดอายุการใช้งานระบบเว็บลูกของคุณ:</strong> <span id="back-agent-expire" style="color: var(--danger); font-weight: bold;"></span><br>
+              <strong>ลิงก์ Line หน้าบ้านของคุณ:</strong> <span id="back-agent-line-link" style="color: #06C755;"></span><br>
+              <strong>ลิงก์ Facebook หน้าบ้านของคุณ:</strong> <span id="back-agent-fb-link" style="color: #1877F2;"></span>
+            </div>
+
+            <div class="admin-list" style="padding: 22px;">
+              <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--forest);">📊 1. ตารางรายชื่อลูกค้าของคุณ</h3>
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; background: white;">
+                  <thead>
+                    <tr style="background: var(--forest); color: white; border-bottom: 2px solid var(--line);">
+                      <th style="padding: 12px;">ชื่อผู้ติดต่อ</th>
+                      <th style="padding: 12px;">เบอร์โทร</th>
+                      <th style="padding: 12px;">Line ID</th>
+                      <th style="padding: 12px;">สิ่งที่สนใจ</th>
+                      <th style="padding: 12px;">วันที่ลงทะเบียน</th>
+                    </tr>
+                  </thead>
+                  <tbody id="agent-leads-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="admin-list" style="padding: 22px; border-color: var(--gold);">
+              <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--gold);">👥 2. ตารางรายชื่อลูกทีมในสายงานของคุณ (ดูอย่างเดียว)</h3>
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; background: white;">
+                  <thead>
+                    <tr style="background: #3c3c3c; color: white; border-bottom: 2px solid var(--line);">
+                      <th style="padding: 12px;">ชื่อลูกทีม</th>
+                      <th style="padding: 12px;">เบอร์โทรติดต่อ</th>
+                      <th style="padding: 12px;">Line ID</th>
+                      <th style="padding: 12px;">Facebook</th>
+                      <th style="padding: 12px;">วันหมดอายุเว็บลูก</th>
+                      <th style="padding: 12px;">สถานะเว็บลูก</th>
+                    </tr>
+                  </thead>
+                  <tbody id="agent-subteams-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="slip-preview-modal" class="admin-modal" hidden>
+        <div class="admin-dialog" style="max-width: 480px; text-align: center;">
+          <button class="icon-button" type="button" onclick="document.querySelector('#slip-preview-modal').hidden = true" style="position: absolute; top: 15px; right: 20px; font-size: 24px;">×</button>
+          <h3 style="margin-bottom: 15px; color: var(--forest);">หลักฐานสลิปการโอนเงิน</h3>
+          <img id="slip-preview-img" src="" style="width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+        </div>
+      </div>
+
+      <section class="contact" id="contact">
+        <div class="contact-copy">
+          <p class="section-kicker">นัดชมสถานที่</p>
+          <h2>คุยกับทีมขายเพื่อเลือกที่ดินเขาค้อและพูลวิลล่าที่เหมาะกับเป้าหมายของคุณ</h2>
+          <p class="contact-intro">
+            แจ้งงบประมาณ ประเภททรัพย์ และช่วงเวลาที่สะดวก ทีมงานจะช่วยคัดรายการ ที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวภูเขา และทำเลสำหรับลงทุนให้เหมาะกับคุณ
+          </p>
+          <div class="contact-brand-buttons">
+            <a class="brand-btn phone-btn" href="javascript:void(0);" id="display-phone-link" title="โทรติดต่อ"><i class="fa-solid fa-phone"></i></a>
+            <a class="brand-btn line-btn" href="https://line.me/R/ti/p/@812fqegp" id="display-line-link" target="_blank" title="แชท Line"><i class="fa-brands fa-line"></i></a>
+            <a class="brand-btn fb-btn" href="#" id="display-facebook-link" target="_blank" title="เปิดหน้า Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <form class="contact-card lead-form" id="lead-form">
+          <label>ชื่อผู้ติดต่อ <input id="lead-name" name="name" type="text" placeholder="ชื่อผู้ติดต่อ" required /></label>
+          <label>เบอร์โทร <input id="lead-phone" name="phone" type="tel" placeholder="063 978 9356" required /></label>
+          <label>Line ID <input id="lead-line" name="line" type="text" placeholder="@lineid หรือ Line ID" /></label>
+          <label>สนใจ <select id="lead-interest" name="interest" required><option value="">เลือกรายการที่สนใจ</option><option value="พูลวิลล่า">พูลวิลล่า</option><option value="ที่ดิน">ที่ดิน</option><option value="ทั้งสองประเภท">ทั้งสองประเภท</option></select></label>
+          <button class="button primary" type="submit">ส่งข้อมูลนัดชมสถานที่</button>
+          <p class="form-note lead-message" id="lead-message"></p>
+        </form>
+      </section>
+
+      <section class="admin-modal" id="agent-register-modal" hidden>
+        <div class="admin-dialog" style="max-width: 600px;">
+          <button class="icon-button close-admin" type="button" id="agent-register-close" aria-label="ปิดลงทะเบียน">×</button>
+          <div class="section-heading">
+            <p class="section-kicker">สมัครใช้งานระบบเว็บลูก</p>
+            <h2>ลงทะเบียนเปิดสิทธิ์เว็บลูก</h2>
+          </div>
+
+          <form class="lead-form" id="agent-register-form">
+            <label>ชื่อ-นามสกุลทีมงาน <input id="reg-name" type="text" placeholder="เช่น สมชาย ใจดี" required /></label>
+            <label>เบอร์โทรติดต่อ <input id="reg-phone" type="tel" placeholder="เช่น 0812345678" required /></label>
+            <label>Line ID (หรือลิงก์ไลน์) <input id="reg-line" type="text" placeholder="เช่น @line_team" required /></label>
+            <label>Link Facebook <input id="reg-facebook" type="url" placeholder="https://facebook.com/..." required /></label>
+            
+            <hr style="border: 0; border-top: 1px dashed var(--line); margin: 20px 0;">
+            <div style="background: var(--mist); padding: 18px; border-radius: 8px; margin-bottom: 16px; color: var(--ink); font-weight: 600;">
+              <p style="margin: 0 0 8px 0; color: var(--forest); font-size: 15px;"><strong>ขั้นตอนการชำระค่าบริการ:</strong></p>
+              ค่าบริการรายปี <strong>1,500 บาท</strong> เพื่อสิทธิ์การเปลี่ยนข้อมูลติดต่อบนหน้าเว็บให้เป็นของคุณ<br><br>
+              <strong>ข้อมูลการโอนเงิน:</strong><br>
+              ธนาคาร: ธนาคารกสิกรไทย <br>
+              เลขที่บัญชี: 045 2 07033 4 <br>
+              ชื่อบัญชี: พัฒน์รดิศ สุพัฒน์วณิชกร
+            </div>
+            <label>อัปโหลดสลิปหลักฐานการโอนเงิน <input id="reg-slip" type="file" accept="image/*" required /></label>
+            <button class="button primary" type="submit" style="margin-top: 10px;">ส่งข้อมูลสมัครและแนบสลิป</button>
+            <p class="form-note" id="reg-message" style="font-weight: 800; color: var(--forest); margin-top: 10px;"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 KHAO KHO LAND</span>
+      <a href="#home">กลับขึ้นด้านบน</a>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
 </html>
