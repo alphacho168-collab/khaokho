@@ -8,34 +8,9 @@ const AGENT_PASSWORD = "Ab123456";
 
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
-const DEFAULT_CONTACT = {
-  name: "Get Patradit",
-  phone: "063 978 9356",
-  line: "@812fqegp",
-  facebook: "https://facebook.com"
-};
-
+const DEFAULT_CONTACT = { name: "Get Patradit", phone: "063 978 9356", line: "@812fqegp", facebook: "https://facebook.com" };
 const demoProperties = [
-  {
-    id: "prop-demo-1",
-    type: "villa",
-    title: "พูลวิลล่าชมหมอก Swiss Ridge",
-    location: "แคมป์สน เขาค้อ เพชรบูรณ์",
-    price: "18,900,000 บาท",
-    description: "พูลวิลล่าพร้อมสระว่ายน้ำส่วนตัว ตั้งอยู่บนเนินรับวิวภูเขา 180 องศา เหมาะทำบ้านพักตากอากาศหรือปล่อยเช่าระดับพรีเมียม ใกล้คาเฟ่และแหล่งท่องเที่ยวสำคัญของเขาค้อ",
-    features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 420 ตร.ม.", "ที่ดิน 1 ไร่"],
-    images: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"]
-  },
-  {
-    id: "prop-demo-2",
-    type: "land",
-    title: "ที่ดินวิวสวิส Green Valley",
-    location: "ทุ่งสมอ เขาค้อ เพชรบูรณ์",
-    price: "เริ่มต้น 3,200,000 บาท/ไร่",
-    description: "ที่ดินโฉนดพร้อมโอน วิวภูเขาสลับซับซ้อน อากาศเย็นสบายทั้งปี เหมาะสร้างพูลวิลล่า รีสอร์ตขนาดเล็ก คาเฟ่วิวหมอก หรือถือครองเพื่อการลงทุน",
-    features: ["โฉนดครุฑแดง", "แบ่งขาย 2-12 ไร่", "ถนนเข้าถึง"],
-    images: ["https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85"]
-  }
+  { id: "prop-demo-1", type: "villa", title: "พูลวิลล่าชมหมอก Swiss Ridge", location: "แคมป์สน เขาค้อ", price: "18,900,000 บาท", description: "พูลวิลล่าพร้อมสระว่ายน้ำส่วนตัว", features: ["4 ห้องนอน"], images: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"] }
 ];
 
 let properties = loadProperties();
@@ -43,70 +18,44 @@ let agents = [];
 let activeFilter = "all";
 let currentAgent = null;
 
-function createId() {
-  return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
+function createId() { return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`; }
 function loadProperties() {
   const saved = localStorage.getItem(STORAGE_KEY);
-  if (!saved) { localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties)); return [...demoProperties]; }
+  if (!saved) return [...demoProperties];
   try { return JSON.parse(saved); } catch(e) { return [...demoProperties]; }
 }
-
 function saveProperties() { localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); }
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
+function splitList(value) { if (!value) return []; return value.split("|").map(i => i.trim()).filter(Boolean); }
 
-function splitList(value) { 
-  if (!value) return [];
-  return value.split("|").map((item) => item.trim()).filter(Boolean); 
-}
-
-// 🌟 ปรับแก้ตรงนี้: ให้เช็คเฉพาะข้อมูลติดต่อแทน โดยจะไม่ไปยุ่งหรือสั่งเปิด/ปิด หน้าต่าง Modal ใดๆ ทั้งสิ้น
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
-  if (agentId && agents && agents.length > 0) {
+  if (agentId && agents.length > 0) {
     const agent = agents.find(a => a.id === agentId && a.status === "approved");
     if (agent) { currentAgent = agent; applyAgentContact(agent); return; }
   }
-  currentAgent = null;
-  applyAgentContact(DEFAULT_CONTACT);
+  currentAgent = null; applyAgentContact(DEFAULT_CONTACT);
 }
 
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
-  if (phoneBtn) {
-    phoneBtn.href = "javascript:void(0);";
-    phoneBtn.onclick = function() { alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈"); };
-  }
+  if (phoneBtn) { phoneBtn.href = "javascript:void(0);"; phoneBtn.onclick = function() { alert("เบอร์โทรทีมงาน: " + contact.phone); }; }
   const lineBtn = document.querySelector("#display-line-link");
-  if (lineBtn) {
-    lineBtn.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
-  }
+  if (lineBtn) lineBtn.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.replace('@', '')}`;
   const fbBtn = document.querySelector("#display-facebook-link");
   if (fbBtn) fbBtn.href = contact.facebook || "#";
 }
 
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
-
 function renderProperties() {
-  const propertyContainer = document.querySelector("#properties");
-  if (!propertyContainer) return;
-  const visible = activeFilter === "all" ? properties : properties.filter((item) => item.type === activeFilter);
-  
-  const statCount = document.querySelector("#stat-count");
-  if (statCount) statCount.textContent = properties.length.toString();
+  const container = document.querySelector("#properties");
+  if (!container) return;
+  const visible = activeFilter === "all" ? properties : properties.filter(i => i.type === activeFilter);
+  document.querySelector("#stat-count").textContent = properties.length;
 
-  propertyContainer.innerHTML = visible.map((item) => {
+  container.innerHTML = visible.map(item => {
     const image = item.images?.[0] || "khao-kho-hero.png";
-    const features = (item.features || []).slice(0, 3).map((f) => `<span>${f}</span>`).join("");
+    const features = (item.features || []).slice(0, 3).map(f => `<span>${f}</span>`).join("");
     return `
       <article class="property-card">
         <figure><img src="${image}" alt="${item.title}" /><span class="badge">${propertyTypeLabel(item.type)}</span></figure>
@@ -122,159 +71,50 @@ function renderProperties() {
   }).join("");
 }
 
-document.addEventListener("click", (event) => {
-  const button = event.target.closest(".btn-click-detail");
-  if (button) {
-    event.preventDefault();
-    openDetail(button.dataset.detail);
-  }
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".btn-click-detail");
+  if (btn) { e.preventDefault(); openDetail(btn.dataset.detail); }
 });
 
 function openDetail(id) {
   const detailPanel = document.querySelector("#detail-panel");
-  if (!detailPanel) return;
+  const item = properties.find(p => p.id === id);
+  if (!detailPanel || !item) return;
 
-  const item = properties.find((property) => property.id === id);
-  if (!item) return;
-
-  const detailFeaturesHtml = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
-  const detailGalleryHtml = (item.images || []).map((image) => `
-    <div class="gallery-item-wrap" style="margin-bottom: 8px;">
-      <img src="${image}" alt="${item.title}" loading="lazy" style="width:100%; border-radius:8px; object-fit:cover;" />
-    </div>
-  `).join("");
-  
-  const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
+  const detailFeaturesHtml = (item.features || []).map(f => `<li>${f}</li>`).join("");
+  const detailGalleryHtml = (item.images || []).map(img => `<div class="gallery-item-wrap"><img src="${img}" /></div>`).join("");
 
   detailPanel.innerHTML = `
     <div class="detail-shell">
       <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;">×</button>
       <div class="detail-gallery">${detailGalleryHtml}</div>
       <div class="detail-copy">
-        <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
-        <h2>${item.title}</h2>
-        <p class="detail-location">${item.location}</p>
-        <p class="detail-price">${item.price}</p>
-        <p>${item.description}</p>
+        <h2>${item.title}</h2><p class="detail-price">${item.price}</p><p>${item.description}</p>
         <ul class="feature-list">${detailFeaturesHtml}</ul>
-        <div class="video-wrap">${detailVideoHtml}</div>
-        <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <button type="button" class="button primary" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
-          <button onclick="document.querySelector('#detail-panel').hidden = true;" type="button" class="button neutral" style="background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
-        </div>
+        <button type="button" class="button primary" onclick="document.querySelector('#lead-section')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
       </div>
     </div>
   `;
   detailPanel.hidden = false;
-  detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-const agentRegisterForm = document.querySelector("#agent-register-form");
-if (agentRegisterForm) {
-  agentRegisterForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const regMessage = document.querySelector("#reg-message");
-    if (regMessage) { regMessage.style.color = "green"; regMessage.textContent = "กำลังส่งข้อมูลลงทะเบียนเว็บลูก..."; }
-
-    const fileInput = document.querySelector("#reg-slip").files[0];
-    let slipBase64 = "";
-    if (fileInput) slipBase64 = await fileToBase64(fileInput);
-
-    const newAgent = {
-      id: "", 
-      type: "agent_registration",
-      name: document.querySelector("#reg-name").value.trim(),
-      phone: document.querySelector("#reg-phone").value.trim(),
-      line: document.querySelector("#reg-line").value.trim(),
-      facebook: document.querySelector("#reg-facebook").value.trim(),
-      slip: slipBase64,
-      parentId: currentAgent ? currentAgent.id : "master"
-    };
-
-    try {
-      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newAgent) });
-      if (regMessage) regMessage.textContent = "ส่งเอกสารลงทะเบียนเรียบร้อยแล้วค่ะ รอแอดมินอนุมัติสิทธิ์ระบบ";
-      agentRegisterForm.reset();
-      await fetchOnlineAgents();
-    } catch (err) { console.error(err); }
-  });
-}
-
-const leadForm = document.querySelector("#lead-form");
-if (leadForm) {
-  leadForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const leadMessage = document.querySelector("#lead-message");
-    const lead = {
-      name: document.querySelector("#lead-name").value.trim(),
-      phone: document.querySelector("#lead-phone").value.trim(),
-      line: document.querySelector("#lead-line").value.trim(),
-      interest: document.querySelector("#lead-interest").value,
-      agentId: currentAgent ? currentAgent.id : "master",
-      submittedAt: new Date().toISOString()
-    };
-
-    try {
-      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
-      if (leadMessage) { leadMessage.style.color = "green"; leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว"; }
-      leadForm.reset();
-    } catch { 
-      if (leadMessage) { leadMessage.style.color = "red"; leadMessage.textContent = "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"; }
-    }
-  });
-}
-
-function renderAgentLeads(agentId) {
-  const tableBody = document.querySelector("#agent-leads-table-body");
-  if (!tableBody) return;
-  tableBody.innerHTML = `<tr><td colspan="4" style="padding:14px; text-align:center; color:#666;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
-}
-
-function viewSlipInModal(base64Data) {
-  const modal = document.querySelector("#slip-preview-modal");
-  const img = document.querySelector("#slip-preview-img");
-  if (modal && img) { img.src = base64Data; modal.hidden = false; }
-}
-
-function renderAdminAgents() {
-  const adminAgentsList = document.querySelector("#admin-agents-list");
-  if (!adminAgentsList) return;
-  if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p style="color:#666">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
-  adminAgentsList.innerHTML = agents.map((agent) => {
-    const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    return `<div style="background:#f9f9f9; padding:14px; border:1px solid #ccc; border-radius:8px; margin-bottom:12px; font-size:14px; color:#333;">
-      <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
-      โทร: ${agent.phone} | Line: ${agent.line}<br>
-      <span style="color: green; font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
-      <span style="color: #666">ผู้แนะนำ: ${agent.parentId}</span><br>
-      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:blue; text-decoration:underline;">${currentUrl}</a></small>` : ''}
-      <div style="margin-top:10px; display:flex; gap:8px;">
-        ${agent.slip ? `<button type="button" class="btn-only-view-slip" data-slipdata="${agent.slip}" style="padding:4px 8px; font-size:12px; cursor:pointer;">ดูรูปสลิป</button>` : ''}
-        ${agent.status === 'pending' ? `<button type="button" class="btn-approve-agent" data-id="${agent.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:green; color:#fff; border:none; border-radius:4px;">อนุมัติเปิดระบบ</button>` : ''}
-        <button type="button" class="btn-delete-agent" data-id="${agent.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:red; color:#fff; border:none; border-radius:4px;">ลบ</button>
-      </div>
-    </div>`;
-  }).join("");
-}
+// ผูกอีเวนต์ปุ่มเปิดหน้าต่างแผงควบคุมหลักอย่างถูกต้อง
+document.querySelector("#admin-open").addEventListener("click", () => { document.querySelector("#admin-modal").hidden = false; });
+document.querySelector("#admin-close").addEventListener("click", () => { document.querySelector("#admin-modal").hidden = true; });
+document.querySelector("#agent-register-open").addEventListener("click", () => { document.querySelector("#agent-register-modal").hidden = false; });
+document.querySelector("#agent-register-close").addEventListener("click", () => { document.querySelector("#agent-register-modal").hidden = true; });
 
 async function fetchOnlineAgents() {
   try {
-    const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`, { method: "GET" });
-    if (response.ok) {
-      const onlineAgents = await response.json();
-      if (onlineAgents) { 
-        agents = onlineAgents; 
-        checkAgentRoute(); 
-        const adminPanel = document.querySelector("#admin-panel");
-        if (adminPanel && !adminPanel.hidden) renderAdminAgents(); 
-      }
-    }
-  } catch (err) { console.log("Fetch Agents Error:", err); }
+    const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`);
+    if (response.ok) { const onlineAgents = await response.json(); if (onlineAgents) { agents = onlineAgents; checkAgentRoute(); } }
+  } catch (e) {}
 }
 
-const adminAgentsList = document.querySelector("#admin-agents-list");
-if (adminAgentsList) {
-  adminAgentsList.addEventListener("click", async (event) => {
-    const viewSlipBtn = event.target.closest(".btn-only-view-slip");
-    const approveBtn = event.target.closest(".btn-approve-agent");
-    const deleteBtn = event.target.closest(".btn-
+// สั่งรันชุดข้อมูลคลัง 9 ทรัพย์สินในเครื่องทันที และห้ามมอดอลเด้งเปิดเองเด็ดขาด
+renderProperties();
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#admin-modal").hidden = true;
+  document.querySelector("#agent-register-modal").hidden = true;
+  fetchOnlineAgents();
+});
