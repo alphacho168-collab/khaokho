@@ -1,4 +1,3 @@
-
 const STORAGE_KEY = "khaokho-estate-properties";
 const LEADS_STORAGE_KEY = "khaokho-estate-leads";
 const AGENTS_STORAGE_KEY = "khaokho-estate-agents"; 
@@ -62,6 +61,7 @@ function splitList(value) {
   return value.split("|").map((item) => item.trim()).filter(Boolean); 
 }
 
+// 🌟 ปรับแก้ตรงนี้: ให้เช็คเฉพาะข้อมูลติดต่อแทน โดยจะไม่ไปยุ่งหรือสั่งเปิด/ปิด หน้าต่าง Modal ใดๆ ทั้งสิ้น
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
@@ -244,9 +244,10 @@ function renderAdminAgents() {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid #ccc; border-radius:8px; margin-bottom:12px; font-size:14px; color:#333;">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
-      โทร: ${agent.phone} \vert{} Line:${agent.line}<br>
+      โทร: ${agent.phone} | Line: ${agent.line}<br>
       <span style="color: green; font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
-      <span style="color: #666">ผู้แนะนำ: ${agent.parentId}</span><br>${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:blue; text-decoration:underline;">${currentUrl}</a></small>` : ''}
+      <span style="color: #666">ผู้แนะนำ: ${agent.parentId}</span><br>
+      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:blue; text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
         ${agent.slip ? `<button type="button" class="btn-only-view-slip" data-slipdata="${agent.slip}" style="padding:4px 8px; font-size:12px; cursor:pointer;">ดูรูปสลิป</button>` : ''}
         ${agent.status === 'pending' ? `<button type="button" class="btn-approve-agent" data-id="${agent.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:green; color:#fff; border:none; border-radius:4px;">อนุมัติเปิดระบบ</button>` : ''}
@@ -268,7 +269,7 @@ async function fetchOnlineAgents() {
         if (adminPanel && !adminPanel.hidden) renderAdminAgents(); 
       }
     }
-  } catch (err) { console.log(err); }
+  } catch (err) { console.log("Fetch Agents Error:", err); }
 }
 
 const adminAgentsList = document.querySelector("#admin-agents-list");
@@ -276,108 +277,4 @@ if (adminAgentsList) {
   adminAgentsList.addEventListener("click", async (event) => {
     const viewSlipBtn = event.target.closest(".btn-only-view-slip");
     const approveBtn = event.target.closest(".btn-approve-agent");
-    const deleteBtn = event.target.closest(".btn-delete-agent");
-    
-    if (viewSlipBtn) { event.preventDefault(); viewSlipInModal(viewSlipBtn.dataset.slipdata); }
-    if (approveBtn) {
-      event.preventDefault();
-      const id = approveBtn.dataset.id;
-      try { 
-        await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); 
-        await fetchOnlineAgents();
-      } catch(e){}
-    }
-    if (deleteBtn) {
-      event.preventDefault();
-      const id = deleteBtn.dataset.id;
-      if (confirm("ยืนยันการลบสิทธิ์ตัวแทนรายนี้ออกหรือไม่?")) {
-        try { 
-          await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); 
-          await fetchOnlineAgents();
-        } catch(e){}
-      }
-    }
-  });
-}
-
-document.addEventListener("click", (e) => {
-  const filterBtn = e.target.closest(".filter");
-  if (filterBtn) {
-    document.querySelectorAll(".filter").forEach((item) => item.classList.remove("active"));
-    filterBtn.classList.add("active");
-    activeFilter = filterBtn.dataset.filter;
-    renderProperties();
-  }
-});
-
-const adminOpenBtn = document.querySelector("#admin-open");
-if (adminOpenBtn) {
-  adminOpenBtn.addEventListener("click", async () => { 
-    document.querySelector("#admin-login").hidden = false; 
-    document.querySelector("#admin-panel").hidden = true; 
-    document.querySelector("#admin-modal").hidden = false; 
-    await fetchOnlineAgents();
-  });
-}
-
-document.querySelector("#admin-close")?.addEventListener("click", () => {
-  document.querySelector("#admin-modal").hidden = true;
-});
-
-document.querySelector("#agent-register-open")?.addEventListener("click", () => {
-  document.querySelector("#agent-register-modal").hidden = false; 
-});
-
-document.querySelector("#agent-register-close")?.addEventListener("click", () => {
-  document.querySelector("#agent-register-modal").hidden = true;
-});
-
-const loginBtn = document.querySelector("#login-button");
-if (loginBtn) {
-  loginBtn.addEventListener("click", async () => {
-    const username = document.querySelector("#admin-username").value.trim();
-    const password = document.querySelector("#admin-password").value;
-    const message = document.querySelector("#login-message");
-    const headingTitle = document.querySelector("#admin-title-heading");
-
-    if (message) message.textContent = "กำลังเชื่อมต่อคลาวด์เซิร์ฟเวอร์...";
-    await fetchOnlineAgents();
-
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-      if (message) message.textContent = ""; 
-      document.querySelector("#admin-login").hidden = true; 
-      document.querySelector("#admin-panel").hidden = false; 
-      if (headingTitle) headingTitle.textContent = "ระบบหลังบ้านแอดมิน (เว็บแม่)";
-      renderAdminItems(); renderAdminAgents(); return;
-    }
-
-    const memberAgent = agents.find(a => a.phone === username && a.status === "approved");
-    if (memberAgent && password === AGENT_PASSWORD) {
-      if (message) message.textContent = ""; 
-      document.querySelector("#admin-login").hidden = true; 
-      document.querySelector("#admin-panel").hidden = true;
-      
-      const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
-      
-      document.querySelector("#back-agent-full-url").textContent = `${window.location.origin}${window.location.pathname}?agent=${memberAgent.id}`;
-      document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt;
-
-      if (agentDashboardPanel) agentDashboardPanel.hidden = false;
-      if (document.querySelector("#agent-dashboard-name")) document.querySelector("#agent-dashboard-name").textContent = memberAgent.name;
-      if (headingTitle) headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
-      
-      renderAgentLeads(memberAgent.id);
-      return;
-    }
-    if (message) message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
-  });
-}
-
-function renderAdminItems() { 
-  const adminItems = document.querySelector("#admin-items");
-  if (!adminItems) return; 
-  adminItems.innerHTML = properties.map((item) => `
-    <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid #eee;"> 
-      <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
-      <div> 
-        <h4 style="margin:0 0 4
+    const deleteBtn = event.target.closest(".btn-
