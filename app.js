@@ -6,7 +6,6 @@ const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "zaq123";
 const AGENT_PASSWORD = "Ab123456"; 
 
-// 🔗 ลิงก์ Web App ออนไลน์ล่าสุดของพี่ Get
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaSXIxLTUM03rSvz4hHm24MucZwE4ueeENrvhcn9TI8oB96GKviGyW0uRv7Pi4MPf/exec";
 
 const DEFAULT_CONTACT = {
@@ -50,15 +49,8 @@ function createId() {
 
 function loadProperties() {
   const saved = localStorage.getItem(STORAGE_KEY);
-  if (!saved) { 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties)); 
-    return [...demoProperties]; 
-  }
-  try { 
-    return JSON.parse(saved); 
-  } catch(e) { 
-    return [...demoProperties]; 
-  }
+  if (!saved) { localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties)); return [...demoProperties]; }
+  try { return JSON.parse(saved); } catch(e) { return [...demoProperties]; }
 }
 
 function saveProperties() { localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); }
@@ -103,7 +95,6 @@ function fileToBase64(file) {
   });
 }
 
-// 🌟 ปรับแก้ตรงนี้: ปล่อยให้ดึงดีไซน์เดิมของพี่ Get กลับมา 100% ไม่ยัดเยียดดีไซน์ใหม่ให้เบี้ยวรวนอีกแล้ว
 function renderProperties() {
   const propertyContainer = document.querySelector("#properties");
   if (!propertyContainer) return;
@@ -238,26 +229,6 @@ function renderAgentLeads(agentId) {
   tableBody.innerHTML = `<tr><td colspan="4" style="padding:14px; text-align:center; color:#666;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
 }
 
-function renderSubTeams(agentId) {
-  const tableBody = document.querySelector("#agent-subteams-table-body");
-  if (!tableBody) return;
-  const subAgents = agents.filter(a => a.parentId === agentId);
-
-  if (subAgents.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="5" style="padding:12px; text-align:center; color:#666;">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
-    return;
-  }
-  tableBody.innerHTML = subAgents.map(sa => {
-    return `<tr style="border-bottom: 1px solid #eee;">
-      <td style="padding:12px; font-weight:bold;">${sa.name}</td>
-      <td style="padding:12px;">${sa.phone}</td>
-      <td style="padding:12px;">${sa.line}</td>
-      <td style="padding:12px; font-weight:bold; color:red;">${sa.expireAt || '-'}</td>
-      <td style="padding:12px;"><span style="color:${sa.status === 'approved' ? 'green' : 'orange'}; font-weight:bold;">${sa.status === 'approved' ? 'อนุมัติแล้ว' : 'รอแอดมินอนุมัติ'}</span></td>
-    </tr>`;
-  }).join("");
-}
-
 function viewSlipInModal(base64Data) {
   const modal = document.querySelector("#slip-preview-modal");
   const img = document.querySelector("#slip-preview-img");
@@ -277,7 +248,7 @@ function renderAdminAgents() {
       <span style="color: #666">ผู้แนะนำ: ${agent.parentId}</span><br>
       ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:blue; text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
-        ${agent.slip ? `<button type="button" class="btn-view-slip" data-slipdata="${agent.slip}" style="padding:4px 8px; font-size:12px; cursor:pointer;">ดูรูปสลิป</button>` : ''}
+        ${agent.slip ? `<button type="button" class="btn-only-view-slip" data-slipdata="${agent.slip}" style="padding:4px 8px; font-size:12px; cursor:pointer;">ดูรูปสลิป</button>` : ''}
         ${agent.status === 'pending' ? `<button type="button" class="btn-approve-agent" data-id="${agent.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:green; color:#fff; border:none; border-radius:4px;">อนุมัติเปิดระบบ</button>` : ''}
         <button type="button" class="btn-delete-agent" data-id="${agent.id}" style="padding:4px 8px; font-size:12px; cursor:pointer; background:red; color:#fff; border:none; border-radius:4px;">ลบ</button>
       </div>
@@ -303,7 +274,7 @@ async function fetchOnlineAgents() {
 const adminAgentsList = document.querySelector("#admin-agents-list");
 if (adminAgentsList) {
   adminAgentsList.addEventListener("click", async (event) => {
-    const viewSlipBtn = event.target.closest(".btn-view-slip");
+    const viewSlipBtn = event.target.closest(".btn-only-view-slip");
     const approveBtn = event.target.closest(".btn-approve-agent");
     const deleteBtn = event.target.closest(".btn-delete-agent");
     
@@ -399,7 +370,6 @@ if (loginBtn) {
       if (headingTitle) headingTitle.textContent = "ระบบหลังบ้านตัวแทน (เว็บลูก)";
       
       renderAgentLeads(memberAgent.id);
-      renderSubTeams(memberAgent.id); 
       return;
     }
     if (message) message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
@@ -411,7 +381,7 @@ function renderAdminItems() {
   if (!adminItems) return; 
   adminItems.innerHTML = properties.map((item) => `
     <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid #eee;"> 
-      <img src="${item.images?.[0] || 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
+      <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
       <div> 
         <h4 style="margin:0 0 4px 0;">${item.title}</h4> 
         <p style="margin:0 0 6px 0; font-size:13px; color:#666;">${propertyTypeLabel(item.type)} · ${item.price}</p> 
@@ -504,7 +474,7 @@ document.querySelector("#restore-demo")?.addEventListener("click", () => {
   }
 });
 
-// 🌟 สั่งรันชุดคลังข้อมูลในเครื่องก่อนทันที เพื่อให้ 9 ทรัพย์เดิมขึ้นโชว์หน้าจอทันที ไม่ถูกรั้งรอโดยสคริปต์อื่น
+// บังคับให้โหลดข้อมูลจาก LocalStorage ขึ้นมาโชว์ทันทีก่อนสคริปต์ตัวอื่นทำงาน
 checkAgentRoute();
 renderProperties();
 
