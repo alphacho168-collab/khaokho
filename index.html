@@ -17,22 +17,23 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
+    <!-- 🌟 ฝังชุดคุมระยะขอบพิเศษ ป้องกันปัญหาหน้าต่าง Sign up ขอบบนจมหาย ทั้งบนคอมพิวเตอร์และมือถือ -->
     <style>
-      #admin-modal[hidden], 
-      #agent-register-modal[hidden], 
-      #slip-preview-modal[hidden],
-      #detail-panel[hidden] {
-        display: none !important;
-      }
-      #admin-modal, #agent-register-modal, #slip-preview-modal {
-        position: fixed !important;
-        top: 0 !important; left: 0 !important;
-        width: 100% !important; height: 100% !important;
-        background: rgba(0, 0, 0, 0.7) !important;
+      .admin-modal {
         display: flex !important;
+        align-items: flex-start !important; /* จัดวางให้อยู่ขอบบนและเลื่อนสกรอลล์ลงมาเพื่อแก้ปัญหาจมหาย */
         justify-content: center !important;
-        align-items: center !important;
-        z-index: 99999 !important;
+        overflow-y: auto !important; /* ช่วยให้เลื่อนหน้าจอแนวตั้งบนมือถือได้ลื่นไหล */
+        padding: max(10px, 4vw) 15px !important;
+        box-sizing: border-box !important;
+      }
+      .admin-dialog {
+        margin: 0 auto !important;
+        max-height: none !important;
+      }
+      /* กฎเหล็กควบคุมความปลอดภัย ป้องกันป๊อปอัปสลิปหรือหน้าต่างสมัครเด้งโผล่มาหน้าแรกค้างถาวร */
+      .admin-modal[hidden] {
+        display: none !important;
       }
     </style>
   </head>
@@ -64,7 +65,7 @@
           <p class="eyebrow">เขาค้อ เพชรบูรณ์</p>
           <h1>พูลวิลล่าและที่ดินวิวภูเขา อากาศดีเหมือนสวิตเซอร์แลนด์เมืองไทย</h1>
           <p>
-            คัตทรัพย์ทำเลสวยสำหรับบ้านพักตากอากาศ รีสอร์ตส่วนตัว และการลงทุนระยะยาว
+            คัดทรัพย์ทำเลสวยสำหรับบ้านพักตากอากาศ รีสอร์ตส่วนตัว และการลงทุนระยะยาว
             พร้อมภาพ ราคา รายละเอียด และช่องทางนัดชมครบในที่เดียว
           </p>
           <div class="hero-actions">
@@ -123,7 +124,8 @@
 
       <section class="properties" id="properties" aria-live="polite"></section>
       
-      <div class="admin-modal" id="detail-panel" hidden></div>
+      <!-- หน้าต่างแสดงรายละเอียดทรัพย์สินชั้นนอกสุด -->
+      <section class="admin-modal" id="detail-panel" hidden></section>
 
       <section class="faq-section">
         <div class="faq-container">
@@ -151,6 +153,7 @@
         </div>
       </section>
 
+      <!-- หน้าต่างระบบจัดการข้อมูลหลังบ้าน (Login) -->
       <section class="admin-modal" id="admin-modal" hidden>
         <div class="admin-dialog">
           <button class="icon-button close-admin" type="button" id="admin-close" aria-label="ปิดระบบหลังบ้าน">×</button>
@@ -180,7 +183,8 @@
               <label>รายละเอียด <textarea id="property-description" rows="5" placeholder="เล่าจุดเด่น บรรยากาศ และพื้นที่ใช้สอย" required></textarea></label>
               <label>จุดเด่น <input id="property-features" type="text" placeholder="คั่นแต่ละรายการด้วย |" /></label>
               
-              <label>รูปภาพลิงก์ทั้งหมด (คั่นแต่ละรูปด้วยสัญลักษณ์ | ) <textarea id="property-images" rows="4" placeholder="วางลิงก์รูปที่1.jpg | วางลิงก์รูปที่2.jpg"></textarea></label>
+              <!-- 🌟 จุดที่ปรับปรุงตามบรีฟ: ช่องรูปภาพเป็น Textarea ขนาดใหญ่ รองรับรูปหลายๆ รูปคั่นด้วยเครื่องหมาย | -->
+              <label>รูปภาพลิงก์ทั้งหมด (คั่นแต่ละรูปด้วยสัญลักษณ์ | ) <textarea id="property-images" rows="4" placeholder="https://...jpg | https://...jpg"></textarea></label>
               
               <label>วิดีโอ YouTube embed <input id="property-video" type="url" placeholder="https://www.youtube.com/embed/..." /></label>
               <div class="form-actions">
@@ -256,7 +260,8 @@
         </div>
       </section>
 
-      <div id="slip-preview-modal" class="admin-modal" hidden>
+      <!-- หน้าต่างเปิดแสดงรูปสลิปขยายของแอดมิน -->
+      <div id="slip-preview-modal" class="admin-modal" hidden style="z-index: 120;">
         <div class="admin-dialog" style="max-width: 480px; text-align: center;">
           <button class="icon-button" type="button" onclick="document.querySelector('#slip-preview-modal').hidden = true" style="position: absolute; top: 15px; right: 20px; font-size: 24px;">×</button>
           <h3 style="margin-bottom: 15px; color: var(--forest);">หลักฐานสลิปการโอนเงิน</h3>
@@ -288,6 +293,7 @@
         </form>
       </section>
 
+      <!-- หน้าต่างสมัครลงทะเบียนตัวแทนสิทธิ์เว็บลูก (Sign up) -->
       <section class="admin-modal" id="agent-register-modal" hidden>
         <div class="admin-dialog" style="max-width: 600px;">
           <button class="icon-button close-admin" type="button" id="agent-register-close" aria-label="ปิดลงทะเบียน">×</button>
