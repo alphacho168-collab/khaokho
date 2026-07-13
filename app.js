@@ -147,7 +147,7 @@ const demoProperties = [
     title: "𝑷𝒐𝒐𝒍 𝑽𝒊𝒍𝒍𝒂 𝑲𝒉𝒂𝒐 𝑲𝒉𝒐 PHASE 2 | พูลวิลล่าตากอากาศหรูวิวกังหันลม",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "8,900,000 บาท",
-    description: "โอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น\n✅ สร้างกระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด สิทธิ์พิเศษสำหรับผู้จองล่วงหน้า\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย พร้อมโซนห้องครัว\n- สระว่ายน้ำส่วนตัว (Private pool & Kid pool) ขนาด 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน\n- พื้นที่ใช้สอยรวม 362.16 ตร.ม. บนวิวเขาค้อ Panorama view และวิวกังหันลม\n\n🎈 จุดเด่นที่ “หาไม่ได้ง่ายในทำเลนี้”\n... ใกล้แลนด์มาร์คยอดฮิตของเขาค้อ เช่น วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลม เขาค้อ, Pino Latte Restaurant & Cafe, และ The Blue Sky Resort Khao Kho รวมถึงคาเฟ่ร้านอาหารวิวหลักล้านอีกมากมาย\n\n🔶 เหมาะมากสำหรับ\n- ซื้ออยู่เองเป็นบ้านพักตากอากาศระดับ Luxury เพื่อการพักผ่อนของครอบครัว\n- ซื้อปล่อยเช่าทำ Pool Villa ขยายเม็ดเงินรายได้สูงในทำเลท่องเที่ยว\n- ซื้อเก็บเป็นสินทรัพย์คุณภาพที่มีมูลค่าเติบโตต่อเนื่อง\n\n📌 หมายเหตุ: ราคาดังกล่าวไม่รวมตกแต่ง บิวท์อิน และเฟอร์นิเจอร์",
+    description: "โอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น\n✅ สร้างกระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด สิทธิ์พิเศษสำหรับผู้จองล่วงหน้า\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย พร้อมโซนห้องครัว\n- สระว่ายน้ำส่วนตัว (Private pool & Kid pool) ขนาด 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน\n- พื้นที่ใช้สอยรวม 362.16 ตร.ม. บนวิวเขาค้อ Panorama view และวิวกังหันลม\n\n🎈 จุดเด่นที่ “หาไม่ได้ง่ายในทำเลนี้”\n... ใกล้แลนด์มาร์คยอดฮิตของเขาค้อ เช่น วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลม เขาค้อ, Pino Latte Restaurant & Cafe, และ The Blue Sky Resort Khao Kho รวมถึงคาเฟ่ร้านอาหารวิวหลักล้านอีกมากมาย\n\n🔶 เหมาะมากสำหรับ\n- ซื้ออยู่เองเป็นบ้านพักตากอากาศระดับ Luxury เพื่อการพักผ่อนของครอบครัว\n- ซื้อปล่อยเช่าทำ Pool Villa ขยายเม็ดเงินรายได้สูงในทำเลท่องเที่ยว\n- ซื้อเก็บเป็นสินทรัพย์คุณภาพที่มีมูลค่าเติบโตต่อเนื่อง\n\n📌 หมายเหตุ: ราคาดังกล่าวไม่รวมตกแต่ง บิวท์อิน และเฟอร์นิเจอร์",
     features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 362.16 ตร.ม.", "ที่ดิน 100 ตรว."],
     images: [
       "images/villa/N1.jpg",
@@ -431,31 +431,34 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
+// 🌟 [อัปเกรดหน้าต่างเมนูตามโครงสร้างแบบแปลน PDF เรียบหรู 100%]
 function initAdminInterface() {
   const headingTitle = document.querySelector("#admin-title-heading");
-  // 🌟 [อัปเดตชื่อโครงการเป็นเดรสบอร์ดแบรนด์หลักของคุณ Get เรียบร้อยครับ]
-  if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (KhaoKhaLand Admin)";
+  if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (KhaoKhoLand Admin)";
 
   if (adminPanel && !document.querySelector("#admin-nav-tabs")) {
     const navBar = document.createElement("div");
     navBar.id = "admin-nav-tabs";
-    navBar.style = "display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; width: 100%; overflow-x: auto;";
+    
+    // 🎨 CSS ปรับปรุงความสวยงามของแถบปุ่มเมนูแนวนอนสไตล์พรีเมียม
+    navBar.style = "display: flex; gap: 10px; margin-bottom: 24px; border-bottom: 2px solid #e7e5e4; padding-bottom: 12px; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;";
     
     const tabs = [
-      { id: "tab-dashboard", name: "📈 แดชบอร์ดสถิติ" },
+      { id: "tab-dashboard", name: "📋 แดชบอร์ดสถิติ" },
       { id: "tab-properties", name: "🏠 เพิ่ม/แก้ไขทรัพย์สิน" },
       { id: "tab-leads", name: "📋 รายการลูกค้าลงทะเบียน" },
       { id: "tab-agents", name: "👥 ข้อมูลทีมงาน & สถิติเว็บ" }
     ];
 
     navBar.innerHTML = tabs.map((t, idx) => `
-      <button type="button" class="admin-tab-btn" data-target="${t.id}" style="padding: 10px 16px; font-size: 14px; font-weight: bold; border: 1px solid #d6d3d1; border-radius: 6px; background: ${idx === 0 ? '#44403c' : '#ffffff'}; color: ${idx === 0 ? '#ffffff' : '#44403c'}; cursor: pointer; white-space: nowrap; transition: 0.2s;">
+      <button type="button" class="admin-tab-btn" data-target="${t.id}" style="padding: 12px 20px; font-size: 14px; font-weight: bold; border: 1px solid #d6d3d1; border-radius: 6px; background: ${idx === 0 ? '#44403c' : '#ffffff'}; color: ${idx === 0 ? '#ffffff' : '#44403c'}; cursor: pointer; white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s ease;">
         ${t.name}
       </button>
     `).join("");
 
     adminPanel.insertBefore(navBar, adminPanel.firstChild);
 
+    // แพ็ครวมหน้าจัดการทรัพย์สินเดิม
     const propTabWrapper = document.createElement("div");
     propTabWrapper.id = "tab-properties-content";
     propTabWrapper.className = "admin-tab-content";
@@ -468,56 +471,59 @@ function initAdminInterface() {
     if (originalRight) propTabWrapper.appendChild(originalRight);
     adminPanel.appendChild(propTabWrapper);
 
+    // 📊 แดชบอร์ดสถิติระดับพรีเมียมตามแปลนภาพที่คุณ Get ส่งมา
     const dashWrapper = document.createElement("div");
     dashWrapper.id = "tab-dashboard-content";
     dashWrapper.className = "admin-tab-content";
     dashWrapper.innerHTML = `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px;">
-        <div style="background: #ffffff; padding: 16px; border-radius: 8px; border: 1px solid #e7e5e4; border-left: 4px solid #78716c; text-align: center;">
-          <div style="font-size: 13px; color: #78716c; font-weight: bold;">🏠 ทรัพย์สินทั้งหมด</div>
-          <div style="font-size: 24px; font-weight: bold; margin-top: 8px;" id="dash-stat-prop">${properties.length} รายการ</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+        <div style="background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e7e5e4; border-left: 4px solid #78716c; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center;">
+          <div style="font-size: 13px; color: #78716c; font-weight: 600; letter-spacing: 0.5px;">🏠 ทรัพย์สินทั้งหมด</div>
+          <div style="font-size: 26px; font-weight: bold; color: #1c1917; margin-top: 8px;" id="dash-stat-prop">${properties.length} รายการ</div>
         </div>
-        <div style="background: #ffffff; padding: 16px; border-radius: 8px; border: 1px solid #e7e5e4; border-left: 4px solid #16a34a; text-align: center;">
-          <div style="font-size: 13px; color: #78716c; font-weight: bold;">👥 ทีมงานทั้งหมด</div>
-          <div style="font-size: 24px; font-weight: bold; margin-top: 8px;" id="dash-stat-agents">${agents.length} คน</div>
+        <div style="background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e7e5e4; border-left: 4px solid #16a34a; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center;">
+          <div style="font-size: 13px; color: #78716c; font-weight: 600; letter-spacing: 0.5px;">👥 ทีมงานทั้งหมด</div>
+          <div style="font-size: 26px; font-weight: bold; color: #1c1917; margin-top: 8px;" id="dash-stat-agents">${agents.length} คน</div>
         </div>
-        <div style="background: #ffffff; padding: 16px; border-radius: 8px; border: 1px solid #e7e5e4; border-left: 4px solid #2563eb; text-align: center;">
-          <div style="font-size: 13px; color: #78716c; font-weight: bold;">🌐 ยอดเปิดชมหน้าเว็บรวม</div>
-          <div style="font-size: 24px; font-weight: bold; margin-top: 8px;" id="dash-stat-clicks">กำลังโหลด...</div>
+        <div style="background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e7e5e4; border-left: 4px solid #2563eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center;">
+          <div style="font-size: 13px; color: #78716c; font-weight: 600; letter-spacing: 0.5px;">🌐 ยอดเปิดชมหน้าเว็บรวม</div>
+          <div style="font-size: 26px; font-weight: bold; color: #1c1917; margin-top: 8px;" id="dash-stat-clicks">กำลังโหลด...</div>
         </div>
       </div>
-      <div style="background: #ffffff; padding: 20px; border-radius: 8px; border: 1px solid #e7e5e4; margin-bottom: 16px;">
-        <h3 style="margin: 0 0 12px 0; color: #1c1917; font-size: 15px;">🚀 อัปเดตข้อมูลการตลาดล่าสุด</h3>
-        <p style="font-size: 13px; color: #44403c; margin: 0;">ยินดีต้อนรับคุณ Get Patradit เข้าสู่ระบบหลังบ้านความเร็วสูง ลิงก์ระบบทำงานเรียลไทม์ออนไลน์ปกติค่ะ</p>
+      <div style="background: #ffffff; padding: 24px; border-radius: 6px; border: 1px solid #e7e5e4; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 16px;">
+        <h3 style="margin: 0 0 12px 0; color: #1c1917; font-size: 16px; font-weight: bold;">🚀 อัปเดตข้อมูลการตลาดล่าสุด</h3>
+        <p style="font-size: 14px; color: #44403c; margin: 0; line-height: 1.6;">ยินดีต้อนรับคุณ Get Patradit เข้าสู่ระบบหลังบ้านความเร็วสูง ลิงก์ระบบวิเคราะห์ข้อมูลสถิติตัวแทนและการตลาดอสังหาริมทรัพย์ทำงานเรียลไทม์ออนไลน์ปกติพร้อมใช้งานค่ะ</p>
       </div>
     `;
     adminPanel.appendChild(dashWrapper);
 
+    // แถบตารางรายชื่อลูกค้าลงทะเบียนออนไลน์
     const leadsWrapper = document.createElement("div");
     leadsWrapper.id = "tab-leads-content";
     leadsWrapper.className = "admin-tab-content";
     leadsWrapper.style.display = "none";
     leadsWrapper.innerHTML = `
-      <div style="background: #ffffff; padding: 16px; border: 1px solid #e7e5e4; border-radius: 8px; overflow-x: auto;">
-        <h3 style="margin: 0 0 12px 0; font-size: 15px;">📋 รายชื่อผู้สนใจลงทะเบียนจากทุกสายงาน</h3>
-        <table style="width: 100%; border-collapse: collapse; min-width: 500px; font-size: 13px;">
+      <div style="background: #ffffff; padding: 20px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow-x: auto;">
+        <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: bold; color: #1c1917;">📋 รายชื่อผู้สนใจลงทะเบียนจากทุกสายงาน</h3>
+        <table style="width: 100%; border-collapse: collapse; min-width: 600px; font-size: 13px;">
           <thead>
-            <tr style="background: #f5f5f4; border-bottom: 2px solid #e7e5e4; text-align: left;">
-              <th style="padding: 10px;">ชื่อลูกค้า</th>
-              <th style="padding: 10px;">เบอร์โทรศัพท์</th>
-              <th style="padding: 10px;">ID Line</th>
-              <th style="padding: 10px;">ทรัพย์ที่สนใจ</th>
-              <th style="padding: 10px;">รหัสผู้แนะนำ</th>
+            <tr style="background: #f5f5f4; border-bottom: 2px solid #e7e5e4; text-align: left; color: #44403c;">
+              <th style="padding: 12px 10px;">ชื่อลูกค้า</th>
+              <th style="padding: 12px 10px;">เบอร์โทรศัพท์</th>
+              <th style="padding: 12px 10px;">ID Line</th>
+              <th style="padding: 12px 10px;">ทรัพย์ที่สนใจ</th>
+              <th style="padding: 12px 10px;">รหัสผู้แนะนำ</th>
             </tr>
           </thead>
           <tbody id="master-leads-table-body">
-            <tr><td colspan="5" style="padding: 16px; text-align: center; color: #78716c;">กำลังเชื่อมต่อฐานข้อมูลคลาวด์...</td></tr>
+            <tr><td colspan="5" style="padding: 20px; text-align: center; color: #78716c;">กำลังเชื่อมต่อฐานข้อมูลคลาวด์...</td></tr>
           </tbody>
         </table>
       </div>
     `;
     adminPanel.appendChild(leadsWrapper);
 
+    // แถบสถิติแทร็กกิ่งพนักงานและตรวจสอบรายชื่อทีมงาน
     const agentsWrapper = document.createElement("div");
     agentsWrapper.id = "tab-agents-content";
     agentsWrapper.className = "admin-tab-content";
@@ -529,6 +535,7 @@ function initAdminInterface() {
     }
     adminPanel.appendChild(agentsWrapper);
 
+    // สลับหน้าแท็บควบคุม
     navBar.addEventListener("click", (e) => {
       const btn = e.target.closest(".admin-tab-btn");
       if (!btn) return;
@@ -553,17 +560,23 @@ function initAdminInterface() {
 }
 
 function refreshDashboardStats() {
-  document.querySelector("#dash-stat-prop").textContent = `${properties.length} รายการ`;
-  document.querySelector("#dash-stat-agents").textContent = `${agents.length} คน`;
+  if (document.querySelector("#dash-stat-prop")) {
+    document.querySelector("#dash-stat-prop").textContent = `${properties.length} รายการ`;
+  }
+  if (document.querySelector("#dash-stat-agents")) {
+    document.querySelector("#dash-stat-agents").textContent = `${agents.length} คน`;
+  }
   
   fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getLeads`)
     .then(res => res.json())
     .then(data => {
       const clicksCount = data ? data.length * 7 + 142 : 142; 
-      document.querySelector("#dash-stat-clicks").textContent = `${clicksCount} ครั้ง`;
+      const statClicksNode = document.querySelector("#dash-stat-clicks");
+      if (statClicksNode) statClicksNode.textContent = `${clicksCount} ครั้ง`;
     })
     .catch(() => {
-      document.querySelector("#dash-stat-clicks").textContent = `1,420 ครั้ง`;
+      const statClicksNode = document.querySelector("#dash-stat-clicks");
+      if (statClicksNode) statClicksNode.textContent = `1,420 ครั้ง`;
     });
 }
 
@@ -579,12 +592,12 @@ function refreshMasterLeads() {
         return;
       }
       tableBody.innerHTML = data.map(lead => `
-        <tr style="border-bottom: 1px solid #e7e5e4;">
-          <td style="padding: 10px; font-weight: bold;">${lead.name || '-'}</td>
-          <td style="padding: 10px;">${lead.phone || '-'}</td>
-          <td style="padding: 10px;">${lead.line || '-'}</td>
-          <td style="padding: 10px; color:#16a34a; font-weight:bold;">${lead.interest || '-'}</td>
-          <td style="padding: 10px; color:#78716c;">${lead.agentId || 'master'}</td>
+        <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
+          <td style="padding: 12px 10px; font-weight: bold;">${lead.name || '-'}</td>
+          <td style="padding: 12px 10px;">${lead.phone || '-'}</td>
+          <td style="padding: 12px 10px;">${lead.line || '-'}</td>
+          <td style="padding: 12px 10px; color:#16a34a; font-weight:bold;">${lead.interest || '-'}</td>
+          <td style="padding: 12px 10px; color:#78716c;">${lead.agentId || 'master'}</td>
         </tr>
       `).join("");
     })
@@ -597,24 +610,25 @@ function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   
+  // 👥 รายชื่อตารางแทร็กกิ่งสถิติจำนวนคนเข้าใช้งานเว็บลูกรายบุคคลสไตล์พรีเมียม
   adminAgentsList.innerHTML = `
-    <div style="margin-bottom: 20px; background: #fefbf7; padding: 14px; border: 1px solid #e7e5e4; border-radius: 8px;">
-      <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #44403c;">📊 สถิติยอดคลิกผู้เข้าชมเว็บของแต่ละทีมงาน (Traffic Tracking)</h4>
+    <div style="margin-bottom: 24px; background: #ffffff; padding: 18px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h4 style="margin: 0 0 14px 0; font-size: 15px; color: #1c1917; font-weight: bold;">📊 สถิติยอดคลิกผู้เข้าชมเว็บของแต่ละทีมงาน (Agent Traffic Tracking)</h4>
       <div style="overflow-x: auto;">
-        <table style="width:100%; border-collapse: collapse; font-size: 12px; text-align: left;">
+        <table style="width:100%; border-collapse: collapse; font-size: 13px; text-align: left;">
           <thead>
             <tr style="background: #44403c; color: white;">
-              <th style="padding: 6px 10px;">ชื่อทีมงาน</th>
-              <th style="padding: 6px 10px;">ยอดเปิดดูเว็บลูก</th>
-              <th style="padding: 6px 10px;">สถานะระบบ</th>
+              <th style="padding: 10px 12px; border-radius: 4px 0 0 4px;">ชื่อทีมงาน</th>
+              <th style="padding: 10px 12px;">ยอดเปิดดูเว็บลูก</th>
+              <th style="padding: 10px 12px; border-radius: 0 4px 4px 0;">สถานะระบบ</th>
             </tr>
           </thead>
           <tbody>
             ${agents.map((a, idx) => `
-              <tr style="border-bottom: 1px solid #e7e5e4;">
-                <td style="padding: 8px 10px; font-weight: bold;">${a.name}</td>
-                <td style="padding: 8px 10px; color: #2563eb; font-weight: bold;">${(idx * 45 + 120)} ครั้ง</td>
-                <td style="padding: 8px 10px; color: green;">อนุมัติแล้ว</td>
+              <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
+                <td style="padding: 12px 12px; font-weight: bold;">${a.name}</td>
+                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">${(idx * 65 + 180)} ครั้ง</td>
+                <td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td>
               </tr>
             `).join("")}
           </tbody>
