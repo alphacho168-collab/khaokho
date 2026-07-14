@@ -93,7 +93,7 @@ const demoProperties = [
     title: "ที่ดินสวย แปลงปลาวาฬ",
     location: "ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์",
     price: "12,500 บาท/ตรว.",
-    description: "⛰️ โอกาสทองของนักลงทุน! ขายที่ดินผืนงามวิวกังหันลม 23 ไร่เศษ ทำเลแคมป์สน-เขาค้อ (ขายยกแปลง)\n\nด่วน! ปล่อยพิกัดลับที่ดินเนินเขาสวย วิวพาโนรามา 360 องศา โอบล้อมด้วยธรรมชาติและทิวเขา บรรยากาศเย็นสบายตลอดทั้งปี ในโซนตากอากาศยอดฮิต ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ ไฮไลท์สำคัญมองเห็นวิวกังหันลมได้อย่างชัดเจน เหมาะสำหรับพัฒนาโครงการรีสอร์ต พูลวิลล่าตากอากาศ คาเฟ่เช็คอินระดับพรีเมียม หรือซื้อเก็บเพื่อลงทุนเก็งกำไรในอนาคต\n\n📍 รายละเอียดและทำเลศักยภาพ\n- เนื้อที่รวม: 23 ไร่ 0 งาน 62 ตารางวา\n- พิกัด: ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ (โซนท่องเที่ยวหลัก)\n- ผังที่ดิน: ลักษณะเนินเขา ไล่ระดับสวยงามทอดตัวตามธรรมชาติ ทัศนียภาพเปิดโล่ง\n- ทัศนียภาพ: วิวภูเขาสลับซับซ้อน และแนวกังหันลมเขาค้อสุดอลังการ ได้สัมผัสทะเลหมอกและอากาศบริสุทธิ์อย่างใกล้ชิด\n\n✨ จุดเด่นที่ห้ามพลาด\n- ศูนย์กลางการท่องเที่ยว: ตั้งอยู่ใน ต.แคมป์สน ซึ่งเป็นทำเลหัวใจสำคัญของเขาค้อ ใกล้เส้นทางเชื่อมต่อทางหลวงหมายเลข 12 (Route 12)\n- ใกล้แลนด์มาร์คดัง: เดินทางสะดวกไปยัง วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลมเขาค้อ, และคาเฟ่ระดับท็อปของจังหวัด\n- เหมาะแก่การลงทุน: ผืนดินสวย ขนาดกำลังดีสำหรับเมกะโปรเจกต์เชิงท่องเที่ยว หรือรีสอร์ตหรูที่ต้องการความเป็นส่วนตัวแต่เดินทางสะดวก\n\n💰 ข้อมูลราคาและเงื่อนไขการขาย\n- ราคาไร่ละ: 5,000,000 บาท\n- ราคาตารางวาละ: 12,500 บาท\n- ราคารวมทั้งแปลง: 115,775,000 บาท\n- เงื่อนไขสำคัญ: ขายยกแปลงเท่านั้น ไม่แบ่งขาย",
+    description: "⛰️ โอกาสทองของนักลงทุน! ขายที่ดินผืนงามวิวกังหันลม 23 ไร่เศษ ทำเลแคมป์สน-เขาค้อ (ขายยกแปลง)\n\nด่วน! ปล่อยพิกัดลับที่ดินเนินเขาสวย วิวพาโนรามา 360 องศา โอบล้อมด้วยธรรมชาติและทิวเขา บรรยากาศเย็นสบายตลอดทั้งปี ในโซนตากอากาศยอดฮิต ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ ไฮไลท์สำคัญมองเห็นวิวกังหันลมได้อย่างชัดเจน เหมาะสำหรับพัฒนาโครงการรีสอร์ต พูลวิลล่าตากอากาศ คาเฟ่เช็คอินระดับพรีเมียม หรือซื้อเก็บเพื่อลงทุนเก็งกำไรในอนาคต\n\n📍 รายละเอียดและทำเลศักยภาพ\n- เนื้อที่รวม: 23 ไร่ 0 งาน 62 ตารางวา\n- พิกัด: ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ (โซนท่องเที่ยวหลัก)\n- ผังที่ดิน: ลักษณะเนินเขา ไล่ระดับสวยงามทอดตัวตามธรรมชาติ ทัศนียภาพเปิดโล่ง\n- ทัศนียภาพ: วิวภูเขาสลับซับซ้อน และแนวกังหันลมเขาค้อสุดอลังการ ได้สัมผัสทะเลหมอกและอากาศบริสุทธิ์อย่างใกล้ชิด\n\n✨ จุดเด่นที่ห้ามพลาด\n- ศูนย์กลางการท่องเที่ยว: ตั้งอยู่ใน ต.แคมป์สน ซึ่งเป็นทำเลหัวใจสำคัญของเขาค้อ ใกล้เส้นทางเชื่อมต่อทางหลวงหมายเลข 12 (Route 12)\n- ใกล้แลนด์มาร์คดัง: เดินทางสะดวกไปยัง วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลมเขาค้อ, และคาเฟ่ระดับท็อปของจังหวัด\n- เหมาะแก่การลงทุน: ผืนดินสวย ขนาดกำลังดีสำหรับเมกะโปรเจกต์เชิงท่องเที่ยว หรือรีสอร์ตหรูที่ต้องการความเป็นส่วนตัวแต่เดินทางสะดวก\n\n💰 ข้อมูลราคา and เงื่อนไขการขาย\n- ราคาไร่ละ: 5,000,000 บาท\n- ราคาตารางวาละ: 12,500 บาท\n- ราคารวมทั้งแปลง: 115,775,000 บาท\n- เงื่อนไขสำคัญ: ขายยกแปลงเท่านั้น ไม่แบ่งขาย",
     features: ["โฉนดครุฑแดง", "เนื้อที่ 23 ไร่ 62 ตรว.", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
       "images/land/PV1.png",
@@ -251,7 +251,6 @@ function checkAgentRoute() {
   if (formNode) { formNode.setAttribute("data-agent-id", "master"); }
 }
 
-// 🌟 [อัปเกรดจุดจัดเรียงปุ่มไอคอนและกล่องข้อความบนมือถือ]: สั่งให้ไอคอนทั้ง 3 ขึ้นด้านบน และกล่องเปลี่ยนเป็น "เจ้าของขายเอง" ย้ายลงล่างแบบ Responsive
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
@@ -275,42 +274,41 @@ function applyAgentContact(contact) {
   if (iconTarget) {
     const parentContainer = iconTarget.parentElement;
     if (parentContainer) {
-      // 🎨 ฝังสไตล์ควบคุม Flexbox Direction สลับลำดับแนวดิ่งบนโมบายล์แอพผ่านคำสั่ง CSS ในตัวแปรโดยตรง
-      parentContainer.style.display = "flex";
-      parentContainer.style.flexDirection = "column";
-      parentContainer.style.alignItems = "center";
-      parentContainer.style.gap = "15px";
-      parentContainer.style.width = "100%";
+      parentContainer.style.setProperty("display", "flex", "important");
+      parentContainer.style.setProperty("flex-direction", "column", "important");
+      parentContainer.style.setProperty("align-items", "center", "important");
+      parentContainer.style.setProperty("gap", "20px", "important");
+      parentContainer.style.setProperty("width", "100%", "important");
 
-      // ค้นหากลุ่มไอคอนดั้งเดิมเพื่อจัดให้อยู่แถวเดียวกันด้านบน
       let iconRowWrapper = document.querySelector("#agent-icon-row-wrapper");
       if (!iconRowWrapper) {
         iconRowWrapper = document.createElement("div");
         iconRowWrapper.id = "agent-icon-row-wrapper";
-        iconRowWrapper.style.display = "flex";
-        iconRowWrapper.style.gap = "15px";
-        iconRowWrapper.style.justifyContent = "center";
-        iconRowWrapper.style.alignItems = "center";
-        iconRowWrapper.style.order = "1"; // 🌟 บังคับให้แถวไอคอนลอยขึ้นมาอยู่ด้านบนสุดเสมอ
+        iconRowWrapper.style.setProperty("display", "flex", "important");
+        iconRowWrapper.style.setProperty("flex-direction", "row", "important"); 
+        iconRowWrapper.style.setProperty("gap", "15px", "important");
+        iconRowWrapper.style.setProperty("justify-content", "center", "important");
+        iconRowWrapper.style.setProperty("align-items", "center", "important");
+        iconRowWrapper.style.setProperty("order", "1", "important"); 
         
-        // ย้ายปุ่มไอคอนที่มีอยู่เข้าไปในแถวเดียวกัน
         if (phoneBtn) iconRowWrapper.appendChild(phoneBtn);
         if (displayLine) iconRowWrapper.appendChild(displayLine);
         if (displayFb) iconRowWrapper.appendChild(displayFb);
         
         parentContainer.appendChild(iconRowWrapper);
+      } else {
+        iconRowWrapper.style.setProperty("display", "flex", "important");
+        iconRowWrapper.style.setProperty("flex-direction", "row", "important");
       }
 
-      // ค้นหาหรือสร้างกล่องข้อความพรีเมียมใหม่อยู่ด้านล่าง
       let textContactBox = document.querySelector("#agent-text-contact-box");
       if (!textContactBox) {
         textContactBox = document.createElement("div");
         textContactBox.id = "agent-text-contact-box";
-        textContactBox.style.order = "2"; // 🌟 บังคับให้กล่องข้อความย้ายลงมาอยู่ด้านล่างไอคอนเสมอ
+        textContactBox.style.setProperty("order", "2", "important"); 
         parentContainer.appendChild(textContactBox);
       }
       
-      // 🌟 เปลี่ยนหัวข้อคำว่า เจ้าหน้าที่ดูแลสิทธิ์ เป็น "เจ้าของขายเอง" เรียบร้อยสวยงามครับ
       textContactBox.innerHTML = `
         <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; font-family: inherit; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
           <div style="margin-bottom: 4px;"><strong>👤 เจ้าของขายเอง :</strong> ${contact.name}</div>
@@ -611,7 +609,6 @@ function initAdminInterface() {
             <tr style="background: #f5f5f4; border-bottom: 2px solid #e7e5e4; text-align: left; color: #44403c;">
               <th style="padding: 12px 10px;">ชื่อลูกค้า</th>
               <th style="padding: 12px 10px;">เบอร์โทรศัพท์</th>
-              <th style="padding: 12px 10px;">ID Line</th>
               <th style="padding: 12px 10px;">ทรัพย์ที่สนใจ</th>
               <th style="padding: 12px 10px;">รหัสผู้แนะนำ</th>
             </tr>
@@ -959,18 +956,18 @@ window.addEventListener("DOMContentLoaded", () => {
     checkAgentRoute();
   });
 });
-// 🌟 สั่งให้ปุ่ม Sign up ด้านบนหน้าเว็บทั้งหมด เมื่อกดแล้วให้เปิดหน้าต่างสมัครสมาชิกทีมงานทันที
+
+// 🌟 [ส่วนระบบเปิดฟอร์มสมัครสมาชิกลูกทีมผ่านปุ่ม Sign up บนหน้าเว็บหลัก/เว็บลูก ฝังปิดท้ายสมบูรณ์แบบถาวร]
 document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach(button => {
   button.addEventListener("click", (e) => {
     e.preventDefault();
     if (agentRegisterModal) {
       agentRegisterModal.hidden = false;
-      checkAgentRoute(); // สแกนเช็ครหัสคนแนะนำจากลิงก์ URL ทันทีเพื่อล็อกสายงานให้ถูกต้อง
+      checkAgentRoute(); 
     }
   });
 });
 
-// ดักจับเพิ่มเติมสำหรับปุ่ม Sign up ในแถบเมนูหลักดั้งเดิม
 const mainSignUpBtn = document.querySelector(".nav-links a[href*='sign'], .button-group button:nth-child(1)");
 if (mainSignUpBtn) {
   mainSignUpBtn.addEventListener("click", (e) => {
