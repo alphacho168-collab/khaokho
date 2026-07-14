@@ -319,35 +319,37 @@ function applyAgentContact(contact) {
   }
 }
 
-// 🌟 [ปรับเฉพาะจุดกรอบหน้าต่างลงทะเบียนสมัคร: เพิ่มปุ่มคัดลอกเลขบัญชีเฉพาะในส่วนโอนเงิน]
+// 🌟 [ปรับเฉพาะเจาะจงภายในหน้าต่าง Sign up เท่านั้น]: ค้นหาเลขบัญชีแล้วใส่ปุ่มคัดลอกแบบไม่ไปยุ่งกับโครงสร้างฟอร์มกรอกข้อมูลอื่น
 function initCopyAccountNumber() {
-  const checkInterval = setInterval(() => {
-    const nodes = document.querySelectorAll("#agent-register-modal div, #agent-register-modal p, #agent-register-modal span");
-    nodes.forEach(node => {
-      if (node.textContent.includes("045 2 07033 4") && !node.querySelector(".copy-acc-btn")) {
-        node.innerHTML = `
-          เลขที่บัญชี: <span id="target-acc-num" style="font-weight:bold; letter-spacing:0.5px;">045 2 07033 4</span> 
-          <button class="copy-acc-btn" type="button" style="margin-left:8px; padding:2px 8px; font-size:11px; background:#44403c; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:all 0.2s;">คัดลอก</button>
-        `;
-        const btn = node.querySelector(".copy-acc-btn");
-        if (btn) {
-          btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            navigator.clipboard.writeText("0452070334").then(() => {
-              btn.textContent = "✓ คัดลอกแล้ว";
-              btn.style.background = "#16a34a";
-              setTimeout(() => {
-                btn.textContent = "คัดลอก";
-                btn.style.background = "#44403c";
-              }, 2000);
+  setTimeout(() => {
+    const modalBody = document.querySelector("#agent-register-modal");
+    if (!modalBody) return;
+    const walker = document.createTreeWalker(modalBody, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.nodeValue.includes("045 2 07033 4")) {
+        const parent = node.parentElement;
+        if (parent && !parent.querySelector(".copy-acc-btn")) {
+          parent.innerHTML = `เลขที่บัญชี: <span style="font-weight:bold;">045 2 07033 4</span> <button class="copy-acc-btn" type="button" style="margin-left:6px; padding:2px 6px; font-size:10px; background:#44403c; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">คัดลอก</button>`;
+          const btn = parent.querySelector(".copy-acc-btn");
+          if (btn) {
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              navigator.clipboard.writeText("0452070334").then(() => {
+                btn.textContent = "✓ คัดลอกแล้ว";
+                btn.style.background = "#16a34a";
+                setTimeout(() => {
+                  btn.textContent = "คัดลอก";
+                  btn.style.background = "#44403c";
+                }, 2000);
+              });
             });
-          });
+          }
         }
-        clearInterval(checkInterval);
+        break;
       }
-    });
-  }, 500);
-  setTimeout(() => clearInterval(checkInterval), 10000);
+    }
+  }, 300);
 }
 
 function fileToBase64(file) {
@@ -830,7 +832,7 @@ document.querySelector("#admin-open").addEventListener("click", async () => {
   await fetchOnlineAgents();
 });
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
-document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; checkAgentRoute(); initCopyAccountNumber(); });
+document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; checkAgentRoute(); });
 document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
 
 document.querySelector("#login-button").addEventListener("click", async () => {
@@ -993,7 +995,7 @@ document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach
     if (agentRegisterModal) {
       agentRegisterModal.hidden = false;
       checkAgentRoute(); 
-      initCopyAccountNumber(); // สแกนใส่ปุ่ม Copy เฉพาะเวลาเปิดฟอร์ม Sign up เท่านั้น
+      setTimeout(initCopyAccountNumber, 200); // ทำการแทรกปุ่ม Copy เฉพาะภายใน modal โดยไม่ทำลายฟอร์ม
     }
   });
 });
@@ -1005,7 +1007,7 @@ if (mainSignUpBtn) {
     if (agentRegisterModal) { 
       agentRegisterModal.hidden = false; 
       checkAgentRoute(); 
-      initCopyAccountNumber(); 
+      setTimeout(initCopyAccountNumber, 200); 
     }
   });
 }
