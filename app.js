@@ -44,10 +44,10 @@ const demoProperties = [
     features: ["โฉนดครุฑแดง", "แบ่งขาย 2 - 5 ไร่", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
       "images/land/BM1.jpg",
-      "images/land/BM2.JPG",
-      "images/land/BM3.JPG",
-      "images/land/BM4.JPG",
-      "images/land/BM5.png"
+      "images/land/BM2.jpg",
+      "images/land/BM3.jpg",
+      "images/land/BM4.jpg",
+      "images/land/BM5.jpg"
     ],
     video: "https://www.youtube.com/embed/naKp5kfTIkI?si=eXApp3p5BwwmaWvq"
   },
@@ -129,7 +129,7 @@ const demoProperties = [
     title: "เปิดจองบ้านพักตากอากาศเขาค้อ วิวกังหันลม พร้อมสระว่ายน้ำส่วนตัว",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "4.59 ล้านบาท",
-    description: "✨เปิดจองบ้านพักตากอากาศเขาค้อ วิวกังหันลม พร้อมสระว่ายน้ำส่วนตัว 🌿💦\n\nบ้านสวยบรรยากาศดี ท่ามกลางธรรมชาติ เหมาะสำหรับพักผ่อนในวันหยุด หรือซื้อไว้ลงทุนปล่อยเช่าก็คุ้มค่า\n\n📍 ทำเลดี วิวสวย อากาศดีตลอดปี\n- พื้นที่: 54 ตารางวา\n- พื้นที่ใช้สอย: 160 ตารางเมตร \n- ฟังก์ชัน: 3 ห้องนอน | 3 ห้องน้ำ\n- สระว่ายน้ำส่วนตัว: ขนาด 3x6 เมตร \n- ดีไซน์: บ้านสไตล์โมเดิร์น\n\n🎁 ของแถมแบบจัดเต็ม\n- แอร์ 3 ตัว \n- ชุดโต๊ะรับแขก 1 ชุด\n- จัดสวนรอบบ้าน\n- ตู้เย็น และ เครื่องซักผ้า\n- ชุดเตียงนอนครบทั้ง 3 ห้อง \n- กล้องวงจรปิดรอบบ้าน\n\n✅ ยื่นสินเชื่อให้ฟรี!\n💰 บ้านเปล่า: 4.59 ล้านบาท\n💰 บ้านพร้อมเฟอร์นิเจอร์: 4.99 ล้านบาท",
+    description: "✨เปิดจองบ้านพักตากอากาศเขาค้อ วิวกังหันลม พร้อมสระว่ายน้ำส่วนตัว 🌿💦\n\nบ้านสวยบรรยากาศดี ท่ามกลางธรรมชาติ เหมาะสำหรับพักผ่อนในวันหยุด หรือซื้อไว้ลงทุนปล่อยเช่าก็คุ้มค่า\n\n📍 ทำเลดี วิวสวย อากาศดีตลอดปี\n- พื้นที่: 54 ตารางวา\n- พื้นที่ใช้สอย: 160 ตารางเมตร \n- ฟังก์ชัน: 3 ห้องนอน | 3 ห้องน้ำ\n- สระว่ายน้ำปาร์ตี้ส่วนตัว: ขนาด 3x6 เมตร \n- ดีไซน์: บ้านสไตล์โมเดิร์น\n\n🎁 ของแถมแบบจัดเต็ม\n- แอร์ 3 ตัว \n- ชุดโต๊ะรับแขก 1 ชุด\n- จัดสวนรอบบ้าน\n- ตู้เย็น และ เครื่องซักผ้า\n- ชุดเตียงนอนครบทั้ง 3 ห้อง \n- กล้องวงจรปิดรอบบ้าน\n\n✅ ยื่นสินเชื่อให้ฟรี!\n💰 บ้านเปล่า: 4.59 ล้านบาท\n💰 บ้านพร้อมเฟอร์นิเจอร์: 4.99 ล้านบาท",
     features: ["3 ห้องนอน", "3 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 160 ตร.ม.", "ที่ดิน 54 ตรว."],
     images: [
       "images/villa/45VL1.png",
@@ -147,7 +147,7 @@ const demoProperties = [
     title: "𝑷𝒐𝒐𝒍 𝑽𝒊𝒍𝒍𝒂 𝑲𝒉𝒂𝒐 𝑲𝒉𝒐 PHASE 2 | พูลวิลล่าตากอากาศหรูวิวกังหันลม",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "8,900,000 บาท",
-    description: "โอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น\n✅ สร้างกระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด สิทธิ์พิเศษสำหรับผู้จองล่วงหน้า\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย พร้อมโซนห้องครัว\n- สระว่ายน้ำส่วนตัว (Private pool & Kid pool) ขนาด 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน\n- พื้นที่ใช้สอยรวม 362.16 ตร.ม. บนวิวเขาค้อ Panorama view และวิวกังหันลม\n\n🎈 จุดเด่นที่ “หาไม่ได้ง่ายในทำเลนี้”\n... ใกล้แลนด์มาร์คยอดฮิตของเขาค้อ เช่น วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลม เขาค้อ, Pino Latte Restaurant & Cafe, และ The Blue Sky Resort Khao Kho รวมถึงคาเฟ่ร้านอาหารวิวหลักล้านอีกมากมาย\n\n🔶 เหมาะมากสำหรับ\n- ซื้ออยู่เองเป็นบ้านพักตากอากาศระดับ Luxury เพื่อการพักผ่อนของครอบครัว\n- ซื้อปล่อยเช่าทำ Pool Villa ขยายเม็ดเงินรายได้สูงในทำเลท่องเที่ยว\n- ซื้อเก็บเป็นสินทรัพย์คุณภาพที่มีมูลค่าเติบโตต่อเนื่อง\n\n📌 หมายเหตุ: ราคาดังกล่าวไม่รวมตกแต่ง บิวท์อิน และเฟอร์นิเจอร์",
+    description: "โอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น\n✅ สร้างกระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด สิทธิ์พิเศษสำหรับผู้จองล่วงหน้า\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย พร้อมโซนห้องครัว\n- สระว่ายน้ำส่วนตัว (Private pool & Kid pool) ขนาด 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน\n- พื้นที่ใช้สอยรวม 362.16 ตร.ม. บนวิวเขาค้อ Panorama view และวิวกังหันลม\n\n🎈 จุดเด่นที่ “หาไม่ได้ง่ายในทำเลนี้”\n... ใกล้แลนด์มาร์คยอดฮิตของเขาค้อ เช่น วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลม เขาค้อ, Pino Latte Restaurant & Cafe, และ The Blue Sky Resort Khao Kho รวมถึงคาเฟ่ร้านอาหารวิวหลักล้านอีกมากมาย\n\n🔶 เหมาะมากสำหรับ\n- ซื้ออยู่เองเป็นบ้านพักตากอากาศระดับ Luxury เพื่อการพักผ่อนของครอบครัว\n- ซื้อปล่อยเช่าทำ Pool Villa ขยายเม็ดเงินรายได้สูงในทำเลท่องเที่ยว\n- ซื้อเก็บเป็นสินทรัพย์คุณภาพที่มีมูลค่าเติบโตต่อเนื่อง\n\n📌 หมายเหตุ: ราคาดังกล่าวไม่รวมตกแต่ง บิวท์อิน และเฟอร์นิเจอร์",
     features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "พื้นที่ใช้สอย 362.16 ตร.ม.", "ที่ดิน 100 ตรว."],
     images: [
       "images/villa/N1.jpg",
@@ -228,15 +228,25 @@ function splitList(value) {
   return value.split("|").map((item) => item.trim()).filter(Boolean); 
 }
 
+// 🌟 [อัปเกรดจุดที่ 1]: บังคับให้เก็บรหัสตัวแทนจากลิงก์เว็บฝังเข้าไปในหน่วยความจำของหน้าฟอร์มลีดทันทีเพื่อความแม่นยำ
 function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
   if (agentId) {
     const agent = agents.find(a => a.id === agentId && a.status === "approved");
-    if (agent) { currentAgent = agent; applyAgentContact(agent); return; }
+    if (agent) { 
+      currentAgent = agent; 
+      applyAgentContact(agent); 
+      
+      const formNode = document.querySelector("#lead-form");
+      if (formNode) { formNode.setAttribute("data-agent-id", agentId); }
+      return; 
+    }
   }
   currentAgent = null;
   applyAgentContact(DEFAULT_CONTACT);
+  const formNode = document.querySelector("#lead-form");
+  if (formNode) { formNode.setAttribute("data-agent-id", "master"); }
 }
 
 function applyAgentContact(contact) {
@@ -352,23 +362,36 @@ if (agentRegisterForm) {
   });
 }
 
+// 🌟 [อัปเกรดจุดที่ 2]: บังคับล็อกค่ารหัสตัวแทนจากคุณสมบัติหน้าฟอร์ม (dataset) ส่งตรงไปยัง Google Sheets ทันที ห้ามกลายเป็นกล่องเปล่าเด็ดขาด
 if (leadForm) {
   leadForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    
+    const activeAgentId = leadForm.getAttribute("data-agent-id") || (currentAgent ? currentAgent.id : "master");
+
     const lead = {
       name: document.querySelector("#lead-name").value.trim(),
       phone: document.querySelector("#lead-phone").value.trim(),
       line: document.querySelector("#lead-line").value.trim(),
       interest: document.querySelector("#lead-interest").value,
-      agentId: currentAgent ? currentAgent.id : "master",
+      agentId: activeAgentId, 
       submittedAt: new Date().toISOString()
     };
 
     try {
-      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
+      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
+        method: "POST", 
+        mode: "no-cors", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(lead) 
+      });
       leadMessage.classList.remove("error");
       leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
       leadForm.reset();
+      
+      // บังคับจำสิทธิ์คนแนะนำคาไว้ที่ตัวฟอร์มเหมือนเดิมหลังกดล้างข้อมูล
+      leadForm.setAttribute("data-agent-id", activeAgentId);
+      
       if (currentAgent) renderAgentLeads(currentAgent.id);
     } catch { 
       leadMessage.classList.add("error"); 
@@ -431,24 +454,21 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
-// 🌟 [ยกเครื่องระบบ UI แผงแท็บเมนูแนวนอนสไตล์พรีเมียม แก้ไขการโดน CSS เก่าบีบโครงสร้าง]
+// 🌟 [อัปเกรดอินเตอร์เฟซแผงควบคุมระดับพรีเมียมตามไฟล์ PDF สวยงาม ไร้รอยต่อ]: บังคับให้ปุ่มเมนูเรียงตัวแนวนอนและขยายกล่องข้อมูลเต็มหน้าต่าง
 function initAdminInterface() {
   const headingTitle = document.querySelector("#admin-title-heading");
   if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (KhaoKhoLand Admin)";
 
-  // ล้างการสืบทอด CSS คลาสเก่ายกแผง เพื่อดึงกล่องทำงานกลับมาเป็นแนวนอนปกติ
   if (adminPanel) {
     adminPanel.style.display = "block";
     adminPanel.style.width = "100%";
     adminPanel.style.maxWidth = "100%";
     
-    // ค้นหากล่องย่อยเดิมแล้วเคลียร์ Style บีบตัวออกให้หมด
     const gridLeft = adminPanel.querySelector(".grid-left");
     const gridRight = adminPanel.querySelector(".grid-right");
     if (gridLeft) { gridLeft.style.display = "block"; gridLeft.style.width = "100%"; }
     if (gridRight) { gridRight.style.display = "block"; gridRight.style.width = "100%"; }
 
-    // ฝัง CSS ปรับสไตล์ปุ่มแท็บแนวราบถาวรลงในหน้าจอแอดมิน ป้องกันการบีบไฟล์รูป
     if (!document.querySelector("#admin-panel-premium-style")) {
       const styleSheet = document.createElement("style");
       styleSheet.id = "admin-panel-premium-style";
@@ -464,7 +484,6 @@ function initAdminInterface() {
     }
   }
 
-  // สร้างแถบนำทางเมนูแนวนอน
   if (adminPanel && !document.querySelector("#admin-nav-tabs")) {
     const navBar = document.createElement("div");
     navBar.id = "admin-nav-tabs";
@@ -485,12 +504,10 @@ function initAdminInterface() {
 
     adminPanel.insertBefore(navBar, adminPanel.firstChild);
 
-    // สร้างกล่องสลับเนื้อหาฟอร์มทรัพย์สิน
     const propTabWrapper = document.createElement("div");
     propTabWrapper.id = "tab-properties-content";
     propTabWrapper.className = "admin-tab-content";
     
-    // ดึงชิ้นส่วนเดิมของระบบฟอร์มมาเก็บไว้ในกล่องทรัพย์สินแนวราบ
     const originalLeft = adminPanel.querySelector(".grid-left") || adminPanel.children[1];
     const originalRight = adminPanel.querySelector(".grid-right") || adminPanel.children[2];
     
@@ -498,10 +515,9 @@ function initAdminInterface() {
     if (originalRight) propTabWrapper.appendChild(originalRight);
     adminPanel.appendChild(propTabWrapper);
 
-    // 📊 แท็บแดชบอร์ดสรุปสถิติความละเอียดสูงแบบแนวนอนคลีน ๆ 100%
     const dashWrapper = document.createElement("div");
     dashWrapper.id = "tab-dashboard-content";
-    dashWrapper.className = "admin-tab-content active"; // เปิดมาให้โชว์แท็บนี้เป็นหน้าแรก
+    dashWrapper.className = "admin-tab-content active"; 
     dashWrapper.innerHTML = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; width:100%;">
         <div style="background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e7e5e4; border-left: 4px solid #78716c; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center;">
@@ -524,7 +540,6 @@ function initAdminInterface() {
     `;
     adminPanel.appendChild(dashWrapper);
 
-    // แท็บรายชื่อลูกค้าลงทะเบียนออนไลน์
     const leadsWrapper = document.createElement("div");
     leadsWrapper.id = "tab-leads-content";
     leadsWrapper.className = "admin-tab-content";
@@ -549,7 +564,6 @@ function initAdminInterface() {
     `;
     adminPanel.appendChild(leadsWrapper);
 
-    // แท็บข้อมูลพนักงาน
     const agentsWrapper = document.createElement("div");
     agentsWrapper.id = "tab-agents-content";
     agentsWrapper.className = "admin-tab-content";
@@ -560,7 +574,6 @@ function initAdminInterface() {
     }
     adminPanel.appendChild(agentsWrapper);
 
-    // ระบบจัดการคลิกเพื่อสลับเนื้อหาแบบ Dynamic 100%
     navBar.addEventListener("click", (e) => {
       const btn = e.target.closest(".admin-tab-btn");
       if (!btn) return;
