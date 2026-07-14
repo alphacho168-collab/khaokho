@@ -44,10 +44,10 @@ const demoProperties = [
     features: ["โฉนดครุฑแดง", "แบ่งขาย 2 - 5 ไร่", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
       "images/land/BM1.jpg",
-      "images/land/BM2.JPG",
-      "images/land/BM3.JPG",
-      "images/land/BM4.JPG",
-      "images/land/BM5.png"
+      "images/land/BM2.jpg",
+      "images/land/BM3.jpg",
+      "images/land/BM4.jpg",
+      "images/land/BM5.jpg"
     ],
     video: "https://www.youtube.com/embed/naKp5kfTIkI?si=eXApp3p5BwwmaWvq"
   },
@@ -93,7 +93,7 @@ const demoProperties = [
     title: "ที่ดินสวย แปลงปลาวาฬ",
     location: "ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์",
     price: "12,500 บาท/ตรว.",
-    description: "⛰️ โอกาสทองของนักลงทุน! ขายที่ดินผืนงามวิวกังหันลม 23 ไร่เศษ ทำเลแคมป์สน-เขาค้อ (ขายยกแปลง)\n\nด่วน! ปล่อยพิกัดลับที่ดินเนินเขาสวย วิวพาโนรามา 360 องศา โอบล้อมด้วยธรรมชาติและทิวเขา บรรยากาศเย็นสบายตลอดทั้งปี ในโซนตากอากาศยอดฮิต ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ ไฮไลท์สำคัญมองเห็นวิวกังหันลมได้อย่างชัดเจน เหมาะสำหรับพัฒนาโครงการรีสอร์ต พูลวิลล่าตากอากาศ คาเฟ่เช็คอินระดับพรีเมียม หรือซื้อเก็บเพื่อลงทุนเก็งกำไรในอนาคต\n\n📍 รายละเอียดและทำเลศักยภาพ\n- เนื้อที่รวม: 23 ไร่ 0 งาน 62 ตารางวา\n- พิกัด: ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ (โซนท่องเที่ยวหลัก)\n- ผังที่ดิน: ลักษณะเนินเขา ไล่ระดับสวยงามทอดตัวตามธรรมชาติ ทัศนียภาพเปิดโล่ง\n- ทัศนียภาพ: วิวภูเขาสลับซับซ้อน และแนวกังหันลมเขาค้อสุดอลังการ ได้สัมผัสทะเลหมอกและอากาศบริสุทธิ์อย่างใกล้ชิด\n\n✨ จุดเด่นที่ห้ามพลาด\n- ศูนย์กลางการท่องเที่ยว: ตั้งอยู่ใน ต.แคมป์สน ซึ่งเป็นทำเลหัวใจสำคัญของเขาค้อ ใกล้เส้นทางเชื่อมต่อทางหลวงหมายเลข 12 (Route 12)\n- ใกล้แลนด์มาร์คดัง: เดินทางสะดวกไปยัง วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลมเขาค้อ, และคาเฟ่ระดับท็อปของจังหวัด\n- เหมาะแก่การลงทุน: ผืนดินสวย ขนาดกำลังดีสำหรับเมกะโปรเจกต์เชิงท่องเที่ยว หรือรีสอร์ตหรูที่ต้องการความเป็นส่วนตัวแต่เดินทางสะดวก\n\n💰 ข้อมูลราคา and เงื่อนไขการขาย\n- ราคาไร่ละ: 5,000,000 บาท\n- ราคาตารางวาละ: 12,500 บาท\n- ราคารวมทั้งแปลง: 115,775,000 บาท\n- เงื่อนไขสำคัญ: ขายยกแปลงเท่านั้น ไม่แบ่งขาย",
+    description: "⛰️ โอกาสทองของนักลงทุน! ขายที่ดินผืนงามวิวกังหันลม 23 ไร่เศษ ทำเลแคมป์สน-เขาค้อ (ขายยกแปลง)\n\nด่วน! ปล่อยพิกัดลับที่ดินเนินเขาสวย วิวพาโนรามา 360 องศา โอบล้อมด้วยธรรมชาติและทิวเขา บรรยากาศเย็นสบายตลอดทั้งปี ในโซนตากอากาศยอดฮิต ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ ไฮไลท์สำคัญมองเห็นวิวกังหันลมได้อย่างชัดเจน เหมาะสำหรับพัฒนาโครงการรีสอร์ต พูลวิลล่าตากอากาศ คาเฟ่เช็คอินระดับพรีเมียม หรือซื้อเก็บเพื่อลงทุนเก็งกำไรในอนาคต\n\n📍 รายละเอียดและทำเลศักยภาพ\n- เนื้อที่รวม: 23 ไร่ 0 งาน 62 ตารางวา\n- พิกัด: ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ (โซนท่องเที่ยวหลัก)\n- ผังที่ดิน: ลักษณะเนินเขา ไล่ระดับสวยงามทอดตัวตามธรรมชาติ ทัศนียภาพเปิดโล่ง\n- ทัศนียภาพ: วิวภูเขาสลับซับซ้อน และแนวกังหันลมเขาค้อสุดอลังการ ได้สัมผัสทะเลหมอกและอากาศบริสุทธิ์อย่างใกล้ชิด\n\n✨ จุดเด่นที่ห้ามพลาด\n- ศูนย์กลางการท่องเที่ยว: ตั้งอยู่ใน ต.แคมป์สน ซึ่งเป็นทำเลหัวใจสำคัญของเขาค้อ ใกล้เส้นทางเชื่อมต่อทางหลวงหมายเลข 12 (Route 12)\n- ใกล้แลนด์มาร์คดัง: เดินทางสะดวกไปยัง วัดพระธาตุผาซ่อนแก้ว, ทุ่งกังหันลมเขาค้อ, และคาเฟ่ระดับท็อปของจังหวัด\n- เหมาะแก่การลงทุน: ผืนดินสวย ขนาดกำลังดีสำหรับเมกะโปรเจกต์เชิงท่องเที่ยว หรือรีสอร์ตหรูที่ต้องการความเป็นส่วนตัวแต่เดินทางสะดวก\n\n💰 ข้อมูลราคาและเงื่อนไขการขาย\n- ราคาไร่ละ: 5,000,000 บาท\n- ราคาตารางวาละ: 12,500 บาท\n- ราคารวมทั้งแปลง: 115,775,000 บาท\n- เงื่อนไขสำคัญ: ขายยกแปลงเท่านั้น ไม่แบ่งขาย",
     features: ["โฉนดครุฑแดง", "เนื้อที่ 23 ไร่ 62 ตรว.", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
       "images/land/PV1.png",
@@ -317,6 +317,43 @@ function applyAgentContact(contact) {
       `;
     }
   }
+}
+
+// 🌟 [อัปเกรดปุ่มกดคัดลอกเลขบัญชีธนาคาร]: สั่งดักจับกล่องชำระเงิน แล้วพ่นปุ่ม [คัดลอก] แนบเลขบัญชีไปบนดีไซน์ Sign up หน้าบ้านทันที
+function initCopyAccountNumber() {
+  const checkInterval = setInterval(() => {
+    // ดักจับหาข้อความเลขบัญชีในก้อนข้อความวิธีโอนเงิน
+    const nodes = document.querySelectorAll("div, p, li");
+    nodes.forEach(node => {
+      if (node.textContent.includes("045 2 07033 4") && !node.querySelector(".copy-acc-btn")) {
+        // เคลียร์ปรับสัดส่วนข้อความข้างใน แล้วฝังปุ่มคัดลอกความเร็วสูงสไตล์มินิมอลเข้าไป
+        node.innerHTML = `
+          ธนาคาร: ธนาคารกสิกรไทย<br>
+          เลขที่บัญชี: <span id="target-acc-num" style="font-weight:bold; letter-spacing:0.5px;">045 2 07033 4</span> 
+          <button class="copy-acc-btn" type="button" style="margin-left:8px; padding:2px 8px; font-size:11px; background:#44403c; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:all 0.2s;">คัดลอก</button><br>
+          ชื่อบัญชี: พัฒน์รดิศ สุพัฒน์วณิชกร
+        `;
+        
+        const btn = node.querySelector(".copy-acc-btn");
+        if (btn) {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText("0452070334").then(() => {
+              btn.textContent = "✓ คัดลอกแล้ว";
+              btn.style.background = "#16a34a";
+              setTimeout(() => {
+                btn.textContent = "คัดลอก";
+                btn.style.background = "#44403c";
+              }, 2000);
+            });
+          });
+        }
+        clearInterval(checkInterval);
+      }
+    });
+  }, 500);
+  // ตั้งเวลาตัดสิทธิ์เซฟทรัพยากรเครื่องหลังผ่านไป 10 วินาที
+  setTimeout(() => clearInterval(checkInterval), 10000);
 }
 
 function fileToBase64(file) {
@@ -614,7 +651,7 @@ function initAdminInterface() {
             </tr>
           </thead>
           <tbody id="master-leads-table-body">
-            <tr><td colspan="5" style="padding: 20px; text-align: center; color: #78716c;">กำลังเชื่อมต่อฐานข้อมูลคลาวด์...</td></tr>
+            <tr><td colspan="4" style="padding: 20px; text-align: center; color: #78716c;">กำลังเชื่อมต่อฐานข้อมูลคลาวด์...</td></tr>
           </tbody>
         </table>
       </div>
@@ -679,7 +716,7 @@ function refreshMasterLeads() {
     .then(res => res.json())
     .then(data => {
       if (!data || data.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="5" style="padding:16px; text-align:center; color:#78716c;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามาในระบบ</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="4" style="padding:16px; text-align:center; color:#78716c;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามาในระบบ</td></tr>`;
         return;
       }
       
@@ -695,7 +732,7 @@ function refreshMasterLeads() {
       `).join("");
     })
     .catch(() => {
-      tableBody.innerHTML = `<tr><td colspan="5" style="padding:16px; text-align:center; color:#78716c;">ไม่สามารถดึงข้อมูลออนไลน์ได้ในขณะนี้</td></tr>`;
+      tableBody.innerHTML = `<tr><td colspan="4" style="padding:16px; text-align:center; color:#78716c;">ไม่สามารถดึงข้อมูลออนไลน์ได้ในขณะนี้</td></tr>`;
     });
 }
 
@@ -825,7 +862,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
     const agentDashboardName = document.querySelector("#agent-dashboard-name");
     
-    document.querySelector("#back-agent-full-url").textContent = `${window.location.origin}${window.location.pathname}?agent=${memberAgent.id}`;
+    // 🌟 [ลบลิงก์ที่แนะนำลูกค้าออกถาวรเรียบร้อยครับ]: ลบฟังก์ชันระบุและแสดงลิงก์ขยายงานแนะนำลูกค้าส่วนหน้าบ้านพนักงานออกเกลี้ยงตามใจพี่ Get
     document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
     document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
     document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt;
@@ -954,10 +991,10 @@ document.querySelector("#slip-preview-modal").hidden = true;
 window.addEventListener("DOMContentLoaded", () => {
   fetchOnlineAgents().then(() => {
     checkAgentRoute();
+    initCopyAccountNumber(); // เปิดระบบตรวจจับเลขบัญชีเพื่อฝังปุ่มคัดลอกสไตล์มินิมอล
   });
 });
 
-// 🌟 [ส่วนระบบเปิดฟอร์มสมัครสมาชิกลูกทีมผ่านปุ่ม Sign up บนหน้าเว็บหลัก/เว็บลูก ฝังปิดท้ายสมบูรณ์แบบถาวร]
 document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach(button => {
   button.addEventListener("click", (e) => {
     e.preventDefault();
@@ -975,3 +1012,22 @@ if (mainSignUpBtn) {
     if (agentRegisterModal) { agentRegisterModal.hidden = false; checkAgentRoute(); }
   });
 }
+
+// 🌟 [ระบบป้องกันการก๊อปปี้ซอร์สโค้ดและความปลอดภัยขั้นสูง - KhaoKhoLand Vault System]
+// 1. บล็อกคลิกขวาทั่วทั้งหน้าต่างเว็บ
+document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+// 2. บล็อกการกดลากคลุมดำตัวหนังสือ/สัญลักษณ์ภาพรอบโครงการ
+document.addEventListener("selectstart", (e) => e.preventDefault());
+
+// 3. บล็อกการกดปุ่มคีย์ลัดคีย์บอร์ดเพื่อแอบเจาะหลังบ้านดึงโค้ดไปเลียนแบบ
+document.addEventListener("keydown", (e) => {
+  // บล็อก F12
+  if (e.keyCode === 123) { e.preventDefault(); return false; }
+  // บล็อก Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (เปิดหน้าต่างเทคนิคตรวจสอบโค้ดหลังบ้าน)
+  if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); return false; }
+  // บล็อก Ctrl+U (เปิดดูหน้าซอร์สโค้ดดิบดั้งเดิม View-Source)
+  if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
+  // บล็อก Ctrl+S (แอบเซฟหน้าเว็บลงเครื่องคอมพิวเตอร์พกพา)
+  if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
+});
