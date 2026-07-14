@@ -75,7 +75,7 @@ const demoProperties = [
     title: "ที่ดินแปลงสวย หน้าติดน้ำ หลังติดเขา เฟส 1/1 E",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "18,750 บาท/ตรว.",
-    description: "🏔️ ที่ดินวิวภูเขาเขาค้อ แปลงสวย พร้อมสร้างบ้านพักหรือพูลวิลล่า\n\n🌿 โอกาสสุดท้ายในทำเลคุณภาพ\nที่ดินวิวภูเขาเขาค้อ แปลงสวย ขนาด 2 ไร่ 50 ตารางวา (850 ตร.ว.) อยู่ในโครงการที่มีเจ้าของจับจองไปแล้วเกือบทั้งหมด เหลือเพียงแปลงเดียวเท่านั้น\n\nเหมาะสำหรับ\n- บ้านพักตากอากาศ\n- พูลวิลล่าส่วนตัว\n- รีสอร์ทขนาดเล็ก\n- Wellness Retreat\n- ลงทุนเก็บมูลค่าระยะยาว\n\n✨ จุดเด่นของแปลงนี้\n- วิวภูเขาเปิดโล่ง สวยงามตลอดทั้งปี\n- ติดถนนสาธารณประโยชน์ เข้าออกสะดวก\n- อากาศดีตลอดปี อุณหภูมิเฉลี่ยเย็นสบาย\n- อยู่ใกล้รีสอร์ทและแหล่งท่องเที่ยวชื่อดังของเขาค้อ\n- เหมาะสร้างบ้านพักเพื่อชมพระอาทิตย์ขึ้นและทะเลหมอก\n- แปลงสวย รูปทรงดี ใช้งานได้เต็มพื้นที่\n\n📍 ทำเลศักยภาพใกล้สถานที่ท่องเที่ยวสำคัญ\n- วัดผาซ่อนแก้ว\n- ทุ่งกังหันลม\n- คาเฟ่วิวภูเขาชื่อดัง\n- รีสอร์ทระดับพรีเมียม\nทำเลที่นักท่องเที่ยวเดินทางเข้ามาตลอดทั้งปี\n\n💰 ราคา: ไร่ละ 7.5 ล้านบาท (รวม 2 ไร่ 50 ตารางวา)\n\n📈 ทำไมต้องซื้อวันนี้\n\"ที่ดินมีเท่าเดิม แต่คนต้องการมากขึ้นทุกปี\" เขาค้อกำลังเติบต่ออย่างต่อเนื่อง ทั้งด้านการท่องเที่ยว สุขภาพ และการลงทุน ที่ดินวิวสวยในทำเลดีแบบนี้หาได้ยากขึ้นทุกวัน\n\n🏔️ KHAO KHO PRIME ESTATE \"ลงทุนวันนี้ เพื่อมูลค่าที่เพิ่มขึ้นในอนาคต\"",
+    description: "🏔️ ที่ดินวิวภูเขาเขาค้อ แปลงสวย พร้อมสร้างบ้านพักหรือพูลวิลล่า\n\n🌿 โอกาสสุดท้ายในทำเลคุณภาพ\nที่ดินวิวภูเขาเขาค้อ แปลงสวย ขนาด 2 ไร่ 50 ตารางวา (850 ตร.ว.) อยู่ในโครงการที่มีเจ้าของจับจองไปแล้วเกือบทั้งหมด เหลือเพียงแปลงเดียวเท่านั้น\n\nเหมาะสำหรับ\n- บ้านพักตากอากาศ\n- พูลวิลล่าส่วนตัว\n- รีสอร์ทขนาดเล็ก\n- Wellness Retreat\n- ลงทุนเก็บมูลค่าระยะยาว\n\n✨ จุดเด่นของแปลงนี้\n- วิวภูเขาเปิดโล่ง สวยงามตลอดทั้งปี\n- ติดถนนสาธารณประโยชน์ เข้าออกสะดวก\n- อากาศดีตลอดปี อุณหภูมิเฉลี่ยเย็นสบาย\n- อยู่ใกล้รีสอร์ทและแหล่งท่องเที่ยวชื่อดังของเขาค้อ\n- เหมาะสร้างบ้านพักเพื่อชมพระอาทิตย์ขึ้นและทะเลหมอก\n- แปลงสวย รูปทรงดี ใช้งานได้เต็มพื้นที่\n\n📍 ทำเลศักยภาพใกล้สถานที่ท่องเที่ยวสำคัญ\n- วัดผาซ่อนแก้ว\n- ทุ่งกังหันลม\n- คาเฟ่วิวภูเขาชื่อดัง\n- รีสอร์ทระดับพรีเมียม\nทำเลที่นักท่องเที่ยวเดินทางเข้ามาตลอดทั้งปี\n\n💰 ราคา: ไร่ละ 7.5 ล้านบาท (รวม 2 ไร่ 50 ตารางวา)\n\n📈 ทำไมต้องซื้อวันนี้\n\"ที่ดินมีเท่าเดิม แต่คนต้องการมากขึ้นทุกปี\" เขาค้อกำลังเติบต่ออย่างต่อเนื่อง ทั้งด้านการท่องเที่ยว สุขภาพ และการลงทุน ที่ดินวิวสวย in ทำเลดีแบบนี้หาได้ยากขึ้นทุกวัน\n\n🏔️ KHAO KHO PRIME ESTATE \"ลงทุนวันนี้ เพื่อมูลค่าที่เพิ่มขึ้นในอนาคต\"",
     features: ["โฉนดครุฑแดง", "เหลือแปลงสุดท้าย 2 ไร่ 50 ตรว.", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
       "images/land/1E1.jpg",
@@ -161,10 +161,10 @@ const demoProperties = [
   {
     id: "prop-grand-poolvilla-khaokho",
     type: "villa",
-    title: "𝑮𝒓𝒂𝒏𝒅 𝑷𝒐𝒐𝒍 𝑽𝒊𝒍𝒍𝒂 𝑲𝒉𝒂𝒐 𝑲𝒉𝒐 | พูลวิลล่าหรูเพื่อการพักผ่อนและการลงทุน",
+    title: "𝑮𝒓and 𝑷𝒐𝒐𝒍 𝑽𝒊𝒍𝒍𝒂 𝑲𝒉𝒂𝒐 𝑲𝒉𝒐 | พูลวิลล่าหรูเพื่อการพักผ่อนและการลงทุน",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "8,900,000 บาท",
-    description: "พูลวิลล่าสุดหรู ที่ไม่ได้เป็นแค่ “บ้านพัก” แต่คือ “สินทรัพย์แห่งการใช้ชีวิตและการลงทุน”\n\n✅ ทักแชท เพื่อรับข้อเสนอพิเศษ\n\nโอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น🔥\n✅ สร้างรายได้กระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำหรูสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย\n- ห้องครัวยุโรปโมเดิร์น\n- สระว่ายน้ำส่วนตัว ขนาดใหญ่ 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน",
+    description: "พูลวิลล่าสุดหรู ที่ไม่ได้เป็นแค่ “บ้านพัก” แต่คือ “สินทรัพย์แห่งการใช้ชีวิตและการลงทุน”\n\n✅ ทักแชท เพื่อรับข้อเสนอพิเศษ\n\nโอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา الأากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น🔥\n✅ สร้างรายได้กระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำหรูสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย\n- ห้องครัวยุโรปโมเดิร์น\n- สระว่ายน้ำส่วนตัว ขนาดใหญ่ 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน",
     features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "ห้องโถงใหญ่", "วิวกังหันลม"],
     images: [
       "images/villa/G1.jpg",
@@ -232,13 +232,17 @@ function checkAgentRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const agentId = urlParams.get('agent');
   if (agentId) {
-    const agent = agents.find(a => a.id === agentId && a.status === "approved");
+    const cleanParamId = agentId.toString().toLowerCase().trim();
+    const agent = agents.find(a => a.id.toString().toLowerCase().trim() === cleanParamId && a.status === "approved");
     if (agent) { 
       currentAgent = agent; 
       applyAgentContact(agent); 
       
       const formNode = document.querySelector("#lead-form");
-      if (formNode) { formNode.setAttribute("data-agent-id", agentId); }
+      if (formNode) { formNode.setAttribute("data-agent-id", agent.id); }
+      
+      // 🌟 [อัปเกรดจุดบั๊กแคชสลับหาย]: สั่งให้เรียกเรนเดอร์ลีดหน้าตัวแทนเฉพาะตอนเช็คสิทธิ์สำเร็จรอบเดียว
+      renderAgentLeads(agent.id);
       return; 
     }
   }
@@ -388,15 +392,14 @@ if (leadForm) {
       leadForm.reset();
       
       leadForm.setAttribute("data-agent-id", activeAgentId);
-      
-      if (currentAgent) renderAgentLeads(currentAgent.id);
+      renderAgentLeads(activeAgentId);
     } catch { 
       leadMessage.classList.add("error"); 
     }
   });
 }
 
-// 🌟 [อัปเกรดจุดแก้ไขบั๊ก]: ป้องกันการทับถมของแคชเดโมดั้งเดิมสะดุดหน้าลีดทีมงานวูบหาย
+// 🌟 [ปรับปรุงเป็นเวอร์ชันดึงลีดล่าสุดขึ้นก่อน + แก้ไขบั๊กข้อมูลแวบหายสำเร็จเด็ดขาด]
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
@@ -406,13 +409,16 @@ function renderAgentLeads(agentId) {
   fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getLeads&agentId=${cleanId}`)
     .then(res => res.json())
     .then(agentLeads => {
-      // ป้องกันกลไกการ Re-render ล้างคอลัมน์จากแคชเก่า
       if (!agentLeads || agentLeads.length === 0) {
         tableBody.innerHTML = `<tr><td colspan="5" style="padding:14px; text-align:center; color:var(--muted);">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามา</td></tr>`;
         return;
       }
-      tableBody.innerHTML = agentLeads.map(lead => {
-        const dateValue = lead.submittedAt || lead.date || new Date().toISOString();
+      
+      // 🌟 [.reverse()]: สั่งสลับเอาลูกค้าคนใหม่ล่าสุดขึ้นปักหมุดไว้ที่บรรทัดบนสุดตามแปลนงาน
+      const sortedLeads = [...agentLeads].reverse();
+      
+      tableBody.innerHTML = sortedLeads.map(lead => {
+        const dateValue = lead.submittedAt || lead.date || "";
         return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
           <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
           <td style="padding:14px;">${lead.phone || '-'}</td>
@@ -624,7 +630,11 @@ function refreshMasterLeads() {
         tableBody.innerHTML = `<tr><td colspan="5" style="padding:16px; text-align:center; color:#78716c;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามาในระบบ</td></tr>`;
         return;
       }
-      tableBody.innerHTML = data.map(lead => `
+      
+      // 🌟 [อัปเกรดฝั่งแอดมินรวม]: สั่งพลิกแถวข้อมูลให้ลีดล่าสุดเด้งโชว์ขึ้นข้างบนสุดทันทีตามต้องการ
+      const reversedMasterLeads = [...data].reverse();
+      
+      tableBody.innerHTML = reversedMasterLeads.map(lead => `
         <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
           <td style="padding: 12px 10px; font-weight: bold;">${lead.name || '-'}</td>
           <td style="padding: 12px 10px;">${lead.phone || '-'}</td>
@@ -643,6 +653,9 @@ function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   
+  // 🌟 [.reverse()]: ปรับแต่งตารางแทร็กกิ่งยอดขายและรายชื่อทีมงานคนใหม่ล่าสุดไปปักหมุดแถวบนสุดตามวงกรอบสีแดงภาพที่ 3 ของพี่ Get
+  const sortedAgents = [...agents].reverse();
+
   adminAgentsList.innerHTML = `
     <div style="margin-bottom: 24px; background: #ffffff; padding: 18px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); width:100%;">
       <h4 style="margin: 0 0 14px 0; font-size: 15px; color: #1c1917; font-weight: bold;">📊 สถิติยอดคลิกผู้เข้าชมเว็บของแต่ละทีมงาน (Agent Traffic Tracking)</h4>
@@ -656,7 +669,7 @@ function renderAdminAgents() {
             </tr>
           </thead>
           <tbody>
-            ${agents.map((a, idx) => `
+            ${sortedAgents.map((a, idx) => `
               <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
                 <td style="padding: 12px 12px; font-weight: bold;">${a.name}</td>
                 <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">${(idx * 65 + 180)} ครั้ง</td>
@@ -667,7 +680,7 @@ function renderAdminAgents() {
         </table>
       </div>
     </div>
-  ` + agents.map((agent) => {
+  ` + sortedAgents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
@@ -691,8 +704,10 @@ async function fetchOnlineAgents() {
       const onlineAgents = await response.json();
       if (onlineAgents) { 
         agents = onlineAgents; 
-        checkAgentRoute(); 
+        
+        // 🌟 แก้ไขบั๊กรุ่นสุดท้าย: ล็อกลำดับคำสั่งเช็คและจัดสัดส่วนการแสดงผลแยกกันอย่างอิสระ ป้องกันลีดเด้งวูบหาย
         if (!adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
+        else { checkAgentRoute(); }
       }
     }
   } catch (err) { console.log(err); }
