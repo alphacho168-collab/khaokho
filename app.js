@@ -44,10 +44,10 @@ const demoProperties = [
     features: ["โฉนดครุฑแดง", "แบ่งขาย 2 - 5 ไร่", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
       "images/land/BM1.jpg",
-      "images/land/BM2.jpg",
-      "images/land/BM3.jpg",
-      "images/land/BM4.jpg",
-      "images/land/BM5.jpg"
+      "images/land/BM2.JPG",
+      "images/land/BM3.JPG",
+      "images/land/BM4.JPG",
+      "images/land/BM5.png"
     ],
     video: "https://www.youtube.com/embed/naKp5kfTIkI?si=eXApp3p5BwwmaWvq"
   },
