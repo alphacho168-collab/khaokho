@@ -319,21 +319,16 @@ function applyAgentContact(contact) {
   }
 }
 
-// 🌟 [อัปเกรดปุ่มกดคัดลอกเลขบัญชีธนาคาร]: สั่งดักจับกล่องชำระเงิน แล้วพ่นปุ่ม [คัดลอก] แนบเลขบัญชีไปบนดีไซน์ Sign up หน้าบ้านทันที
+// 🌟 [ปรับเฉพาะจุดกรอบหน้าต่างลงทะเบียนสมัคร: เพิ่มปุ่มคัดลอกเลขบัญชีเฉพาะในส่วนโอนเงิน]
 function initCopyAccountNumber() {
   const checkInterval = setInterval(() => {
-    // ดักจับหาข้อความเลขบัญชีในก้อนข้อความวิธีโอนเงิน
-    const nodes = document.querySelectorAll("div, p, li");
+    const nodes = document.querySelectorAll("#agent-register-modal div, #agent-register-modal p, #agent-register-modal span");
     nodes.forEach(node => {
       if (node.textContent.includes("045 2 07033 4") && !node.querySelector(".copy-acc-btn")) {
-        // เคลียร์ปรับสัดส่วนข้อความข้างใน แล้วฝังปุ่มคัดลอกความเร็วสูงสไตล์มินิมอลเข้าไป
         node.innerHTML = `
-          ธนาคาร: ธนาคารกสิกรไทย<br>
           เลขที่บัญชี: <span id="target-acc-num" style="font-weight:bold; letter-spacing:0.5px;">045 2 07033 4</span> 
-          <button class="copy-acc-btn" type="button" style="margin-left:8px; padding:2px 8px; font-size:11px; background:#44403c; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:all 0.2s;">คัดลอก</button><br>
-          ชื่อบัญชี: พัฒน์รดิศ สุพัฒน์วณิชกร
+          <button class="copy-acc-btn" type="button" style="margin-left:8px; padding:2px 8px; font-size:11px; background:#44403c; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:all 0.2s;">คัดลอก</button>
         `;
-        
         const btn = node.querySelector(".copy-acc-btn");
         if (btn) {
           btn.addEventListener("click", (e) => {
@@ -352,7 +347,6 @@ function initCopyAccountNumber() {
       }
     });
   }, 500);
-  // ตั้งเวลาตัดสิทธิ์เซฟทรัพยากรเครื่องหลังผ่านไป 10 วินาที
   setTimeout(() => clearInterval(checkInterval), 10000);
 }
 
@@ -836,7 +830,7 @@ document.querySelector("#admin-open").addEventListener("click", async () => {
   await fetchOnlineAgents();
 });
 document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
-document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; checkAgentRoute(); });
+document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; checkAgentRoute(); initCopyAccountNumber(); });
 document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
 
 document.querySelector("#login-button").addEventListener("click", async () => {
@@ -862,7 +856,6 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
     const agentDashboardName = document.querySelector("#agent-dashboard-name");
     
-    // 🌟 [ลบลิงก์ที่แนะนำลูกค้าออกถาวรเรียบร้อยครับ]: ลบฟังก์ชันระบุและแสดงลิงก์ขยายงานแนะนำลูกค้าส่วนหน้าบ้านพนักงานออกเกลี้ยงตามใจพี่ Get
     document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
     document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
     document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt;
@@ -991,7 +984,6 @@ document.querySelector("#slip-preview-modal").hidden = true;
 window.addEventListener("DOMContentLoaded", () => {
   fetchOnlineAgents().then(() => {
     checkAgentRoute();
-    initCopyAccountNumber(); // เปิดระบบตรวจจับเลขบัญชีเพื่อฝังปุ่มคัดลอกสไตล์มินิมอล
   });
 });
 
@@ -1001,6 +993,7 @@ document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach
     if (agentRegisterModal) {
       agentRegisterModal.hidden = false;
       checkAgentRoute(); 
+      initCopyAccountNumber(); // สแกนใส่ปุ่ม Copy เฉพาะเวลาเปิดฟอร์ม Sign up เท่านั้น
     }
   });
 });
@@ -1009,25 +1002,20 @@ const mainSignUpBtn = document.querySelector(".nav-links a[href*='sign'], .butto
 if (mainSignUpBtn) {
   mainSignUpBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    if (agentRegisterModal) { agentRegisterModal.hidden = false; checkAgentRoute(); }
+    if (agentRegisterModal) { 
+      agentRegisterModal.hidden = false; 
+      checkAgentRoute(); 
+      initCopyAccountNumber(); 
+    }
   });
 }
 
-// 🌟 [ระบบป้องกันการก๊อปปี้ซอร์สโค้ดและความปลอดภัยขั้นสูง - KhaoKhoLand Vault System]
-// 1. บล็อกคลิกขวาทั่วทั้งหน้าต่างเว็บ
+// ระบบป้องกันการก๊อปปี้ซอร์สโค้ดและความปลอดภัยขั้นสูง
 document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-// 2. บล็อกการกดลากคลุมดำตัวหนังสือ/สัญลักษณ์ภาพรอบโครงการ
 document.addEventListener("selectstart", (e) => e.preventDefault());
-
-// 3. บล็อกการกดปุ่มคีย์ลัดคีย์บอร์ดเพื่อแอบเจาะหลังบ้านดึงโค้ดไปเลียนแบบ
 document.addEventListener("keydown", (e) => {
-  // บล็อก F12
   if (e.keyCode === 123) { e.preventDefault(); return false; }
-  // บล็อก Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (เปิดหน้าต่างเทคนิคตรวจสอบโค้ดหลังบ้าน)
   if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); return false; }
-  // บล็อก Ctrl+U (เปิดดูหน้าซอร์สโค้ดดิบดั้งเดิม View-Source)
   if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
-  // บล็อก Ctrl+S (แอบเซฟหน้าเว็บลงเครื่องคอมพิวเตอร์พกพา)
   if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
 });
