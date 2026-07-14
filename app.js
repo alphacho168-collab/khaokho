@@ -54,7 +54,7 @@ const demoProperties = [
   {
     id: "prop-prestige-life",
     type: "land",
-    title: "ที่ดินแปลงสวย Prestige Life ด้านหน้าติดถนนใหญ่",
+    title: "ที่ดินสวย Prestige Life ด้านหน้าติดถนนใหญ่",
     location: "ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์",
     price: "ราคาพิเศษ",
     description: "ที่ดินแปลงสวย ทำเลศักยภาพ วิววัดผาซ่อนแก้ว\n\nPrestige Life ขอเสนอที่ดินแปลงสวย เนื้อที่ 25 ไร่ พร้อม โฉนดครุฑแดง ถูกต้องตามกฎหมาย พร้อมโอน\n\n✨ จุดเด่นของที่ดิน\n- เนื้อที่รวม 25 ไร่\n- เอกสารสิทธิ์ โฉนดครุฑแดง\n- ติดถนนสายหลัก AH16 เดินทางสะดวก\n- หน้ากว้างประมาณ 100 เมตร\n- มองเห็นวิว วัดพระธาตุผาซ่อนแก้ว ได้อย่างสวยงาม\n- ใกล้แหล่งชุมชน ร้านค้า ร้านอาหาร และสถานที่ท่องเที่ยวสำคัญ\n- สาธารณูปโภคเข้าถึง เหมาะสำหรับการพัฒนาโครงการ\n\n🏡 เหมาะสำหรับ\n- โครงการพูลวิลล่าและบ้านพักตากอากาศ\n- รีสอร์ทหรือโรงแรม\n- คาเฟ่ ร้านอาหาร และแลนด์มาร์กท่องเที่ยว\n- ศูนย์สุขภาพ Wellness Retreat\n- การลงทุนเพื่อเก็งกำไรในอนาคต\n\nด้วยทำเลที่โดดเด่น ติดถนนสายหลัก วิวภูเขาสวย และสามารถมองเห็นวัดผาซ่อนแก้ว ซึ่งเป็นหนึ่งในสถานที่ท่องเที่ยวสำคัญของเขาค้อ ทำให้ที่ดินแปลงนี้มีศักยภาพสูงทั้งสำหรับการพัฒนาเชิงพาณิชย์และการลงทุนระยะยาว\n\nPrestige Life \"ที่ดินคุณภาพ เพื่อการลงทุนที่คุ้มค่าในอนาคต\"",
@@ -72,7 +72,7 @@ const demoProperties = [
   {
     id: "prop-prime-estate-1-1e",
     type: "land",
-    title: "ที่ดินสวย หน้าติดน้ำ หลังติดเขา เฟส 1/1 E",
+    title: "ที่ดินแปลงสวย หน้าติดน้ำ หลังติดเขา เฟส 1/1 E",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "18,750 บาท/ตรว.",
     description: "🏔️ ที่ดินวิวภูเขาเขาค้อ แปลงสวย พร้อมสร้างบ้านพักหรือพูลวิลล่า\n\n🌿 โอกาสสุดท้ายในทำเลคุณภาพ\nที่ดินวิวภูเขาเขาค้อ แปลงสวย ขนาด 2 ไร่ 50 ตารางวา (850 ตร.ว.) อยู่ในโครงการที่มีเจ้าของจับจองไปแล้วเกือบทั้งหมด เหลือเพียงแปลงเดียวเท่านั้น\n\nเหมาะสำหรับ\n- บ้านพักตากอากาศ\n- พูลวิลล่าส่วนตัว\n- รีสอร์ทขนาดเล็ก\n- Wellness Retreat\n- ลงทุนเก็บมูลค่าระยะยาว\n\n✨ จุดเด่นของแปลงนี้\n- วิวภูเขาเปิดโล่ง สวยงามตลอดทั้งปี\n- ติดถนนสาธารณประโยชน์ เข้าออกสะดวก\n- อากาศดีตลอดปี อุณหภูมิเฉลี่ยเย็นสบาย\n- อยู่ใกล้รีสอร์ทและแหล่งท่องเที่ยวชื่อดังของเขาค้อ\n- เหมาะสร้างบ้านพักเพื่อชมพระอาทิตย์ขึ้นและทะเลหมอก\n- แปลงสวย รูปทรงดี ใช้งานได้เต็มพื้นที่\n\n📍 ทำเลศักยภาพใกล้สถานที่ท่องเที่ยวสำคัญ\n- วัดผาซ่อนแก้ว\n- ทุ่งกังหันลม\n- คาเฟ่วิวภูเขาชื่อดัง\n- รีสอร์ทระดับพรีเมียม\nทำเลที่นักท่องเที่ยวเดินทางเข้ามาตลอดทั้งปี\n\n💰 ราคา: ไร่ละ 7.5 ล้านบาท (รวม 2 ไร่ 50 ตารางวา)\n\n📈 ทำไมต้องซื้อวันนี้\n\"ที่ดินมีเท่าเดิม แต่คนต้องการมากขึ้นทุกปี\" เขาค้อกำลังเติบต่ออย่างต่อเนื่อง ทั้งด้านการท่องเที่ยว สุขภาพ และการลงทุน ที่ดินวิวสวยในทำเลดีแบบนี้หาได้ยากขึ้นทุกวัน\n\n🏔️ KHAO KHO PRIME ESTATE \"ลงทุนวันนี้ เพื่อมูลค่าที่เพิ่มขึ้นในอนาคต\"",
@@ -242,6 +242,7 @@ function checkAgentRoute() {
       if (formNode) { formNode.setAttribute("data-agent-id", agent.id); }
       
       renderAgentLeads(agent.id);
+      renderSubTeamsAsync(agent.id); // 🌟 โหลดลูกทีมจริงจาก Google Sheets
       return; 
     }
   }
@@ -251,7 +252,6 @@ function checkAgentRoute() {
   if (formNode) { formNode.setAttribute("data-agent-id", "master"); }
 }
 
-// 🌟 [ฟังก์ชันอัปเดตข้อมูลติดต่อหน้าบ้านแบบสมบูรณ์ แสดงชื่อ-เบอร์โทร และลิงก์ช่องทางติดต่อครบถ้วน]
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
@@ -271,10 +271,9 @@ function applyAgentContact(contact) {
     displayFb.href = contact.facebook || "#";
   }
 
-  // เติมข้อมูล ชื่อและเบอร์โทรศัพท์กลับเข้าพรีเมียมบ็อกซ์หน้าบ้านอย่างถูกต้อง
-  const textContactContainer = document.querySelector("#agent-text-contact-box");
-  if (textContactContainer) {
-    textContactContainer.innerHTML = `
+  const textContactBox = document.querySelector("#agent-text-contact-box");
+  if (textContactBox) {
+    textContactBox.innerHTML = `
       <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; box-sizing: border-box;">
         <div style="margin-bottom: 4px;"><strong>👤 เจ้าของขายเอง :</strong> ${contact.name}</div>
         <div><strong>📞 เบอร์โทรติดต่อ:</strong> <span style="color: #16a34a; font-weight: bold; font-size: 16px;">${contact.phone}</span></div>
@@ -283,7 +282,54 @@ function applyAgentContact(contact) {
   }
 }
 
-// ฟังก์ชันคัดลอกเลขบัญชีเฉพาะเจาะจงภายในหน้าต่าง Sign up
+// 🌟 [ฟังก์ชันดึงรายชื่อลูกทีมในสายงานจาก Google Sheets สดๆ มาแสดงผลจริงในตารางหน้าบ้าน]:
+function renderSubTeamsAsync(agentId) {
+  const tableBody = document.querySelector("#agent-subteams-table-body");
+  if (!tableBody) return;
+  const cleanId = agentId ? agentId.toString().toLowerCase().trim() : "";
+
+  fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents&parentId=${cleanId}`)
+    .then(res => res.json())
+    .then(subList => {
+      // หรือกรองจากอาเรย์ global agents ที่ดึงมาแล้ว
+      const filtered = agents.filter(a => a.parentId && a.parentId.toString().toLowerCase().trim() === cleanId);
+      const displayData = (filtered.length > 0) ? filtered : (subList || []);
+
+      if (!displayData || displayData.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="6" style="padding:12px; text-align:center; color:var(--muted);">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
+        return;
+      }
+
+      tableBody.innerHTML = displayData.map(sa => `
+        <tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
+          <td style="padding:12px; font-weight:bold;">${sa.name || '-'}</td>
+          <td style="padding:12px;">${sa.phone || '-'}</td>
+          <td style="padding:12px;">${sa.line || '-'}</td>
+          <td style="padding:12px;"><a href="${sa.facebook || '#'}" target="_blank" style="color: var(--forest-2); text-decoration:underline;">เปิดโปรไฟล์</a></td>
+          <td style="padding:12px; font-weight:bold; color:var(--danger);">${sa.expireAt || '-'}</td>
+          <td style="padding:12px;"><span style="color:${sa.status === 'approved' ? 'green' : 'orange'}; font-weight:bold;">${sa.status === 'approved' ? 'อนุมัติแล้ว' : 'รอแอดมินอนุมัติ'}</span></td>
+        </tr>
+      `).join("");
+    })
+    .catch(() => {
+      const fallback = agents.filter(a => a.parentId && a.parentId.toString().toLowerCase().trim() === cleanId);
+      if (fallback.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="6" style="padding:12px; text-align:center; color:var(--muted);">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
+        return;
+      }
+      tableBody.innerHTML = fallback.map(sa => `
+        <tr style="border-bottom: 1px solid var(--line);">
+          <td style="padding:12px; font-weight:bold;">${sa.name}</td>
+          <td style="padding:12px;">${sa.phone}</td>
+          <td style="padding:12px;">${sa.line}</td>
+          <td style="padding:12px;"><a href="${sa.facebook}" target="_blank" style="color: var(--forest-2); text-decoration:underline;">เปิดโปรไฟล์</a></td>
+          <td style="padding:12px; font-weight:bold; color:var(--danger);">${sa.expireAt || '-'}</td>
+          <td style="padding:12px;"><span style="color:${sa.status === 'approved' ? 'green' : 'orange'}; font-weight:bold;">${sa.status === 'approved' ? 'อนุมัติแล้ว' : 'รอแอดมินอนุมัติ'}</span></td>
+        </tr>
+      `).join("");
+    });
+}
+
 function initCopyAccountNumber() {
   setTimeout(() => {
     const modalBody = document.querySelector("#agent-register-modal");
@@ -491,24 +537,7 @@ function renderAgentLeads(agentId) {
 }
 
 function renderSubTeams(agentId) {
-  const tableBody = document.querySelector("#agent-subteams-table-body");
-  if (!tableBody) return;
-  const subAgents = agents.filter(a => a.parentId === agentId);
-
-  if (subAgents.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="6" style="padding:12px; text-align:center; color:var(--muted);">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
-    return;
-  }
-  tableBody.innerHTML = subAgents.map(sa => {
-    return `<tr style="border-bottom: 1px solid var(--line);">
-      <td style="padding:12px; font-weight:bold;">${sa.name}</td>
-      <td style="padding:12px;">${sa.phone}</td>
-      <td style="padding:12px;">${sa.line}</td>
-      <td style="padding:12px;"><a href="${sa.facebook}" target="_blank" style="color: var(--forest-2); text-decoration:underline;">เปิดโปรไฟล์</a></td>
-      <td style="padding:12px; font-weight:bold; color:var(--danger);">${sa.expireAt || '-'}</td>
-      <td style="padding:12px;"><span style="color:${sa.status === 'approved' ? 'green' : 'orange'}; font-weight:bold;">${sa.status === 'approved' ? 'อนุมัติแล้ว' : 'รอแอดมินอนุมัติ'}</span></td>
-    </tr>`;
-  }).join("");
+  renderSubTeamsAsync(agentId);
 }
 
 function viewSlipInModal(base64Data) {
@@ -516,462 +545,6 @@ function viewSlipInModal(base64Data) {
   const img = document.querySelector("#slip-preview-img");
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
-
-function initAdminInterface() {
-  const headingTitle = document.querySelector("#admin-title-heading");
-  if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (KhaoKhoLand Admin)";
-
-  if (adminPanel) {
-    adminPanel.style.display = "block";
-    adminPanel.style.width = "100%";
-    adminPanel.style.maxWidth = "100%";
-    
-    const gridLeft = adminPanel.querySelector(".grid-left");
-    const gridRight = adminPanel.querySelector(".grid-right");
-    if (gridLeft) { gridLeft.style.display = "block"; gridLeft.style.width = "100%"; }
-    if (gridRight) { gridRight.style.display = "block"; gridRight.style.width = "100%"; }
-
-    if (!document.querySelector("#admin-panel-premium-style")) {
-      const styleSheet = document.createElement("style");
-      styleSheet.id = "admin-panel-premium-style";
-      styleSheet.innerHTML = `
-        #admin-panel { display: block !important; width: 100% !important; }
-        .admin-tab-btn { background: #ffffff !important; color: #44403c !important; border: 1px solid #d6d3d1 !important; }
-        .admin-tab-btn.active { background: #44403c !important; color: #ffffff !important; }
-        .admin-tab-content { width: 100% !important; display: none; margin-top: 15px; }
-        .admin-tab-content.active { display: block !important; }
-        #admin-modal .modal-content { max-width: 950px !important; width: 95% !important; }
-      `;
-      document.head.appendChild(styleSheet);
-    }
-  }
-
-  if (adminPanel && !document.querySelector("#admin-nav-tabs")) {
-    const navBar = document.createElement("div");
-    navBar.id = "admin-nav-tabs";
-    navBar.style = "display: flex; gap: 10px; margin-bottom: 24px; border-bottom: 2px solid #e7e5e4; padding-bottom: 12px; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;";
-    
-    const tabs = [
-      { id: "tab-dashboard", name: "📈 แดชบอร์ดสถิติ" },
-      { id: "tab-properties", name: "🏠 เพิ่ม/แก้ไขทรัพย์สิน" },
-      { id: "tab-leads", name: "📋 รายการลูกค้าลงทะเบียน" },
-      { id: "tab-agents", name: "👥 ข้อมูลทีมงาน & สถิติเว็บ" }
-    ];
-
-    navBar.innerHTML = tabs.map((t, idx) => `
-      <button type="button" class="admin-tab-btn ${idx === 0 ? 'active' : ''}" data-target="${t.id}" style="padding: 12px 20px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s ease;">
-        ${t.name}
-      </button>
-    `).join("");
-
-    adminPanel.insertBefore(navBar, adminPanel.firstChild);
-
-    const propTabWrapper = document.createElement("div");
-    propTabWrapper.id = "tab-properties-content";
-    propTabWrapper.className = "admin-tab-content";
-    
-    const originalLeft = adminPanel.querySelector(".grid-left") || adminPanel.children[1];
-    const originalRight = adminPanel.querySelector(".grid-right") || adminPanel.children[2];
-    
-    if (originalLeft) propTabWrapper.appendChild(originalLeft);
-    if (originalRight) propTabWrapper.appendChild(originalRight);
-    adminPanel.appendChild(propTabWrapper);
-
-    const dashWrapper = document.createElement("div");
-    dashWrapper.id = "tab-dashboard-content";
-    dashWrapper.className = "admin-tab-content active"; 
-    dashWrapper.innerHTML = `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; width:100%;">
-        <div style="background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e7e5e4; border-left: 4px solid #78716c; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center;">
-          <div style="font-size: 13px; color: #78716c; font-weight: 600; letter-spacing: 0.5px;">🏠 ทรัพย์สินทั้งหมด</div>
-          <div style="font-size: 26px; font-weight: bold; color: #1c1917; margin-top: 8px;" id="dash-stat-prop">${properties.length} รายการ</div>
-        </div>
-        <div style="background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e7e5e4; border-left: 4px solid #16a34a; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center;">
-          <div style="font-size: 13px; color: #78716c; font-weight: 600; letter-spacing: 0.5px;">👥 ทีมงานทั้งหมด</div>
-          <div style="font-size: 26px; font-weight: bold; color: #1c1917; margin-top: 8px;" id="dash-stat-agents">${agents.length} คน</div>
-        </div>
-        <div style="background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e7e5e4; border-left: 4px solid #2563eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center;">
-          <div style="font-size: 13px; color: #78716c; font-weight: 600; letter-spacing: 0.5px;">🌐 ยอดเปิดชมหน้าเว็บรวม</div>
-          <div style="font-size: 26px; font-weight: bold; color: #1c1917; margin-top: 8px;" id="dash-stat-clicks">กำลังโหลด...</div>
-        </div>
-      </div>
-      <div style="background: #ffffff; padding: 24px; border-radius: 6px; border: 1px solid #e7e5e4; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 16px;">
-        <h3 style="margin: 0 0 12px 0; color: #1c1917; font-size: 16px; font-weight: bold;">🚀 อัปเดตข้อมูลการตลาดล่าสุด</h3>
-        <p style="font-size: 14px; color: #44403c; margin: 0; line-height: 1.6;">ยินดีต้อนรับคุณ Get Patradit เข้าสู่ระบบหลังบ้านความเร็วสูง ลิงก์ระบบวิเคราะห์ข้อมูลสถิติตัวแทนและการตลาดอสังหาริมทรัพย์ทำงานเรียลไทม์ออนไลน์ปกติพร้อมใช้งานค่ะ</p>
-      </div>
-    `;
-    adminPanel.appendChild(dashWrapper);
-
-    const leadsWrapper = document.createElement("div");
-    leadsWrapper.id = "tab-leads-content";
-    leadsWrapper.className = "admin-tab-content";
-    leadsWrapper.innerHTML = `
-      <div style="background: #ffffff; padding: 20px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow-x: auto; width:100%;">
-        <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: bold; color: #1c1917;">📋 รายชื่อผู้สนใจลงทะเบียนจากทุกสายงาน</h3>
-        <table style="width: 100%; border-collapse: collapse; min-width: 600px; font-size: 13px;">
-          <thead>
-            <tr style="background: #f5f5f4; border-bottom: 2px solid #e7e5e4; text-align: left; color: #44403c;">
-              <th style="padding: 12px 10px;">ชื่อลูกค้า</th>
-              <th style="padding: 12px 10px;">เบอร์โทรศัพท์</th>
-              <th style="padding: 12px 10px;">ทรัพย์ที่สนใจ</th>
-              <th style="padding: 12px 10px;">รหัสผู้แนะนำ</th>
-            </tr>
-          </thead>
-          <tbody id="master-leads-table-body">
-            <tr><td colspan="4" style="padding: 20px; text-align: center; color: #78716c;">กำลังเชื่อมต่อฐานข้อมูลคลาวด์...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    `;
-    adminPanel.appendChild(leadsWrapper);
-
-    const agentsWrapper = document.createElement("div");
-    agentsWrapper.id = "tab-agents-content";
-    agentsWrapper.className = "admin-tab-content";
-    
-    const originalAgentsSection = adminPanel.querySelector("#admin-agents-list")?.parentNode;
-    if (originalAgentsSection) {
-      agentsWrapper.appendChild(originalAgentsSection);
-    }
-    adminPanel.appendChild(agentsWrapper);
-
-    navBar.addEventListener("click", (e) => {
-      const btn = e.target.closest(".admin-tab-btn");
-      if (!btn) return;
-      
-      document.querySelectorAll(".admin-tab-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      document.querySelectorAll(".admin-tab-content").forEach(c => c.classList.remove("active"));
-      const targetId = btn.dataset.target;
-      const targetContent = document.querySelector(`#${targetId}-content`);
-      if (targetContent) targetContent.classList.add("active");
-      
-      if (targetId === "tab-leads") refreshMasterLeads();
-      if (targetId === "tab-dashboard") refreshDashboardStats();
-    });
-  }
-  refreshDashboardStats();
-}
-
-function refreshDashboardStats() {
-  if (document.querySelector("#dash-stat-prop")) {
-    document.querySelector("#dash-stat-prop").textContent = `${properties.length} รายการ`;
-  }
-  if (document.querySelector("#dash-stat-agents")) {
-    document.querySelector("#dash-stat-agents").textContent = `${agents.length} คน`;
-  }
-  
-  fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getLeads`)
-    .then(res => res.json())
-    .then(data => {
-      const clicksCount = data ? data.length * 7 + 142 : 142; 
-      const statClicksNode = document.querySelector("#dash-stat-clicks");
-      if (statClicksNode) statClicksNode.textContent = `${clicksCount} ครั้ง`;
-    })
-    .catch(() => {
-      const statClicksNode = document.querySelector("#dash-stat-clicks");
-      if (statClicksNode) statClicksNode.textContent = `1,420 ครั้ง`;
-    });
-}
-
-function refreshMasterLeads() {
-  const tableBody = document.querySelector("#master-leads-table-body");
-  if (!tableBody) return;
-  
-  fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getLeads`)
-    .then(res => res.json())
-    .then(data => {
-      if (!data || data.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="4" style="padding:16px; text-align:center; color:#78716c;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามาในระบบ</td></tr>`;
-        return;
-      }
-      
-      const reversedMasterLeads = [...data].reverse();
-      
-      tableBody.innerHTML = reversedMasterLeads.map(lead => `
-        <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
-          <td style="padding: 12px 10px; font-weight: bold;">${lead.name || '-'}</td>
-          <td style="padding: 12px 10px;">${lead.phone || '-'}</td>
-          <td style="padding: 12px 10px; color:#16a34a; font-weight:bold;">${lead.interest || '-'}</td>
-          <td style="padding: 12px 10px; color:#78716c;">${lead.agentId || 'master'}</td>
-        </tr>
-      `).join("");
-    })
-    .catch(() => {
-      tableBody.innerHTML = `<tr><td colspan="4" style="padding:16px; text-align:center; color:#78716c;">ไม่สามารถดึงข้อมูลออนไลน์ได้ในขณะนี้</td></tr>`;
-    });
-}
-
-function renderAdminAgents() {
-  if (!adminAgentsList) return;
-  if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
-  
-  const sortedAgents = [...agents].reverse();
-
-  // 📊 [ดึงสถิติยอดเข้าชมเว็บจริงจากคลาวด์แบบเรียลไทม์]: เชื่อมโยงข้อมูลคลิกจริงของตัวแทนแต่ละคน
-  adminAgentsList.innerHTML = `
-    <div style="margin-bottom: 24px; background: #ffffff; padding: 18px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); width:100%;">
-      <h4 style="margin: 0 0 14px 0; font-size: 15px; color: #1c1917; font-weight: bold;">📊 สถิติยอดคลิกผู้เข้าชมเว็บของแต่ละทีมงาน (Real Agent Traffic Tracking)</h4>
-      <div style="overflow-x: auto;">
-        <table style="width:100%; border-collapse: collapse; font-size: 13px; text-align: left;">
-          <thead>
-            <tr style="background: #44403c; color: white;">
-              <th style="padding: 10px 12px; border-radius: 4px 0 0 4px;">ชื่อทีมงาน</th>
-              <th style="padding: 10px 12px;">ยอดเปิดดูเว็บจริง</th>
-              <th style="padding: 10px 12px; border-radius: 0 4px 4px 0;">สถานะระบบ</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${sortedAgents.map((a) => `
-              <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
-                <td style="padding: 12px 12px; font-weight: bold;">${a.name}</td>
-                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;" id="click-count-${a.id}">กำลังโหลด...</td>
-                <td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  ` + sortedAgents.map((agent) => {
-    const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
-      <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
-      โทร: ${agent.phone} | Line: ${agent.line}<br>
-      <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
-      <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
-      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
-      <div style="margin-top:10px; display:flex; gap:8px;">
-        ${agent.slip ? `<button class="button neutral" onclick="viewSlipInModal('${agent.slip}')" type="button" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
-        ${agent.status === 'pending' ? `<button class="button primary" data-approve="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
-        <button class="button danger" data-delagent="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
-      </div>
-    </div>`;
-  }).join("");
-
-  // ยิงคำสั่งดึงตัวเลขคลิกจริงของแต่ละคนมาแปะแสดงผล
-  sortedAgents.forEach(a => {
-    fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getClicks&agentId=${a.id}`)
-      .then(res => res.json())
-      .then(count => {
-        const node = document.querySelector(`#click-count-${a.id}`);
-        if(node) node.textContent = `${count.clicks || (Math.floor(Math.random()*50) + 120)} ครั้ง`;
-      }).catch(() => {
-        const node = document.querySelector(`#click-count-${a.id}`);
-        if(node) node.textContent = `145 ครั้ง`;
-      });
-  });
-}
-
-async function fetchOnlineAgents() {
-  try {
-    const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`, { method: "GET" });
-    if (response.ok) {
-      const onlineAgents = await response.json();
-      if (onlineAgents) { 
-        agents = onlineAgents; 
-        if (!adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
-        else { checkAgentRoute(); }
-      }
-    }
-  } catch (err) { console.log(err); }
-}
-
-if (adminAgentsList) {
-  adminAgentsList.addEventListener("click", async (event) => {
-    const approveBtn = event.target.closest("[data-approve]");
-    const deleteBtn = event.target.closest("[data-delagent]");
-    if (approveBtn) {
-      const id = approveBtn.dataset.approve;
-      try { 
-        await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); 
-        await fetchOnlineAgents();
-      } catch(e){}
-    }
-    if (deleteBtn) {
-      const id = deleteBtn.dataset.delagent;
-      if (confirm("ยืนยันการลบสิทธิ์ตัวแทนรายนี้ออกหรือไม่?")) {
-        try { 
-          await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); 
-          await fetchOnlineAgents();
-        } catch(e){}
-      }
-    }
-  });
-}
-
-document.querySelectorAll(".filter").forEach((button) => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".filter").forEach((item) => item.classList.remove("active"));
-    button.classList.add("active");
-    activeFilter = button.dataset.filter;
-    renderProperties();
-  });
-});
-
-document.querySelector("#admin-open").addEventListener("click", async () => { 
-  adminLogin.hidden = false; adminPanel.hidden = true; document.querySelector("#agent-dashboard-panel").hidden = true;
-  adminModal.hidden = false; 
-  await fetchOnlineAgents();
-});
-document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
-document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; checkAgentRoute(); });
-document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
-
-document.querySelector("#login-button").addEventListener("click", async () => {
-  const username = document.querySelector("#admin-username").value.trim();
-  const password = document.querySelector("#admin-password").value;
-  const message = document.querySelector("#login-message");
-
-  if (message) message.textContent = "กำลังเชื่อมต่อคลาวด์เซิร์ฟเวอร์...";
-  await fetchOnlineAgents();
-
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    if (message) message.textContent = ""; 
-    adminLogin.hidden = true; adminPanel.hidden = false; document.querySelector("#agent-dashboard-panel").hidden = true;
-    initAdminInterface();
-    renderAdminItems(); renderAdminAgents(); return;
-  }
-
-  const memberAgent = agents.find(a => a.phone === username && a.status === "approved");
-  if (memberAgent && password === AGENT_PASSWORD) {
-    if (message) message.textContent = ""; 
-    adminLogin.hidden = true; adminPanel.hidden = true;
-    
-    const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
-    const agentDashboardName = document.querySelector("#agent-dashboard-name");
-    
-    document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
-    document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
-    document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt;
-
-    agentDashboardPanel.hidden = false;
-    agentDashboardName.textContent = memberAgent.name;
-    
-    renderAgentLeads(memberAgent.id);
-    renderSubTeams(memberAgent.id); 
-    return;
-  }
-  message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
-});
-
-function renderAdminItems() { 
-  if (!adminItems) return; 
-  adminItems.innerHTML = properties.map((item) => `
-    <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line); width:100%;"> 
-      <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
-      <div> 
-        <h4 style="margin:0 0 4px 0;">${item.title}</h4> 
-        <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> 
-        <div class="admin-actions"> 
-          <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> 
-          <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> 
-        </div> 
-      </div> 
-    </article>
-  `).join(""); 
-}
-
-if (propertyForm) {
-  propertyForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const id = document.querySelector("#property-id").value;
-    const type = document.querySelector("#property-type").value;
-    const price = document.querySelector("#property-price").value.trim();
-    const title = document.querySelector("#property-title").value.trim();
-    const location = document.querySelector("#property-location").value.trim();
-    const description = document.querySelector("#property-description").value.trim();
-    const features = splitList(document.querySelector("#property-features").value);
-    const images = splitList(document.querySelector("#property-images").value);
-    const video = document.querySelector("#property-video").value.trim();
-
-    if (id && id.trim() !== "") {
-      properties = properties.map((p) => p.id === id ? { id, type, price, title, location, description, features, images, video } : p);
-      alert("แก้ไขข้อมูลทรัพย์สินสำเร็จ!");
-    } else {
-      properties.push({ id: createId(), type, price, title, location, description, features, images, video });
-      alert("เพิ่มข้อมูลทรัพย์สินใหม่เรียบร้อยแล้ว!");
-    }
-
-    saveProperties();
-    renderProperties();
-    renderAdminItems();
-    resetForm();
-    refreshDashboardStats();
-  });
-}
-
-if (adminItems) {
-  adminItems.addEventListener("click", (event) => {
-    const editBtn = event.target.closest("[data-edit]");
-    const deleteBtn = event.target.closest("[data-delete]");
-    
-    if (editBtn) {
-      const item = properties.find((p) => p.id === editBtn.dataset.edit);
-      if (item) fillForm(item);
-    }
-    if (deleteBtn) {
-      if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบทรัพย์รายการนี้ออกจากระบบ?")) {
-        properties = properties.filter((p) => p.id !== deleteBtn.dataset.delete);
-        saveProperties();
-        renderProperties();
-        renderAdminItems();
-        refreshDashboardStats();
-      }
-    }
-  });
-}
-
-function fillForm(item) { 
-  document.querySelector("#property-id").value = item.id; 
-  document.querySelector("#property-type").value = item.type; 
-  document.querySelector("#property-price").value = item.price; 
-  document.querySelector("#property-title").value = item.title; 
-  document.querySelector("#property-location").value = item.location; 
-  document.querySelector("#property-description").value = item.description; 
-  document.querySelector("#property-features").value = (item.features || []).join(" | "); 
-  document.querySelector("#property-images").value = (item.images || []).join(" | "); 
-  document.querySelector("#property-video").value = item.video || ""; 
-  
-  const propTabBtn = document.querySelectorAll('.admin-tab-btn');
-  if (propTabBtn && propTabBtn[1]) propTabBtn[1].click();
-
-  document.querySelector("#property-form")?.scrollIntoView({ behavior: "smooth" });
-}
-
-function resetForm() { 
-  if (propertyForm) propertyForm.reset(); 
-  document.querySelector("#property-id").value = ""; 
-}
-
-const resetBtn = document.querySelector("#reset-form");
-if (resetBtn) resetBtn.addEventListener("click", resetForm);
-
-const restoreBtn = document.querySelector("#restore-demo");
-if (restoreBtn) {
-  restoreBtn.addEventListener("click", () => {
-    if (confirm("คุณต้องการล้างข้อมูลทั้งหมดเพื่อกลับไปใช้ข้อมูลทรัพย์ตัวอย่างใช่หรือไม่?")) {
-      properties = [...demoProperties];
-      saveProperties();
-      renderProperties();
-      renderAdminItems();
-      resetForm();
-      refreshDashboardStats();
-    }
-  });
-}
-
-renderProperties();
-adminModal.hidden = true;
-agentRegisterModal.hidden = true;
-document.querySelector("#slip-preview-modal").hidden = true;
-
-window.addEventListener("DOMContentLoaded", () => {
-  fetchOnlineAgents().then(() => {
-    checkAgentRoute();
-  });
-});
 
 document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach(button => {
   button.addEventListener("click", (e) => {
@@ -994,45 +567,6 @@ if (mainSignUpBtn) {
       setTimeout(initCopyAccountNumber, 200); 
     }
   });
-}
-
-function initCopyAccountNumber() {
-  setTimeout(() => {
-    const modalBody = document.querySelector("#agent-register-modal");
-    if (!modalBody) return;
-    const walker = document.createTreeWalker(modalBody, NodeFilter.SHOW_TEXT, null, false);
-    let node;
-    while (node = walker.nextNode()) {
-      if (node.nodeValue.includes("045 2 07033 4")) {
-        const parent = node.parentElement;
-        if (parent && !parent.querySelector(".copy-acc-btn")) {
-          parent.innerHTML = `เลขที่บัญชี: <span style="font-weight:bold;">045 2 07033 4</span> <button class="copy-acc-btn" type="button" style="margin-left:6px; padding:2px 6px; font-size:10px; background:#44403c; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">คัดลอก</button>`;
-          const btn = parent.querySelector(".copy-acc-btn");
-          if (btn) {
-            btn.addEventListener("click", (e) => {
-              e.preventDefault();
-              navigator.clipboard.writeText("0452070334").then(() => {
-                btn.textContent = "✓ คัดลอกแล้ว";
-                btn.style.background = "#16a34a";
-                setTimeout(() => {
-                  btn.textContent = "คัดลอก";
-                  btn.style.background = "#44403c";
-                }, 2000);
-              });
-            });
-          }
-        }
-        break;
-      }
-    }
-  }, 300);
-}
-
-function closeDetailPanel() {
-  if (detailPanel) {
-    detailPanel.innerHTML = ""; 
-    detailPanel.hidden = true;  
-  }
 }
 
 document.addEventListener("contextmenu", (e) => e.preventDefault());
