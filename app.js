@@ -251,12 +251,15 @@ function checkAgentRoute() {
   if (formNode) { formNode.setAttribute("data-agent-id", "master"); }
 }
 
-// 🌟 [ระบบสร้างกล่องข้อความชื่อ/เบอร์โทรศัพท์อัตโนมัติ]: สั่งให้ค้นหาปุ่มกดวงกลมหน้าบ้าน แล้วสร้างกล่องข้อมูลพ่นแปะให้เองเลยโดยไม่ต้องแก้ไฟล์ HTML ครับ
+// 🌟 [อัปเกรดจุดจัดเรียงปุ่มไอคอนและกล่องข้อความบนมือถือ]: สั่งให้ไอคอนทั้ง 3 ขึ้นด้านบน และกล่องเปลี่ยนเป็น "เจ้าของขายเอง" ย้ายลงล่างแบบ Responsive
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
-    phoneBtn.href = `tel:${contact.phone.replace(/\s+/g, '')}`;
-    phoneBtn.onclick = null;
+    phoneBtn.href = "javascript:void(0);"; 
+    phoneBtn.onclick = function(e) {
+      e.preventDefault();
+      alert(`📞 หมายเลขโทรศัพท์ติดต่อเจ้าหน้าที่:\n👉 ${contact.phone} 👈`);
+    };
   }
 
   const displayLine = document.querySelector("#display-line-link");
@@ -268,26 +271,50 @@ function applyAgentContact(contact) {
     displayFb.href = contact.facebook || "#";
   }
 
-  // 🤖 [กลไกตรวจสอบและสร้างกล่องข้อความลงเว็บอัตโนมัติ]
-  // วิ่งไปจับกลุ่มปุ่มวงกลมสี ๆ ที่อยู่หน้าบ้าน
   const iconTarget = phoneBtn || displayLine || displayFb;
   if (iconTarget) {
     const parentContainer = iconTarget.parentElement;
     if (parentContainer) {
-      // ตรวจสอบว่าเคยสร้างกล่องไว้หรือยัง ถ้ายังไม่เคย ให้สร้างขึ้นมาใหม่ทันที
+      // 🎨 ฝังสไตล์ควบคุม Flexbox Direction สลับลำดับแนวดิ่งบนโมบายล์แอพผ่านคำสั่ง CSS ในตัวแปรโดยตรง
+      parentContainer.style.display = "flex";
+      parentContainer.style.flexDirection = "column";
+      parentContainer.style.alignItems = "center";
+      parentContainer.style.gap = "15px";
+      parentContainer.style.width = "100%";
+
+      // ค้นหากลุ่มไอคอนดั้งเดิมเพื่อจัดให้อยู่แถวเดียวกันด้านบน
+      let iconRowWrapper = document.querySelector("#agent-icon-row-wrapper");
+      if (!iconRowWrapper) {
+        iconRowWrapper = document.createElement("div");
+        iconRowWrapper.id = "agent-icon-row-wrapper";
+        iconRowWrapper.style.display = "flex";
+        iconRowWrapper.style.gap = "15px";
+        iconRowWrapper.style.justifyContent = "center";
+        iconRowWrapper.style.alignItems = "center";
+        iconRowWrapper.style.order = "1"; // 🌟 บังคับให้แถวไอคอนลอยขึ้นมาอยู่ด้านบนสุดเสมอ
+        
+        // ย้ายปุ่มไอคอนที่มีอยู่เข้าไปในแถวเดียวกัน
+        if (phoneBtn) iconRowWrapper.appendChild(phoneBtn);
+        if (displayLine) iconRowWrapper.appendChild(displayLine);
+        if (displayFb) iconRowWrapper.appendChild(displayFb);
+        
+        parentContainer.appendChild(iconRowWrapper);
+      }
+
+      // ค้นหาหรือสร้างกล่องข้อความพรีเมียมใหม่อยู่ด้านล่าง
       let textContactBox = document.querySelector("#agent-text-contact-box");
       if (!textContactBox) {
         textContactBox = document.createElement("div");
         textContactBox.id = "agent-text-contact-box";
-        // วางกล่องข้อความไว้ก่อนกลุ่มปุ่มวงกลมพอดีเป๊ะ
-        parentContainer.insertBefore(textContactBox, parentContainer.firstChild);
+        textContactBox.style.order = "2"; // 🌟 บังคับให้กล่องข้อความย้ายลงมาอยู่ด้านล่างไอคอนเสมอ
+        parentContainer.appendChild(textContactBox);
       }
       
-      // พ่นดีไซน์หรูหราพร้อมข้อมูล ชื่อ-เบอร์โทรศัทพ์สด ๆ ลงหน้าจอทันทีแบบมืออาชีพ
+      // 🌟 เปลี่ยนหัวข้อคำว่า เจ้าหน้าที่ดูแลสิทธิ์ เป็น "เจ้าของขายเอง" เรียบร้อยสวยงามครับ
       textContactBox.innerHTML = `
-        <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; margin-bottom: 20px; font-size: 15px; color: #44403c; font-family: inherit; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; max-width: 360px; line-height: 1.6;">
-          <div style="margin-bottom: 4px;"><strong>👤 เจ้าหน้าที่ดูแลสิทธิ์:</strong> ${contact.name}</div>
-          <div><strong>📞 เบอร์โทรติดต่อ:</strong> <a href="tel:${contact.phone.replace(/\s+/g, '')}" style="color: #16a34a; font-weight: bold; text-decoration: underline; font-size: 16px;">${contact.phone}</a></div>
+        <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; font-family: inherit; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
+          <div style="margin-bottom: 4px;"><strong>👤 เจ้าของขายเอง :</strong> ${contact.name}</div>
+          <div><strong>📞 เบอร์โทรติดต่อ:</strong> <span style="color: #16a34a; font-weight: bold; font-size: 16px;">${contact.phone}</span></div>
         </div>
       `;
     }
