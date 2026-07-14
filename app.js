@@ -251,23 +251,12 @@ function checkAgentRoute() {
   if (formNode) { formNode.setAttribute("data-agent-id", "master"); }
 }
 
-// 🌟 [อัปเกรดจุดดีไซน์หน้าบ้าน]: ปรับให้แสดงข้อมูล ชื่อตัวแทน และแสดงหมายเลขติดต่อเห็นเบอร์โทรชัดเจนตรงจุดติดต่อเรา
+// 🌟 [ระบบสร้างกล่องข้อความชื่อ/เบอร์โทรศัพท์อัตโนมัติ]: สั่งให้ค้นหาปุ่มกดวงกลมหน้าบ้าน แล้วสร้างกล่องข้อมูลพ่นแปะให้เองเลยโดยไม่ต้องแก้ไฟล์ HTML ครับ
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
     phoneBtn.href = `tel:${contact.phone.replace(/\s+/g, '')}`;
-    phoneBtn.onclick = null; // ปลดล็อกฟังก์ชัน Alert ออกถาวรเพื่อให้กดโทรออกได้จริงบนมือถือ
-  }
-  
-  // 🎨 ฝังชื่อและเบอร์โทรแบบเห็นตัวเลขชัดเจนลงในโครงสร้าง UI หน้าต่างติดต่อเราหน้าบ้านทันที
-  const textContactContainer = document.querySelector("#agent-text-contact-box");
-  if (textContactContainer) {
-    textContactContainer.innerHTML = `
-      <div style="background: rgba(255,255,255,0.9); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; margin-bottom: 15px; font-size: 15px; color: #44403c; font-family: inherit; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-        <strong>👤 เจ้าหน้าที่ดูแลสิทธิ์:</strong> ${contact.name}<br>
-        <strong>📞 เบอร์โทรศัพท์ติดต่อ:</strong> <a href="tel:${contact.phone.replace(/\s+/g, '')}" style="color: #16a34a; font-weight: bold; text-decoration: underline;">${contact.phone}</a>
-      </div>
-    `;
+    phoneBtn.onclick = null;
   }
 
   const displayLine = document.querySelector("#display-line-link");
@@ -277,6 +266,31 @@ function applyAgentContact(contact) {
   const displayFb = document.querySelector("#display-facebook-link");
   if (displayFb) {
     displayFb.href = contact.facebook || "#";
+  }
+
+  // 🤖 [กลไกตรวจสอบและสร้างกล่องข้อความลงเว็บอัตโนมัติ]
+  // วิ่งไปจับกลุ่มปุ่มวงกลมสี ๆ ที่อยู่หน้าบ้าน
+  const iconTarget = phoneBtn || displayLine || displayFb;
+  if (iconTarget) {
+    const parentContainer = iconTarget.parentElement;
+    if (parentContainer) {
+      // ตรวจสอบว่าเคยสร้างกล่องไว้หรือยัง ถ้ายังไม่เคย ให้สร้างขึ้นมาใหม่ทันที
+      let textContactBox = document.querySelector("#agent-text-contact-box");
+      if (!textContactBox) {
+        textContactBox = document.createElement("div");
+        textContactBox.id = "agent-text-contact-box";
+        // วางกล่องข้อความไว้ก่อนกลุ่มปุ่มวงกลมพอดีเป๊ะ
+        parentContainer.insertBefore(textContactBox, parentContainer.firstChild);
+      }
+      
+      // พ่นดีไซน์หรูหราพร้อมข้อมูล ชื่อ-เบอร์โทรศัทพ์สด ๆ ลงหน้าจอทันทีแบบมืออาชีพ
+      textContactBox.innerHTML = `
+        <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; margin-bottom: 20px; font-size: 15px; color: #44403c; font-family: inherit; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; max-width: 360px; line-height: 1.6;">
+          <div style="margin-bottom: 4px;"><strong>👤 เจ้าหน้าที่ดูแลสิทธิ์:</strong> ${contact.name}</div>
+          <div><strong>📞 เบอร์โทรติดต่อ:</strong> <a href="tel:${contact.phone.replace(/\s+/g, '')}" style="color: #16a34a; font-weight: bold; text-decoration: underline; font-size: 16px;">${contact.phone}</a></div>
+        </div>
+      `;
+    }
   }
 }
 
@@ -474,7 +488,6 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
-// 🌟 [อัปเกรดและลบลิงก์ที่น่าสับสน]: นำกล่องข้อความลิงก์ขยายงานแนะนำลูกค้าออกถาวรเพื่อป้องกันการเข้าใจผิดตามภาพที่คุณ Get แนบมา
 function initAdminInterface() {
   const headingTitle = document.querySelector("#admin-title-heading");
   if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (KhaoKhoLand Admin)";
@@ -788,7 +801,6 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
     const agentDashboardName = document.querySelector("#agent-dashboard-name");
     
-    // 🌟 [อัปเกรดจุดลบลิงก์ที่สับสน]: ลบการเจลค่า "ลิงก์ขยายงานแนะนำลูกค้าสำหรับตัวแทน" ออกไปถาวรตามแปลนภาพกรอบสีแดง
     document.querySelector("#back-agent-full-url").textContent = `${window.location.origin}${window.location.pathname}?agent=${memberAgent.id}`;
     document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
     document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
