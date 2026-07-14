@@ -431,39 +431,66 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
-// 🌟 [อัปเกรดหน้าต่างเมนูตามโครงสร้างแบบแปลน PDF เรียบหรู 100%]
+// 🌟 [ยกเครื่องระบบ UI แผงแท็บเมนูแนวนอนสไตล์พรีเมียม แก้ไขการโดน CSS เก่าบีบโครงสร้าง]
 function initAdminInterface() {
   const headingTitle = document.querySelector("#admin-title-heading");
   if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (KhaoKhoLand Admin)";
 
+  // ล้างการสืบทอด CSS คลาสเก่ายกแผง เพื่อดึงกล่องทำงานกลับมาเป็นแนวนอนปกติ
+  if (adminPanel) {
+    adminPanel.style.display = "block";
+    adminPanel.style.width = "100%";
+    adminPanel.style.maxWidth = "100%";
+    
+    // ค้นหากล่องย่อยเดิมแล้วเคลียร์ Style บีบตัวออกให้หมด
+    const gridLeft = adminPanel.querySelector(".grid-left");
+    const gridRight = adminPanel.querySelector(".grid-right");
+    if (gridLeft) { gridLeft.style.display = "block"; gridLeft.style.width = "100%"; }
+    if (gridRight) { gridRight.style.display = "block"; gridRight.style.width = "100%"; }
+
+    // ฝัง CSS ปรับสไตล์ปุ่มแท็บแนวราบถาวรลงในหน้าจอแอดมิน ป้องกันการบีบไฟล์รูป
+    if (!document.querySelector("#admin-panel-premium-style")) {
+      const styleSheet = document.createElement("style");
+      styleSheet.id = "admin-panel-premium-style";
+      styleSheet.innerHTML = `
+        #admin-panel { display: block !important; width: 100% !important; }
+        .admin-tab-btn { background: #ffffff !important; color: #44403c !important; border: 1px solid #d6d3d1 !important; }
+        .admin-tab-btn.active { background: #44403c !important; color: #ffffff !important; }
+        .admin-tab-content { width: 100% !important; display: none; margin-top: 15px; }
+        .admin-tab-content.active { display: block !important; }
+        #admin-modal .modal-content { max-width: 950px !important; width: 95% !important; }
+      `;
+      document.head.appendChild(styleSheet);
+    }
+  }
+
+  // สร้างแถบนำทางเมนูแนวนอน
   if (adminPanel && !document.querySelector("#admin-nav-tabs")) {
     const navBar = document.createElement("div");
     navBar.id = "admin-nav-tabs";
-    
-    // 🎨 CSS ปรับปรุงความสวยงามของแถบปุ่มเมนูแนวนอนสไตล์พรีเมียม
     navBar.style = "display: flex; gap: 10px; margin-bottom: 24px; border-bottom: 2px solid #e7e5e4; padding-bottom: 12px; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;";
     
     const tabs = [
-      { id: "tab-dashboard", name: "📋 แดชบอร์ดสถิติ" },
+      { id: "tab-dashboard", name: "📈 แดชบอร์ดสถิติ" },
       { id: "tab-properties", name: "🏠 เพิ่ม/แก้ไขทรัพย์สิน" },
       { id: "tab-leads", name: "📋 รายการลูกค้าลงทะเบียน" },
       { id: "tab-agents", name: "👥 ข้อมูลทีมงาน & สถิติเว็บ" }
     ];
 
     navBar.innerHTML = tabs.map((t, idx) => `
-      <button type="button" class="admin-tab-btn" data-target="${t.id}" style="padding: 12px 20px; font-size: 14px; font-weight: bold; border: 1px solid #d6d3d1; border-radius: 6px; background: ${idx === 0 ? '#44403c' : '#ffffff'}; color: ${idx === 0 ? '#ffffff' : '#44403c'}; cursor: pointer; white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s ease;">
+      <button type="button" class="admin-tab-btn ${idx === 0 ? 'active' : ''}" data-target="${t.id}" style="padding: 12px 20px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s ease;">
         ${t.name}
       </button>
     `).join("");
 
     adminPanel.insertBefore(navBar, adminPanel.firstChild);
 
-    // แพ็ครวมหน้าจัดการทรัพย์สินเดิม
+    // สร้างกล่องสลับเนื้อหาฟอร์มทรัพย์สิน
     const propTabWrapper = document.createElement("div");
     propTabWrapper.id = "tab-properties-content";
     propTabWrapper.className = "admin-tab-content";
-    propTabWrapper.style.display = "none";
     
+    // ดึงชิ้นส่วนเดิมของระบบฟอร์มมาเก็บไว้ในกล่องทรัพย์สินแนวราบ
     const originalLeft = adminPanel.querySelector(".grid-left") || adminPanel.children[1];
     const originalRight = adminPanel.querySelector(".grid-right") || adminPanel.children[2];
     
@@ -471,12 +498,12 @@ function initAdminInterface() {
     if (originalRight) propTabWrapper.appendChild(originalRight);
     adminPanel.appendChild(propTabWrapper);
 
-    // 📊 แดชบอร์ดสถิติระดับพรีเมียมตามแปลนภาพที่คุณ Get ส่งมา
+    // 📊 แท็บแดชบอร์ดสรุปสถิติความละเอียดสูงแบบแนวนอนคลีน ๆ 100%
     const dashWrapper = document.createElement("div");
     dashWrapper.id = "tab-dashboard-content";
-    dashWrapper.className = "admin-tab-content";
+    dashWrapper.className = "admin-tab-content active"; // เปิดมาให้โชว์แท็บนี้เป็นหน้าแรก
     dashWrapper.innerHTML = `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; width:100%;">
         <div style="background: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e7e5e4; border-left: 4px solid #78716c; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center;">
           <div style="font-size: 13px; color: #78716c; font-weight: 600; letter-spacing: 0.5px;">🏠 ทรัพย์สินทั้งหมด</div>
           <div style="font-size: 26px; font-weight: bold; color: #1c1917; margin-top: 8px;" id="dash-stat-prop">${properties.length} รายการ</div>
@@ -497,13 +524,12 @@ function initAdminInterface() {
     `;
     adminPanel.appendChild(dashWrapper);
 
-    // แถบตารางรายชื่อลูกค้าลงทะเบียนออนไลน์
+    // แท็บรายชื่อลูกค้าลงทะเบียนออนไลน์
     const leadsWrapper = document.createElement("div");
     leadsWrapper.id = "tab-leads-content";
     leadsWrapper.className = "admin-tab-content";
-    leadsWrapper.style.display = "none";
     leadsWrapper.innerHTML = `
-      <div style="background: #ffffff; padding: 20px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow-x: auto;">
+      <div style="background: #ffffff; padding: 20px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow-x: auto; width:100%;">
         <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: bold; color: #1c1917;">📋 รายชื่อผู้สนใจลงทะเบียนจากทุกสายงาน</h3>
         <table style="width: 100%; border-collapse: collapse; min-width: 600px; font-size: 13px;">
           <thead>
@@ -523,11 +549,10 @@ function initAdminInterface() {
     `;
     adminPanel.appendChild(leadsWrapper);
 
-    // แถบสถิติแทร็กกิ่งพนักงานและตรวจสอบรายชื่อทีมงาน
+    // แท็บข้อมูลพนักงาน
     const agentsWrapper = document.createElement("div");
     agentsWrapper.id = "tab-agents-content";
     agentsWrapper.className = "admin-tab-content";
-    agentsWrapper.style.display = "none";
     
     const originalAgentsSection = adminPanel.querySelector("#admin-agents-list")?.parentNode;
     if (originalAgentsSection) {
@@ -535,22 +560,18 @@ function initAdminInterface() {
     }
     adminPanel.appendChild(agentsWrapper);
 
-    // สลับหน้าแท็บควบคุม
+    // ระบบจัดการคลิกเพื่อสลับเนื้อหาแบบ Dynamic 100%
     navBar.addEventListener("click", (e) => {
       const btn = e.target.closest(".admin-tab-btn");
       if (!btn) return;
       
-      document.querySelectorAll(".admin-tab-btn").forEach(b => {
-        b.style.background = "#ffffff";
-        b.style.color = "#44403c";
-      });
-      btn.style.background = "#44403c";
-      btn.style.color = "#ffffff";
+      document.querySelectorAll(".admin-tab-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
 
-      document.querySelectorAll(".admin-tab-content").forEach(c => c.style.display = "none");
+      document.querySelectorAll(".admin-tab-content").forEach(c => c.classList.remove("active"));
       const targetId = btn.dataset.target;
       const targetContent = document.querySelector(`#${targetId}-content`);
-      if (targetContent) targetContent.style.display = "block";
+      if (targetContent) targetContent.classList.add("active");
       
       if (targetId === "tab-leads") refreshMasterLeads();
       if (targetId === "tab-dashboard") refreshDashboardStats();
@@ -610,9 +631,8 @@ function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   
-  // 👥 รายชื่อตารางแทร็กกิ่งสถิติจำนวนคนเข้าใช้งานเว็บลูกรายบุคคลสไตล์พรีเมียม
   adminAgentsList.innerHTML = `
-    <div style="margin-bottom: 24px; background: #ffffff; padding: 18px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+    <div style="margin-bottom: 24px; background: #ffffff; padding: 18px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); width:100%;">
       <h4 style="margin: 0 0 14px 0; font-size: 15px; color: #1c1917; font-weight: bold;">📊 สถิติยอดคลิกผู้เข้าชมเว็บของแต่ละทีมงาน (Agent Traffic Tracking)</h4>
       <div style="overflow-x: auto;">
         <table style="width:100%; border-collapse: collapse; font-size: 13px; text-align: left;">
@@ -637,7 +657,7 @@ function renderAdminAgents() {
     </div>
   ` + agents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink);">
+    return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
       โทร: ${agent.phone} | Line: ${agent.line}<br>
       <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
@@ -748,7 +768,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
 function renderAdminItems() { 
   if (!adminItems) return; 
   adminItems.innerHTML = properties.map((item) => `
-    <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line);"> 
+    <article class="admin-item" style="display:grid; grid-template-columns: 80px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line); width:100%;"> 
       <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
       <div> 
         <h4 style="margin:0 0 4px 0;">${item.title}</h4> 
@@ -823,8 +843,8 @@ function fillForm(item) {
   document.querySelector("#property-images").value = (item.images || []).join(" | "); 
   document.querySelector("#property-video").value = item.video || ""; 
   
-  const propTabBtn = document.querySelector('.admin-tab-btn[data-target="tab-properties"]');
-  if (propTabBtn) propTabBtn.click();
+  const propTabBtn = document.querySelectorAll('.admin-tab-btn');
+  if (propTabBtn && propTabBtn[1]) propTabBtn[1].click();
 
   document.querySelector("#property-form")?.scrollIntoView({ behavior: "smooth" });
 }
