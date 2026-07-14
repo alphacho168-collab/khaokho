@@ -908,3 +908,22 @@ window.addEventListener("DOMContentLoaded", () => {
     checkAgentRoute();
   });
 });
+// 🌟 สั่งให้ปุ่ม Sign up ด้านบนหน้าเว็บทั้งหมด เมื่อกดแล้วให้เปิดหน้าต่างสมัครสมาชิกทีมงานทันที
+document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach(button => {
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (agentRegisterModal) {
+      agentRegisterModal.hidden = false;
+      checkAgentRoute(); // สแกนเช็ครหัสคนแนะนำจากลิงก์ URL ทันทีเพื่อล็อกสายงานให้ถูกต้อง
+    }
+  });
+});
+
+// ดักจับเพิ่มเติมสำหรับปุ่ม Sign up ในแถบเมนูหลักดั้งเดิม
+const mainSignUpBtn = document.querySelector(".nav-links a[href*='sign'], .button-group button:nth-child(1)");
+if (mainSignUpBtn) {
+  mainSignUpBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (agentRegisterModal) { agentRegisterModal.hidden = false; checkAgentRoute(); }
+  });
+}
