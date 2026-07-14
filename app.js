@@ -319,7 +319,7 @@ function applyAgentContact(contact) {
   }
 }
 
-// 🌟 [ปรับเฉพาะเจาะจงภายในหน้าต่าง Sign up เท่านั้น]: ค้นหาเลขบัญชีแล้วใส่ปุ่มคัดลอกแบบไม่ไปยุ่งกับโครงสร้างฟอร์มกรอกข้อมูลอื่น
+// ฟังก์ชันคัดลอกเลขบัญชีเฉพาะในหน้าต่าง Sign up
 function initCopyAccountNumber() {
   setTimeout(() => {
     const modalBody = document.querySelector("#agent-register-modal");
@@ -391,6 +391,14 @@ if (propertyContainer) {
   });
 }
 
+// 🌟 [ฟังก์ชันปิดหน้าต่างรายละเอียด พร้อมสั่งเคลียร์/ทำลาย iframe วิดีโอเพื่อปิดเสียงทันที]
+function closeDetailPanel() {
+  if (detailPanel) {
+    detailPanel.innerHTML = ""; // เคลียร์เนื้อหาข้างในทิ้งทั้งหมด รวมถึง iframe วิดีโอ
+    detailPanel.hidden = true;  // ซ่อนแผงรายละเอียด
+  }
+}
+
 function openDetail(id) {
   const item = properties.find((property) => property.id === id);
   if (!item) return;
@@ -401,7 +409,7 @@ function openDetail(id) {
 
   detailPanel.innerHTML = `
     <div class="detail-shell">
-      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
+      <button class="icon-button close-detail" type="button" onclick="closeDetailPanel()" aria-label="ปิดรายละเอียด">×</button>
       <div class="detail-gallery">${detailGalleryHtml}</div>
       <div class="detail-copy">
         <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
@@ -412,8 +420,8 @@ function openDetail(id) {
         <ul class="feature-list">${detailFeaturesHtml}</ul>
         <div class="video-wrap">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
-          <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
+          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'}); closeDetailPanel();">สนใจทรัพย์นี้</button>
+          <button class="button neutral" onclick="closeDetailPanel()" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
         </div>
       </div>
     </div>
@@ -995,7 +1003,7 @@ document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach
     if (agentRegisterModal) {
       agentRegisterModal.hidden = false;
       checkAgentRoute(); 
-      setTimeout(initCopyAccountNumber, 200); // ทำการแทรกปุ่ม Copy เฉพาะภายใน modal โดยไม่ทำลายฟอร์ม
+      setTimeout(initCopyAccountNumber, 200);
     }
   });
 });
@@ -1012,7 +1020,6 @@ if (mainSignUpBtn) {
   });
 }
 
-// ระบบป้องกันการก๊อปปี้ซอร์สโค้ดและความปลอดภัยขั้นสูง
 document.addEventListener("contextmenu", (e) => e.preventDefault());
 document.addEventListener("selectstart", (e) => e.preventDefault());
 document.addEventListener("keydown", (e) => {
