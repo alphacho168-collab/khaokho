@@ -75,7 +75,7 @@ const demoProperties = [
     title: "ที่ดินแปลงสวย หน้าติดน้ำ หลังติดเขา เฟส 1/1 E",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "18,750 บาท/ตรว.",
-    description: "🏔️ ที่ดินวิวภูเขาเขาค้อ แปลงสวย พร้อมสร้างบ้านพักหรือพูลวิลล่า\n\n🌿 โอกาสสุดท้ายในทำเลคุณภาพ\nที่ดินวิวภูเขาเขาค้อ แปลงสวย ขนาด 2 ไร่ 50 ตารางวา (850 ตร.ว.) อยู่ในโครงการที่มีเจ้าของจับจองไปแล้วเกือบทั้งหมด เหลือเพียงแปลงเดียวเท่านั้น\n\nเหมาะสำหรับ\n- บ้านพักตากอากาศ\n- พูลวิลล่าส่วนตัว\n- รีสอร์ทขนาดเล็ก\n- Wellness Retreat\n- ลงทุนเก็บมูลค่าระยะยาว\n\n✨ จุดเด่นของแปลงนี้\n- วิวภูเขาเปิดโล่ง สวยงามตลอดทั้งปี\n- ติดถนนสาธารณประโยชน์ เข้าออกสะดวก\n- อากาศดีตลอดปี อุณหภูมิเฉลี่ยเย็นสบาย\n- อยู่ใกล้รีสอร์ทและแหล่งท่องเที่ยวชื่อดังของเขาค้อ\n- เหมาะสร้างบ้านพักเพื่อชมพระอาทิตย์ขึ้นและทะเลหมอก\n- แปลงสวย รูปทรงดี ใช้งานได้เต็มพื้นที่\n\n📍 ทำเลศักยภาพใกล้สถานที่ท่องเที่ยวสำคัญ\n- วัดผาซ่อนแก้ว\n- ทุ่งกังหันลม\n- คาเฟ่วิวภูเขาชื่อดัง\n- รีสอร์ทระดับพรีเมียม\nทำเลที่นักท่องเที่ยวเดินทางเข้ามาตลอดทั้งปี\n\n💰 ราคา: ไร่ละ 7.5 ล้านบาท (รวม 2 ไร่ 50 ตารางวา)\n\n📈 ทำไมต้องซื้อวันนี้\n\"ที่ดินมีเท่าเดิม แต่คนต้องการมากขึ้นทุกปี\" เขาค้อกำลังเติบต่ออย่างต่อเนื่อง ทั้งด้านการท่องเที่ยว สุขภาพ และการลงทุน ที่ดินวิวสวย in ทำเลดีแบบนี้หาได้ยากขึ้นทุกวัน\n\n🏔️ KHAO KHO PRIME ESTATE \"ลงทุนวันนี้ เพื่อมูลค่าที่เพิ่มขึ้นในอนาคต\"",
+    description: "🏔️ ที่ดินวิวภูเขาเขาค้อ แปลงสวย พร้อมสร้างบ้านพักหรือพูลวิลล่า\n\n🌿 โอกาสสุดท้ายในทำเลคุณภาพ\nที่ดินวิวภูเขาเขาค้อ แปลงสวย ขนาด 2 ไร่ 50 ตารางวา (850 ตร.ว.) อยู่ในโครงการที่มีเจ้าของจับจองไปแล้วเกือบทั้งหมด เหลือเพียงแปลงเดียวเท่านั้น\n\nเหมาะสำหรับ\n- บ้านพักตากอากาศ\n- พูลวิลล่าส่วนตัว\n- รีสอร์ทขนาดเล็ก\n- Wellness Retreat\n- ลงทุนเก็บมูลค่าระยะยาว\n\n✨ จุดเด่นของแปลงนี้\n- วิวภูเขาเปิดโล่ง สวยงามตลอดทั้งปี\n- ติดถนนสาธารณประโยชน์ เข้าออกสะดวก\n- อากาศดีตลอดปี อุณหภูมิเฉลี่ยเย็นสบาย\n- อยู่ใกล้รีสอร์ทและแหล่งท่องเที่ยวชื่อดังของเขาค้อ\n- เหมาะสร้างบ้านพักเพื่อชมพระอาทิตย์ขึ้นและทะเลหมอก\n- แปลงสวย รูปทรงดี ใช้งานได้เต็มพื้นที่\n\n📍 ทำเลศักยภาพใกล้สถานที่ท่องเที่ยวสำคัญ\n- วัดผาซ่อนแก้ว\n- ทุ่งกังหันลม\n- คาเฟ่วิวภูเขาชื่อดัง\n- รีสอร์ทระดับพรีเมียม\nทำเลที่นักท่องเที่ยวเดินทางเข้ามาตลอดทั้งปี\n\n💰 ราคา: ไร่ละ 7.5 ล้านบาท (รวม 2 ไร่ 50 ตารางวา)\n\n📈 ทำไมต้องซื้อวันนี้\n\"ที่ดินมีเท่าเดิม แต่คนต้องการมากขึ้นทุกปี\" เขาค้อกำลังเติบต่ออย่างต่อเนื่อง ทั้งด้านการท่องเที่ยว สุขภาพ และการลงทุน ที่ดินวิวสวยในทำเลดีแบบนี้หาได้ยากขึ้นทุกวัน\n\n🏔️ KHAO KHO PRIME ESTATE \"ลงทุนวันนี้ เพื่อมูลค่าที่เพิ่มขึ้นในอนาคต\"",
     features: ["โฉนดครุฑแดง", "เหลือแปลงสุดท้าย 2 ไร่ 50 ตรว.", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
       "images/land/1E1.jpg",
@@ -164,7 +164,7 @@ const demoProperties = [
     title: "𝑮𝒓and 𝑷𝒐𝒐𝒍 𝑽𝒊𝒍𝒍𝒂 𝑲𝒉𝒂𝒐 𝑲𝒉𝒐 | พูลวิลล่าหรูเพื่อการพักผ่อนและการลงทุน",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "8,900,000 บาท",
-    description: "พูลวิลล่าสุดหรู ที่ไม่ได้เป็นแค่ “บ้านพัก” แต่คือ “สินทรัพย์แห่งการใช้ชีวิตและการลงทุน”\n\n✅ ทักแชท เพื่อรับข้อเสนอพิเศษ\n\nโอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา الأากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น🔥\n✅ สร้างรายได้กระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำหรูสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย\n- ห้องครัวยุโรปโมเดิร์น\n- สระว่ายน้ำส่วนตัว ขนาดใหญ่ 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน",
+    description: "พูลวิลล่าสุดหรู ที่ไม่ได้เป็นแค่ “บ้านพัก” แต่คือ “สินทรัพย์แห่งการใช้ชีวิตและการลงทุน”\n\n✅ ทักแชท เพื่อรับข้อเสนอพิเศษ\n\nโอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น🔥\n✅ สร้างรายได้กระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำหรูสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย\n- ห้องครัวยุโรปโมเดิร์น\n- สระว่ายน้ำส่วนตัว ขนาดใหญ่ 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน",
     features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "ห้องโถงใหญ่", "วิวกังหันลม"],
     images: [
       "images/villa/G1.jpg",
@@ -241,7 +241,6 @@ function checkAgentRoute() {
       const formNode = document.querySelector("#lead-form");
       if (formNode) { formNode.setAttribute("data-agent-id", agent.id); }
       
-      // 🌟 [อัปเกรดจุดบั๊กแคชสลับหาย]: สั่งให้เรียกเรนเดอร์ลีดหน้าตัวแทนเฉพาะตอนเช็คสิทธิ์สำเร็จรอบเดียว
       renderAgentLeads(agent.id);
       return; 
     }
@@ -252,16 +251,33 @@ function checkAgentRoute() {
   if (formNode) { formNode.setAttribute("data-agent-id", "master"); }
 }
 
+// 🌟 [อัปเกรดจุดดีไซน์หน้าบ้าน]: ปรับให้แสดงข้อมูล ชื่อตัวแทน และแสดงหมายเลขติดต่อเห็นเบอร์โทรชัดเจนตรงจุดติดต่อเรา
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
-    phoneBtn.href = "javascript:void(0);";
-    phoneBtn.onclick = function() {
-      alert("หมายเลขโทรศัพท์ติดต่อทีมงาน:\n👉 " + contact.phone + " 👈");
-    };
+    phoneBtn.href = `tel:${contact.phone.replace(/\s+/g, '')}`;
+    phoneBtn.onclick = null; // ปลดล็อกฟังก์ชัน Alert ออกถาวรเพื่อให้กดโทรออกได้จริงบนมือถือ
   }
-  document.querySelector("#display-line-link").href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
-  document.querySelector("#display-facebook-link").href = contact.facebook || "#";
+  
+  // 🎨 ฝังชื่อและเบอร์โทรแบบเห็นตัวเลขชัดเจนลงในโครงสร้าง UI หน้าต่างติดต่อเราหน้าบ้านทันที
+  const textContactContainer = document.querySelector("#agent-text-contact-box");
+  if (textContactContainer) {
+    textContactContainer.innerHTML = `
+      <div style="background: rgba(255,255,255,0.9); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; margin-bottom: 15px; font-size: 15px; color: #44403c; font-family: inherit; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <strong>👤 เจ้าหน้าที่ดูแลสิทธิ์:</strong> ${contact.name}<br>
+        <strong>📞 เบอร์โทรศัพท์ติดต่อ:</strong> <a href="tel:${contact.phone.replace(/\s+/g, '')}" style="color: #16a34a; font-weight: bold; text-decoration: underline;">${contact.phone}</a>
+      </div>
+    `;
+  }
+
+  const displayLine = document.querySelector("#display-line-link");
+  if (displayLine) {
+    displayLine.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
+  }
+  const displayFb = document.querySelector("#display-facebook-link");
+  if (displayFb) {
+    displayFb.href = contact.facebook || "#";
+  }
 }
 
 function fileToBase64(file) {
@@ -399,7 +415,6 @@ if (leadForm) {
   });
 }
 
-// 🌟 [ปรับปรุงเป็นเวอร์ชันดึงลีดล่าสุดขึ้นก่อน + แก้ไขบั๊กข้อมูลแวบหายสำเร็จเด็ดขาด]
 function renderAgentLeads(agentId) {
   const tableBody = document.querySelector("#agent-leads-table-body");
   if (!tableBody) return;
@@ -414,7 +429,6 @@ function renderAgentLeads(agentId) {
         return;
       }
       
-      // 🌟 [.reverse()]: สั่งสลับเอาลูกค้าคนใหม่ล่าสุดขึ้นปักหมุดไว้ที่บรรทัดบนสุดตามแปลนงาน
       const sortedLeads = [...agentLeads].reverse();
       
       tableBody.innerHTML = sortedLeads.map(lead => {
@@ -460,6 +474,7 @@ function viewSlipInModal(base64Data) {
   if (modal && img) { img.src = base64Data; modal.hidden = false; }
 }
 
+// 🌟 [อัปเกรดและลบลิงก์ที่น่าสับสน]: นำกล่องข้อความลิงก์ขยายงานแนะนำลูกค้าออกถาวรเพื่อป้องกันการเข้าใจผิดตามภาพที่คุณ Get แนบมา
 function initAdminInterface() {
   const headingTitle = document.querySelector("#admin-title-heading");
   if (headingTitle) headingTitle.textContent = "ระบบควบคุมหลังบ้านแอดมิน (KhaoKhoLand Admin)";
@@ -631,14 +646,12 @@ function refreshMasterLeads() {
         return;
       }
       
-      // 🌟 [อัปเกรดฝั่งแอดมินรวม]: สั่งพลิกแถวข้อมูลให้ลีดล่าสุดเด้งโชว์ขึ้นข้างบนสุดทันทีตามต้องการ
       const reversedMasterLeads = [...data].reverse();
       
       tableBody.innerHTML = reversedMasterLeads.map(lead => `
         <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
           <td style="padding: 12px 10px; font-weight: bold;">${lead.name || '-'}</td>
           <td style="padding: 12px 10px;">${lead.phone || '-'}</td>
-          <td style="padding: 12px 10px;">${lead.line || '-'}</td>
           <td style="padding: 12px 10px; color:#16a34a; font-weight:bold;">${lead.interest || '-'}</td>
           <td style="padding: 12px 10px; color:#78716c;">${lead.agentId || 'master'}</td>
         </tr>
@@ -653,7 +666,6 @@ function renderAdminAgents() {
   if (!adminAgentsList) return;
   if (!agents || agents.length === 0) { adminAgentsList.innerHTML = `<p class="form-note" style="color:var(--muted)">ยังไม่มีคำขอส่งเข้ามา</p>`; return; }
   
-  // 🌟 [.reverse()]: ปรับแต่งตารางแทร็กกิ่งยอดขายและรายชื่อทีมงานคนใหม่ล่าสุดไปปักหมุดแถวบนสุดตามวงกรอบสีแดงภาพที่ 3 ของพี่ Get
   const sortedAgents = [...agents].reverse();
 
   adminAgentsList.innerHTML = `
@@ -705,7 +717,6 @@ async function fetchOnlineAgents() {
       if (onlineAgents) { 
         agents = onlineAgents; 
         
-        // 🌟 แก้ไขบั๊กรุ่นสุดท้าย: ล็อกลำดับคำสั่งเช็คและจัดสัดส่วนการแสดงผลแยกกันอย่างอิสระ ป้องกันลีดเด้งวูบหาย
         if (!adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
         else { checkAgentRoute(); }
       }
@@ -777,6 +788,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
     const agentDashboardName = document.querySelector("#agent-dashboard-name");
     
+    // 🌟 [อัปเกรดจุดลบลิงก์ที่สับสน]: ลบการเจลค่า "ลิงก์ขยายงานแนะนำลูกค้าสำหรับตัวแทน" ออกไปถาวรตามแปลนภาพกรอบสีแดง
     document.querySelector("#back-agent-full-url").textContent = `${window.location.origin}${window.location.pathname}?agent=${memberAgent.id}`;
     document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
     document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
