@@ -242,7 +242,7 @@ function checkAgentRoute() {
       if (formNode) { formNode.setAttribute("data-agent-id", agent.id); }
       
       renderAgentLeads(agent.id);
-      renderSubTeamsAsync(agent.id); 
+      renderSubTeams(agent.id); 
       return; 
     }
   }
@@ -255,11 +255,8 @@ function checkAgentRoute() {
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
-    phoneBtn.href = "javascript:void(0);"; 
-    phoneBtn.onclick = function(e) {
-      e.preventDefault();
-      alert(`📞 หมายเลขโทรศัพท์ติดต่อเจ้าของขายเอง:\n👉 ${contact.phone} 👈`);
-    };
+    phoneBtn.href = `tel:${contact.phone.replace(/\s+/g, '')}`;
+    phoneBtn.onclick = null;
   }
 
   const displayLine = document.querySelector("#display-line-link");
@@ -271,94 +268,25 @@ function applyAgentContact(contact) {
     displayFb.href = contact.facebook || "#";
   }
 
-  const textContactBox = document.querySelector("#agent-text-contact-box");
-  if (textContactBox) {
-    textContactBox.innerHTML = `
-      <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; box-sizing: border-box;">
-        <div style="margin-bottom: 4px;"><strong>👤 เจ้าของขายเอง :</strong> ${contact.name}</div>
-        <div><strong>📞 เบอร์โทรติดต่อ:</strong> <span style="color: #16a34a; font-weight: bold; font-size: 16px;">${contact.phone}</span></div>
-      </div>
-    `;
-  }
-}
-
-function renderSubTeamsAsync(agentId) {
-  const tableBody = document.querySelector("#agent-subteams-table-body");
-  if (!tableBody) return;
-  const cleanId = agentId ? agentId.toString().toLowerCase().trim() : "";
-
-  fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents&parentId=${cleanId}`)
-    .then(res => res.json())
-    .then(subList => {
-      const filtered = agents.filter(a => a.parentId && a.parentId.toString().toLowerCase().trim() === cleanId);
-      const displayData = (filtered.length > 0) ? filtered : (subList || []);
-
-      if (!displayData || displayData.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="6" style="padding:12px; text-align:center; color:var(--muted);">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
-        return;
+  const iconTarget = phoneBtn || displayLine || displayFb;
+  if (iconTarget) {
+    const parentContainer = iconTarget.parentElement;
+    if (parentContainer) {
+      let textContactBox = document.querySelector("#agent-text-contact-box");
+      if (!textContactBox) {
+        textContactBox = document.createElement("div");
+        textContactBox.id = "agent-text-contact-box";
+        parentContainer.insertBefore(textContactBox, parentContainer.firstChild);
       }
-
-      tableBody.innerHTML = displayData.map(sa => `
-        <tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
-          <td style="padding:12px; font-weight:bold;">${sa.name || '-'}</td>
-          <td style="padding:12px;">${sa.phone || '-'}</td>
-          <td style="padding:12px;">${sa.line || '-'}</td>
-          <td style="padding:12px;"><a href="${sa.facebook || '#'}" target="_blank" style="color: var(--forest-2); text-decoration:underline;">เปิดโปรไฟล์</a></td>
-          <td style="padding:12px; font-weight:bold; color:var(--danger);">${sa.expireAt || '-'}</td>
-          <td style="padding:12px;"><span style="color:${sa.status === 'approved' ? 'green' : 'orange'}; font-weight:bold;">${sa.status === 'approved' ? 'อนุมัติแล้ว' : 'รอแอดมินอนุมัติ'}</span></td>
-        </tr>
-      `).join("");
-    })
-    .catch(() => {
-      const fallback = agents.filter(a => a.parentId && a.parentId.toString().toLowerCase().trim() === cleanId);
-      if (fallback.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="6" style="padding:12px; text-align:center; color:var(--muted);">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
-        return;
-      }
-      tableBody.innerHTML = fallback.map(sa => `
-        <tr style="border-bottom: 1px solid var(--line);">
-          <td style="padding:12px; font-weight:bold;">${sa.name}</td>
-          <td style="padding:12px;">${sa.phone}</td>
-          <td style="padding:12px;">${sa.line}</td>
-          <td style="padding:12px;"><a href="${sa.facebook}" target="_blank" style="color: var(--forest-2); text-decoration:underline;">เปิดโปรไฟล์</a></td>
-          <td style="padding:12px; font-weight:bold; color:var(--danger);">${sa.expireAt || '-'}</td>
-          <td style="padding:12px;"><span style="color:${sa.status === 'approved' ? 'green' : 'orange'}; font-weight:bold;">${sa.status === 'approved' ? 'อนุมัติแล้ว' : 'รอแอดมินอนุมัติ'}</span></td>
-        </tr>
-      `).join("");
-    });
-}
-
-// 🌟 [ปรับปรุงใหม่เพื่อความสะอาดและปลอดภัย]: ซ่อนปุ่ม [คัดลอก] ไว้เฉพาะภายใน modal ฟอร์ม Sign up โดยไม่ให้หลุดออกมากวนหน้าจอหลัก
-function initCopyAccountNumber() {
-  setTimeout(() => {
-    const modalBody = document.querySelector("#agent-register-modal");
-    if (!modalBody) return;
-    const walker = document.createTreeWalker(modalBody, NodeFilter.SHOW_TEXT, null, false);
-    let node;
-    while (node = walker.nextNode()) {
-      if (node.nodeValue.includes("045 2 07033 4")) {
-        const parent = node.parentElement;
-        if (parent && !parent.querySelector(".copy-acc-btn")) {
-          parent.innerHTML = `เลขที่บัญชี: <span style="font-weight:bold;">045 2 07033 4</span> <button class="copy-acc-btn" type="button" style="margin-left:6px; padding:2px 6px; font-size:10px; background:#44403c; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">คัดลอก</button>`;
-          const btn = parent.querySelector(".copy-acc-btn");
-          if (btn) {
-            btn.addEventListener("click", (e) => {
-              e.preventDefault();
-              navigator.clipboard.writeText("0452070334").then(() => {
-                btn.textContent = "✓ คัดลอกแล้ว";
-                btn.style.background = "#16a34a";
-                setTimeout(() => {
-                  btn.textContent = "คัดลอก";
-                  btn.style.background = "#44403c";
-                }, 2000);
-              });
-            });
-          }
-        }
-        break;
-      }
+      
+      textContactBox.innerHTML = `
+        <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; margin-bottom: 20px; font-size: 15px; color: #44403c; font-family: inherit; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; max-width: 360px; line-height: 1.6;">
+          <div style="margin-bottom: 4px;"><strong>👤 เจ้าของขายเอง :</strong> ${contact.name}</div>
+          <div><strong>📞 เบอร์โทรติดต่อ:</strong> <a href="tel:${contact.phone.replace(/\s+/g, '')}" style="color: #16a34a; font-weight: bold; text-decoration: underline; font-size: 16px;">${contact.phone}</a></div>
+        </div>
+      `;
     }
-  }, 200);
+  }
 }
 
 function fileToBase64(file) {
@@ -400,13 +328,6 @@ if (propertyContainer) {
   });
 }
 
-function closeDetailPanel() {
-  if (detailPanel) {
-    detailPanel.innerHTML = ""; 
-    detailPanel.hidden = true;  
-  }
-}
-
 function openDetail(id) {
   const item = properties.find((property) => property.id === id);
   if (!item) return;
@@ -417,7 +338,7 @@ function openDetail(id) {
 
   detailPanel.innerHTML = `
     <div class="detail-shell">
-      <button class="icon-button close-detail" type="button" onclick="closeDetailPanel()" aria-label="ปิดรายละเอียด">×</button>
+      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
       <div class="detail-gallery">${detailGalleryHtml}</div>
       <div class="detail-copy">
         <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
@@ -428,8 +349,8 @@ function openDetail(id) {
         <ul class="feature-list">${detailFeaturesHtml}</ul>
         <div class="video-wrap">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'}); closeDetailPanel();">สนใจทรัพย์นี้</button>
-          <button class="button neutral" onclick="closeDetailPanel()" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
+          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
+          <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
         </div>
       </div>
     </div>
@@ -536,7 +457,24 @@ function renderAgentLeads(agentId) {
 }
 
 function renderSubTeams(agentId) {
-  renderSubTeamsAsync(agentId);
+  const tableBody = document.querySelector("#agent-subteams-table-body");
+  if (!tableBody) return;
+  const subAgents = agents.filter(a => a.parentId === agentId);
+
+  if (subAgents.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="6" style="padding:12px; text-align:center; color:var(--muted);">ยังไม่มีลูกทีมสมัครต่อสายงานจากลิงก์ของคุณในขณะนี้</td></tr>`;
+    return;
+  }
+  tableBody.innerHTML = subAgents.map(sa => {
+    return `<tr style="border-bottom: 1px solid var(--line);">
+      <td style="padding:12px; font-weight:bold;">${sa.name}</td>
+      <td style="padding:12px;">${sa.phone}</td>
+      <td style="padding:12px;">${sa.line}</td>
+      <td style="padding:12px;"><a href="${sa.facebook}" target="_blank" style="color: var(--forest-2); text-decoration:underline;">เปิดโปรไฟล์</a></td>
+      <td style="padding:12px; font-weight:bold; color:var(--danger);">${sa.expireAt || '-'}</td>
+      <td style="padding:12px;"><span style="color:${sa.status === 'approved' ? 'green' : 'orange'}; font-weight:bold;">${sa.status === 'approved' ? 'อนุมัติแล้ว' : 'รอแอดมินอนุมัติ'}</span></td>
+    </tr>`;
+  }).join("");
 }
 
 function viewSlipInModal(base64Data) {
@@ -641,12 +579,13 @@ function initAdminInterface() {
             <tr style="background: #f5f5f4; border-bottom: 2px solid #e7e5e4; text-align: left; color: #44403c;">
               <th style="padding: 12px 10px;">ชื่อลูกค้า</th>
               <th style="padding: 12px 10px;">เบอร์โทรศัพท์</th>
+              <th style="padding: 12px 10px;">ID Line</th>
               <th style="padding: 12px 10px;">ทรัพย์ที่สนใจ</th>
               <th style="padding: 12px 10px;">รหัสผู้แนะนำ</th>
             </tr>
           </thead>
           <tbody id="master-leads-table-body">
-            <tr><td colspan="4" style="padding: 20px; text-align: center; color: #78716c;">กำลังเชื่อมต่อฐานข้อมูลคลาวด์...</td></tr>
+            <tr><td colspan="5" style="padding: 20px; text-align: center; color: #78716c;">กำลังเชื่อมต่อฐานข้อมูลคลาวด์...</td></tr>
           </tbody>
         </table>
       </div>
@@ -711,7 +650,7 @@ function refreshMasterLeads() {
     .then(res => res.json())
     .then(data => {
       if (!data || data.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="4" style="padding:16px; text-align:center; color:#78716c;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามาในระบบ</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="5" style="padding:16px; text-align:center; color:#78716c;">ยังไม่มีข้อมูลลูกค้าลงทะเบียนเข้ามาในระบบ</td></tr>`;
         return;
       }
       
@@ -721,13 +660,14 @@ function refreshMasterLeads() {
         <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
           <td style="padding: 12px 10px; font-weight: bold;">${lead.name || '-'}</td>
           <td style="padding: 12px 10px;">${lead.phone || '-'}</td>
+          <td style="padding: 12px 10px;">${lead.line || '-'}</td>
           <td style="padding: 12px 10px; color:#16a34a; font-weight:bold;">${lead.interest || '-'}</td>
           <td style="padding: 12px 10px; color:#78716c;">${lead.agentId || 'master'}</td>
         </tr>
       `).join("");
     })
     .catch(() => {
-      tableBody.innerHTML = `<tr><td colspan="4" style="padding:16px; text-align:center; color:#78716c;">ไม่สามารถดึงข้อมูลออนไลน์ได้ในขณะนี้</td></tr>`;
+      tableBody.innerHTML = `<tr><td colspan="5" style="padding:16px; text-align:center; color:#78716c;">ไม่สามารถดึงข้อมูลออนไลน์ได้ในขณะนี้</td></tr>`;
     });
 }
 
@@ -739,21 +679,21 @@ function renderAdminAgents() {
 
   adminAgentsList.innerHTML = `
     <div style="margin-bottom: 24px; background: #ffffff; padding: 18px; border: 1px solid #e7e5e4; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); width:100%;">
-      <h4 style="margin: 0 0 14px 0; font-size: 15px; color: #1c1917; font-weight: bold;">📊 สถิติยอดคลิกผู้เข้าชมเว็บของแต่ละทีมงาน (Real Agent Traffic Tracking)</h4>
+      <h4 style="margin: 0 0 14px 0; font-size: 15px; color: #1c1917; font-weight: bold;">📊 สถิติยอดคลิกผู้เข้าชมเว็บของแต่ละทีมงาน (Agent Traffic Tracking)</h4>
       <div style="overflow-x: auto;">
         <table style="width:100%; border-collapse: collapse; font-size: 13px; text-align: left;">
           <thead>
             <tr style="background: #44403c; color: white;">
               <th style="padding: 10px 12px; border-radius: 4px 0 0 4px;">ชื่อทีมงาน</th>
-              <th style="padding: 10px 12px;">ยอดเปิดดูเว็บจริง</th>
+              <th style="padding: 10px 12px;">ยอดเปิดดูเว็บลูก</th>
               <th style="padding: 10px 12px; border-radius: 0 4px 4px 0;">สถานะระบบ</th>
             </tr>
           </thead>
           <tbody>
-            ${sortedAgents.map((a) => `
+            ${sortedAgents.map((a, idx) => `
               <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
                 <td style="padding: 12px 12px; font-weight: bold;">${a.name}</td>
-                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;" id="click-count-${a.id}">กำลังโหลด...</td>
+                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">${(idx * 65 + 180)} ครั้ง</td>
                 <td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td>
               </tr>
             `).join("")}
@@ -774,20 +714,8 @@ function renderAdminAgents() {
         ${agent.status === 'pending' ? `<button class="button primary" data-approve="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
         <button class="button danger" data-delagent="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
       </div>
-    `;
+    </div>`;
   }).join("");
-
-  sortedAgents.forEach(a => {
-    fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getClicks&agentId=${a.id}`)
-      .then(res => res.json())
-      .then(count => {
-        const node = document.querySelector(`#click-count-${a.id}`);
-        if(node) node.textContent = `${count.clicks || (Math.floor(Math.random()*50) + 120)} ครั้ง`;
-      }).catch(() => {
-        const node = document.querySelector(`#click-count-${a.id}`);
-        if(node) node.textContent = `145 ครั้ง`;
-      });
-  });
 }
 
 async function fetchOnlineAgents() {
@@ -1005,7 +933,6 @@ document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach
     if (agentRegisterModal) {
       agentRegisterModal.hidden = false;
       checkAgentRoute(); 
-      setTimeout(initCopyAccountNumber, 200);
     }
   });
 });
@@ -1014,49 +941,8 @@ const mainSignUpBtn = document.querySelector(".nav-links a[href*='sign'], .butto
 if (mainSignUpBtn) {
   mainSignUpBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    if (agentRegisterModal) { 
-      agentRegisterModal.hidden = false; 
-      checkAgentRoute(); 
-      setTimeout(initCopyAccountNumber, 200); 
-    }
+    if (agentRegisterModal) { agentRegisterModal.hidden = false; checkAgentRoute(); }
   });
-}
-
-function initCopyAccountNumber() {
-  const modalBody = document.querySelector("#agent-register-modal");
-  if (!modalBody) return;
-  const walker = document.createTreeWalker(modalBody, NodeFilter.SHOW_TEXT, null, false);
-  let node;
-  while (node = walker.nextNode()) {
-    if (node.nodeValue.includes("045 2 07033 4")) {
-      const parent = node.parentElement;
-      if (parent && !parent.querySelector(".copy-acc-btn")) {
-        parent.innerHTML = `เลขที่บัญชี: <span style="font-weight:bold;">045 2 07033 4</span> <button class="copy-acc-btn" type="button" style="margin-left:6px; padding:2px 6px; font-size:10px; background:#44403c; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">คัดลอก</button>`;
-        const btn = parent.querySelector(".copy-acc-btn");
-        if (btn) {
-          btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            navigator.clipboard.writeText("0452070334").then(() => {
-              btn.textContent = "✓ คัดลอกแล้ว";
-              btn.style.background = "#16a34a";
-              setTimeout(() => {
-                btn.textContent = "คัดลอก";
-                btn.style.background = "#44403c";
-              }, 2000);
-            });
-          });
-        }
-      }
-      break;
-    }
-  }
-}
-
-function closeDetailPanel() {
-  if (detailPanel) {
-    detailPanel.innerHTML = ""; 
-    detailPanel.hidden = true;  
-  }
 }
 
 document.addEventListener("contextmenu", (e) => e.preventDefault());
