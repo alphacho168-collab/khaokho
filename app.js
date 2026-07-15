@@ -252,11 +252,15 @@ function checkAgentRoute() {
   if (formNode) { formNode.setAttribute("data-agent-id", "master"); }
 }
 
+// 🌟 [ปรับปรุงจัดวาง 3 ไอคอนให้อยู่ด้านบนของชื่อและเบอร์โทรแบบสมบูรณ์สวยงาม]:
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
-    phoneBtn.href = `tel:${contact.phone.replace(/\s+/g, '')}`;
-    phoneBtn.onclick = null;
+    phoneBtn.href = "javascript:void(0);"; 
+    phoneBtn.onclick = function(e) {
+      e.preventDefault();
+      alert(`📞 หมายเลขโทรศัพท์ติดต่อเจ้าของขายเอง:\n👉 ${contact.phone} 👈`);
+    };
   }
 
   const displayLine = document.querySelector("#display-line-link");
@@ -272,17 +276,45 @@ function applyAgentContact(contact) {
   if (iconTarget) {
     const parentContainer = iconTarget.parentElement;
     if (parentContainer) {
+      parentContainer.style.setProperty("display", "flex", "important");
+      parentContainer.style.setProperty("flex-direction", "column", "important");
+      parentContainer.style.setProperty("align-items", "center", "important");
+      parentContainer.style.setProperty("gap", "15px", "important");
+      parentContainer.style.setProperty("width", "100%", "important");
+
+      let iconRowWrapper = document.querySelector("#agent-icon-row-wrapper");
+      if (!iconRowWrapper) {
+        iconRowWrapper = document.createElement("div");
+        iconRowWrapper.id = "agent-icon-row-wrapper";
+        iconRowWrapper.style.setProperty("display", "flex", "important");
+        iconRowWrapper.style.setProperty("flex-direction", "row", "important"); 
+        iconRowWrapper.style.setProperty("gap", "15px", "important");
+        iconRowWrapper.style.setProperty("justify-content", "center", "important");
+        iconRowWrapper.style.setProperty("align-items", "center", "important");
+        iconRowWrapper.style.setProperty("order", "1", "important"); 
+        
+        if (phoneBtn) iconRowWrapper.appendChild(phoneBtn);
+        if (displayLine) iconRowWrapper.appendChild(displayLine);
+        if (displayFb) iconRowWrapper.appendChild(displayFb);
+        
+        parentContainer.appendChild(iconRowWrapper);
+      } else {
+        iconRowWrapper.style.setProperty("display", "flex", "important");
+        iconRowWrapper.style.setProperty("flex-direction", "row", "important");
+      }
+
       let textContactBox = document.querySelector("#agent-text-contact-box");
       if (!textContactBox) {
         textContactBox = document.createElement("div");
         textContactBox.id = "agent-text-contact-box";
-        parentContainer.insertBefore(textContactBox, parentContainer.firstChild);
+        textContactBox.style.setProperty("order", "2", "important"); 
+        parentContainer.appendChild(textContactBox);
       }
       
       textContactBox.innerHTML = `
-        <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; margin-bottom: 20px; font-size: 15px; color: #44403c; font-family: inherit; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; max-width: 360px; line-height: 1.6;">
+        <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
           <div style="margin-bottom: 4px;"><strong>👤 เจ้าของขายเอง :</strong> ${contact.name}</div>
-          <div><strong>📞 เบอร์โทรติดต่อ:</strong> <a href="tel:${contact.phone.replace(/\s+/g, '')}" style="color: #16a34a; font-weight: bold; text-decoration: underline; font-size: 16px;">${contact.phone}</a></div>
+          <div><strong>📞 เบอร์โทรติดต่อ:</strong> <span style="color: #16a34a; font-weight: bold; font-size: 16px;">${contact.phone}</span></div>
         </div>
       `;
     }
