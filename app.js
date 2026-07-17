@@ -252,14 +252,15 @@ function checkAgentRoute() {
   if (formNode) { formNode.setAttribute("data-agent-id", "master"); }
 }
 
-// 🌟 [ปรับปรุงจัดวาง 3 ไอคอนให้อยู่ด้านบนของชื่อและเบอร์โทรแบบสมบูรณ์สวยงาม]:
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
     phoneBtn.href = "javascript:void(0);"; 
     phoneBtn.onclick = function(e) {
       e.preventDefault();
-      alert(`📞 หมายเลขโทรศัพท์ติดต่อเจ้าของขายเอง:\n👉 ${contact.phone} 👈`);
+      // บังคับแสดงเลข 0 ครบถ้วนด้วย format string
+      const formattedPhone = String(contact.phone || '').trim().padStart(10, '0');
+      alert(`📞 หมายเลขโทรศัพท์ติดต่อเจ้าของขายเอง:\n👉 ${formattedPhone} 👈`);
     };
   }
 
@@ -311,10 +312,13 @@ function applyAgentContact(contact) {
         parentContainer.appendChild(textContactBox);
       }
       
+      // บังคับแสดงเลข 0 หน้าสุดครบ 10 หลัก
+      const displayPhoneFormatted = String(contact.phone || '').trim().padStart(10, '0');
+
       textContactBox.innerHTML = `
         <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
           <div style="margin-bottom: 4px;"><strong>👤 เจ้าของขายเอง :</strong> ${contact.name}</div>
-          <div><strong>📞 เบอร์โทรติดต่อ:</strong> <span style="color: #16a34a; font-weight: bold; font-size: 16px;">${contact.phone}</span></div>
+          <div><strong>📞 เบอร์โทรติดต่อ:</strong> <span style="color: #16a34a; font-weight: bold; font-size: 16px;">${displayPhoneFormatted}</span></div>
         </div>
       `;
     }
@@ -406,7 +410,7 @@ if (agentRegisterForm) {
       id: "", 
       type: "agent_registration",
       name: document.querySelector("#reg-name").value.trim(),
-      phone: document.querySelector("#reg-phone").value.trim(),
+      phone: String(document.querySelector("#reg-phone").value.trim()).padStart(10, '0'),
       line: document.querySelector("#reg-line").value.trim(),
       facebook: document.querySelector("#reg-facebook").value.trim(),
       slip: slipBase64,
@@ -430,7 +434,7 @@ if (leadForm) {
 
     const lead = {
       name: document.querySelector("#lead-name").value.trim(),
-      phone: document.querySelector("#lead-phone").value.trim(),
+      phone: String(document.querySelector("#lead-phone").value.trim()).padStart(10, '0'),
       line: document.querySelector("#lead-line").value.trim(),
       interest: document.querySelector("#lead-interest").value,
       agentId: activeAgentId, 
@@ -474,9 +478,10 @@ function renderAgentLeads(agentId) {
       
       tableBody.innerHTML = sortedLeads.map(lead => {
         const dateValue = lead.submittedAt || lead.date || "";
+        const formattedLeadPhone = String(lead.phone || '').trim().padStart(10, '0');
         return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
           <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
-          <td style="padding:14px;">${lead.phone || '-'}</td>
+          <td style="padding:14px;">${formattedLeadPhone}</td>
           <td style="padding:14px;">${lead.line || '-'}</td>
           <td style="padding:14px; color:var(--forest-2); font-weight:bold;">${lead.interest || '-'}</td>
           <td style="padding:14px; color:var(--muted); font-size:13px;">${dateValue}</td>
@@ -498,9 +503,10 @@ function renderSubTeams(agentId) {
     return;
   }
   tableBody.innerHTML = subAgents.map(sa => {
+    const formattedSaPhone = String(sa.phone || '').trim().padStart(10, '0');
     return `<tr style="border-bottom: 1px solid var(--line);">
       <td style="padding:12px; font-weight:bold;">${sa.name}</td>
-      <td style="padding:12px;">${sa.phone}</td>
+      <td style="padding:12px;">${formattedSaPhone}</td>
       <td style="padding:12px;">${sa.line}</td>
       <td style="padding:12px;"><a href="${sa.facebook}" target="_blank" style="color: var(--forest-2); text-decoration:underline;">เปิดโปรไฟล์</a></td>
       <td style="padding:12px; font-weight:bold; color:var(--danger);">${sa.expireAt || '-'}</td>
@@ -688,15 +694,18 @@ function refreshMasterLeads() {
       
       const reversedMasterLeads = [...data].reverse();
       
-      tableBody.innerHTML = reversedMasterLeads.map(lead => `
+      tableBody.innerHTML = reversedMasterLeads.map(lead => {
+        const masterPhoneFormatted = String(lead.phone || '').trim().padStart(10, '0');
+        return `
         <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
           <td style="padding: 12px 10px; font-weight: bold;">${lead.name || '-'}</td>
-          <td style="padding: 12px 10px;">${lead.phone || '-'}</td>
+          <td style="padding: 12px 10px;">${masterPhoneFormatted}</td>
           <td style="padding: 12px 10px;">${lead.line || '-'}</td>
           <td style="padding: 12px 10px; color:#16a34a; font-weight:bold;">${lead.interest || '-'}</td>
           <td style="padding: 12px 10px; color:#78716c;">${lead.agentId || 'master'}</td>
         </tr>
-      `).join("");
+      `;
+      }).join("");
     })
     .catch(() => {
       tableBody.innerHTML = `<tr><td colspan="5" style="padding:16px; text-align:center; color:#78716c;">ไม่สามารถดึงข้อมูลออนไลน์ได้ในขณะนี้</td></tr>`;
@@ -735,9 +744,10 @@ function renderAdminAgents() {
     </div>
   ` + sortedAgents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
+    const agentPhoneFormatted = String(agent.phone || '').trim().padStart(10, '0');
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
-      โทร: ${agent.phone} | Line: ${agent.line}<br>
+      โทร: ${agentPhoneFormatted} | Line: ${agent.line}<br>
       <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
       <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
       ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
@@ -820,7 +830,7 @@ document.querySelector("#login-button").addEventListener("click", async () => {
     renderAdminItems(); renderAdminAgents(); return;
   }
 
-  const memberAgent = agents.find(a => a.phone === username && a.status === "approved");
+  const memberAgent = agents.find(a => String(a.phone).trim() === username && a.status === "approved");
   if (memberAgent && password === AGENT_PASSWORD) {
     if (message) message.textContent = ""; 
     adminLogin.hidden = true; adminPanel.hidden = true;
