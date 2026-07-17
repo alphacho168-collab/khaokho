@@ -995,3 +995,18 @@ document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
   if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
 });
+// ตัวอย่างฟังก์ชันสำหรับดึงข้อมูลเดิมมาใส่ช่องแก้ไขและกดบันทึกส่งเข้า Apps Script
+function renderAgentProfileEdit(memberAgent) {
+  return `
+    <div style="background:#fff; padding:20px; border-radius:8px; border:1px solid #d6d3d1; margin-top:20px;">
+      <h3 style="margin-top:0;">✏️ แก้ไขข้อมูลส่วนตัว</h3>
+      <form id="edit-agent-profile-form" style="display:flex; flex-direction:column; gap:12px;">
+        <label>ชื่อ-นามสกุล: <input type="text" id="edit-name" value="${memberAgent.name}" style="width:100%; padding:8px;" required></label>
+        <label>เบอร์โทรศัพท์: <input type="text" id="edit-phone" value="${String(memberAgent.phone).trim().padStart(10, '0')}" style="width:100%; padding:8px;" required></label>
+        <label>Line ID: <input type="text" id="edit-line" value="${memberAgent.line}" style="width:100%; padding:8px;" required></label>
+        <label>Facebook Link: <input type="text" id="edit-facebook" value="${memberAgent.facebook}" style="width:100%; padding:8px;" required></label>
+        <button type="submit" class="button primary" style="padding:10px;">บันทึกการแก้ไขข้อมูล</button>
+      </form>
+    </div>
+  `;
+}
