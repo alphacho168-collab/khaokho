@@ -10,9 +10,9 @@ const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOaS
 
 const DEFAULT_CONTACT = {
   name: "Get Patradit",
-  phone: "063 978 9356",
-  line: "@812fqegp",
-  facebook: "https://facebook.com"
+  phone: "0639789356",
+  line: "https://line.me/ti/p/_nFzWT8P3v",
+  facebook: "https://www.facebook.com/KhaoKhoView"
 };
 
 const demoProperties = [
