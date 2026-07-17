@@ -1010,3 +1010,94 @@ function renderAgentProfileEdit(memberAgent) {
     </div>
   `;
 }
+// --- ฟังก์ชันสร้างและจัดการระบบแก้ไขข้อมูลส่วนตัวของตัวแทน ---
+window.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const dashboardPanel = document.querySelector("#agent-dashboard-panel");
+    if (dashboardPanel && !document.querySelector("#agent-edit-profile-box")) {
+      const editBox = document.createElement("div");
+      editBox.id = "agent-edit-profile-box";
+      editBox.style.cssText = "background:#ffffff; padding:24px; border-radius:8px; border:1px solid #d6d3d1; margin-top:24px; box-shadow:0 1px 3px rgba(0,0,0,0.05); width:100%; box-sizing:border-box;";
+      
+      editBox.innerHTML = `
+        <h3 style="margin-top:0; font-size:16px; color:#1c1917; font-weight:bold; margin-bottom:16px;">✏️ แก้ไขข้อมูลส่วนตัว (ชื่อ, เบอร์โทร, ไลน์, เฟสบุ๊ค)</h3>
+        <form id="agent-profile-update-form" style="display:flex; flex-direction:column; gap:14px;">
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#44403c; margin-bottom:6px;">ชื่อ-นามสกุล:</label>
+            <input type="text" id="up-agent-name" style="width:100%; padding:10px; border:1px solid #d6d3d1; border-radius:4px; box-sizing:border-box;" value="${document.querySelector("#agent-dashboard-name") ? document.querySelector("#agent-dashboard-name").textContent : ''}" required>
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#44403c; margin-bottom:6px;">เบอร์โทรศัพท์:</label>
+            <input type="text" id="up-agent-phone" style="width:100%; padding:10px; border:1px solid #d6d3d1; border-radius:4px; box-sizing:border-box;" placeholder="0xxxxxxxx" required>
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#44403c; margin-bottom:6px;">Line ID:</label>
+            <input type="text" id="up-agent-line" style="width:100%; padding:10px; border:1px solid #d6d3d1; border-radius:4px; box-sizing:border-box;" required>
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#44403c; margin-bottom:6px;">Facebook Link:</label>
+            <input type="text" id="up-agent-facebook" style="width:100%; padding:10px; border:1px solid #d6d3d1; border-radius:4px; box-sizing:border-box;" required>
+          </div>
+          <button type="submit" class="button primary" style="padding:12px; font-weight:bold; cursor:pointer;">บันทึกการแก้ไขข้อมูล</button>
+          <div id="up-agent-msg" style="font-size:13px; font-weight:bold; text-align:center; margin-top:4px;"></div>
+        </form>
+      `;
+      dashboardPanel.appendChild(editBox);
+
+      // ดึงข้อมูลปัจจุบันมาใส่ฟอร์ม
+      const currentLineText = document.querySelector("#back-agent-line-link");
+      const currentFbText = document.querySelector("#back-agent-fb-link");
+      if (currentLineText && document.querySelector("#up-agent-line")) {
+        document.querySelector("#up-agent-line").value = currentLineText.textContent.trim();
+      }
+      if (currentFbText && document.querySelector("#up-agent-facebook")) {
+        document.querySelector("#up-agent-facebook").value = currentFbText.textContent.trim();
+      }
+
+      // เมื่อกดปุ่มบันทึกส่งข้อมูลอัปเดตไป Google Apps Script
+      const updateForm = document.querySelector("#agent-profile-update-form");
+      if (updateForm) {
+        updateForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const msgNode = document.querySelector("#up-agent-msg");
+          msgNode.style.color = "#2563eb";
+          msgNode.textContent = "กำลังบันทึกข้อมูลลงคลาวด์...";
+
+          // ค้นหา ID ของตัวแทนปัจจุบันจากหน้าเว็บ
+          const urlParams = new URLSearchParams(window.location.search);
+          let targetAgentId = urlParams.get('agent');
+          
+          if (!targetAgentId) {
+            // กรณีล็อกอินเข้ามาผ่านระบบรหัสผ่านหลังบ้าน
+            const matchedAgent = agents.find(a => a.name === document.querySelector("#agent-dashboard-name")?.textContent.trim());
+            if (matchedAgent) targetAgentId = matchedAgent.id;
+          }
+
+          const payload = {
+            type: "update_agent_profile",
+            id: targetAgentId || "",
+            name: document.querySelector("#up-agent-name").value.trim(),
+            phone: String(document.querySelector("#up-agent-phone").value.trim()).padStart(10, '0'),
+            line: document.querySelector("#up-agent-line").value.trim(),
+            facebook: document.querySelector("#up-agent-facebook").value.trim()
+          };
+
+          try {
+            await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+            msgNode.style.color = "#16a34a";
+            msgNode.textContent = "บันทึกข้อมูลแก้ไขสำเร็จเรียบร้อยแล้วค่ะ!";
+            setTimeout(() => { location.reload(); }, 1500);
+          } catch (err) {
+            msgNode.style.color = "#dc2626";
+            msgNode.textContent = "เกิดข้อผิดพลาดในการบันทึก กรุณาลองใหม่อีกครั้ง";
+          }
+        });
+      }
+    }
+  }, 1000);
+});
