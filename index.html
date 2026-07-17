@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- 🌟 โครงสร้าง SEO และ AI Search ที่สมบูรณ์เดิมของพี่ Get -->
   <title>KHAO KHO LAND | ขายที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวทะเลหมอก</title>
   <meta name="description" content="รวมประกาศขายที่ดินเขาค้อเจ้าของขายเอง พูลวิลล่าวิวทะเลหมอก วิวกังหันลม โฉนดครุฑแดง ทำเลทองสำหรับการลงทุนและการพักผ่อน">
   <meta name="keywords" content="ขายที่ดินเขาค้อ, ที่ดินเขาค้อเจ้าของขายเอง, พูลวิลล่าเขาค้อ, ที่ดินวิวทะเลหมอก, ลงทุนอสังหาเขาค้อ">
-  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <!-- Header / Navigation -->
   <header class="site-header">
     <div class="container header-container">
@@ -94,7 +92,7 @@
   </section>
 
   <!-- FAQ & SEO Content Section -->
-  <section class="section container" style="margin-top: 40px;">
+  <section class="section container" style="margin-top: 40px;" id="about">
     <h3 style="text-align: center; color: var(--forest); margin-bottom: 20px;">FAQ | SEO & AI SEARCH</h3>
     <h2 style="text-align: center; margin-bottom: 20px;">คำถามที่พบบ่อยเกี่ยวกับที่ดินเขาค้อ</h2>
     <p style="text-align: center; color: var(--muted); max-width: 700px; margin: 0 auto 30px auto;">ข้อมูลสำหรับผู้ที่กำลังค้นหา "ขายที่ดินเขาค้อเจ้าของขายเอง" และต้องการลงทุนในที่ดินวิวภูเขา วิวทะเลหมอก บนเขาค้อ</p>
@@ -103,43 +101,11 @@
   <!-- Detail Panel Modal -->
   <div id="detail-panel" class="detail-overlay" hidden></div>
 
-  <!-- Agent Dashboard Panel (หลังบ้านตัวแทน) -->
+  <!-- Agent Dashboard Panel -->
   <section id="agent-dashboard-panel" class="container section" hidden style="background: #fff; padding: 30px; border-radius: 8px; margin: 40px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
     <h2>ยินดีต้อนรับคุณ <span id="agent-dashboard-name"></span></h2>
     <p style="color: var(--muted);">จัดการข้อมูลและติดตามสายงานของคุณได้ที่นี่</p>
     
-    <!-- ปุ่มและฟอร์มแก้ไขข้อมูลส่วนตัวตัวแทน -->
-    <div style="margin: 20px 0;">
-      <button type="button" class="button neutral" id="open-edit-profile-btn" style="background: #44403c; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; border: none;">
-        ⚙️ แก้ไขข้อมูลติดต่อส่วนตัว
-      </button>
-
-      <form id="agent-edit-profile-form" hidden style="background: #f5f5f4; padding: 20px; border-radius: 8px; border: 1px solid #d6d3d1; margin-top: 15px; max-width: 500px;">
-        <h4 style="margin-top: 0; color: #1c1917; font-size: 16px;">แก้ไขข้อมูลโปรไฟล์ของคุณ</h4>
-        <div style="margin-bottom: 12px; text-align: left;">
-          <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #44403c;">ชื่อ-นามสกุล / ทีมงาน:</label>
-          <input type="text" id="edit-profile-name" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required />
-        </div>
-        <div style="margin-bottom: 12px; text-align: left;">
-          <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #44403c;">เบอร์โทรศัพท์:</label>
-          <input type="text" id="edit-profile-phone" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required />
-        </div>
-        <div style="margin-bottom: 12px; text-align: left;">
-          <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #44403c;">ลิงก์ Line หรือ ID Line:</label>
-          <input type="text" id="edit-profile-line" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required />
-        </div>
-        <div style="margin-bottom: 15px; text-align: left;">
-          <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #44403c;">ลิงก์ Facebook:</label>
-          <input type="text" id="edit-profile-facebook" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required />
-        </div>
-        <div style="display: flex; gap: 10px;">
-          <button type="submit" class="button primary" style="background: #16a34a; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold;">บันทึกการเปลี่ยนแปลง</button>
-          <button type="button" class="button neutral" id="cancel-edit-profile-btn" style="background: #e7e5e4; color: #44403c; border: 1px solid #d6d3d1; padding: 8px 16px; border-radius: 4px; cursor: pointer;">ยกเลิก</button>
-        </div>
-        <p id="edit-profile-msg" style="margin-top: 10px; font-size: 13px; font-weight: bold; color: #16a34a;"></p>
-      </form>
-    </div>
-
     <div style="margin-top: 20px; background: #fdfbf7; padding: 15px; border-radius: 6px; border: 1px solid #e7e5e4;">
       <p><strong>ลิงก์ Line หน้าบ้านของคุณ:</strong> <span id="back-agent-line-link"></span></p>
       <p><strong>ลิงก์ Facebook หน้าบ้านของคุณ:</strong> <span id="back-agent-fb-link"></span></p>
