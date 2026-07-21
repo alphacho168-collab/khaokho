@@ -1127,3 +1127,25 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+// --- ระบบคลิกเปิด Modal อัตโนมัติจากข้อความบนปุ่ม ---
+document.addEventListener("click", function(e) {
+  const target = e.target.closest("button, a, div, span");
+  if (!target) return;
+  const text = target.textContent ? target.textContent.trim().toLowerCase() : "";
+  
+  if (text.includes("sign up") || text.includes("signup")) {
+    e.preventDefault();
+    const modal = document.querySelector("#agent-register-modal") || document.querySelector("[id*='register']");
+    if (modal) modal.hidden = false;
+  }
+  
+  if (text === "login" || text.includes("เข้าสู่ระบบ")) {
+    e.preventDefault();
+    const modal = document.querySelector("#admin-modal") || document.querySelector("[id*='admin']");
+    const loginBox = document.querySelector("#admin-login");
+    const adminPanel = document.querySelector("#admin-panel");
+    if (loginBox) loginBox.hidden = false;
+    if (adminPanel) adminPanel.hidden = true;
+    if (modal) modal.hidden = false;
+  }
+});
