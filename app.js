@@ -1102,3 +1102,20 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 1000);
 });
 } // <--- ปิดฟังก์ชัน renderAgentProfileEdit ตรงนี้ให้ถูกต้อง
+// --- บังคับเชื่อมปุ่ม Sign up และ Login ให้คลิกเปิดได้ทันที ---
+document.addEventListener("click", function(e) {
+  if (e.target.closest("#agent-register-open")) {
+    e.preventDefault();
+    const modal = document.querySelector("#agent-register-modal");
+    if (modal) modal.hidden = false;
+  }
+  if (e.target.closest("#admin-open")) {
+    e.preventDefault();
+    const modal = document.querySelector("#admin-modal");
+    const loginBox = document.querySelector("#admin-login");
+    const adminPanel = document.querySelector("#admin-panel");
+    if (loginBox) loginBox.hidden = false;
+    if (adminPanel) adminPanel.hidden = true;
+    if (modal) modal.hidden = false;
+  }
+});
