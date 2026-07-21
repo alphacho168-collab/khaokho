@@ -1101,3 +1101,29 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }, 1000);
 });
+// --- ระบบเปิด Modal Sign up และ Login แบบมาตรฐาน ---
+document.addEventListener("DOMContentLoaded", function() {
+  const signupBtn = document.querySelector("#agent-register-open");
+  const signupModal = document.querySelector("#agent-register-modal");
+  
+  if (signupBtn && signupModal) {
+    signupBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      signupModal.hidden = false;
+    });
+  }
+
+  const loginBtn = document.querySelector("#admin-open");
+  const loginModal = document.querySelector("#admin-modal");
+  const loginBox = document.querySelector("#admin-login");
+  const adminPanel = document.querySelector("#admin-panel");
+
+  if (loginBtn && loginModal) {
+    loginBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      if (loginBox) loginBox.hidden = false;
+      if (adminPanel) adminPanel.hidden = true;
+      loginModal.hidden = false;
+    });
+  }
+});
