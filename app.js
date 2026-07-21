@@ -1100,4 +1100,18 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
   }, 1000);
+  if (approveBtn) {
+  const id = approveBtn.dataset.approve;
+  try { 
+    await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
+      method: "POST", 
+      mode: "no-cors", 
+      headers: { "Content-Type": "application/json" }, 
+      body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) 
+    }); 
+    
+    alert("อนุมัติสำเร็จ!"); // เพิ่มแจ้งเตือนให้รู้ว่าระบบทำงานแล้ว
+    location.reload(); // สั่งรีเฟรชหน้าเว็บทันทีเพื่อให้สถานะเปลี่ยนเป็น approved สีเขียว
+  } catch(e){}
+}
 });
