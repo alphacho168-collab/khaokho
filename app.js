@@ -1100,38 +1100,5 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
   }, 1000);
- if (approveBtn) {
-  const id = approveBtn.dataset.approve;
-  try { 
-    await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
-      method: "POST", 
-      mode: "no-cors", 
-      headers: { "Content-Type": "application/json" }, 
-      body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) 
-    }); 
-    
-    alert("อนุมัติสำเร็จ!");
-    location.reload(); // บังคับรีเฟรชหน้าจอเพื่อให้สถานะเปลี่ยนทันที
-  } catch(e){}
-}
-// --- คำสั่งเชื่อมปุ่ม Sign up และ Login ให้กลับมาคลิกได้ปกติ ---
-document.addEventListener("click", function(e) {
-  const signupBtn = e.target.closest("#agent-register-open");
-  const loginBtn = e.target.closest("#admin-open");
-  
-  if (signupBtn) {
-    e.preventDefault();
-    const modal = document.querySelector("#agent-register-modal");
-    if (modal) modal.hidden = false;
-  }
-  
-  if (loginBtn) {
-    e.preventDefault();
-    const modal = document.querySelector("#admin-modal");
-    const loginBox = document.querySelector("#admin-login");
-    const adminPanelBox = document.querySelector("#admin-panel");
-    if (loginBox) loginBox.hidden = false;
-    if (adminPanelBox) adminPanelBox.hidden = true;
-    if (modal) modal.hidden = false;
-  }
+
 });
