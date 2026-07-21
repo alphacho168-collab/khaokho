@@ -1101,4 +1101,3 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }, 1000);
 });
-} // <--- ปิดฟังก์ชัน renderAgentProfileEdit ตรงนี้ให้ถูกต้อง
