@@ -255,15 +255,17 @@ function checkAgentRoute() {
 function applyAgentContact(contact) {
   const phoneBtn = document.querySelector("#display-phone-link");
   if (phoneBtn) {
-    phoneBtn.href = "javascript:void(0);"; 
+    phoneBtn.href = "javascript:void(0);";
     phoneBtn.onclick = function(e) {
       e.preventDefault();
-      // บังคับแสดงเลข 0 ครบถ้วนด้วย format string
-      const formattedPhone = String(contact.phone || '').trim().padStart(10, '0');
+      // จัดรูปแบบเบอร์โทรให้มีขีดคั่นอัตโนมัติ (เช่น 063-968-9356)
+      let rawPhone = String(contact.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+      let formattedPhone = rawPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
+      
       alert(`📞 หมายเลขโทรศัพท์ติดต่อเจ้าของขายเอง:\n👉 ${formattedPhone} 👈`);
     };
   }
-
+}
   const displayLine = document.querySelector("#display-line-link");
   if (displayLine) {
     displayLine.href = contact.line.startsWith('http') ? contact.line : `https://line.me/R/ti/p/${contact.line.includes('@') ? '' : '@'}${contact.line.replace('@', '')}`;
