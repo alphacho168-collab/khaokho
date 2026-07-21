@@ -1102,28 +1102,3 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 1000);
 });
 } // <--- ปิดฟังก์ชัน renderAgentProfileEdit ตรงนี้ให้ถูกต้อง
-// --- ระบบดักคลิกปุ่ม Sign up และ Login จากข้อความบนปุ่มโดยตรง ---
-document.addEventListener("click", function(e) {
-  const target = e.target.closest("button, a, div");
-  if (!target) return;
-  
-  const text = target.textContent ? target.textContent.trim().toLowerCase() : "";
-  
-  // เช็คปุ่ม Sign up
-  if (text === "sign up" || text === "signup") {
-    e.preventDefault();
-    const modal = document.querySelector("#agent-register-modal") || document.querySelector(".modal");
-    if (modal) modal.hidden = false;
-  }
-  
-  // เช็คปุ่ม Login
-  if (text === "login") {
-    e.preventDefault();
-    const modal = document.querySelector("#admin-modal") || document.querySelector(".modal");
-    const loginBox = document.querySelector("#admin-login");
-    const adminPanel = document.querySelector("#admin-panel");
-    if (loginBox) loginBox.hidden = false;
-    if (adminPanel) adminPanel.hidden = true;
-    if (modal) modal.hidden = false;
-  }
-});
