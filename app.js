@@ -1100,18 +1100,49 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
   }, 1000);
-  if (approveBtn) {
-  const id = approveBtn.dataset.approve;
-  try { 
-    await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
-      method: "POST", 
-      mode: "no-cors", 
-      headers: { "Content-Type": "application/json" }, 
-      body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) 
-    }); 
-    
-    alert("อนุมัติสำเร็จ!"); // เพิ่มแจ้งเตือนให้รู้ว่าระบบทำงานแล้ว
-    location.reload(); // สั่งรีเฟรชหน้าเว็บทันทีเพื่อให้สถานะเปลี่ยนเป็น approved สีเขียว
-  } catch(e){}
-}
+ // --- ระบบจัดการปุ่ม Sign up และ Login ให้กลับมาคลิกเปิดได้ปกติ ---
+document.addEventListener("DOMContentLoaded", () => {
+  const adminOpenBtn = document.querySelector("#admin-open");
+  const adminModalEl = document.querySelector("#admin-modal");
+  const adminCloseBtn = document.querySelector("#admin-close");
+  const adminLoginBox = document.querySelector("#admin-login");
+  const adminPanelBox = document.querySelector("#admin-panel");
+  const agentDashboardBox = document.querySelector("#agent-dashboard-panel");
+
+  if (adminOpenBtn && adminModalEl) {
+    adminOpenBtn.addEventListener("click", async () => {
+      if (adminLoginBox) adminLoginBox.hidden = false;
+      if (adminPanelBox) adminPanelBox.hidden = true;
+      if (agentDashboardBox) agentDashboardBox.hidden = true;
+      adminModalEl.hidden = false;
+      if (typeof fetchOnlineAgents === "function") {
+        await fetchOnlineAgents();
+      }
+    });
+  }
+
+  if (adminCloseBtn && adminModalEl) {
+    adminCloseBtn.addEventListener("click", () => {
+      adminModalEl.hidden = true;
+    });
+  }
+
+  const agentRegisterOpenBtn = document.querySelector("#agent-register-open");
+  const agentRegisterModalEl = document.querySelector("#agent-register-modal");
+  const agentRegisterCloseBtn = document.querySelector("#agent-register-close");
+
+  if (agentRegisterOpenBtn && agentRegisterModalEl) {
+    agentRegisterOpenBtn.addEventListener("click", () => {
+      agentRegisterModalEl.hidden = false;
+      if (typeof checkAgentRoute === "function") {
+        checkAgentRoute();
+      }
+    });
+  }
+
+  if (agentRegisterCloseBtn && agentRegisterModalEl) {
+    agentRegisterCloseBtn.addEventListener("click", () => {
+      agentRegisterModalEl.hidden = true;
+    });
+  }
 });
