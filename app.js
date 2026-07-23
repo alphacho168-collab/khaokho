@@ -210,12 +210,13 @@ function loadProperties() {
   }
   try { 
     const parsed = JSON.parse(saved);
-    if (!parsed || parsed.length !== demoProperties.length) {
+    if (!parsed || !Array.isArray(parsed) || parsed.length === 0) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties));
       return [...demoProperties];
     }
     return parsed;
   } catch { 
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties));
     return [...demoProperties]; 
   }
 }
@@ -335,11 +336,12 @@ function fileToBase64(file) {
 }
 
 function renderProperties() {
-  if (!propertyContainer) return;
+  const container = document.querySelector("#properties");
+  if (!container) return;
   const visible = activeFilter === "all" ? properties : properties.filter((item) => item.type === activeFilter);
   if (statCount) statCount.textContent = properties.length.toString();
 
-  propertyContainer.innerHTML = visible.map((item) => {
+  container.innerHTML = visible.map((item) => {
     const image = item.images?.[0] || "khao-kho-hero.png";
     const features = (item.features || []).slice(0, 3).map((f) => `<span>${f}</span>`).join("");
     return `
@@ -993,8 +995,7 @@ if (restoreBtn) {
   });
 }
 
-// เริ่มต้นโหลดหน้าเว็บและแสดงผลรายการทรัพย์สินทันที
-renderProperties();
+// เริ่มต้นโหลดหน้าเว็บและแสดงผลรายการทรัพย์สินอย่างปลอดภัย
 if (adminModal) adminModal.hidden = true;
 if (agentRegisterModal) agentRegisterModal.hidden = true;
 const slipModal = document.querySelector("#slip-preview-modal");
@@ -1119,20 +1120,21 @@ document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
   if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
 });
-// --- ระบบดักคลิกปุ่ม Sign up และ Login จากข้อความบนปุ่มโดยตรง (ปลอดภัย 100%) ---
+
+// --- ระบบดักคลิกปุ่ม Sign up และ Login แบบครอบคลุม ป้องกันปุ่มกดไม่ติด (100%) ---
 document.addEventListener("click", function(e) {
   const target = e.target.closest("button, a");
   if (!target) return;
   
   const text = target.textContent ? target.textContent.trim().toLowerCase() : "";
   
-  if (text === "sign up" || text === "signup") {
+  if (text.includes("sign up") || text.includes("signup")) {
     e.preventDefault();
     const modal = document.querySelector("#agent-register-modal");
     if (modal) modal.hidden = false;
   }
   
-  if (text === "login") {
+  if (text.includes("login")) {
     e.preventDefault();
     const modal = document.querySelector("#admin-modal");
     const loginBox = document.querySelector("#admin-login");
