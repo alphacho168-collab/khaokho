@@ -1119,3 +1119,26 @@ document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
   if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
 });
+// --- ระบบดักคลิกปุ่ม Sign up และ Login จากข้อความบนปุ่มโดยตรง (ปลอดภัย 100%) ---
+document.addEventListener("click", function(e) {
+  const target = e.target.closest("button, a");
+  if (!target) return;
+  
+  const text = target.textContent ? target.textContent.trim().toLowerCase() : "";
+  
+  if (text === "sign up" || text === "signup") {
+    e.preventDefault();
+    const modal = document.querySelector("#agent-register-modal");
+    if (modal) modal.hidden = false;
+  }
+  
+  if (text === "login") {
+    e.preventDefault();
+    const modal = document.querySelector("#admin-modal");
+    const loginBox = document.querySelector("#admin-login");
+    const adminPanel = document.querySelector("#admin-panel");
+    if (loginBox) loginBox.hidden = false;
+    if (adminPanel) adminPanel.hidden = true;
+    if (modal) modal.hidden = false;
+  }
+});
