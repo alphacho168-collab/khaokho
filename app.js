@@ -258,8 +258,8 @@ function applyAgentContact(contact) {
     phoneBtn.href = "javascript:void(0);"; 
     phoneBtn.onclick = function(e) {
       e.preventDefault();
-      // บังคับแสดงเลข 0 ครบถ้วนด้วย format string
-      const formattedPhone = String(contact.phone || '').trim().padStart(10, '0');
+      let rawPhone = String(contact.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+      let formattedPhone = rawPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
       alert(`📞 หมายเลขโทรศัพท์ติดต่อเจ้าของขายเอง:\n👉 ${formattedPhone} 👈`);
     };
   }
@@ -312,8 +312,8 @@ function applyAgentContact(contact) {
         parentContainer.appendChild(textContactBox);
       }
       
-      // บังคับแสดงเลข 0 หน้าสุดครบ 10 หลัก
-      const displayPhoneFormatted = String(contact.phone || '').trim().padStart(10, '0');
+      let rawPhoneFormatted = String(contact.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
 
       textContactBox.innerHTML = `
         <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
@@ -478,7 +478,8 @@ function renderAgentLeads(agentId) {
       
       tableBody.innerHTML = sortedLeads.map(lead => {
         const dateValue = lead.submittedAt || lead.date || "";
-        const formattedLeadPhone = String(lead.phone || '').trim().padStart(10, '0');
+        let rawLeadPhone = String(lead.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+        const formattedLeadPhone = rawLeadPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
         return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
           <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
           <td style="padding:14px;">${formattedLeadPhone}</td>
@@ -503,7 +504,8 @@ function renderSubTeams(agentId) {
     return;
   }
   tableBody.innerHTML = subAgents.map(sa => {
-    const formattedSaPhone = String(sa.phone || '').trim().padStart(10, '0');
+    let rawSaPhone = String(sa.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+    const formattedSaPhone = rawSaPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
     return `<tr style="border-bottom: 1px solid var(--line);">
       <td style="padding:12px; font-weight:bold;">${sa.name}</td>
       <td style="padding:12px;">${formattedSaPhone}</td>
@@ -695,7 +697,8 @@ function refreshMasterLeads() {
       const reversedMasterLeads = [...data].reverse();
       
       tableBody.innerHTML = reversedMasterLeads.map(lead => {
-        const masterPhoneFormatted = String(lead.phone || '').trim().padStart(10, '0');
+        let rawMasterPhone = String(lead.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+        const masterPhoneFormatted = rawMasterPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
         return `
         <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
           <td style="padding: 12px 10px; font-weight: bold;">${lead.name || '-'}</td>
@@ -744,7 +747,8 @@ function renderAdminAgents() {
     </div>
   ` + sortedAgents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    const agentPhoneFormatted = String(agent.phone || '').trim().padStart(10, '0');
+    let rawAgentPhone = String(agent.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+    const agentPhoneFormatted = rawAgentPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
       โทร: ${agentPhoneFormatted} | Line: ${agent.line}<br>
@@ -767,7 +771,7 @@ async function fetchOnlineAgents() {
       const onlineAgents = await response.json();
       if (onlineAgents) { 
         agents = onlineAgents; 
-        if (!adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
+        if (adminPanel && !adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
         else { checkAgentRoute(); }
       }
     }
@@ -806,51 +810,82 @@ document.querySelectorAll(".filter").forEach((button) => {
   });
 });
 
-document.querySelector("#admin-open").addEventListener("click", async () => { 
-  adminLogin.hidden = false; adminPanel.hidden = true; document.querySelector("#agent-dashboard-panel").hidden = true;
-  adminModal.hidden = false; 
-  await fetchOnlineAgents();
-});
-document.querySelector("#admin-close").addEventListener("click", () => { adminModal.hidden = true; });
-document.querySelector("#agent-register-open").addEventListener("click", () => { agentRegisterModal.hidden = false; checkAgentRoute(); });
-document.querySelector("#agent-register-close").addEventListener("click", () => { agentRegisterModal.hidden = true; });
+const adminOpenBtn = document.querySelector("#admin-open");
+if (adminOpenBtn) {
+  adminOpenBtn.addEventListener("click", async () => { 
+    if (adminLogin) adminLogin.hidden = false; 
+    if (adminPanel) adminPanel.hidden = true; 
+    const dashPanel = document.querySelector("#agent-dashboard-panel");
+    if (dashPanel) dashPanel.hidden = true;
+    if (adminModal) adminModal.hidden = false; 
+    await fetchOnlineAgents();
+  });
+}
 
-document.querySelector("#login-button").addEventListener("click", async () => {
-  const username = document.querySelector("#admin-username").value.trim();
-  const password = document.querySelector("#admin-password").value;
-  const message = document.querySelector("#login-message");
+const adminCloseBtn = document.querySelector("#admin-close");
+if (adminCloseBtn) {
+  adminCloseBtn.addEventListener("click", () => { if (adminModal) adminModal.hidden = true; });
+}
 
-  if (message) message.textContent = "กำลังเชื่อมต่อคลาวด์เซิร์ฟเวอร์...";
-  await fetchOnlineAgents();
+const agentRegOpenBtn = document.querySelector("#agent-register-open");
+if (agentRegOpenBtn) {
+  agentRegOpenBtn.addEventListener("click", () => { if (agentRegisterModal) agentRegisterModal.hidden = false; checkAgentRoute(); });
+}
 
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    if (message) message.textContent = ""; 
-    adminLogin.hidden = true; adminPanel.hidden = false; document.querySelector("#agent-dashboard-panel").hidden = true;
-    initAdminInterface();
-    renderAdminItems(); renderAdminAgents(); return;
-  }
+const agentRegCloseBtn = document.querySelector("#agent-register-close");
+if (agentRegCloseBtn) {
+  agentRegCloseBtn.addEventListener("click", () => { if (agentRegisterModal) agentRegisterModal.hidden = true; });
+}
 
-  const memberAgent = agents.find(a => String(a.phone).trim() === username && a.status === "approved");
-  if (memberAgent && password === AGENT_PASSWORD) {
-    if (message) message.textContent = ""; 
-    adminLogin.hidden = true; adminPanel.hidden = true;
-    
-    const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
-    const agentDashboardName = document.querySelector("#agent-dashboard-name");
-    
-    document.querySelector("#back-agent-line-link").textContent = memberAgent.line;
-    document.querySelector("#back-agent-fb-link").textContent = memberAgent.facebook;
-    document.querySelector("#back-agent-expire").textContent = memberAgent.expireAt;
+const loginButton = document.querySelector("#login-button");
+if (loginButton) {
+  loginButton.addEventListener("click", async () => {
+    const username = document.querySelector("#admin-username").value.trim();
+    const password = document.querySelector("#admin-password").value;
+    const message = document.querySelector("#login-message");
 
-    agentDashboardPanel.hidden = false;
-    agentDashboardName.textContent = memberAgent.name;
-    
-    renderAgentLeads(memberAgent.id);
-    renderSubTeams(memberAgent.id); 
-    return;
-  }
-  message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
-});
+    if (message) message.textContent = "กำลังเชื่อมต่อคลาวด์เซิร์ฟเวอร์...";
+    await fetchOnlineAgents();
+
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      if (message) message.textContent = ""; 
+      if (adminLogin) adminLogin.hidden = true; 
+      if (adminPanel) adminPanel.hidden = false; 
+      const dashPanel = document.querySelector("#agent-dashboard-panel");
+      if (dashPanel) dashPanel.hidden = true;
+      initAdminInterface();
+      renderAdminItems(); 
+      renderAdminAgents(); 
+      return;
+    }
+
+    const memberAgent = agents.find(a => String(a.phone).trim() === username && a.status === "approved");
+    if (memberAgent && password === AGENT_PASSWORD) {
+      if (message) message.textContent = ""; 
+      if (adminLogin) adminLogin.hidden = true; 
+      if (adminPanel) adminPanel.hidden = true;
+      
+      const agentDashboardPanel = document.querySelector("#agent-dashboard-panel");
+      const agentDashboardName = document.querySelector("#agent-dashboard-name");
+      
+      const lineLinkNode = document.querySelector("#back-agent-line-link");
+      const fbLinkNode = document.querySelector("#back-agent-fb-link");
+      const expireNode = document.querySelector("#back-agent-expire");
+
+      if (lineLinkNode) lineLinkNode.textContent = memberAgent.line;
+      if (fbLinkNode) fbLinkNode.textContent = memberAgent.facebook;
+      if (expireNode) expireNode.textContent = memberAgent.expireAt;
+
+      if (agentDashboardPanel) agentDashboardPanel.hidden = false;
+      if (agentDashboardName) agentDashboardName.textContent = memberAgent.name;
+      
+      renderAgentLeads(memberAgent.id);
+      renderSubTeams(memberAgent.id); 
+      return;
+    }
+    if (message) message.textContent = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง หรือสิทธิ์ท่านยังไม่ได้รับการอนุมัติ";
+  });
+}
 
 function renderAdminItems() { 
   if (!adminItems) return; 
@@ -958,60 +993,20 @@ if (restoreBtn) {
   });
 }
 
+// เริ่มต้นโหลดหน้าเว็บและแสดงผลรายการทรัพย์สินทันที
 renderProperties();
-adminModal.hidden = true;
-agentRegisterModal.hidden = true;
-document.querySelector("#slip-preview-modal").hidden = true;
+if (adminModal) adminModal.hidden = true;
+if (agentRegisterModal) agentRegisterModal.hidden = true;
+const slipModal = document.querySelector("#slip-preview-modal");
+if (slipModal) slipModal.hidden = true;
 
 window.addEventListener("DOMContentLoaded", () => {
+  renderProperties();
   fetchOnlineAgents().then(() => {
     checkAgentRoute();
   });
-});
 
-document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach(button => {
-  button.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (agentRegisterModal) {
-      agentRegisterModal.hidden = false;
-      checkAgentRoute(); 
-    }
-  });
-});
-
-const mainSignUpBtn = document.querySelector(".nav-links a[href*='sign'], .button-group button:nth-child(1)");
-if (mainSignUpBtn) {
-  mainSignUpBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (agentRegisterModal) { agentRegisterModal.hidden = false; checkAgentRoute(); }
-  });
-}
-
-document.addEventListener("contextmenu", (e) => e.preventDefault());
-document.addEventListener("selectstart", (e) => e.preventDefault());
-document.addEventListener("keydown", (e) => {
-  if (e.keyCode === 123) { e.preventDefault(); return false; }
-  if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); return false; }
-  if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
-  if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
-});
-// ตัวอย่างฟังก์ชันสำหรับดึงข้อมูลเดิมมาใส่ช่องแก้ไขและกดบันทึกส่งเข้า Apps Script
-function renderAgentProfileEdit(memberAgent) {
-  return `
-    <div style="background:#fff; padding:20px; border-radius:8px; border:1px solid #d6d3d1; margin-top:20px;">
-      <h3 style="margin-top:0;">✏️ แก้ไขข้อมูลส่วนตัว</h3>
-      <form id="edit-agent-profile-form" style="display:flex; flex-direction:column; gap:12px;">
-        <label>ชื่อ-นามสกุล: <input type="text" id="edit-name" value="${memberAgent.name}" style="width:100%; padding:8px;" required></label>
-        <label>เบอร์โทรศัพท์: <input type="text" id="edit-phone" value="${String(memberAgent.phone).trim().padStart(10, '0')}" style="width:100%; padding:8px;" required></label>
-        <label>Line ID: <input type="text" id="edit-line" value="${memberAgent.line}" style="width:100%; padding:8px;" required></label>
-        <label>Facebook Link: <input type="text" id="edit-facebook" value="${memberAgent.facebook}" style="width:100%; padding:8px;" required></label>
-        <button type="submit" class="button primary" style="padding:10px;">บันทึกการแก้ไขข้อมูล</button>
-      </form>
-    </div>
-  `;
-}
-// --- ฟังก์ชันสร้างและจัดการระบบแก้ไขข้อมูลส่วนตัวของตัวแทน ---
-window.addEventListener("DOMContentLoaded", () => {
+  // ระบบแก้ไขข้อมูลส่วนตัวตัวแทน
   setTimeout(() => {
     const dashboardPanel = document.querySelector("#agent-dashboard-panel");
     if (dashboardPanel && !document.querySelector("#agent-edit-profile-box")) {
@@ -1044,7 +1039,6 @@ window.addEventListener("DOMContentLoaded", () => {
       `;
       dashboardPanel.appendChild(editBox);
 
-      // ดึงข้อมูลปัจจุบันมาใส่ฟอร์ม
       const currentLineText = document.querySelector("#back-agent-line-link");
       const currentFbText = document.querySelector("#back-agent-fb-link");
       if (currentLineText && document.querySelector("#up-agent-line")) {
@@ -1054,7 +1048,6 @@ window.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#up-agent-facebook").value = currentFbText.textContent.trim();
       }
 
-      // เมื่อกดปุ่มบันทึกส่งข้อมูลอัปเดตไป Google Apps Script
       const updateForm = document.querySelector("#agent-profile-update-form");
       if (updateForm) {
         updateForm.addEventListener("submit", async (e) => {
@@ -1063,12 +1056,10 @@ window.addEventListener("DOMContentLoaded", () => {
           msgNode.style.color = "#2563eb";
           msgNode.textContent = "กำลังบันทึกข้อมูลลงคลาวด์...";
 
-          // ค้นหา ID ของตัวแทนปัจจุบันจากหน้าเว็บ
           const urlParams = new URLSearchParams(window.location.search);
           let targetAgentId = urlParams.get('agent');
           
           if (!targetAgentId) {
-            // กรณีล็อกอินเข้ามาผ่านระบบรหัสผ่านหลังบ้าน
             const matchedAgent = agents.find(a => a.name === document.querySelector("#agent-dashboard-name")?.textContent.trim());
             if (matchedAgent) targetAgentId = matchedAgent.id;
           }
@@ -1101,4 +1092,30 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }, 1000);
 });
-} // <--- ปิดฟังก์ชัน renderAgentProfileEdit ตรงนี้ให้ถูกต้อง
+
+document.querySelectorAll("#signup-open, .signup-btn, [href='#signup']").forEach(button => {
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (agentRegisterModal) {
+      agentRegisterModal.hidden = false;
+      checkAgentRoute(); 
+    }
+  });
+});
+
+const mainSignUpBtn = document.querySelector(".nav-links a[href*='sign'], .button-group button:nth-child(1)");
+if (mainSignUpBtn) {
+  mainSignUpBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (agentRegisterModal) { agentRegisterModal.hidden = false; checkAgentRoute(); }
+  });
+}
+
+document.addEventListener("contextmenu", (e) => e.preventDefault());
+document.addEventListener("selectstart", (e) => e.preventDefault());
+document.addEventListener("keydown", (e) => {
+  if (e.keyCode === 123) { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
+});
