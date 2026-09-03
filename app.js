@@ -261,7 +261,7 @@ function applyAgentContact(contact) {
       e.preventDefault();
       let rawPhone = String(contact.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
       let formattedPhone = rawPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
-      alert(`📞 หมายเลขโทรศัพท์ติดต่อเจ้าของขายเอง:\n👉 ${formattedPhone} 👈`);
+      alert(`📞 หมายเลขโทรศัพท์ติดต่อ:\n👉 ${formattedPhone} 👈`);
     };
   }
 
