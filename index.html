@@ -35,6 +35,22 @@
       .admin-modal[hidden] {
         display: none !important;
       }
+      /* จัดแต่งกล่อง Google Translate ให้กลมกลืนกับ Navbar */
+      .goog-te-combo {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        background: #fff;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .goog-logo-link, .goog-te-gadget span {
+        display: none !important;
+      }
+      .goog-te-gadget {
+        color: transparent !important;
+        font-size: 0 !important;
+      }
     </style>
   </head>
   <body>
@@ -52,6 +68,8 @@
         <a class="nav-cta" href="#contact">นัดชมสถานที่</a>
         <button class="admin-trigger" type="button" id="agent-register-open" style="border-color: var(--gold); color: var(--gold);">Sign up</button>
         <button class="admin-trigger" type="button" id="admin-open">Login</button>
+        <!-- 🌐 ปุ่มเลือกภาษา Google Translate -->
+        <div id="google_translate_element" style="display:inline-block; vertical-align:middle; margin-left:5px;"></div>
       </nav>
     </header>
 
@@ -331,5 +349,17 @@
     </footer>
 
     <script src="app.js"></script>
+
+    <!-- 🌐 สคริปต์ Google Translate สำหรับแปล อังกฤษ, จีน, เกาหลี -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'th',
+          includedLanguages: 'en,zh-CN,ko',
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>
