@@ -313,7 +313,7 @@ function applyAgentContact(contact) {
         parentContainer.appendChild(textContactBox);
       }
       
-      let rawPhoneFormatted = String(contact.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+      let rawPhoneFormatted = String(contact.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
       let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
 
       textContactBox.innerHTML = `
@@ -480,7 +480,7 @@ function renderAgentLeads(agentId) {
       
       tableBody.innerHTML = sortedLeads.map(lead => {
         const dateValue = lead.submittedAt || lead.date || "";
-        let rawLeadPhone = String(lead.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+        let rawLeadPhone = String(lead.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
         const formattedLeadPhone = rawLeadPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
         return `<tr style="border-bottom: 1px solid var(--line); color: var(--ink);">
           <td style="padding:14px; font-weight:bold;">${lead.name || '-'}</td>
@@ -506,7 +506,7 @@ function renderSubTeams(agentId) {
     return;
   }
   tableBody.innerHTML = subAgents.map(sa => {
-    let rawSaPhone = String(sa.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+    let rawSaPhone = String(sa.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
     const formattedSaPhone = rawSaPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
     return `<tr style="border-bottom: 1px solid var(--line);">
       <td style="padding:12px; font-weight:bold;">${sa.name}</td>
@@ -699,7 +699,7 @@ function refreshMasterLeads() {
       const reversedMasterLeads = [...data].reverse();
       
       tableBody.innerHTML = reversedMasterLeads.map(lead => {
-        let rawMasterPhone = String(lead.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+        let rawMasterPhone = String(lead.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
         const masterPhoneFormatted = rawMasterPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
         return `
         <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
@@ -749,7 +749,7 @@ function renderAdminAgents() {
     </div>
   ` + sortedAgents.map((agent) => {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
-    let rawAgentPhone = String(agent.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
+    let rawAgentPhone = String(agent.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
     const agentPhoneFormatted = rawAgentPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
       <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
@@ -861,7 +861,14 @@ if (loginButton) {
       return;
     }
 
-    const memberAgent = agents.find(a => String(a.phone).trim() === username && a.status === "approved");
+    // แก้ไขจุดนี้ให้รองรับเบอร์โทรที่มีคอมม่าคั่นหรือมีอักขระพิเศษ
+    const memberAgent = agents.find(a => {
+      let rawDbPhone = String(a.phone || '').trim().split(',')[0].replace(/\D/g, "");
+      let dbPhone10 = rawDbPhone.slice(0, 10);
+      let inputUsername = String(username || '').trim().replace(/\D/g, "").slice(0, 10);
+      return dbPhone10 === inputUsername && a.status === "approved";
+    });
+
     if (memberAgent && password === AGENT_PASSWORD) {
       if (message) message.textContent = ""; 
       if (adminLogin) adminLogin.hidden = true; 
