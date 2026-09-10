@@ -506,7 +506,7 @@ function renderSubTeams(agentId) {
     return;
   }
   tableBody.innerHTML = subAgents.map(sa => {
-    let rawSaPhone = String(sa.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
+    let rawSaPhone = String(sa.phone || '').trim().replace(/\D/g, "").padStart(10, '0');
     const formattedSaPhone = rawSaPhone.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
     return `<tr style="border-bottom: 1px solid var(--line);">
       <td style="padding:12px; font-weight:bold;">${sa.name}</td>
@@ -766,18 +766,31 @@ function renderAdminAgents() {
   }).join("");
 }
 
+// 🌟 ระบบดึงข้อมูลตัวแทนแบบ Cache ใน LocalStorage เพื่อความรวดเร็วระดับเสี้ยววินาที
 async function fetchOnlineAgents() {
+  // โหลดข้อมูลจากแคชในเครื่องมากางรอนำเสนอก่อนทันที เพื่อความไวสูงสุด
+  const cachedAgents = localStorage.getItem(AGENTS_STORAGE_KEY);
+  if (cachedAgents) {
+    try {
+      agents = JSON.parse(cachedAgents);
+      if (adminPanel && !adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
+      else { checkAgentRoute(); }
+    } catch (e) {}
+  }
+
+  // วิ่งไปดึงข้อมูลล่าสุดจาก Google Sheets มาอัปเดตเงียบๆ เบื้องหลัง
   try {
     const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`, { method: "GET" });
     if (response.ok) {
       const onlineAgents = await response.json();
-      if (onlineAgents) { 
-        agents = onlineAgents; 
+      if (onlineAgents && Array.isArray(onlineAgents)) { 
+        agents = onlineAgents;
+        localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(onlineAgents)); // บันทึกแคชใหม่
         if (adminPanel && !adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
         else { checkAgentRoute(); }
       }
     }
-  } catch (err) { console.log(err); }
+  } catch (err) { console.log("ใช้ข้อมูลแคชเดิมชั่วคราวเนื่องจากเครือข่ายขัดข้อง"); }
 }
 
 if (adminAgentsList) {
@@ -788,6 +801,7 @@ if (adminAgentsList) {
       const id = approveBtn.dataset.approve;
       try { 
         await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); 
+        localStorage.removeItem(AGENTS_STORAGE_KEY); // ล้างแคชเพื่อให้ดึงใหม่
         await fetchOnlineAgents();
       } catch(e){}
     }
@@ -796,6 +810,7 @@ if (adminAgentsList) {
       if (confirm("ยืนยันการลบสิทธิ์ตัวแทนรายนี้ออกหรือไม่?")) {
         try { 
           await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); 
+          localStorage.removeItem(AGENTS_STORAGE_KEY); // ล้างแคชเพื่อให้ดึงใหม่
           await fetchOnlineAgents();
         } catch(e){}
       }
@@ -846,8 +861,12 @@ if (loginButton) {
     const password = document.querySelector("#admin-password").value;
     const message = document.querySelector("#login-message");
 
-    if (message) message.textContent = "กำลังเชื่อมต่อคลาวด์เซิร์ฟเวอร์...";
-    await fetchOnlineAgents();
+    if (message) message.textContent = "กำลังตรวจสอบข้อมูลเข้าสู่ระบบ...";
+
+    // หากมีข้อมูลแคชในเครื่องอยู่แล้ว สามารถเช็คได้ทันทีโดยไม่ต้องรอเน็ต
+    if (agents.length === 0) {
+      await fetchOnlineAgents();
+    }
 
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       if (message) message.textContent = ""; 
@@ -861,7 +880,7 @@ if (loginButton) {
       return;
     }
 
-    // แก้ไขจุดนี้ให้รองรับเบอร์โทรที่มีคอมม่าคั่นหรือมีอักขระพิเศษ
+    // ระบบค้นหาเบอร์โทรตัวแทน (รองรับเบอร์ยาวและคอมม่า)
     const memberAgent = agents.find(a => {
       let rawDbPhone = String(a.phone || '').trim().split(',')[0].replace(/\D/g, "");
       let dbPhone10 = rawDbPhone.slice(0, 10);
@@ -1088,6 +1107,7 @@ window.addEventListener("DOMContentLoaded", () => {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(payload)
             });
+            localStorage.removeItem(AGENTS_STORAGE_KEY); // ล้างแคชเพื่อให้ดึงข้อมูลใหม่
             msgNode.style.color = "#16a34a";
             msgNode.textContent = "บันทึกข้อมูลแก้ไขสำเร็จเรียบร้อยแล้วค่ะ!";
             setTimeout(() => { location.reload(); }, 1500);
