@@ -1196,3 +1196,56 @@ document.addEventListener("click", function(e) {
     if (modal) modal.hidden = false;
   }
 });
+function openDetail(id) {
+  const item = properties.find((property) => property.id === id);
+  if (!item) return;
+
+  const detailFeaturesHtml = (item.features || []).map((feature) => `<li>${feature}</li>`).join("");
+  const detailGalleryHtml = (item.images || []).map((image) => `<img src="${image}" alt="${item.title}" loading="lazy" />`).join("");
+  const detailVideoHtml = item.video ? `<iframe src="${item.video}" title="วิดีโอ ${item.title}" allowfullscreen loading="lazy"></iframe>` : "";
+
+  detailPanel.innerHTML = `
+    <div class="detail-shell">
+      <button class="icon-button close-detail" type="button" onclick="document.querySelector('#detail-panel').hidden = true;" aria-label="ปิดรายละเอียด">×</button>
+      <div class="detail-gallery">${detailGalleryHtml}</div>
+      <div class="detail-copy">
+        <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
+        <h2>${item.title}</h2>
+        <p class="detail-location">${item.location}</p>
+        <p class="detail-price">${item.price}</p>
+        <p style="white-space: pre-line;">${item.description}</p>
+        <ul class="feature-list">${detailFeaturesHtml}</ul>
+        <div class="video-wrap">${detailVideoHtml}</div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
+          <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
+          
+          <button class="button neutral" type="button" id="copy-link-btn" style="width:100%; border:1px solid var(--gold); color:var(--gold); background:#fff;">📋 คัดลอกลิงก์แปลงนี้</button>
+
+          <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const copyBtn = detailPanel.querySelector("#copy-link-btn");
+  if (copyBtn) {
+    copyBtn.onclick = function() {
+      const shareUrl = window.location.origin + window.location.pathname + '?agent=' + (currentAgent ? currentAgent.id : 'master') + '&property=' + item.id;
+      
+      const tempInput = document.createElement('textarea');
+      tempInput.value = shareUrl;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        alert('📋 คัดลอกลิงก์แปลงนี้สำเร็จ!\nสามารถนำไปส่งให้ลูกค้าได้ทันที');
+      } catch (err) {
+        alert('ไม่สามารถคัดลอกอัตโนมัติได้ ลิงก์คือ: ' + shareUrl);
+      }
+      document.body.removeChild(tempInput);
+    };
+  }
+
+  detailPanel.hidden = false;
+  detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+}
