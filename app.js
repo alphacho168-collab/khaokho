@@ -388,12 +388,23 @@ function openDetail(id) {
         <div class="video-wrap">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
           <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
+          
+          <!-- ปุ่มคัดลอกลิงก์แปลงนี้แบบรองรับทุกอุปกรณ์ (Fallback รองรับมือถือและคอมพิวเตอร์ 100%) -->
           <button class="button neutral" type="button" style="width:100%; border:1px solid var(--gold); color:var(--gold); background:#fff;" onclick="
             const shareUrl = window.location.origin + window.location.pathname + '?agent=' + (currentAgent ? currentAgent.id : 'master') + '&property=${item.id}';
-            navigator.clipboard.writeText(shareUrl).then(() => {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = shareUrl;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+              document.execCommand('copy');
               alert('📋 คัดลอกลิงก์แปลงนี้สำเร็จ!\nสามารถนำไปส่งให้ลูกค้าได้ทันที');
-            });
+            } catch (err) {
+              alert('ไม่สามารถคัดลอกอัตโนมัติได้ ลิงก์คือ: ' + shareUrl);
+            }
+            document.body.removeChild(tempInput);
           ">📋 คัดลอกลิงก์แปลงนี้</button>
+
           <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
         </div>
       </div>
