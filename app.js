@@ -164,7 +164,7 @@ const demoProperties = [
     title: "𝑮𝒓and 𝑷𝒐𝒐𝒍 𝑽𝒊𝒍𝒍𝒂 𝑲𝒉𝒂𝒐 𝑲𝒉𝒐 | พูลวิลล่าหรูเพื่อการพักผ่อนและการลงทุน",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "8,900,000 บาท",
-    description: "พูลวิลล่าสุดหรู ที่ไม่ได้เป็นแค่ “บ้านพัก” แต่คือ “สินทรัพย์แห่งการใช้ชีวิตและการลงทุน”\n\n✅ ทักแชท เพื่อรับข้อเสนอพิเศษ\n\nโอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น🔥\n✅ สร้างรายได้กระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำหรูสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย\n- ห้องครัวยุโรปโมเดิร์น\n- สระว่ายน้ำส่วนตัว ขนาดใหญ่ 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน",
+    description: "พูลวิล่าสุดหรู ที่ไม่ได้เป็นแค่ “บ้านพัก” แต่คือ “สินทรัพย์แห่งการใช้ชีวิตและการลงทุน”\n\n✅ ทักแชท เพื่อรับข้อเสนอพิเศษ\n\nโอกาสสุดพิเศษกับพูลวิลล่าบนทำเลวิวทะเลหมอก “เขาค้อ-วิวกังหันลม” สัมผัสนิยามใหม่ของการใช้ชีวิตท่ามกลางธรรมชาติ บ้านระดับ Luxury บนทำเลเขาค้อที่งดงามและเป็นส่วนตัว โอบล้อมด้วยขุนเขา อากาศบริสุทธิ์ และบรรยากาศที่ให้คุณพักผ่อนได้ทุกฤดูกาล\n\n✅ มีเพียง 5 หลังสุดท้ายเท่านั้น🔥\n✅ สร้างรายได้กระแสเงินสดรายวัน (มีสถิติการเข้าพักรองรับ)\n✅ จำนวนจำกัด\n\n💎 ฟังก์ชันครบ ตอบโจทย์ทั้งอยู่อาศัยและปล่อยเช่า\n- 4 ห้องนอน (พร้อม Master Bedroom สุดหรู)\n- 5 ห้องน้ำ พร้อมอ่างอาบน้ำหรูสำหรับพักผ่อน\n- ห้องโถงขนาดใหญ่ ดีไซน์โปร่ง โล่ง สบาย\n- ห้องครัวยุโรปโมเดิร์น\n- สระว่ายน้ำส่วนตัว ขนาดใหญ่ 8.2 x 3.2 ม.\n- ลานหน้าบ้านกว้างขวาง สามารถจอดรถได้หลายคัน",
     features: ["4 ห้องนอน", "5 ห้องน้ำ", "สระว่ายน้ำส่วนตัว", "ห้องโถงใหญ่", "วิวกังหันลม"],
     images: [
       "images/villa/G1.jpg",
@@ -388,6 +388,12 @@ function openDetail(id) {
         <div class="video-wrap">${detailVideoHtml}</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
           <button class="button primary" id="popup-interest-cta" type="button" style="width:100%;" onclick="document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'}); document.querySelector('#detail-panel').hidden = true;">สนใจทรัพย์นี้</button>
+          <button class="button neutral" type="button" style="width:100%; border:1px solid var(--gold); color:var(--gold); background:#fff;" onclick="
+            const shareUrl = window.location.origin + window.location.pathname + '?agent=' + (currentAgent ? currentAgent.id : 'master') + '&property=${item.id}';
+            navigator.clipboard.writeText(shareUrl).then(() => {
+              alert('📋 คัดลอกลิงก์แปลงนี้สำเร็จ!\nสามารถนำไปส่งให้ลูกค้าได้ทันที');
+            });
+          ">📋 คัดลอกลิงก์แปลงนี้</button>
           <button class="button neutral" onclick="document.querySelector('#detail-panel').hidden = true;" type="button" style="width:100%; background:#eaeaea; color:#333;">ปิดหน้าต่างนี้</button>
         </div>
       </div>
@@ -768,29 +774,38 @@ function renderAdminAgents() {
 
 // 🌟 ระบบดึงข้อมูลตัวแทนแบบ Cache ใน LocalStorage เพื่อความรวดเร็วระดับเสี้ยววินาที
 async function fetchOnlineAgents() {
-  // โหลดข้อมูลจากแคชในเครื่องมากางรอนำเสนอก่อนทันที เพื่อความไวสูงสุด
   const cachedAgents = localStorage.getItem(AGENTS_STORAGE_KEY);
   if (cachedAgents) {
     try {
       agents = JSON.parse(cachedAgents);
       if (adminPanel && !adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
-      else { checkAgentRoute(); }
+      else { checkAgentRoute(); checkPropertyRoute(); }
     } catch (e) {}
   }
 
-  // วิ่งไปดึงข้อมูลล่าสุดจาก Google Sheets มาอัปเดตเงียบๆ เบื้องหลัง
   try {
     const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getAgents`, { method: "GET" });
     if (response.ok) {
       const onlineAgents = await response.json();
       if (onlineAgents && Array.isArray(onlineAgents)) { 
         agents = onlineAgents;
-        localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(onlineAgents)); // บันทึกแคชใหม่
+        localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(onlineAgents));
         if (adminPanel && !adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
-        else { checkAgentRoute(); }
+        else { checkAgentRoute(); checkPropertyRoute(); }
       }
     }
   } catch (err) { console.log("ใช้ข้อมูลแคชเดิมชั่วคราวเนื่องจากเครือข่ายขัดข้อง"); }
+}
+
+// 🌟 ระบบตรวจสอบ URL เพื่อเปิดหน้าต่างทรัพย์แปลงที่ส่งให้ลูกค้าอัตโนมัติ (Deep Linking)
+function checkPropertyRoute() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const propertyId = urlParams.get('property');
+  if (propertyId) {
+    setTimeout(() => {
+      openDetail(propertyId);
+    }, 300);
+  }
 }
 
 if (adminAgentsList) {
@@ -801,7 +816,7 @@ if (adminAgentsList) {
       const id = approveBtn.dataset.approve;
       try { 
         await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); 
-        localStorage.removeItem(AGENTS_STORAGE_KEY); // ล้างแคชเพื่อให้ดึงใหม่
+        localStorage.removeItem(AGENTS_STORAGE_KEY);
         await fetchOnlineAgents();
       } catch(e){}
     }
@@ -810,7 +825,7 @@ if (adminAgentsList) {
       if (confirm("ยืนยันการลบสิทธิ์ตัวแทนรายนี้ออกหรือไม่?")) {
         try { 
           await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); 
-          localStorage.removeItem(AGENTS_STORAGE_KEY); // ล้างแคชเพื่อให้ดึงใหม่
+          localStorage.removeItem(AGENTS_STORAGE_KEY);
           await fetchOnlineAgents();
         } catch(e){}
       }
@@ -863,7 +878,6 @@ if (loginButton) {
 
     if (message) message.textContent = "กำลังตรวจสอบข้อมูลเข้าสู่ระบบ...";
 
-    // หากมีข้อมูลแคชในเครื่องอยู่แล้ว สามารถเช็คได้ทันทีโดยไม่ต้องรอเน็ต
     if (agents.length === 0) {
       await fetchOnlineAgents();
     }
@@ -880,7 +894,6 @@ if (loginButton) {
       return;
     }
 
-    // ระบบค้นหาเบอร์โทรตัวแทน (รองรับเบอร์ยาวและคอมม่า)
     const memberAgent = agents.find(a => {
       let rawDbPhone = String(a.phone || '').trim().split(',')[0].replace(/\D/g, "");
       let dbPhone10 = rawDbPhone.slice(0, 10);
@@ -1031,6 +1044,7 @@ window.addEventListener("DOMContentLoaded", () => {
   renderProperties();
   fetchOnlineAgents().then(() => {
     checkAgentRoute();
+    checkPropertyRoute();
   });
 
   // ระบบแก้ไขข้อมูลส่วนตัวตัวแทน
@@ -1107,7 +1121,7 @@ window.addEventListener("DOMContentLoaded", () => {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(payload)
             });
-            localStorage.removeItem(AGENTS_STORAGE_KEY); // ล้างแคชเพื่อให้ดึงข้อมูลใหม่
+            localStorage.removeItem(AGENTS_STORAGE_KEY);
             msgNode.style.color = "#16a34a";
             msgNode.textContent = "บันทึกข้อมูลแก้ไขสำเร็จเรียบร้อยแล้วค่ะ!";
             setTimeout(() => { location.reload(); }, 1500);
