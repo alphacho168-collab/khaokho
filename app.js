@@ -366,15 +366,30 @@ if (propertyContainer) {
   });
 }
 
+// 🌟 ปรับปรุงฟอร์มสมัครตัวแทน: ล็อกปุ่มกดกันเบิ้ลและแสดงสถานะกำลังโหลด
 if (agentRegisterForm) {
   agentRegisterForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    
+    const submitBtn = agentRegisterForm.querySelector("button[type='submit']");
+    const originalBtnText = submitBtn ? submitBtn.textContent : "ส่งข้อมูล";
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "กำลังอัปโหลดและบันทึกข้อมูล...";
+    }
+
     regMessage.style.color = "var(--forest)";
     regMessage.textContent = "กำลังส่งข้อมูลลงทะเบียนเว็บลูก...";
 
     const fileInput = document.querySelector("#reg-slip").files[0];
     let slipBase64 = "";
-    if (fileInput) slipBase64 = await fileToBase64(fileInput);
+    if (fileInput) {
+      try {
+        slipBase64 = await fileToBase64(fileInput);
+      } catch (e) {
+        console.error("แปลงไฟล์สลิปไม่สำเร็จ", e);
+      }
+    }
 
     const newAgent = {
       id: "", 
@@ -388,17 +403,39 @@ if (agentRegisterForm) {
     };
 
     try {
-      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newAgent) });
+      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
+        method: "POST", 
+        mode: "no-cors", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(newAgent) 
+      });
       regMessage.textContent = "ส่งเอกสารลงทะเบียนเรียบร้อยแล้วค่ะ รอแอดมินอนุมัติสิทธิ์ระบบ";
       agentRegisterForm.reset();
       await fetchOnlineAgents();
-    } catch (err) { console.error(err); }
+    } catch (err) { 
+      console.error(err);
+      regMessage.style.color = "var(--danger)";
+      regMessage.textContent = "เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง";
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
   });
 }
 
+// 🌟 ปรับปรุงฟอร์มลงทะเบียนลูกค้า: ล็อกปุ่มกดกันเบิ้ลและแสดงสถานะกำลังโหลด
 if (leadForm) {
   leadForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    
+    const submitBtn = leadForm.querySelector("button[type='submit']");
+    const originalBtnText = submitBtn ? submitBtn.textContent : "ส่งข้อมูล";
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "กำลังบันทึกข้อมูล...";
+    }
     
     const activeAgentId = leadForm.getAttribute("data-agent-id") || (currentAgent ? currentAgent.id : "master");
 
@@ -418,14 +455,23 @@ if (leadForm) {
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(lead) 
       });
+      
       leadMessage.classList.remove("error");
+      leadMessage.style.color = "var(--forest)";
       leadMessage.textContent = "บันทึกข้อมูลออนไลน์เรียบร้อย ทีมงานจะติดต่อกลับโดยเร็ว";
       leadForm.reset();
       
       leadForm.setAttribute("data-agent-id", activeAgentId);
       renderAgentLeads(activeAgentId);
-    } catch { 
-      leadMessage.classList.add("error"); 
+    } catch (err) { 
+      leadMessage.classList.add("error");
+      leadMessage.style.color = "var(--danger)";
+      leadMessage.textContent = "เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง";
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
     }
   });
 }
