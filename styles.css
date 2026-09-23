@@ -948,14 +948,14 @@ table th, table td {
 }
 
 /* ======================================================= */
-/* 🌟 ออกแบบระบบ Dropdown สำหรับ Sign Up และ Login บนมือถือ 🌟 */
+/* 🌟 ปรับปรุงการจัดเรียงเมนูบนมือให้อยู่แถวเดียวกันพอดี 🌟 */
 /* ======================================================= */
 @media (max-width: 980px) {
   .site-header {
     flex-direction: column; 
     align-items: center;    
-    gap: 16px;              
-    padding: 16px 20px;
+    gap: 12px;              
+    padding: 12px 16px;
     background: #f7f5ee;
   }
 
@@ -965,14 +965,14 @@ table th, table td {
     align-items: center;
     width: 100%;
     min-width: auto;
-    gap: 14px;
+    gap: 12px;
   }
 
   .brand-logo {
     display: block !important;
     visibility: visible !important;
-    width: 70px !important;  
-    height: 70px !important;
+    width: 60px !important;  
+    height: 60px !important;
     opacity: 1 !important;
   }
 
@@ -980,59 +980,27 @@ table th, table td {
     text-align: left;
   }
 
+  /* 🌟 บีบระยะห่างและบังคับให้ทุกปุ่มอยู่ในบรรทัดเดียวกัน ไม่ให้ตกลงไปแถวสอง 🌟 */
   .nav-links {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; 
-    gap: 10px; 
-    padding-bottom: 4px;
+    flex-wrap: nowrap !important; 
+    gap: 6px !important; 
+    padding-bottom: 2px;
   }
 
   .nav-links a:not(.nav-cta) {
-    font-size: 14px;
+    font-size: 13px;
     white-space: nowrap;
   }
 
-  /* 🌟 แปลง Sign Up และ Login ให้ยุบรวมเป็นเมนูดรอปดาวน์ประหยัดพื้นที่ 🌟 */
   .nav-cta, .admin-trigger {
-    font-size: 13px;
-    padding: 6px 10px;
-    min-height: 32px;
-  }
-
-  /* สร้างคลาส Dropdown สำหรับมือถือ */
-  .auth-dropdown {
-    position: relative;
-    display: inline-block;
-  }
-
-  .auth-dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #ffffff;
-    min-width: 120px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    z-index: 50;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .auth-dropdown-content a, .auth-dropdown-content button {
-    color: var(--ink);
-    padding: 10px 14px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-size: 13px;
-  }
-
-  /* เปิดแสดงเมื่อกดหรือโฟกัส */
-  .auth-dropdown:hover .auth-dropdown-content,
-  .auth-dropdown:focus-within .auth-dropdown-content {
-    display: block;
+    font-size: 12px;
+    padding: 5px 8px;
+    min-height: 30px;
+    white-space: nowrap;
   }
 
   .intro-band {
