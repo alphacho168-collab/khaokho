@@ -981,15 +981,18 @@ table th, table td {
     text-align: left;
   }
 
+  /* 🌟 แก้ไขเพิ่มเติม: ให้แถบเมนูด้านบนรองรับการเลื่อนปัดซ้าย-ขวาบนมือถือ ป้องกันไม่ให้ปุ่ม Google Translate ตกขอบ 🌟 */
   .nav-links {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: nowrap; 
-    gap: max(8px, 2vw); 
-    padding-bottom: 0;
-    overflow-x: visible;
+    gap: 12px; 
+    padding-bottom: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
   }
 
   .nav-links a:not(.nav-cta) {
@@ -1001,6 +1004,7 @@ table th, table td {
     padding: 8px 12px;
     font-size: 13px;
     border-radius: 6px;
+    white-space: nowrap;
   }
 
   .admin-trigger {
@@ -1008,6 +1012,7 @@ table th, table td {
     padding: 6px 10px;
     font-size: 13px;
     border-radius: 6px;
+    white-space: nowrap;
   }
 
   .intro-band {
