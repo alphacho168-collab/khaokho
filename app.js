@@ -177,7 +177,7 @@ const demoProperties = [
   }
 ];
 
-let properties = loadProperties();
+let properties = [];
 let agents = []; 
 let activeFilter = "all";
 let currentAgent = null;
@@ -202,26 +202,58 @@ function createId() {
   return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-function loadProperties() {
+// 🌟 ระบบดึงข้อมูลทรัพย์สินจาก Google Sheets (ออนไลน์)
+async function loadProperties() {
+  try {
+    const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getProperties`);
+    if (response.ok) {
+      const onlineProps = await response.json();
+      if (onlineProps && Array.isArray(onlineProps) && onlineProps.length > 0) {
+        properties = onlineProps;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(onlineProps));
+        renderProperties();
+        renderAdminItems();
+        refreshDashboardStats();
+        return;
+      }
+    }
+  } catch (e) {
+    console.log("ใช้ข้อมูลแคช LocalStorage ชั่วคราว");
+  }
+
+  // หากดึงออนไลน์ไม่ได้ ให้ใช้ LocalStorage หรือ Demo
   const saved = localStorage.getItem(STORAGE_KEY);
   if (!saved) { 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties)); 
-    return [...demoProperties]; 
-  }
-  try { 
-    const parsed = JSON.parse(saved);
-    if (!parsed || !Array.isArray(parsed) || parsed.length === 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties));
-      return [...demoProperties];
+    properties = [...demoProperties];
+    savePropertiesToCloud();
+  } else {
+    try { 
+      const parsed = JSON.parse(saved);
+      properties = (parsed && Array.isArray(parsed) && parsed.length > 0) ? parsed : [...demoProperties];
+    } catch { 
+      properties = [...demoProperties]; 
     }
-    return parsed;
-  } catch { 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(demoProperties));
-    return [...demoProperties]; 
+  }
+  renderProperties();
+  renderAdminItems();
+  refreshDashboardStats();
+}
+
+// 🌟 ระบบบันทึกข้อมูลทรัพย์สินขึ้น Google Sheets (ออนไลน์)
+async function savePropertiesToCloud() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
+  try {
+    await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "save_properties", properties: properties })
+    });
+  } catch (e) {
+    console.error("ไม่สามารถบันทึกข้อมูลทรัพย์สินลงคลาวด์ได้", e);
   }
 }
 
-function saveProperties() { localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); }
 function propertyTypeLabel(type) { return type === "land" ? "ที่ดิน" : "พูลวิลล่า"; }
 
 function splitList(value) { 
@@ -366,7 +398,6 @@ if (propertyContainer) {
   });
 }
 
-// โค้ดเดิมของพี่ Get เพิ่มเติมแค่ปุ่มล็อกกันกดซ้ำเพื่อให้ส่งข้อมูลลื่นไหลขึ้น
 if (agentRegisterForm) {
   agentRegisterForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -742,7 +773,6 @@ function renderAdminAgents() {
   }).join("");
 }
 
-// 🌟 ระบบดึงข้อมูลตัวแทนแบบ Cache ใน LocalStorage เพื่อความรวดเร็วระดับเสี้ยววินาที
 async function fetchOnlineAgents() {
   const cachedAgents = localStorage.getItem(AGENTS_STORAGE_KEY);
   if (cachedAgents) {
@@ -767,7 +797,6 @@ async function fetchOnlineAgents() {
   } catch (err) { console.log("ใช้ข้อมูลแคชเดิมชั่วคราวเนื่องจากเครือข่ายขัดข้อง"); }
 }
 
-// 🌟 ระบบตรวจสอบ URL เพื่อเปิดหน้าต่างทรัพย์แปลงที่ส่งให้ลูกค้าอัตโนมัติ (Deep Linking)
 function checkPropertyRoute() {
   const urlParams = new URLSearchParams(window.location.search);
   const propertyId = urlParams.get('property');
@@ -936,7 +965,7 @@ if (propertyForm) {
       alert("เพิ่มข้อมูลทรัพย์สินใหม่เรียบร้อยแล้ว!");
     }
 
-    saveProperties();
+    savePropertiesToCloud();
     renderProperties();
     renderAdminItems();
     resetForm();
@@ -956,7 +985,7 @@ if (adminItems) {
     if (deleteBtn) {
       if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบทรัพย์รายการนี้ออกจากระบบ?")) {
         properties = properties.filter((p) => p.id !== deleteBtn.dataset.delete);
-        saveProperties();
+        savePropertiesToCloud();
         renderProperties();
         renderAdminItems();
         refreshDashboardStats();
@@ -995,7 +1024,7 @@ if (restoreBtn) {
   restoreBtn.addEventListener("click", () => {
     if (confirm("คุณต้องการล้างข้อมูลทั้งหมดเพื่อกลับไปใช้ข้อมูลทรัพย์ตัวอย่างใช่หรือไม่?")) {
       properties = [...demoProperties];
-      saveProperties();
+      savePropertiesToCloud();
       renderProperties();
       renderAdminItems();
       resetForm();
@@ -1004,20 +1033,18 @@ if (restoreBtn) {
   });
 }
 
-// เริ่มต้นโหลดหน้าเว็บและแสดงผลรายการทรัพย์สินอย่างปลอดภัย
 if (adminModal) adminModal.hidden = true;
 if (agentRegisterModal) agentRegisterModal.hidden = true;
 const slipModal = document.querySelector("#slip-preview-modal");
 if (slipModal) slipModal.hidden = true;
 
 window.addEventListener("DOMContentLoaded", () => {
-  renderProperties();
+  loadProperties();
   fetchOnlineAgents().then(() => {
     checkAgentRoute();
     checkPropertyRoute();
   });
 
-  // ระบบแก้ไขข้อมูลส่วนตัวตัวแทน
   setTimeout(() => {
     const dashboardPanel = document.querySelector("#agent-dashboard-panel");
     if (dashboardPanel && !document.querySelector("#agent-edit-profile-box")) {
@@ -1132,7 +1159,6 @@ document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
 });
 
-// --- ระบบดักคลิกปุ่ม Sign up และ Login แบบครอบคลุม ป้องกันปุ่มกดไม่ติด (100%) ---
 document.addEventListener("click", function(e) {
   const target = e.target.closest("button, a");
   if (!target) return;
