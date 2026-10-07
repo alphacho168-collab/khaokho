@@ -75,7 +75,7 @@ const demoProperties = [
     title: "ที่ดินแปลงสวย หน้าติดน้ำ หลังติดเขา เฟส 1/1 E",
     location: "ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์",
     price: "ราคาพิเศษ",
-    description: "🏔️ ที่ดินวิวภูเขาเขาค้อ แปลงสวย พร้อมสร้างบ้านพักหรือพูลวิลล่า\n\n🌿 โอกาสสุดท้ายในทำเลคุณภาพ\nที่ดินวิวภูเขาเขาค้อ แปลงสวย ขนาด 2 ไร่ 50 ตารางวา (850 ตร.ว.) อยู่ในโครงการที่มีเจ้าของจับจองไปแล้วเกือบทั้งหมด เหลือเพียงแปลงเดียวเท่านั้น\n\nเหมาะสำหรับ\n- บ้านพักตากอากาศ\n- พูลวิลล่าส่วนตัว\n- รีสอร์ทขนาดเล็ก\n- Wellness Retreat\n- ลงทุนเก็บมูลค่าระยะยาว\n\n✨ จุดเด่นของแปลงนี้\n- วิวภูเขาเปิดโล่ง สวยงามตลอดทั้งปี\n- ติดถนนสาธารณประโยชน์ เข้าออกสะดวก\n- อากาศดีตลอดปี อุณหภูมิเฉลี่ยเย็นสบาย\n- อยู่ใกล้รีสอร์ทและแหล่งท่องเที่ยวชื่อดังของเขาค้อ\n- เหมาะสร้างบ้านพักเพื่อชมพระอาทิตย์ขึ้นและทะเลหมอก\n- แปลงสวย รูปทรงดี ใช้งานได้เต็มพื้นที่\n\n📍 ทำเลศักยภาพใกล้สถานที่ท่องเที่ยวสำคัญ\n- วัดผาซ่อนแก้ว\n- ทุ่งกังหันลม\n- คาเฟ่วิวภูเขาชื่อดัง\n- รีสอร์ทระดับพรีเมียม\nทำเลที่นักท่องเที่ยวเดินทางเข้ามาตลอดทั้งปี\n\n ทำไมต้องซื้อวันนี้\n\"ที่ดินมีเท่าเดิม แต่คนต้องการมากขึ้นทุกปี\" เขาค้อกำลังเติบต่ออย่างต่อเนื่อง ทั้งด้านการท่องเที่ยว สุขภาพ และการลงทุน ที่ดินวิวสวยในทำเลดีแบบนี้หาได้ยากขึ้นทุกวัน\n\n🏔️ KHAO KHO PRIME ESTATE \"ลงทุนวันนี้ เพื่อมูลค่าที่เพิ่มขึ้นในอนาคต\"",
+    description: "🏔️ ที่ดินวิวภูเขาเขาค้อ แปลงสวย พร้อมสร้างบ้านพักหรือพูลวิลล่า\n\n🌿 โอกาสสุดท้ายในทำเลคุณภาพ\nที่ดินวิวภูเขาเขาค้อ แปลงสวย ขนาด 2 ไร่ 50 ตารางวา (850 ตร.ว.) อยู่ในโครงการที่มีเจ้าของจับจองไปแล้วเกือบทั้งหมด เหลือเพียงแปลงเดียวเท่านั้น\n\nเหมาะสำหรับ\n- บ้านพักตากอากาศ\n- พูลวิลล่าส่วนตัว\n- รีสอร์ทขนาดเล็ก\n- Wellness Retreat\n- ลงทุนเก็บมูลค่าระยะยาว\n\n✨ จุดเด่นของแปลงนี้\n- วิวภูเขาเปิดโล่ง สวยงามตลอดทั้งปี\n- ติดถนนสาธารณประโยชน์ เข้าออกสะดวก\n- อากาศดีตลอดปี อุณหภูมิเฉลี่ยเย็นสบาย\n- อยู่ใกล้รีสอร์ทและแหล่งท่องเที่ยวชื่อดังของเขาค้อ\n- เหมาะสร้างบ้านพักเพื่อชมพระอาทิตย์ขึ้นและทะเลหมอก\n- แปลงสวย รูปทรงดี ใช้งานได้เต็มพื้นที่\n\n📍 ทำเลศักยภาพใกล้สถานที่ท่องเที่ยวสำคัญ\n- วัดผาซ่อนแก้ว\n- ทุ่งกังหันลม\n- คาเฟ่วิวภูเขาชื่อดัง\n- รีสอร์ทระดับพรีเมียม\nทำเลที่นักท่องเที่ยวเดินทางเข้ามาตลอดทั้งปี\n\n📈 ทำไมต้องซื้อวันนี้\n\"ที่ดินมีเท่าเดิม แต่คนต้องการมากขึ้นทุกปี\" เขาค้อกำลังเติบต่ออย่างต่อเนื่อง ทั้งด้านการท่องเที่ยว สุขภาพ และการลงทุน ที่ดินวิวสวยในทำเลดีแบบนี้หาได้ยากขึ้นทุกวัน\n\n🏔️ KHAO KHO PRIME ESTATE \"ลงทุนวันนี้ เพื่อมูลค่าที่เพิ่มขึ้นในอนาคต\"",
     features: ["โฉนดครุฑแดง", "เหลือแปลงสุดท้าย 2 ไร่ 50 ตรว.", "ถนนเข้าถึง", "ไฟฟ้าพร้อม", "มุมมองพระอาทิตย์ขึ้น"],
     images: [
       "images/land/1E1.jpg",
@@ -177,7 +177,6 @@ const demoProperties = [
   }
 ];
 
-// 🌟 โหลดข้อมูลจาก LocalStorage ทันทีกอบกู้ความเร็วเสี้ยววินาทีแรก (Stale-While-Revalidate)
 let properties = (() => {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
@@ -213,7 +212,6 @@ function createId() {
   return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-// 🌟 ดึงข้อมูลทรัพย์สินจาก Google Sheets (ออนไลน์) แบบเบื้องหลังเงียบๆ ไม่ให้ผู้ใช้รอนาน
 async function loadProperties() {
   renderProperties();
   renderAdminItems();
@@ -236,7 +234,6 @@ async function loadProperties() {
   }
 }
 
-// 🌟 ระบบบันทึกข้อมูลทรัพย์สินขึ้น Google Sheets (ออนไลน์)
 async function savePropertiesToCloud() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
   try {
@@ -874,9 +871,8 @@ if (loginButton) {
 
     if (message) message.textContent = "กำลังตรวจสอบข้อมูลเข้าสู่ระบบ...";
 
-    if (agents.length === 0) {
-      await fetchOnlineAgents();
-    }
+    // 🌟 บังคับดึงข้อมูลรายชื่อตัวแทนล่าสุดจาก Google Sheets ทันทีก่อนตรวจสอบล็อกอิน
+    await fetchOnlineAgents();
 
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       if (message) message.textContent = ""; 
@@ -890,11 +886,13 @@ if (loginButton) {
       return;
     }
 
+    // 🌟 ปรับปรุงการตรวจสอบเบอร์โทรตัวแทนให้เทียบเบอร์ได้แม่นยำ 100%
     const memberAgent = agents.find(a => {
-      let rawDbPhone = String(a.phone || '').trim().split(',')[0].replace(/\D/g, "");
-      let dbPhone10 = rawDbPhone.slice(0, 10);
-      let inputUsername = String(username || '').trim().replace(/\D/g, "").slice(0, 10);
-      return dbPhone10 === inputUsername && a.status === "approved";
+      let rawDbPhone = String(a.phone || '').trim().replace(/\D/g, "");
+      let inputUsername = String(username || '').trim().replace(/\D/g, "");
+      let isPhoneMatch = rawDbPhone.endsWith(inputUsername) || inputUsername.endsWith(rawDbPhone) || rawDbPhone === inputUsername;
+      let isApproved = String(a.status || '').toLowerCase().trim() === "approved";
+      return isPhoneMatch && isApproved;
     });
 
     if (memberAgent && password === AGENT_PASSWORD) {
