@@ -234,7 +234,6 @@ async function loadProperties() {
   }
 }
 
-// 🌟 ปรับปรุงระบบบันทึกข้อมูลให้เสถียรและป้องกันข้อมูลเก่าตีกลับ
 async function savePropertiesToCloud() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
   try {
@@ -377,7 +376,7 @@ function renderProperties() {
         <div class="card-body">
           <h3>${item.title}</h3>
           <p class="location">${item.location}</p>
-          <p class="price">${item.price}</p>
+          <p class="price">ราคาพิเศษ</p>
           <div class="mini-features">${features}</div>
           <button class="button neutral" type="button" data-detail="${item.id}">ดูรายละเอียด</button>
         </div>
@@ -928,7 +927,7 @@ function renderAdminItems() {
       <img src="${item.images?.[0] || 'khao-kho-hero.png'}" style="width:80px; height:60px; object-fit:cover; border-radius:6px;" /> 
       <div> 
         <h4 style="margin:0 0 4px 0;">${item.title}</h4> 
-        <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ${item.price}</p> 
+        <p style="margin:0 0 6px 0; font-size:13px; color:var(--muted);">${propertyTypeLabel(item.type)} · ราคาพิเศษ</p> 
         <div class="admin-actions"> 
           <button class="button neutral" type="button" data-edit="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">แก้ไข</button> 
           <button class="button danger" type="button" data-delete="${item.id}" style="padding:4px 8px; font-size:12px; min-height:auto;">ลบ</button> 
@@ -943,7 +942,7 @@ if (propertyForm) {
     event.preventDefault();
     const id = document.querySelector("#property-id").value;
     const type = document.querySelector("#property-type").value;
-    const price = document.querySelector("#property-price").value.trim();
+    const price = "ราคาพิเศษ";
     const title = document.querySelector("#property-title").value.trim();
     const location = document.querySelector("#property-location").value.trim();
     const description = document.querySelector("#property-description").value.trim();
@@ -991,7 +990,7 @@ if (adminItems) {
 function fillForm(item) { 
   document.querySelector("#property-id").value = item.id; 
   document.querySelector("#property-type").value = item.type; 
-  document.querySelector("#property-price").value = item.price; 
+  document.querySelector("#property-price").value = "ราคาพิเศษ"; 
   document.querySelector("#property-title").value = item.title; 
   document.querySelector("#property-location").value = item.location; 
   document.querySelector("#property-description").value = item.description; 
@@ -1192,7 +1191,7 @@ function openDetail(id) {
         <p class="section-kicker">${propertyTypeLabel(item.type)}</p>
         <h2>${item.title}</h2>
         <p class="detail-location">${item.location}</p>
-        <p class="detail-price">${item.price}</p>
+        <p class="detail-price">ราคาพิเศษ</p>
         <p style="white-space: pre-line;">${item.description}</p>
         <ul class="feature-list">${detailFeaturesHtml}</ul>
         <div class="video-wrap">${detailVideoHtml}</div>
