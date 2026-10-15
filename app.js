@@ -754,7 +754,7 @@ function renderAdminAgents() {
     const agentId = agent.id ? String(agent.id) : '';
 
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
-      <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agentStatus === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
+      <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span id="status-text-${agentId}" style="color:${agentStatus === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
       โทร: ${agentPhoneFormatted} | Line: ${agent.line}<br>
       <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
       <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
@@ -763,14 +763,14 @@ function renderAdminAgents() {
       </div>
       <div style="margin-top:10px; display:flex; gap:8px;">
         ${agent.slip ? `<button class="button neutral" onclick="viewSlipInModal('\${agent.slip}')" type="button" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
-        ${agentStatus === 'pending' ? `<button class="button primary" id="btn-approve-${agentId}" type="button" onclick="approveAgent('${agentId}')" style="min-height:30px; padding:4px 8px; font-size:12px; cursor:pointer;">อนุมัติเปิดระบบ</button>` : ''}
+        <button class="button primary" id="btn-approve-${agentId}" type="button" onclick="approveAgent('${agentId}')" style="min-height:30px; padding:4px 8px; font-size:12px; cursor:pointer; display: ${agentStatus === 'approved' ? 'none' : 'inline-block'};">อนุมัติเปิดระบบ</button>
         <button class="button danger" type="button" onclick="deleteAgent('${agentId}')" style="min-height:30px; padding:4px 8px; font-size:12px; cursor:pointer;">ลบ</button>
       </div>
     </div>`;
   }).join("");
 }
 
-// 🌟 แก้ไขฟังก์ชันอนุมัติให้แสดงลิงก์ทันทีโดยไม่ต้องรีเฟรชหน้าจอ
+// 🌟 ฟังก์ชันอนุมัติที่เชื่อมต่อ Google Sheets พร้อมแสดงลิงก์ทันทีโดยไม่ต้องรีเฟรช
 async function approveAgent(id) {
   try {
     await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
@@ -780,35 +780,30 @@ async function approveAgent(id) {
       body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) 
     }); 
     
-    // อัปเดตข้อมูลตัวแทนในหน่วยความจำทันที
+    // อัปเดตข้อมูลในแคชท้องถิ่นทันที
     const target = agents.find(a => a.id === id);
     if (target) {
       target.status = "approved";
       localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(agents));
     }
 
-    // เปลี่ยนหน้าจอ DOM ของตัวแทนรายนั้นให้แสดงลิงก์ทันทีโดยไม่ต้องรอโหลดใหม่
-    const cardNode = document.querySelector(`button[onclick="approveAgent('${id}')"]`);
-    if (cardNode) {
-      const parentDiv = cardNode.closest("div").parentNode;
-      const statusSpan = parentDiv.querySelector("span");
-      if (statusSpan) {
-        statusSpan.style.color = "green";
-        statusSpan.textContent = "approved";
-      }
-      
-      let linkBox = parentDiv.querySelector(`#link-box-${id}`);
-      if (!linkBox) {
-        linkBox = document.createElement("div");
-        linkBox.id = `link-box-${id}`;
-        linkBox.style.cssText = "margin-top: 6px; display: block;";
-        parentDiv.insertBefore(linkBox, parentDiv.querySelector("div[style*='margin-top:10px']"));
-      }
+    // สั่งปรับเปลี่ยนหน้าจอ DOM ทันทีให้ขึ้นลิงก์และซ่อนปุ่มอนุมัติโดยไม่ต้องโหลดหน้าใหม่
+    const statusSpan = document.querySelector(`#status-text-${id}`);
+    if (statusSpan) {
+      statusSpan.style.color = "green";
+      statusSpan.textContent = "approved";
+    }
+
+    const linkBox = document.querySelector(`#link-box-${id}`);
+    if (linkBox) {
       const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${id}`;
       linkBox.innerHTML = `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>`;
       linkBox.style.display = "block";
-      
-      cardNode.remove();
+    }
+
+    const approveBtn = document.querySelector(`#btn-approve-${id}`);
+    if (approveBtn) {
+      approveBtn.style.display = "none";
     }
 
     alert("อนุมัติสิทธิ์เรียบร้อยแล้ว! ระบบได้สร้างลิงก์เว็บลูกให้เรียบร้อย");
