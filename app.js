@@ -740,7 +740,7 @@ function renderAdminAgents() {
             ${sortedAgents.map((a, idx) => `
               <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
                 <td style="padding: 12px 12px; font-weight: bold;">\${a.name}</td>
-                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">\${(idx * 65 + 180)} ครั้ง</td>
+                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">\${idx * 65 + 180} ครั้ง</td>
                 <td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td>
               </tr>
             `).join("")}
