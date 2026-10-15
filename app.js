@@ -340,7 +340,7 @@ function applyAgentContact(contact) {
       }
       
       let rawPhoneFormatted = String(contact.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
-      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})\$/, "\$1-\$2-\$3");
+      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
 
       textContactBox.innerHTML = `
         <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
@@ -737,13 +737,17 @@ function renderAdminAgents() {
             </tr>
           </thead>
           <tbody>
-            ${sortedAgents.map((a, idx) => `
+            ${sortedAgents.map((a, idx) => {
+              const safeName = (a.name || '').replace(/['"<>&]/g, '');
+              const clickCount = idx * 65 + 180;
+              return `
               <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
-                <td style="padding: 12px 12px; font-weight: bold;">\${a.name}</td>
-                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">\${idx * 65 + 180} ครั้ง</td>
+                <td style="padding: 12px 12px; font-weight: bold;">\${safeName}</td>
+                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">\${clickCount} ครั้ง</td>
                 <td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td>
               </tr>
-            `).join("")}
+              `;
+            }).join("")}
           </tbody>
         </table>
       </div>
@@ -752,16 +756,23 @@ function renderAdminAgents() {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
     let rawAgentPhone = String(agent.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
     const agentPhoneFormatted = rawAgentPhone.replace(/^(\d{3})(\d{3})(\d{4})\$/, "\$1-\$2-\$3");
+    const safeAgentName = (agent.name || '').replace(/['"<>&]/g, '');
+    const safeAgentId = (agent.id || '').replace(/['"<>&]/g, '');
+    const safeAgentLine = (agent.line || '').replace(/['"<>&]/g, '');
+    const safeAgentExpire = (agent.expireAt || '').replace(/['"<>&]/g, '');
+    const safeAgentParent = (agent.parentId || '').replace(/['"<>&]/g, '');
+    const safeAgentStatus = (agent.status || '').toLowerCase().trim();
+
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
-      <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
-      โทร: ${agentPhoneFormatted} | Line: ${agent.line}<br>
-      <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
-      <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
-      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
+      <strong>ชื่อทีมงาน: ${safeAgentName}</strong> (<span style="color:${safeAgentStatus === 'approved' ? 'green' : 'orange'}">${safeAgentStatus}</span>)<br>
+      โทร: ${agentPhoneFormatted} | Line: ${safeAgentLine}<br>
+      <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${safeAgentExpire}</span><br>
+      <span style="color: var(--muted)">ผู้แนะนำ: ${safeAgentParent}</span><br>
+      ${safeAgentStatus === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
         ${agent.slip ? `<button class="button neutral" onclick="viewSlipInModal('\${agent.slip}')" type="button" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
-        ${agent.status === 'pending' ? `<button class="button primary" data-approve="\${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
-        <button class="button danger" data-delagent="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
+        ${safeAgentStatus === 'pending' ? `<button class="button primary" data-approve="\${safeAgentId}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
+        <button class="button danger" data-delagent="${safeAgentId}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
       </div>
     </div>`;
   }).join("");
@@ -885,13 +896,24 @@ if (loginButton) {
       return;
     }
 
-    const memberAgent = agents.find(a => {
+    let memberAgent = agents.find(a => {
       let rawDbPhone = String(a.phone || '').trim().replace(/\D/g, "");
       let inputUsername = String(username || '').trim().replace(/\D/g, "");
       let isPhoneMatch = rawDbPhone.endsWith(inputUsername) || inputUsername.endsWith(rawDbPhone) || rawDbPhone === inputUsername;
       let isApproved = String(a.status || '').toLowerCase().trim() === "approved";
       return isPhoneMatch && isApproved;
     });
+
+    if (!memberAgent) {
+      await fetchOnlineAgents();
+      memberAgent = agents.find(a => {
+        let rawDbPhone = String(a.phone || '').trim().replace(/\D/g, "");
+        let inputUsername = String(username || '').trim().replace(/\D/g, "");
+        let isPhoneMatch = rawDbPhone.endsWith(inputUsername) || inputUsername.endsWith(rawDbPhone) || rawDbPhone === inputUsername;
+        let isApproved = String(a.status || '').toLowerCase().trim() === "approved";
+        return isPhoneMatch && isApproved;
+      });
+    }
 
     if (memberAgent && password === AGENT_PASSWORD) {
       if (message) message.textContent = ""; 
