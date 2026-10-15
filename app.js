@@ -340,7 +340,7 @@ function applyAgentContact(contact) {
       }
       
       let rawPhoneFormatted = String(contact.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
-      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
+      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})\$/, "\$1-\$2-\$3");
 
       textContactBox.innerHTML = `
         <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
@@ -738,13 +738,7 @@ function renderAdminAgents() {
           </thead>
           <tbody>
             ${sortedAgents.map(function(a, idx) {
-              return `
-              <tr style="border-bottom: 1px solid #e7e5e4; color: #292524;">
-                <td style="padding: 12px 12px; font-weight: bold;">\${a.name}</td>
-                <td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">\${idx * 65 + 180} ครั้ง</td>
-                <td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td>
-              </tr>
-              `;
+              return '<tr style="border-bottom: 1px solid #e7e5e4; color: #292524;"><td style="padding: 12px 12px; font-weight: bold;">' + (a.name || '-') + '</td><td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">' + (idx * 65 + 180) + ' ครั้ง</td><td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td></tr>';
             }).join("")}
           </tbody>
         </table>
@@ -775,7 +769,6 @@ async function fetchOnlineAgents() {
     try {
       agents = JSON.parse(cachedAgents);
       if (adminPanel && !adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
-      else { checkAgentRoute(); checkPropertyRoute(); }
     } catch (e) {}
   }
 
@@ -787,7 +780,6 @@ async function fetchOnlineAgents() {
         agents = onlineAgents;
         localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(onlineAgents));
         if (adminPanel && !adminPanel.hidden) { renderAdminAgents(); initAdminInterface(); }
-        else { checkAgentRoute(); checkPropertyRoute(); }
       }
     }
   } catch (err) { console.log("ใช้ข้อมูลแคชเดิมชั่วคราวเนื่องจากเครือข่ายขัดข้อง"); }
@@ -839,13 +831,13 @@ document.querySelectorAll(".filter").forEach((button) => {
 
 const adminOpenBtn = document.querySelector("#admin-open");
 if (adminOpenBtn) {
-  adminOpenBtn.addEventListener("click", async () => { 
+  adminOpenBtn.addEventListener("click", () => { 
     if (adminLogin) adminLogin.hidden = false; 
     if (adminPanel) adminPanel.hidden = true; 
     const dashPanel = document.querySelector("#agent-dashboard-panel");
     if (dashPanel) dashPanel.hidden = true;
     if (adminModal) adminModal.hidden = false; 
-    await fetchOnlineAgents();
+    fetchOnlineAgents();
   });
 }
 
@@ -873,8 +865,7 @@ if (loginButton) {
 
     if (message) message.textContent = "กำลังตรวจสอบข้อมูลเข้าสู่ระบบ...";
 
-    await fetchOnlineAgents();
-
+    // 🌟 ตรวจสอบสิทธิ์ Admin หลักทันทีแบบไม่รอเน็ต เพื่อความรวดเร็วสูงสุด
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       if (message) message.textContent = ""; 
       if (adminLogin) adminLogin.hidden = true; 
@@ -884,6 +875,7 @@ if (loginButton) {
       initAdminInterface();
       renderAdminItems(); 
       renderAdminAgents(); 
+      fetchOnlineAgents(); // โหลดข้อมูลเบื้องหลัง
       return;
     }
 
