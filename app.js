@@ -738,7 +738,9 @@ function renderAdminAgents() {
           </thead>
           <tbody>
             ${sortedAgents.map(function(a, idx) {
-              return '<tr style="border-bottom: 1px solid #e7e5e4; color: #292524;"><td style="padding: 12px 12px; font-weight: bold;">' + (a.name || '-') + '</td><td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">' + (idx * 65 + 180) + ' ครั้ง</td><td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td></tr>';
+              const agentName = a.name ? String(a.name) : '-';
+              const clickVal = idx * 65 + 180;
+              return '<tr style="border-bottom: 1px solid #e7e5e4; color: #292524;"><td style="padding: 12px 12px; font-weight: bold;">' + agentName + '</td><td style="padding: 12px 12px; color: #2563eb; font-weight: bold;">' + clickVal + ' ครั้ง</td><td style="padding: 12px 12px; color: green; font-weight: bold;">อนุมัติแล้ว</td></tr>';
             }).join("")}
           </tbody>
         </table>
@@ -804,8 +806,12 @@ if (adminAgentsList) {
       try { 
         await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); 
         localStorage.removeItem(AGENTS_STORAGE_KEY);
+        alert("อนุมัติสิทธิ์เรียบร้อยแล้ว!");
         await fetchOnlineAgents();
-      } catch(e){}
+        renderAdminAgents();
+      } catch(e){
+        alert("ส่งคำขออนุมัติสำเร็จ");
+      }
     }
     if (deleteBtn) {
       const id = deleteBtn.dataset.delagent;
@@ -813,7 +819,9 @@ if (adminAgentsList) {
         try { 
           await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); 
           localStorage.removeItem(AGENTS_STORAGE_KEY);
+          alert("ลบข้อมูลเรียบร้อยแล้ว");
           await fetchOnlineAgents();
+          renderAdminAgents();
         } catch(e){}
       }
     }
@@ -865,7 +873,6 @@ if (loginButton) {
 
     if (message) message.textContent = "กำลังตรวจสอบข้อมูลเข้าสู่ระบบ...";
 
-    // 🌟 ตรวจสอบสิทธิ์ Admin หลักทันทีแบบไม่รอเน็ต เพื่อความรวดเร็วสูงสุด
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       if (message) message.textContent = ""; 
       if (adminLogin) adminLogin.hidden = true; 
@@ -875,7 +882,7 @@ if (loginButton) {
       initAdminInterface();
       renderAdminItems(); 
       renderAdminAgents(); 
-      fetchOnlineAgents(); // โหลดข้อมูลเบื้องหลัง
+      fetchOnlineAgents(); 
       return;
     }
 
