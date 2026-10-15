@@ -340,7 +340,7 @@ function applyAgentContact(contact) {
       }
       
       let rawPhoneFormatted = String(contact.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
-      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})$/, "\$1-\$2-\$3");
+      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
 
       textContactBox.innerHTML = `
         <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
@@ -758,17 +758,19 @@ function renderAdminAgents() {
       โทร: ${agentPhoneFormatted} | Line: ${agent.line}<br>
       <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
       <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
-      <small style="color:green; word-break:break-all; display:${agentStatus === 'approved' ? 'block' : 'none'};">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>
+      <div id="link-box-${agentId}" style="margin-top: 6px; display: ${agentStatus === 'approved' ? 'block' : 'none'};">
+        <small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>
+      </div>
       <div style="margin-top:10px; display:flex; gap:8px;">
         ${agent.slip ? `<button class="button neutral" onclick="viewSlipInModal('\${agent.slip}')" type="button" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
-        ${agentStatus === 'pending' ? `<button class="button primary" type="button" onclick="approveAgent('\${agentId}')" style="min-height:30px; padding:4px 8px; font-size:12px; cursor:pointer;">อนุมัติเปิดระบบ</button>` : ''}
+        ${agentStatus === 'pending' ? `<button class="button primary" id="btn-approve-${agentId}" type="button" onclick="approveAgent('${agentId}')" style="min-height:30px; padding:4px 8px; font-size:12px; cursor:pointer;">อนุมัติเปิดระบบ</button>` : ''}
         <button class="button danger" type="button" onclick="deleteAgent('${agentId}')" style="min-height:30px; padding:4px 8px; font-size:12px; cursor:pointer;">ลบ</button>
       </div>
     </div>`;
   }).join("");
 }
 
-// 🌟 ฟังก์ชันอนุมัติที่บังคับเปลี่ยนสถานะและสั่งแสดงลิงก์ทันทีแบบสมบูรณ์
+// 🌟 แก้ไขฟังก์ชันอนุมัติให้แสดงลิงก์ทันทีโดยไม่ต้องรีเฟรชหน้าจอ
 async function approveAgent(id) {
   try {
     await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
@@ -778,19 +780,42 @@ async function approveAgent(id) {
       body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) 
     }); 
     
-    // อัปเดตสถานะในแคชท้องถิ่นทันทีเพื่อให้ลิงก์เว็บลูกโผล่ขึ้นมาทันทีโดยไม่ต้องรีเฟรชหน้าเว็บ
+    // อัปเดตข้อมูลตัวแทนในหน่วยความจำทันที
     const target = agents.find(a => a.id === id);
     if (target) {
       target.status = "approved";
       localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(agents));
     }
 
+    // เปลี่ยนหน้าจอ DOM ของตัวแทนรายนั้นให้แสดงลิงก์ทันทีโดยไม่ต้องรอโหลดใหม่
+    const cardNode = document.querySelector(`button[onclick="approveAgent('${id}')"]`);
+    if (cardNode) {
+      const parentDiv = cardNode.closest("div").parentNode;
+      const statusSpan = parentDiv.querySelector("span");
+      if (statusSpan) {
+        statusSpan.style.color = "green";
+        statusSpan.textContent = "approved";
+      }
+      
+      let linkBox = parentDiv.querySelector(`#link-box-${id}`);
+      if (!linkBox) {
+        linkBox = document.createElement("div");
+        linkBox.id = `link-box-${id}`;
+        linkBox.style.cssText = "margin-top: 6px; display: block;";
+        parentDiv.insertBefore(linkBox, parentDiv.querySelector("div[style*='margin-top:10px']"));
+      }
+      const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${id}`;
+      linkBox.innerHTML = `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>`;
+      linkBox.style.display = "block";
+      
+      cardNode.remove();
+    }
+
     alert("อนุมัติสิทธิ์เรียบร้อยแล้ว! ระบบได้สร้างลิงก์เว็บลูกให้เรียบร้อย");
-    renderAdminAgents();
-    await fetchOnlineAgents();
+    fetchOnlineAgents();
   } catch(e) {
     alert("อนุมัติสิทธิ์เรียบร้อยแล้ว");
-    renderAdminAgents();
+    location.reload();
   }
 }
 
@@ -1172,7 +1197,7 @@ if (mainSignUpBtn) {
     e.preventDefault();
     if (agentRegisterModal) { agentRegisterModal.hidden = false; checkAgentRoute(); }
   });
-});
+}
 
 document.addEventListener("contextmenu", (e) => e.preventDefault());
 document.addEventListener("selectstart", (e) => e.preventDefault());
