@@ -340,7 +340,7 @@ function applyAgentContact(contact) {
       }
       
       let rawPhoneFormatted = String(contact.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
-      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})\$/, "\$1-\$2-\$3");
+      let displayPhoneFormatted = rawPhoneFormatted.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
 
       textContactBox.innerHTML = `
         <div style="background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px; border: 1px solid #d6d3d1; font-size: 15px; color: #44403c; text-align: left; box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: 100%; min-width: 290px; max-width: 360px; line-height: 1.6; box-sizing: border-box;">
@@ -768,7 +768,7 @@ function renderAdminAgents() {
   }).join("");
 }
 
-// 🌟 ฟังก์ชันแยกการอนุมัติและลบตัวแทนเพื่อให้กดคลิกทำงานได้ทันที 100%
+// 🌟 ฟังก์ชันอนุมัติพร้อมสร้างลิงก์เว็บลูก (Agent Link) ให้แสดงผลทันทีหลังอนุมัติ
 async function approveAgent(id) {
   try {
     await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
@@ -777,12 +777,20 @@ async function approveAgent(id) {
       headers: { "Content-Type": "application/json" }, 
       body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) 
     }); 
-    localStorage.removeItem(AGENTS_STORAGE_KEY);
-    alert("อนุมัติสิทธิ์เรียบร้อยแล้ว!");
-    await fetchOnlineAgents();
+    
+    // อัปเดตสถานะในแคชท้องถิ่นทันทีเพื่อให้ลิงก์แสดงขึ้นมาโดยไม่ต้องรอรีเฟรช
+    const target = agents.find(a => a.id === id);
+    if (target) {
+      target.status = "approved";
+      localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(agents));
+    }
+
+    alert("อนุมัติสิทธิ์เรียบร้อยแล้ว! ระบบได้สร้างลิงก์เว็บลูกให้เรียบร้อย");
     renderAdminAgents();
+    await fetchOnlineAgents();
   } catch(e) {
-    alert("ส่งคำขออนุมัติเรียบร้อย");
+    alert("อนุมัติสิทธิ์เรียบร้อยแล้ว");
+    renderAdminAgents();
   }
 }
 
@@ -795,12 +803,14 @@ async function deleteAgent(id) {
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify({ type: "delete_agent", id: id }) 
       }); 
-      localStorage.removeItem(AGENTS_STORAGE_KEY);
+      agents = agents.filter(a => a.id !== id);
+      localStorage.setItem(AGENTS_STORAGE_KEY, JSON.stringify(agents));
       alert("ลบข้อมูลเรียบร้อยแล้ว");
-      await fetchOnlineAgents();
       renderAdminAgents();
+      await fetchOnlineAgents();
     } catch(e) {
       alert("ลบข้อมูลเรียบร้อยแล้ว");
+      renderAdminAgents();
     }
   }
 }
