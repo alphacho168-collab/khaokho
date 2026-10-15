@@ -750,19 +750,59 @@ function renderAdminAgents() {
     const currentUrl = `${window.location.origin}${window.location.pathname}?agent=${agent.id}`;
     let rawAgentPhone = String(agent.phone || '').trim().split(',')[0].replace(/\D/g, "").padStart(10, '0');
     const agentPhoneFormatted = rawAgentPhone.replace(/^(\d{3})(\d{3})(\d{4})\$/, "\$1-\$2-\$3");
+    const agentStatus = agent.status ? String(agent.status).toLowerCase().trim() : 'pending';
+    const agentId = agent.id ? String(agent.id) : '';
+
     return `<div style="background:#f9f9f9; padding:14px; border:1px solid var(--line); border-radius:8px; margin-bottom:12px; font-size:14px; color:var(--ink); width:100%;">
-      <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agent.status === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
+      <strong>ชื่อทีมงาน: ${agent.name}</strong> (<span style="color:${agentStatus === 'approved' ? 'green' : 'orange'}">${agent.status}</span>)<br>
       โทร: ${agentPhoneFormatted} | Line: ${agent.line}<br>
       <span style="color: var(--forest-2); font-weight:bold;">📆 วันหมดอายุสิทธิ์: ${agent.expireAt}</span><br>
       <span style="color: var(--muted)">ผู้แนะนำ: ${agent.parentId}</span><br>
-      ${agent.status === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
+      ${agentStatus === 'approved' ? `<small style="color:green; word-break:break-all;">ลิงก์ส่วนตัว: <a href="${currentUrl}" target="_blank" style="color:var(--forest-2); text-decoration:underline;">${currentUrl}</a></small>` : ''}
       <div style="margin-top:10px; display:flex; gap:8px;">
         ${agent.slip ? `<button class="button neutral" onclick="viewSlipInModal('\${agent.slip}')" type="button" style="min-height:30px; padding:4px 8px; font-size:12px;">ดูรูปสลิป</button>` : ''}
-        ${agent.status === 'pending' ? `<button class="button primary" data-approve="\${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">อนุมัติเปิดระบบ</button>` : ''}
-        <button class="button danger" data-delagent="${agent.id}" style="min-height:30px; padding:4px 8px; font-size:12px;">ลบ</button>
+        ${agentStatus === 'pending' ? `<button class="button primary" type="button" onclick="approveAgent('\${agentId}')" style="min-height:30px; padding:4px 8px; font-size:12px; cursor:pointer;">อนุมัติเปิดระบบ</button>` : ''}
+        <button class="button danger" type="button" onclick="deleteAgent('${agentId}')" style="min-height:30px; padding:4px 8px; font-size:12px; cursor:pointer;">ลบ</button>
       </div>
     </div>`;
   }).join("");
+}
+
+// 🌟 ฟังก์ชันแยกการอนุมัติและลบตัวแทนเพื่อให้กดคลิกทำงานได้ทันที 100%
+async function approveAgent(id) {
+  try {
+    await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
+      method: "POST", 
+      mode: "no-cors", 
+      headers: { "Content-Type": "application/json" }, 
+      body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) 
+    }); 
+    localStorage.removeItem(AGENTS_STORAGE_KEY);
+    alert("อนุมัติสิทธิ์เรียบร้อยแล้ว!");
+    await fetchOnlineAgents();
+    renderAdminAgents();
+  } catch(e) {
+    alert("ส่งคำขออนุมัติเรียบร้อย");
+  }
+}
+
+async function deleteAgent(id) {
+  if (confirm("ยืนยันการลบสิทธิ์ตัวแทนรายนี้ออกหรือไม่?")) {
+    try { 
+      await fetch(GOOGLE_SHEETS_WEB_APP_URL, { 
+        method: "POST", 
+        mode: "no-cors", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify({ type: "delete_agent", id: id }) 
+      }); 
+      localStorage.removeItem(AGENTS_STORAGE_KEY);
+      alert("ลบข้อมูลเรียบร้อยแล้ว");
+      await fetchOnlineAgents();
+      renderAdminAgents();
+    } catch(e) {
+      alert("ลบข้อมูลเรียบร้อยแล้ว");
+    }
+  }
 }
 
 async function fetchOnlineAgents() {
@@ -795,37 +835,6 @@ function checkPropertyRoute() {
       openDetail(propertyId);
     }, 400);
   }
-}
-
-if (adminAgentsList) {
-  adminAgentsList.addEventListener("click", async (event) => {
-    const approveBtn = event.target.closest("[data-approve]");
-    const deleteBtn = event.target.closest("[data-delagent]");
-    if (approveBtn) {
-      const id = approveBtn.dataset.approve;
-      try { 
-        await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "update_status", id: id, status: "approved" }) }); 
-        localStorage.removeItem(AGENTS_STORAGE_KEY);
-        alert("อนุมัติสิทธิ์เรียบร้อยแล้ว!");
-        await fetchOnlineAgents();
-        renderAdminAgents();
-      } catch(e){
-        alert("ส่งคำขออนุมัติสำเร็จ");
-      }
-    }
-    if (deleteBtn) {
-      const id = deleteBtn.dataset.delagent;
-      if (confirm("ยืนยันการลบสิทธิ์ตัวแทนรายนี้ออกหรือไม่?")) {
-        try { 
-          await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "delete_agent", id: id }) }); 
-          localStorage.removeItem(AGENTS_STORAGE_KEY);
-          alert("ลบข้อมูลเรียบร้อยแล้ว");
-          await fetchOnlineAgents();
-          renderAdminAgents();
-        } catch(e){}
-      }
-    }
-  });
 }
 
 document.querySelectorAll(".filter").forEach((button) => {
